@@ -24,6 +24,7 @@
 #define ENGINES_ADVANCED_DETECTOR_H
 
 #include "engines/metaengine.h"
+#include "engines/engine.h"
 
 namespace Common {
 class Error;
@@ -62,6 +63,8 @@ struct ADGameFileDescription {
 
 enum ADGameFlags {
 	ADGF_NO_FLAGS = 0,
+	ADGF_UNSTABLE = (1 << 21),    	// flag to designate not yet officially-supported games that are not fit for public testing
+	ADGF_TESTING = (1 << 22),    	// flag to designate not yet officially-supported games that are fit for public testing
 	ADGF_PIRATED = (1 << 23), ///< flag to designate well known pirated versions with cracks
 	ADGF_ADDENGLISH = (1 << 24), ///< always add English as language option
 	ADGF_MACRESFORK = (1 << 25), ///< the md5 for this entry will be calculated from the resource fork
@@ -158,7 +161,7 @@ protected:
 	 * is primarily based on computing and matching MD5 checksums of files.
 	 * Since doing that for large files can be slow, it can be restricted
 	 * to a subset of all files.
-	 * Typically this will be set to something between 5 and 50 kilobyte,
+	 * Typically this will be set to something between 5 and 50 kilobytes,
 	 * but arbitrary non-zero values are possible. The default is 5000.
 	 */
 	uint _md5Bytes;
