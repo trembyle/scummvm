@@ -79,7 +79,7 @@ public:
 	virtual void signal();
 };
 
-class Scene109: public GameScene {
+class Scene109: public PalettedScene {
 	/* Actions */
 	class Action1: public Action {
 	public:
@@ -122,6 +122,90 @@ public:
 
 	virtual void postInit(SceneObjectList *OwnerList = NULL);
 	virtual void signal();
+};
+
+class Scene180: public SceneExt {
+	/* Objects */
+	class Vechile: public NamedObject {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+
+	/* Items */
+	class GarageExit: public NamedHotspot {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+public:
+	SequenceManager _sequenceManager;
+	SpeakerGameText _gameTextSpeaker;
+	NamedObject _object1;
+	Vechile _vechile;
+	NamedHotspot _driveway, _garage, _frontDoor, _house, _street;
+	NamedHotspot _lawn, _bushes, _palms, _fence, _steps;
+	NamedHotspot _curb, _sky;
+	GarageExit _garageExit;
+	ASoundExt _sound1;
+	int _fieldC56;
+
+	Scene180();
+	virtual void synchronize(Serializer &s);
+	virtual void postInit(SceneObjectList *OwnerList = NULL);
+	virtual void signal();
+	virtual void process(Event &event);
+	virtual void dispatch();
+};
+
+class Scene190: public SceneExt {
+	/* Objects */
+	class Object4: public NamedObject {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+
+	/* Items */
+	class Item1: public NamedHotspot {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+	class Item2: public NamedHotspot {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+	class Exit: public NamedHotspot {
+	public:
+		virtual bool startAction(CursorType action, Event &event);
+	};
+
+	/* Actions */
+	class Action1: public Action {
+	public:
+		virtual void signal();
+	};
+public:
+	SequenceManager _sequenceManager;
+	FollowerObject _object1;
+	NamedObject _object2, _object3;
+	Object4 _object4;
+	Item1 _item1;
+	Item2 _item2;
+	NamedHotspot _item3, _item4, _item5, _item6;
+	NamedHotspot _item7, _item8, _item9, _item10;
+	Exit _exit;
+	Action1 _action1;
+	ASoundExt _sound;
+	SpeakerGameText _speaker;
+	bool _fieldB52;
+
+	Scene190();
+	virtual void postInit(SceneObjectList *OwnerList = NULL);
+	virtual void signal();
+	virtual void process(Event &event);
+	virtual void dispatch();
+	virtual void synchronize(Serializer &s) {
+		SceneExt::synchronize(s);
+		s.syncAsSint16LE(_fieldB52);
+	}
 };
 
 } // End of namespace BlueForce

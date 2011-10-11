@@ -5,7 +5,15 @@ MODULE_OBJS := \
 	blue_force/blueforce_logic.o \
 	blue_force/blueforce_scenes0.o \
 	blue_force/blueforce_scenes1.o \
+	blue_force/blueforce_scenes2.o \
 	blue_force/blueforce_scenes3.o \
+	blue_force/blueforce_scenes4.o \
+	blue_force/blueforce_scenes5.o \
+	blue_force/blueforce_scenes6.o \
+	blue_force/blueforce_scenes7.o \
+	blue_force/blueforce_scenes8.o \
+	blue_force/blueforce_scenes9.o \
+	blue_force/blueforce_speakers.o \
 	blue_force/blueforce_ui.o \
 	converse.o \
 	core.o \
@@ -27,6 +35,7 @@ MODULE_OBJS := \
 	ringworld/ringworld_scenes6.o \
 	ringworld/ringworld_scenes8.o \
 	ringworld/ringworld_scenes10.o \
+	ringworld/ringworld_speakers.o \
 	saveload.o \
 	scenes.o \
 	sound.o \
@@ -38,5 +47,5 @@ ifeq ($(ENABLE_TSAGE), DYNAMIC_PLUGIN)
 PLUGIN := 1
 endif
 
-# Include common rules 
+# Include common rules
 include $(srcdir)/rules.mk

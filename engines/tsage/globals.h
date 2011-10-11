@@ -97,14 +97,14 @@ public:
 	void dispatchSounds();
 };
 
-extern Globals *_globals;
+extern Globals *g_globals;
 
-#define GLOBALS (*_globals)
-#define BF_GLOBALS (*((::TsAGE::BlueForce::BlueForceGlobals *)_globals))
+#define GLOBALS (*g_globals)
+#define BF_GLOBALS (*((::TsAGE::BlueForce::BlueForceGlobals *)g_globals))
 
-// Note: Currently this can't be part of the _globals structure, since it needs to be constructed
+// Note: Currently this can't be part of the g_globals structure, since it needs to be constructed
 // prior to many of the fields in Globals execute their constructors
-extern ResourceManager *_resourceManager;
+extern ResourceManager *g_resourceManager;
 
 
 namespace BlueForce {
@@ -166,23 +166,52 @@ class BlueForceGlobals: public Globals {
 public:
 	ASoundExt _sound1, _sound2, _sound3;
 	UIElements _uiElements;
+	StripProxy _stripProxy;
 	int _dayNumber;
 	int _v4CEA4;
-	int _v4CEA8;
+	int _marinaWomanCtr;
+	int _v4CEB6;
+	int _safeCombination;
+	int _v4CEC0;
+	int _v4CEC2;
+	int _v4CEC4;
+	int _v4CEC8;
+	int _v4CECA;
+	int _v4CECC;
+	int8 _v4CECE[18];
+	int _v4CEE0;
+	int _v4CEE2;
+	int _v4CEE4;
+	int _v4CEE6;
+	int _v4CEE8;
+	int _deziTopic;
+	int _deathReason;
 	int _driveFromScene;
 	int _driveToScene;
-	int _v4CF9E;
-	int _v4E238;
+	int _v501FA;
 	int _v501FC;
+	int _v50696;
+	uint8 _v5098C;
+	uint8 _v5098D;
+	int _v50CC2;
+	int _v50CC4;
+	int _v50CC6;
+	int _v50CC8;
 	int _v51C42;
 	int _v51C44;
 	int _interfaceY;
 	Bookmark _bookmark;
 	int _mapLocationId;
+	int _clip1Bullets, _clip2Bullets;
 
 	BlueForceGlobals();
+	void reset();
+	bool getHasBullets();
+
 	virtual Common::String getClassName() { return "BFGlobals"; }
 	virtual void synchronize(Serializer &s);
+	void set2Flags(int flagNum);
+	bool removeFlag(int flagNum);
 };
 
 } // End of namespace BlueForce
