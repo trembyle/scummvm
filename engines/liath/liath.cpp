@@ -17,10 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
- * $URL$
- * $Id: liath.cpp 391 2010-05-04 16:07:30Z julien.templier $
- *
  */
 
 #include "liath/liath.h"
@@ -52,7 +48,7 @@
 namespace Liath {
 
 LiathEngine::LiathEngine(OSystem *syst, const ADGameDescription *gd) :
-    Engine(syst), _gameDescription(gd), _debugger(NULL), _random("liath"),
+	Engine(syst), _gameDescription(gd), _debugger(NULL), _random("liath"),
 	_actionMan(NULL), _arrayMan(NULL), _expressionMan(NULL), _gameMan(NULL),
 	_graphicsMan(NULL), _heroMan(NULL), _mouseMan(NULL), _positionMan(NULL),
 	_progressMan(NULL), _resMan(NULL), _saveMan(NULL), _segmentMan(NULL),
