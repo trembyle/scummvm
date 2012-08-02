@@ -48,7 +48,7 @@ ResourceManager::~ResourceManager() {
 // Archive
 //////////////////////////////////////////////////////////////////////////
 
-bool ResourceManager::hasFile(const Common::String &name) {
+bool ResourceManager::hasFile(const Common::String &name) const {
 	// Files can be either part of a MUL archive or in one of the data folders
 
 	if (_fileMap.find(name) != _fileMap.end())
@@ -57,7 +57,7 @@ bool ResourceManager::hasFile(const Common::String &name) {
 	return SearchMan.hasFile(name);
 }
 
-int ResourceManager::listMembers(Common::ArchiveMemberList &list) {
+int ResourceManager::listMembers(Common::ArchiveMemberList &list) const {
 	int numMembers = 0;
 
 	for (FileMap::const_iterator i = _fileMap.begin(); i != _fileMap.end(); ++i) {
@@ -75,7 +75,7 @@ int ResourceManager::listMembers(Common::ArchiveMemberList &list) {
 	return numMembers;
 }
 
-Common::ArchiveMemberPtr ResourceManager::getMember(const Common::String &name) {
+const Common::ArchiveMemberPtr ResourceManager::getMember(const Common::String &name) const {
 	if (!hasFile(name))
 		return Common::ArchiveMemberPtr();
 

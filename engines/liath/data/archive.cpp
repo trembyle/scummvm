@@ -85,11 +85,11 @@ MultiArchive::MultiArchive(const Common::String &path) {
 	delete archive;
 }
 
-bool MultiArchive::hasFile(const Common::String &name) {
+bool MultiArchive::hasFile(const Common::String &name) const {
 	return (_files.find(name) != _files.end());
 }
 
-int MultiArchive::listMembers(Common::ArchiveMemberList &list) {
+int MultiArchive::listMembers(Common::ArchiveMemberList &list) const {
 	int numMembers = 0;
 
 	for (FileMap::const_iterator i = _files.begin(); i != _files.end(); ++i) {
@@ -100,7 +100,7 @@ int MultiArchive::listMembers(Common::ArchiveMemberList &list) {
 	return numMembers;
 }
 
-Common::ArchiveMemberPtr MultiArchive::getMember(const Common::String &name) {
+const Common::ArchiveMemberPtr MultiArchive::getMember(const Common::String &name) const {
 	if (!hasFile(name))
 		return Common::ArchiveMemberPtr();
 
