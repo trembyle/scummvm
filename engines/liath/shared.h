@@ -590,9 +590,9 @@ struct Progress {
 	Progress() {
 		field_0 = 0;
 		field_1 = 1;
-		field_2 = 2;
-		field_3 = 3;
-		field_4 = 4;
+		field_2 = 1;
+		field_3 = 1;
+		field_4 = 1;
 	}
 
 	uint32 getData(uint32 offset) {
