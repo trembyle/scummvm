@@ -41,7 +41,8 @@
 
 #include "common/config-manager.h"
 #include "common/debug-channels.h"
-#include "common/EventRecorder.h"
+#include "common/events.h"
+#include "common/system.h"
 
 #include "engines/util.h"
 
