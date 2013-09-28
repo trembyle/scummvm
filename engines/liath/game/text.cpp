@@ -71,7 +71,20 @@ OpcodeRet TextManager::quit(OpcodeParameters *parameters) {
 OpcodeRet TextManager::exitText(OpcodeParameters *parameters) {
 	int32 index = getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5));
 
-	exitText(index);
+	switch (index) {
+	case 1:
+		exitText(GLOBAL(parameters->getByte(5)));
+		break;
+
+	case 2:
+		exitText(getHero()->getData(parameters->getByte(1), parameters->getByte(5)));
+		break;
+
+	case 5:
+		exitText(getHero()->getData(getWork()->getCurrent()->heroIndex, parameters->getByte(5)));
+		break;
+	}
+
 	freeNumberText(index);
 
 	getGame()->letValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5), 0);
