@@ -75,12 +75,12 @@ OpcodeRet PositionManager::pers(OpcodeParameters *parameters) {
 	return RET(index, parameters->test);
 }
 
-OpcodeRet PositionManager::hpers(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::heroPers(OpcodeParameters *parameters) {
 	HeroIndex index = (HeroIndex)getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5));
 
 	uint32 val = EXPR(parameters->getDword(9), parameters->getDword(13));
 
-	return RET(checkHPers(index, val), parameters->test);
+	return RET(checkHeroPers(index, val), parameters->test);
 }
 
 OpcodeRet PositionManager::dist(OpcodeParameters *parameters) {
@@ -167,7 +167,7 @@ bool PositionManager::checkDistPers(Work *work) {
 	return true;
 }
 
-bool PositionManager::checkHPers(HeroIndex heroIndex, int32 expr) {
+bool PositionManager::checkHeroPers(HeroIndex heroIndex, int32 expr) {
 	Work* work = getHero()->get(heroIndex)->work;
 
 	// Check variables

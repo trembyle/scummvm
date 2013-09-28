@@ -40,7 +40,7 @@ public:
 	OpcodeRet autoCheck(OpcodeParameters *parameters);
 	OpcodeRet autoStop(OpcodeParameters *parameters);
 	OpcodeRet pers(OpcodeParameters *parameters);
-	OpcodeRet hpers(OpcodeParameters *parameters);
+	OpcodeRet heroPers(OpcodeParameters *parameters);
 	OpcodeRet dist(OpcodeParameters *parameters);
 	OpcodeRet feel(OpcodeParameters *parameters);
 	OpcodeRet barrier(OpcodeParameters *parameters);
@@ -67,7 +67,7 @@ private:
 	HeroIndex checkPers(OpcodeParameters *parameters);
 	int32 calcDist(Work *work, int32 *expr);
 	bool checkDistPers(Work *work);
-	bool checkHPers(HeroIndex heroIndex, int32 expr);
+	bool checkHeroPers(HeroIndex heroIndex, int32 expr);
 
 };
 

@@ -55,7 +55,7 @@ public:
 	OpcodeRet playWave(OpcodeParameters *parameters);
 	OpcodeRet playMusic(OpcodeParameters *parameters, bool useEffectLevel);
 	OpcodeRet stopMusic(OpcodeParameters *parameters);
-	OpcodeRet gstopMusic(OpcodeParameters *parameters);
+	OpcodeRet globalStopMusic(OpcodeParameters *parameters);
 	OpcodeRet playMidi(OpcodeParameters *parameters, bool doLoop);
 	OpcodeRet stopMidi();
 	OpcodeRet volume(OpcodeParameters *parameters);

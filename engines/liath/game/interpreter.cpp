@@ -635,8 +635,8 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 	case kOpcodePers:
 		return getPosition()->pers(parameters);
 
-	case kOpcodeHPers:
-		return getPosition()->hpers(parameters);
+	case kOpcodeHeroPers:
+		return getPosition()->heroPers(parameters);
 
 	case kOpcodeDist:
 		return getPosition()->dist(parameters);
@@ -662,8 +662,8 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 	case kOpcodeStopMusic:
 		return getSound()->stopMusic(parameters);
 
-	case kOpcodeGStopMusic:
-		return getSound()->gstopMusic(parameters);
+	case kOpcodeGlobalStopMusic:
+		return getSound()->globalStopMusic(parameters);
 
 	case kOpcodePlayMidi:
 		return getSound()->playMidi(parameters, false);

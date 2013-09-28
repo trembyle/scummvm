@@ -141,7 +141,7 @@ OpcodeRet SoundManager::stopMusic(OpcodeParameters *parameters) {
 	error("SoundManager::stopMusic: Not implemented!");
 }
 
-OpcodeRet SoundManager::gstopMusic(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::globalStopMusic(OpcodeParameters *parameters) {
 	error("SoundManager::gstopMusic: Not implemented!");
 }
 
