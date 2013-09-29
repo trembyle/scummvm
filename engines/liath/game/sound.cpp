@@ -78,7 +78,7 @@ void SoundManager::load() {
 }
 
 void SoundManager::unload() {
-	warning("SoundManager::unload: Not implemented!");
+	error("SoundManager::unload: Not implemented!");
 }
 
 //////////////////////////////////////////////////////////////////////////

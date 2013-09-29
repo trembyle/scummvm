@@ -115,7 +115,7 @@ Common::SeekableReadStream *ResourceManager::createReadStreamForMember(const Com
 //////////////////////////////////////////////////////////////////////////
 
 bool ResourceManager::readMessage(uint32 *pIndex, Message *message) {
-	warning("ResourceManager::readMessage: Not implemented!");
+	error("ResourceManager::readMessage: Not implemented!");
 
 	return true;
 }

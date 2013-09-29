@@ -210,7 +210,7 @@ Common::Point GraphicsManager::PicToScr(int32 pic) {
 //////////////////////////////////////////////////////////////////////////
 
 void GraphicsManager::drawBMP(bool doSetBackground) {
-	warning("GraphicsManager::drawBMP: Not implemented!");
+	error("GraphicsManager::drawBMP: Not implemented!");
 }
 
 void GraphicsManager::setPalette(Common::String paletteName) {

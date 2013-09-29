@@ -172,7 +172,7 @@ label_load:
 		processAction();
 		return;
 	}
-	warning("GameManager::playAction: Not implemented!");
+	error("GameManager::playAction: Not implemented!");
 
 	ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : NULL);
 	if (_interpreter->interpret(pObjectIndex, getSegment()->get(kSegmentAction)))

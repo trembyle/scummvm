@@ -496,7 +496,7 @@ void HeroManager::create(Hero *hero, byte *data1, byte *data2, byte *data3, byte
 
 			/*if (data->heroData->)*/
 
-			warning("HeroManager::remove: Not implemented!");
+			error("HeroManager::remove: Not implemented!");
 		}
 
 		currentHero->data = data;
