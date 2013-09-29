@@ -35,10 +35,10 @@ public:
 	~ProgressManager();
 
 	// Opcodes
-	OpcodeRet init(OpcodeParameters *parameters);
-	OpcodeRet set(OpcodeParameters *parameters);
-	OpcodeRet get(OpcodeParameters *parameters);
-	OpcodeRet help(OpcodeParameters *parameters);
+	OpcodeRet opcodeInit(OpcodeParameters *parameters);
+	OpcodeRet opcodeSet(OpcodeParameters *parameters);
+	OpcodeRet opcodeGet(OpcodeParameters *parameters);
+	OpcodeRet opcodeHelp(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

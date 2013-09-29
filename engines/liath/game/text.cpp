@@ -43,7 +43,7 @@ TextManager::~TextManager() {
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
 
-OpcodeRet TextManager::out(OpcodeParameters *parameters) {
+OpcodeRet TextManager::opcodeOut(OpcodeParameters *parameters) {
 	int32 index = getFirstEmptyText();
 
 	if (index == -1)
@@ -52,7 +52,7 @@ OpcodeRet TextManager::out(OpcodeParameters *parameters) {
 	parameters->setDword(181, index);
 
 	Work *work;
-	getHero()->start(parameters, &work, NULL);
+	getHero()->opcodeStart(parameters, &work, NULL);
 	getGame()->letValue((ParamOrigin)parameters->getByte(164), parameters->getDword(165), parameters->getDword(169), index);
 
 	// TODO Store current values
@@ -64,11 +64,11 @@ OpcodeRet TextManager::out(OpcodeParameters *parameters) {
 	error("TextManager::out: Not implemented!");
 }
 
-OpcodeRet TextManager::quit(OpcodeParameters *parameters) {
-	return exitText(parameters);
+OpcodeRet TextManager::opcodeQuit(OpcodeParameters *parameters) {
+	return opcodeExitText(parameters);
 }
 
-OpcodeRet TextManager::exitText(OpcodeParameters *parameters) {
+OpcodeRet TextManager::opcodeExitText(OpcodeParameters *parameters) {
 	int32 index = getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5));
 
 	switch (index) {
@@ -92,7 +92,7 @@ OpcodeRet TextManager::exitText(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet TextManager::check(OpcodeParameters *parameters) {
+OpcodeRet TextManager::opcodeCheck(OpcodeParameters *parameters) {
 	int32 index = getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5));
 
 	if (!_arrayTextNumber[index])
@@ -108,7 +108,7 @@ OpcodeRet TextManager::check(OpcodeParameters *parameters) {
 			  parameters->test);
 }
 
-OpcodeRet TextManager::change(OpcodeParameters *parameters) {
+OpcodeRet TextManager::opcodeChange(OpcodeParameters *parameters) {
 	// Original just returns 1
 	return kOpcodeRetDefault;
 }

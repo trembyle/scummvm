@@ -39,25 +39,25 @@ public:
 	void unload();
 
 	// Opcodes
-	OpcodeRet startObj(ObjectIndex index);
-	OpcodeRet cel(OpcodeParameters *parameters);
-	OpcodeRet celExt(OpcodeParameters *parameters);
-	OpcodeRet htime(OpcodeParameters *parameters);
-	OpcodeRet hdark(OpcodeParameters *parameters);
-	OpcodeRet restart();
-	OpcodeRet popHerous();
-	OpcodeRet pushHerous();
-	OpcodeRet glass(OpcodeParameters *parameters, bool doIncrement);
-	OpcodeRet stop(OpcodeParameters *parameters);
-	OpcodeRet stopGlobal(OpcodeParameters *parameters);
-	OpcodeRet stopHeroVar(OpcodeParameters *parameters);
-	OpcodeRet stopVar(OpcodeParameters *parameters);
-	OpcodeRet cont(OpcodeParameters *parameters);
-	OpcodeRet contGlobal(OpcodeParameters *parameters);
-	OpcodeRet contHeroVar(OpcodeParameters *parameters);
-	OpcodeRet contVar(OpcodeParameters *parameters);
-	OpcodeRet savetop(OpcodeParameters *parameters);
-	OpcodeRet endtop();
+	OpcodeRet opcodeStartObject(ObjectIndex index);
+	OpcodeRet opcodeCel(OpcodeParameters *parameters);
+	OpcodeRet opcodeCelExt(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroTime(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroDark(OpcodeParameters *parameters);
+	OpcodeRet opcodeRestart();
+	OpcodeRet opcodePopHeros();
+	OpcodeRet opcodePushHerous();
+	OpcodeRet opcodeGlass(OpcodeParameters *parameters, bool doIncrement);
+	OpcodeRet opcodeStop(OpcodeParameters *parameters);
+	OpcodeRet opcodeStopGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeStopHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeStopVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeContinue(OpcodeParameters *parameters);
+	OpcodeRet opcodeContinueGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeContinueHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeContitnueVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeSavetop(OpcodeParameters *parameters);
+	OpcodeRet opcodeSendtop();
 
 	Work *getCurrent() { return _currentWork; }
 	Work *get(HeroIndex index);

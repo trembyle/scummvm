@@ -36,8 +36,8 @@ public:
 	SavegameManager(LiathEngine *engine);
 	~SavegameManager();
 
-	OpcodeRet save(OpcodeParameters *parameters);
-	OpcodeRet load(OpcodeParameters *parameters);
+	OpcodeRet opcodeSave(OpcodeParameters *parameters);
+	OpcodeRet opcodeLoad(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

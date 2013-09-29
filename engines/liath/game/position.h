@@ -35,15 +35,15 @@ public:
 	~PositionManager();
 
 	// Opcodes
-	OpcodeRet checkLimits(OpcodeParameters *parameters);
-	OpcodeRet autoStart(OpcodeParameters *parameters);
-	OpcodeRet autoCheck(OpcodeParameters *parameters);
-	OpcodeRet autoStop(OpcodeParameters *parameters);
-	OpcodeRet pers(OpcodeParameters *parameters);
-	OpcodeRet heroPers(OpcodeParameters *parameters);
-	OpcodeRet dist(OpcodeParameters *parameters);
-	OpcodeRet feel(OpcodeParameters *parameters);
-	OpcodeRet barrier(OpcodeParameters *parameters);
+	OpcodeRet opcodeCheckLimits(OpcodeParameters *parameters);
+	OpcodeRet opcodeAutoStart(OpcodeParameters *parameters);
+	OpcodeRet opcodeAutoCheck(OpcodeParameters *parameters);
+	OpcodeRet opcodeAutoStop(OpcodeParameters *parameters);
+	OpcodeRet opcodePers(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroPers(OpcodeParameters *parameters);
+	OpcodeRet opcodeDist(OpcodeParameters *parameters);
+	OpcodeRet opcodeFeel(OpcodeParameters *parameters);
+	OpcodeRet opcodeBarrier(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

@@ -353,407 +353,407 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 		return kOpcodeRetDefault;
 
 	case kOpcodeStartHero:
-		return getHero()->start(parameters, NULL, NULL);
+		return getHero()->opcodeStart(parameters, NULL, NULL);
 
 	case kOpcodeResetHero:
-		return getHero()->reset(parameters, NULL);
+		return getHero()->opcodeReset(parameters, NULL);
 
 	case kOpcodeStartHeroExt:
-		return getHero()->startExt(parameters);
+		return getHero()->opcodeStartHeroExt(parameters);
 
 	case kOpcodeStartAction:
-		return getAction()->start(parameters);
+		return getAction()->opcodeStart(parameters);
 
 	case kOpcodeStartActionGlobal:
-		return getAction()->startGlobal(parameters);
+		return getAction()->opcodeStartGlobal(parameters);
 
 	case kOpcodeStartActionHeroVar:
-		return getAction()->startHeroVariable(parameters);
+		return getAction()->opcodeStartHeroVariable(parameters);
 
 	case kOpcodeStartActionVar:
-		return getAction()->startVariable(parameters);
+		return getAction()->opcodeStartVariable(parameters);
 
 	case kOpcodeCheckLimits:
-		return getPosition()->checkLimits(parameters);
+		return getPosition()->opcodeCheckLimits(parameters);
 
 	case kOpcodeStartObject:
 	case kOpcodeStartObject2:
 	case kOpcodeStartObject3:
 	case kOpcodeStartObject4:
-		return getWork()->startObj(index);
+		return getWork()->opcodeStartObject(index);
 
 	case kOpcodeCommandNumberBox:
-		return getMouse()->commandNumberBox(parameters);
+		return getMouse()->opcodeCommandNumberBox(parameters);
 
 	case kOpcodePassVar:
-		return getHero()->passVariable(parameters);
+		return getHero()->opcodePassVariable(parameters);
 
 	case kOpcodeExitGame:
-		return getAction()->exitGame(parameters);
+		return getAction()->opcodeExitGame(parameters);
 
 	case kOpcodeRestart:
-		return getWork()->restart();
+		return getWork()->opcodeRestart();
 
 	case kOpcodeExitHero:
-		return getHero()->exitHero(parameters);
+		return getHero()->opcodeExitHero(parameters);
 
 	case kOpcodeCel:
-		return getWork()->cel(parameters);
+		return getWork()->opcodeCel(parameters);
 
 	case kOpcodeCelExt:
-		return getWork()->celExt(parameters);
+		return getWork()->opcodeCelExt(parameters);
 
 	case kOpcodeMyRandom:
-		return getGame()->rnd(parameters);
+		return getGame()->opcodeRandom(parameters);
 
 	case kOpcodeCash:
-		return getSound()->cash(parameters);
+		return getSound()->opcodeCash(parameters);
 
 	case kOpcodeSaveGame:
-		return getSave()->save(parameters);
+		return getSave()->opcodeSave(parameters);
 
 	case kOpcodeLoadGame:
-		return getSave()->load(parameters);
+		return getSave()->opcodeLoad(parameters);
 
 	case kOpcodeSaveHero:
-		return getHero()->save(parameters);
+		return getHero()->opcodeSave(parameters);
 
 	case kOpcodeLoadHero:
-		return getHero()->load();
+		return getHero()->opcodeLoad();
 
 	case kOpcodeNumberAct:
-		return getAction()->number(parameters);
+		return getAction()->opcodeNumber(parameters);
 
 	case kOpcodeRedraw:
-		return getGraphics()->redraw(parameters);
+		return getGraphics()->opcodeRedraw(parameters);
 
 	case kOpcodeAddMouseBox:
-		return getMouse()->addBox(parameters);
+		return getMouse()->opcodeAddBox(parameters);
 
 	case kOpcodeDelMouseBox:
-		return getMouse()->removeBox(parameters);
+		return getMouse()->opcodeRemoveBox(parameters);
 
 	case kOpcodePushMouse:
-		return getMouse()->push();
+		return getMouse()->opcodePush();
 
 	case kOpcodePopMouse:
-		return getMouse()->pop();
+		return getMouse()->opcodePop();
 
-	case kOpcodePopHerous:
-		return getWork()->popHerous();
+	case kOpcodePopHeros:
+		return getWork()->opcodePopHeros();
 
-	case kOpcodePushHerous:
-		return getWork()->pushHerous();
+	case kOpcodePushHeros:
+		return getWork()->opcodePushHerous();
 
 	case kOpcodeTypeMouse:
-		return getMouse()->type(parameters);
+		return getMouse()->opcodeType(parameters);
 
 	case kOpcodeResetMouse:
-		return getMouse()->reset(parameters);
+		return getMouse()->opcodeReset(parameters);
 
 	case kOpcodeKeyMouse:
-		return getMouse()->key(parameters);
+		return getMouse()->opcodeKey(parameters);
 
 	case kOpcodeMousePress:
-		return getMouse()->press(parameters);
+		return getMouse()->opcodePress(parameters);
 
 	case kOpcodeTextOut:
-		return getText()->out(parameters);
+		return getText()->opcodeOut(parameters);
 
 	case kOpcodeTextQuit:
-		return getText()->quit(parameters);
+		return getText()->opcodeQuit(parameters);
 
 	case kOpcodeTextExit:
-		return getText()->exitText(parameters);
+		return getText()->opcodeExitText(parameters);
 
 	case kOpcodeTextCheck:
-		return getText()->check(parameters);
+		return getText()->opcodeCheck(parameters);
 
 	case kOpcodeTextChange:
-		return getText()->change(parameters);
+		return getText()->opcodeChange(parameters);
 
 	case kOpcodeArrayInit:
-		return getArray()->init(parameters);
+		return getArray()->opcodeInit(parameters);
 
 	case kOpcodeArrayImg:
-		return getArray()->img(parameters);
+		return getArray()->opcodeImg(parameters);
 
 	case kOpcodeArrayAdd:
-		return getArray()->add(parameters);
+		return getArray()->opcodeAdd(parameters);
 
-	case kOpcodeArrayDel:
-		return getArray()->del(parameters);
+	case kOpcodeArrayDelete:
+		return getArray()->opcodeDelete(parameters);
 
 	case kOpcodeArrayKill:
-		return getArray()->kill(parameters);
+		return getArray()->opcodeKill(parameters);
 
 	case kOpcodeArrayClear:
-		return getArray()->clear(parameters);
+		return getArray()->opcodeClear(parameters);
 
 	case kOpcodeArrayGet:
-		return getArray()->get(parameters);
+		return getArray()->opcodeGet(parameters);
 
 	case kOpcodeArrayGetNumber:
-		return getArray()->getNumber(parameters);
+		return getArray()->opcodeGetNumber(parameters);
 
 	case kOpcodeArraySize:
-		return getArray()->size(parameters);
+		return getArray()->opcodeSize(parameters);
 
 	case kOpcodeArrayTGet:
-		return getArray()->tget(parameters);
+		return getArray()->opcodeTget(parameters);
 
-	case kOpcodeArrayCur:
-		return getArray()->cur(parameters);
+	case kOpcodeArrayCurrent:
+		return getArray()->opcodeCurrent(parameters);
 
-	case kOpcodeArraySetCur:
-		return getArray()->setCur(parameters);
+	case kOpcodeArraySetCurrent:
+		return getArray()->opcodeSetCurrent(parameters);
 
-	case kOpcodeHTime:
-		return getWork()->htime(parameters);
+	case kOpcodeHeroTime:
+		return getWork()->opcodeHeroTime(parameters);
 
-	case kOpcodeHDark:
-		return getWork()->hdark(parameters);
+	case kOpcodeHeroDark:
+		return getWork()->opcodeHeroDark(parameters);
 
 	case kOpcodeXScroll:
-		return getGraphics()->xscroll(parameters);
+		return getGraphics()->opcodeXScroll(parameters);
 
 	case kOpcodeYScroll:
-		return getGraphics()->yscroll(parameters);
+		return getGraphics()->opcodeYScroll(parameters);
 
 	case kOpcodePlayAvsStopMusic:
-		return getGraphics()->playAvs(parameters, false);
+		return getGraphics()->opcodePlayAvs(parameters, false);
 
 	case kOpcodePlayAvs:
-		return getGraphics()->playAvs(parameters, true);
+		return getGraphics()->opcodePlayAvs(parameters, true);
 
 	case kOpcodeFreeze:
 	case kOpcodeFreeze2:
-		return getHero()->freeze(parameters);
+		return getHero()->opcodeFreeze(parameters);
 
 	case kOpcodeFreezeGlobal:
-		return getHero()->freezeGlobal(parameters);
+		return getHero()->opcodeFreezeGlobal(parameters);
 
 	case kOpcodeFreezeHeroVar:
-		return getHero()->freezeHeroVar(parameters);
+		return getHero()->opcodeFreezeHeroVar(parameters);
 
 	case kOpcodeFreezeVar:
-		return getHero()->freezeVar(parameters);
+		return getHero()->opcodeFreezeVar(parameters);
 
 	case kOpcodeUnfreeze:
 	case kOpcodeUnfreeze2:
-		return getHero()->unfreeze(parameters);
+		return getHero()->opcodeUnfreeze(parameters);
 
 	case kOpcodeUnfreezeGlobal:
-		return getHero()->unfreezeGlobal(parameters);
+		return getHero()->opcodeUnfreezeGlobal(parameters);
 
 	case kOpcodeUnfreezeHeroVar:
-		return getHero()->unfreezeHeroVar(parameters);
+		return getHero()->opcodeUnfreezeHeroVar(parameters);
 
 	case kOpcodeUnfreezeVar:
-		return getHero()->unfreezeVar(parameters);
+		return getHero()->opcodeUnfreezeVar(parameters);
 
 	case kOpcodeStop:
 	case kOpcodeStop2:
-		return getWork()->stop(parameters);
+		return getWork()->opcodeStop(parameters);
 
 	case kOpcodeStopGlobal:
-		return getWork()->stopGlobal(parameters);
+		return getWork()->opcodeStopGlobal(parameters);
 
 	case kOpcodeStopHeroVar:
-		return getWork()->stopHeroVar(parameters);
+		return getWork()->opcodeStopHeroVar(parameters);
 
 	case kOpcodeStopVar:
-		return getWork()->stopVar(parameters);
+		return getWork()->opcodeStopVar(parameters);
 
 	case kOpcodeContinue:
 	case kOpcodeContinue2:
-		return getWork()->cont(parameters);
+		return getWork()->opcodeContinue(parameters);
 
 	case kOpcodeContinueGlobal:
-		return getWork()->contGlobal(parameters);
+		return getWork()->opcodeContinueGlobal(parameters);
 
 	case kOpcodeContinueHeroVar:
-		return getWork()->contHeroVar(parameters);
+		return getWork()->opcodeContinueHeroVar(parameters);
 
 	case kOpcodeContinueVar:
-		return getWork()->contVar(parameters);
+		return getWork()->opcodeContitnueVar(parameters);
 
 	case kOpcodeKey:
-		return getGame()->key(parameters);
+		return getGame()->opcodeKey(parameters);
 
 	case kOpcodeBkey:
-		return getGame()->bkey(parameters);
+		return getGame()->opcodeBKey(parameters);
 
-	case kOpcodeCurAction:
-		return getAction()->curAction(parameters);
+	case kOpcodeCurrentAction:
+		return getAction()->opcodeCurrentAction(parameters);
 
 	case kOpcodeHeroVarGlobal:
-		return getHero()->herovarGlobal(parameters);
+		return getHero()->opcodeHeroVarGlobal(parameters);
 
 	case kOpcodeHeroVarHeroVar:
-		return getHero()->herovarHeroVar(parameters);
+		return getHero()->opcodeHeroVarHeroVar(parameters);
 
 	case kOpcodeHeroVarVar:
-		return getHero()->herovarVar(parameters);
+		return getHero()->opcodeHeroVarVar(parameters);
 
 	case kOpcodeHeroVar:
-		return getHero()->herovar(parameters);
+		return getHero()->opcodeHeroVar(parameters);
 
 	case kOpcodeHeroSys:
-		return getHero()->heroSys(parameters);
+		return getHero()->opcodeHeroSys(parameters);
 
 	case kOpcodeVar:
-		return getHero()->var(parameters);
+		return getHero()->opcodeVar(parameters);
 
 	case kOpcodeSys:
-		return getHero()->sys(parameters);
+		return getHero()->opcodeSys(parameters);
 
 	case kOpcodeGlobal:
-		return getGame()->global(parameters);
+		return getGame()->opcodeGlobal(parameters);
 
 	case kOpcodeExpression:
-		return getExpression()->expression(parameters);
+		return getExpression()->opcodeExpression(parameters);
 
 	case kOpcodeQuitHero:
-		return getHero()->quitHero(parameters);
+		return getHero()->opcodeQuitHero(parameters);
 
 	case kOpcodeQuitGlobal:
-		return getHero()->quitGlobal(parameters);
+		return getHero()->opcodeQuitGlobal(parameters);
 
 	case kOpcodeQuitHeroVar:
-		return getHero()->quitHeroVar(parameters);
+		return getHero()->opcodeQuitHeroVar(parameters);
 
 	case kOpcodeQuitVar:
-		return getHero()->quitVar(parameters);
+		return getHero()->opcodeQuitVar(parameters);
 
 	case kOpcodeCheckMouse:
-		return getMouse()->check(parameters);
+		return getMouse()->opcodeCheck(parameters);
 
 	case kOpcodeLook:
-		return getGraphics()->look(parameters);
+		return getGraphics()->opcodeLook(parameters);
 
 	case kOpcodePers:
-		return getPosition()->pers(parameters);
+		return getPosition()->opcodePers(parameters);
 
 	case kOpcodeHeroPers:
-		return getPosition()->heroPers(parameters);
+		return getPosition()->opcodeHeroPers(parameters);
 
 	case kOpcodeDist:
-		return getPosition()->dist(parameters);
+		return getPosition()->opcodeDist(parameters);
 
 	case kOpcodeFeel:
-		return getPosition()->feel(parameters);
+		return getPosition()->opcodeFeel(parameters);
 
 	case kOpcodeGlassIncrement:
-		return getWork()->glass(parameters, true);
+		return getWork()->opcodeGlass(parameters, true);
 
 	case kOpcodeGlassDecrement:
-		return getWork()->glass(parameters, false);
+		return getWork()->opcodeGlass(parameters, false);
 
 	case kOpcodePlayWave:
-		return getSound()->playWave(parameters);
+		return getSound()->opcodePlayWave(parameters);
 
 	case kOpcodePlayMusic:
-		return getSound()->playMusic(parameters, false);
+		return getSound()->opcodePlayMusic(parameters, false);
 
 	case kOpcodePlayMusicEffects:
-		return getSound()->playMusic(parameters, true);
+		return getSound()->opcodePlayMusic(parameters, true);
 
 	case kOpcodeStopMusic:
-		return getSound()->stopMusic(parameters);
+		return getSound()->opcodeStopMusic(parameters);
 
 	case kOpcodeGlobalStopMusic:
-		return getSound()->globalStopMusic(parameters);
+		return getSound()->opcodeGlobalStopMusic(parameters);
 
 	case kOpcodePlayMidi:
-		return getSound()->playMidi(parameters, false);
+		return getSound()->opcodePlayMidi(parameters, false);
 
 	case kOpcodePlayMidiLoop:
-		return getSound()->playMidi(parameters, true);
+		return getSound()->opcodePlayMidi(parameters, true);
 
 	case kOpcodeStopMidi:
-		return getSound()->stopMidi();
+		return getSound()->opcodeStopMidi();
 
 	case kOpcodeAutoStart:
-		return getPosition()->autoStart(parameters);
+		return getPosition()->opcodeAutoStart(parameters);
 
 	case kOpcodeAutoCheck:
-		return getPosition()->autoCheck(parameters);
+		return getPosition()->opcodeAutoCheck(parameters);
 
 	case kOpcodeAutoStop:
-		return getPosition()->autoStop(parameters);
+		return getPosition()->opcodeAutoStop(parameters);
 
 	case kOpcodeSetBg:
-		return getGraphics()->setBackground(parameters);
+		return getGraphics()->opcodeSetBackground(parameters);
 
 	case kOpcodeSetHeroRGB:
-		return getGraphics()->setHeroRGB(parameters);
+		return getGraphics()->opcodeSetHeroRGB(parameters);
 
 	case kOpcodeProgressInit:
-		return getProgress()->init(parameters);
+		return getProgress()->opcodeInit(parameters);
 
 	case kOpcodeProgressSet:
-		return getProgress()->set(parameters);
+		return getProgress()->opcodeSet(parameters);
 
 	case kOpcodeProgressGet:
-		return getProgress()->get(parameters);
+		return getProgress()->opcodeGet(parameters);
 
 	case kOpcodeProgressHelp:
-		return getProgress()->help(parameters);
+		return getProgress()->opcodeHelp(parameters);
 
 	case kOpcodeAuto2Hero:
-		return getHero()->auto2hero(parameters);
+		return getHero()->opcodeAuto2Hero(parameters);
 
 	case kOpcodeAuto2HeroGlobal:
-		return getHero()->auto2heroGlobal(parameters);
+		return getHero()->opcodeAuto2HeroGlobal(parameters);
 
 	case kOpcodeAuto2HeroHeroVar:
-		return getHero()->auto2heroHeroVar(parameters);
+		return getHero()->opcodeAuto2HeroHeroVar(parameters);
 
 	case kOpcodeAuto2HeroVar:
-		return getHero()->auto2heroVar(parameters);
+		return getHero()->opcodeAuto2HeroVar(parameters);
 
 	case kOpcodeBarrier:
 	case kOpcodeBarrier2:
 	case kOpcodeBarrier3:
 	case kOpcodeBarrier4:
-		return getPosition()->barrier(parameters);
+		return getPosition()->opcodeBarrier(parameters);
 
 	case kOpcodeHearGlobal:
-		return getHero()->hearGlobal(parameters);
+		return getHero()->opcodeHearGlobal(parameters);
 
 	case kOpcodeHearHeroVar:
-		return getHero()->hearHeroVar(parameters);
+		return getHero()->opcodeHearHeroVar(parameters);
 
 	case kOpcodeHearVar:
-		return getHero()->hearVar(parameters);
+		return getHero()->opcodeHearVar(parameters);
 
 	case kOpcodeArrayGetScroll:
-		return getArray()->getScroll(parameters);
+		return getArray()->opcodeGetScroll(parameters);
 
 	case kOpcodeFace2Hero:
-		return getHero()->face2hero(parameters);
+		return getHero()->opcodeFace2Hero(parameters);
 
 	case kOpcodeFace2HeroGlobal:
-		return getHero()->face2heroGlobal(parameters);
+		return getHero()->opcodeFace2HeroGlobal(parameters);
 
 	case kOpcodeFace2HeroHeroVar:
-		return getHero()->face2heroHeroVar(parameters);
+		return getHero()->opcodeFace2HeroHeroVar(parameters);
 
 	case kOpcodeFace2HeroVar:
-		return getHero()->face2heroVar(parameters);
+		return getHero()->opcodeFace2HeroVar(parameters);
 
 	case kOpcodeSaveTop:
-		return getWork()->savetop(parameters);
+		return getWork()->opcodeSavetop(parameters);
 
 	case kOpcodeEndTop:
-		return getWork()->endtop();
+		return getWork()->opcodeSendtop();
 
 	case kOpcodeMouseScroll:
-		return getMouse()->scroll(parameters);
+		return getMouse()->opcodeScroll(parameters);
 
 	case kOpcodeVolMusic:
-		return getSound()->volume(parameters);
+		return getSound()->opcodeVolume(parameters);
 	}
 }
 

@@ -38,13 +38,13 @@ public:
 	void unload();
 
 	// Opcodes
-	OpcodeRet redraw(OpcodeParameters *parameters);
-	OpcodeRet xscroll(OpcodeParameters *parameters);
-	OpcodeRet yscroll(OpcodeParameters *parameters);
-	OpcodeRet playAvs(OpcodeParameters *parameters, bool doStopMusic);
-	OpcodeRet setBackground(OpcodeParameters *parameters);
-	OpcodeRet setHeroRGB(OpcodeParameters *parameters);
-	OpcodeRet look(OpcodeParameters *parameters);
+	OpcodeRet opcodeRedraw(OpcodeParameters *parameters);
+	OpcodeRet opcodeXScroll(OpcodeParameters *parameters);
+	OpcodeRet opcodeYScroll(OpcodeParameters *parameters);
+	OpcodeRet opcodePlayAvs(OpcodeParameters *parameters, bool doStopMusic);
+	OpcodeRet opcodeSetBackground(OpcodeParameters *parameters);
+	OpcodeRet opcodeSetHeroRGB(OpcodeParameters *parameters);
+	OpcodeRet opcodeLook(OpcodeParameters *parameters);
 
 	// Drawing functions
 	void viewBackground();

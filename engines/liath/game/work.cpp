@@ -56,11 +56,11 @@ void WorkManager::unload() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet WorkManager::cel(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeCel(OpcodeParameters *parameters) {
 	return RET(_currentWork->field_76 == parameters->getDword(0), parameters->test);
 }
 
-OpcodeRet WorkManager::celExt(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeCelExt(OpcodeParameters *parameters) {
 	HeroIndex heroIndex = 0;
 	uint32 val = 0;
 
@@ -110,7 +110,7 @@ OpcodeRet WorkManager::celExt(OpcodeParameters *parameters) {
 	return RET(work && work->field_68 == val && work->field_76 == parameters->getDword(0), parameters->test);
 }
 
-OpcodeRet WorkManager::startObj(ObjectIndex object) {
+OpcodeRet WorkManager::opcodeStartObject(ObjectIndex object) {
 	if (_currentWork->isObjectIndexSet)
 		return kOpcodeRetNext;
 
@@ -120,54 +120,54 @@ OpcodeRet WorkManager::startObj(ObjectIndex object) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::htime(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeHeroTime(OpcodeParameters *parameters) {
 	_currentWork->field_FA = parameters->getDword(0);
 	_currentWork->field_FE = parameters->getDword(0);
 
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::hdark(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeHeroDark(OpcodeParameters *parameters) {
 	_currentWork->field_579 = parameters->getByte(0);
 
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::restart() {
+OpcodeRet WorkManager::opcodeRestart() {
 	error("WorkManager::restart: not implemented!");
 }
 
-OpcodeRet WorkManager::popHerous() {
+OpcodeRet WorkManager::opcodePopHeros() {
 	error("WorkManager::pop_herous: Not implemented!");
 }
 
-OpcodeRet WorkManager::pushHerous() {
+OpcodeRet WorkManager::opcodePushHerous() {
 	error("WorkManager::push_herous: Not implemented!");
 }
 
-OpcodeRet WorkManager::stop(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeStop(OpcodeParameters *parameters) {
 	error("WorkManager::stop: Not implemented!");
 }
 
-OpcodeRet WorkManager::stopGlobal(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeStopGlobal(OpcodeParameters *parameters) {
 	parameters->setDword(0, GLOBAL(parameters->getDword(8)));
 
-	return stop(parameters);
+	return opcodeStop(parameters);
 }
 
-OpcodeRet WorkManager::stopHeroVar(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeStopHeroVar(OpcodeParameters *parameters) {
 	parameters->setDword(0, getHero()->getData(parameters->getDword(4), parameters->getDword(8)));
 
-	return stop(parameters);
+	return opcodeStop(parameters);
 }
 
-OpcodeRet WorkManager::stopVar(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeStopVar(OpcodeParameters *parameters) {
 	parameters->setDword(0, getHero()->getData(_currentWork->heroIndex, parameters->getDword(8)));
 
-	return stop(parameters);
+	return opcodeStop(parameters);
 }
 
-OpcodeRet WorkManager::cont(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeContinue(OpcodeParameters *parameters) {
 	Hero *hero = getHero()->get(parameters->getDword(0) ? parameters->getDword(0) : _currentWork->heroIndex);
 	Work *work = parameters->getDword(0) ? hero->work : _currentWork;
 
@@ -182,29 +182,29 @@ OpcodeRet WorkManager::cont(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::contGlobal(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeContinueGlobal(OpcodeParameters *parameters) {
 	parameters->setDword(0, GLOBAL(parameters->getDword(8)));
 
-	return cont(parameters);
+	return opcodeContinue(parameters);
 }
 
-OpcodeRet WorkManager::contHeroVar(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeContinueHeroVar(OpcodeParameters *parameters) {
 	parameters->setDword(0, getHero()->getData(parameters->getDword(4), parameters->getDword(8)));
 
-	return cont(parameters);
+	return opcodeContinue(parameters);
 }
 
-OpcodeRet WorkManager::contVar(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeContitnueVar(OpcodeParameters *parameters) {
 	parameters->setDword(0, getHero()->getData(_currentWork->heroIndex, parameters->getDword(8)));
 
-	return cont(parameters);
+	return opcodeContinue(parameters);
 }
 
-OpcodeRet WorkManager::glass(OpcodeParameters *parameters, bool doIncrement) {
+OpcodeRet WorkManager::opcodeGlass(OpcodeParameters *parameters, bool doIncrement) {
 	error("WorkManager::glass: Not implemented!");
 }
 
-OpcodeRet WorkManager::savetop(OpcodeParameters *parameters) {
+OpcodeRet WorkManager::opcodeSavetop(OpcodeParameters *parameters) {
 	_currentWork->field_B1 = _currentWork->field_A9;
 	_currentWork->field_B3 = _currentWork->field_AB;
 	_currentWork->field_B5 = _currentWork->field_AD;
@@ -213,7 +213,7 @@ OpcodeRet WorkManager::savetop(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::endtop() {
+OpcodeRet WorkManager::opcodeSendtop() {
 	_currentWork->field_B1 = 10000;
 	return kOpcodeRetDefault;
 }

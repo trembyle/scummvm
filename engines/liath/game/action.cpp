@@ -54,12 +54,12 @@ void ActionManager::load() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet ActionManager::exitGame(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeExitGame(OpcodeParameters *parameters) {
 	_currentAction = kActionNone;
 	return kOpcodeRetExit;
 }
 
-OpcodeRet ActionManager::start(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeStart(OpcodeParameters *parameters) {
 	_currentAction = (ActionIndex)parameters->getDword(0);
 
 	if (parameters->objectIndex == kParamClearAvi) {
@@ -77,13 +77,13 @@ OpcodeRet ActionManager::start(OpcodeParameters *parameters) {
 	return kOpcodeRetExit;
 }
 
-OpcodeRet ActionManager::startGlobal(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeStartGlobal(OpcodeParameters *parameters) {
 	_currentAction = (ActionIndex)GLOBAL(parameters->getDword(12));
 
 	return kOpcodeRetExit;
 }
 
-OpcodeRet ActionManager::startHeroVariable(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeStartHeroVariable(OpcodeParameters *parameters) {
 	if (parameters->objectIndex == kParamClearAvi) {
 		_aviFilename = "";
 	} else {
@@ -96,7 +96,7 @@ OpcodeRet ActionManager::startHeroVariable(OpcodeParameters *parameters) {
 	return kOpcodeRetExit;
 }
 
-OpcodeRet ActionManager::startVariable(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeStartVariable(OpcodeParameters *parameters) {
 	if (parameters->objectIndex == kParamClearAvi) {
 		_aviFilename = "";
 	} else {
@@ -109,11 +109,11 @@ OpcodeRet ActionManager::startVariable(OpcodeParameters *parameters) {
 	return kOpcodeRetExit;
 }
 
-OpcodeRet ActionManager::curAction(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeCurrentAction(OpcodeParameters *parameters) {
 	return RET(_previousAction == (ActionIndex)parameters->getDword(0), parameters->test);
 }
 
-OpcodeRet ActionManager::number(OpcodeParameters *parameters) {
+OpcodeRet ActionManager::opcodeNumber(OpcodeParameters *parameters) {
 
 	getGame()->letValue((ParamOrigin)parameters->getByte(0),
 	                    parameters->getDword(1),

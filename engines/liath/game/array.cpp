@@ -63,7 +63,7 @@ ArrayManager::~ArrayManager() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet ArrayManager::init(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeInit(OpcodeParameters *parameters) {
 	Array *array = getFirstEmptyArray();
 	if (!array)
 		return kOpcodeRetDefault;
@@ -104,7 +104,7 @@ OpcodeRet ArrayManager::init(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::img(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeImg(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	// Update array data
@@ -137,11 +137,11 @@ OpcodeRet ArrayManager::img(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::add(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeAdd(OpcodeParameters *parameters) {
 	error("ArrayManager::add: Not implemented!");
 }
 
-OpcodeRet ArrayManager::getNumber(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeGetNumber(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	int32 val = getGame()->getValue((ParamOrigin)parameters->getByte(9), parameters->getDword(10), parameters->getDword(14));
@@ -161,11 +161,11 @@ OpcodeRet ArrayManager::getNumber(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::del(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeDelete(OpcodeParameters *parameters) {
 	error("ArrayManager::del: Not implemented!");
 }
 
-OpcodeRet ArrayManager::kill(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeKill(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	if (array->field_22 >= array->dataCount)
@@ -179,7 +179,7 @@ OpcodeRet ArrayManager::kill(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::clear(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeClear(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	if (array->field_22 >= array->dataCount)
@@ -191,15 +191,15 @@ OpcodeRet ArrayManager::clear(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::get(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeGet(OpcodeParameters *parameters) {
 	error("ArrayManager::get: Not implemented!");
 }
 
-OpcodeRet ArrayManager::getScroll(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeGetScroll(OpcodeParameters *parameters) {
 	error("ArrayManager::getScroll: Not implemented!");
 }
 
-OpcodeRet ArrayManager::size(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeSize(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	if (array->field_22 >= array->dataCount)
@@ -210,11 +210,11 @@ OpcodeRet ArrayManager::size(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ArrayManager::tget(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeTget(OpcodeParameters *parameters) {
 	error("ArrayManager::tget: Not implemented!");
 }
 
-OpcodeRet ArrayManager::cur(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeCurrent(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	if (array->field_22 >= array->dataCount)
@@ -226,7 +226,7 @@ OpcodeRet ArrayManager::cur(OpcodeParameters *parameters) {
 		return RET(0, parameters->test);
 }
 
-OpcodeRet ArrayManager::setCur(OpcodeParameters *parameters) {
+OpcodeRet ArrayManager::opcodeSetCurrent(OpcodeParameters *parameters) {
 	GET_ARRAY_ENTRY();
 
 	if (array->field_22 >= array->dataCount)

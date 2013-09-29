@@ -34,11 +34,11 @@ public:
 	TextManager(LiathEngine *engine);
 	~TextManager();
 
-	OpcodeRet out(OpcodeParameters *parameters);
-	OpcodeRet quit(OpcodeParameters *parameters);
-	OpcodeRet exitText(OpcodeParameters *parameters);
-	OpcodeRet check(OpcodeParameters *parameters);
-	OpcodeRet change(OpcodeParameters *parameters);
+	OpcodeRet opcodeOut(OpcodeParameters *parameters);
+	OpcodeRet opcodeQuit(OpcodeParameters *parameters);
+	OpcodeRet opcodeExitText(OpcodeParameters *parameters);
+	OpcodeRet opcodeCheck(OpcodeParameters *parameters);
+	OpcodeRet opcodeChange(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

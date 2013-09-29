@@ -34,19 +34,19 @@ public:
 	ArrayManager(LiathEngine *engine);
 	~ArrayManager();
 
-	OpcodeRet init(OpcodeParameters *parameters);
-	OpcodeRet img(OpcodeParameters *parameters);
-	OpcodeRet add(OpcodeParameters *parameters);
-	OpcodeRet del(OpcodeParameters *parameters);
-	OpcodeRet kill(OpcodeParameters *parameters);
-	OpcodeRet clear(OpcodeParameters *parameters);
-	OpcodeRet get(OpcodeParameters *parameters);
-	OpcodeRet getNumber(OpcodeParameters *parameters);
-	OpcodeRet size(OpcodeParameters *parameters);
-	OpcodeRet tget(OpcodeParameters *parameters);
-	OpcodeRet cur(OpcodeParameters *parameters);
-	OpcodeRet setCur(OpcodeParameters *parameters);
-	OpcodeRet getScroll(OpcodeParameters *parameters);
+	OpcodeRet opcodeInit(OpcodeParameters *parameters);
+	OpcodeRet opcodeImg(OpcodeParameters *parameters);
+	OpcodeRet opcodeAdd(OpcodeParameters *parameters);
+	OpcodeRet opcodeDelete(OpcodeParameters *parameters);
+	OpcodeRet opcodeKill(OpcodeParameters *parameters);
+	OpcodeRet opcodeClear(OpcodeParameters *parameters);
+	OpcodeRet opcodeGet(OpcodeParameters *parameters);
+	OpcodeRet opcodeGetNumber(OpcodeParameters *parameters);
+	OpcodeRet opcodeSize(OpcodeParameters *parameters);
+	OpcodeRet opcodeTget(OpcodeParameters *parameters);
+	OpcodeRet opcodeCurrent(OpcodeParameters *parameters);
+	OpcodeRet opcodeSetCurrent(OpcodeParameters *parameters);
+	OpcodeRet opcodeGetScroll(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

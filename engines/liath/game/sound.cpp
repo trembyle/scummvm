@@ -84,11 +84,11 @@ void SoundManager::unload() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet SoundManager::cash(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::opcodeCash(OpcodeParameters *parameters) {
 	error("SoundManager::cash: Not implemented!");
 }
 
-OpcodeRet SoundManager::playWave(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::opcodePlayWave(OpcodeParameters *parameters) {
 	uint32 index = parameters->getDword(0);
 
 	if (index <= _waves.size() && _waves[index]->stream != NULL) {
@@ -106,7 +106,7 @@ OpcodeRet SoundManager::playWave(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet SoundManager::playMusic(OpcodeParameters *parameters, bool useEffectLevel) {
+OpcodeRet SoundManager::opcodePlayMusic(OpcodeParameters *parameters, bool useEffectLevel) {
 	Common::String filename = Common::String::format("%s", (char *)&parameters->params);
 
 	debugC(kLiathDebugInterpreter, "  filename: %s  -  attenuation: %d\n", filename.c_str(), parameters->getDword(256));
@@ -137,23 +137,23 @@ OpcodeRet SoundManager::playMusic(OpcodeParameters *parameters, bool useEffectLe
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet SoundManager::stopMusic(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::opcodeStopMusic(OpcodeParameters *parameters) {
 	error("SoundManager::stopMusic: Not implemented!");
 }
 
-OpcodeRet SoundManager::globalStopMusic(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::opcodeGlobalStopMusic(OpcodeParameters *parameters) {
 	error("SoundManager::gstopMusic: Not implemented!");
 }
 
-OpcodeRet SoundManager::playMidi(OpcodeParameters *parameters, bool doLoop) {
+OpcodeRet SoundManager::opcodePlayMidi(OpcodeParameters *parameters, bool doLoop) {
 	error("SoundManager::playMidi: Not implemented!");
 }
 
-OpcodeRet SoundManager::stopMidi() {
+OpcodeRet SoundManager::opcodeStopMidi() {
 	error("SoundManager::stopMidi: Not implemented!");
 }
 
-OpcodeRet SoundManager::volume(OpcodeParameters *parameters) {
+OpcodeRet SoundManager::opcodeVolume(OpcodeParameters *parameters) {
 	debugC(kLiathDebugInterpreter, "  sound type: %d / level: %d\n", parameters->getDword(0), parameters->getWord(4));
 
 	setLevel((SoundManager::SoundType)parameters->getWord(0), 140 * parameters->getDword(4) - 15);

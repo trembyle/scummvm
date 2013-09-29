@@ -35,47 +35,47 @@ public:
 	HeroManager(LiathEngine *engine);
 	~HeroManager();
 
-	void load(uint32 count, size_t size);
+	void opcodeLoad(uint32 count, size_t size);
 	void unload();
 
 	// Opcodes
-	OpcodeRet start(OpcodeParameters *parameters, Work **pWork, WorkData *data);
-	OpcodeRet startExt(OpcodeParameters *parameters);
-	OpcodeRet reset(OpcodeParameters *parameters, void *unkown);
-	OpcodeRet exitHero(OpcodeParameters *parameters);
-	OpcodeRet save(OpcodeParameters *parameters);
-	OpcodeRet load();
-	OpcodeRet passVariable(OpcodeParameters *parameters);
-	OpcodeRet freeze(OpcodeParameters *parameters);
-	OpcodeRet freezeGlobal(OpcodeParameters *parameters);
-	OpcodeRet freezeHeroVar(OpcodeParameters *parameters);
-	OpcodeRet freezeVar(OpcodeParameters *parameters);
-	OpcodeRet unfreeze(OpcodeParameters *parameters);
-	OpcodeRet unfreezeGlobal(OpcodeParameters *parameters);
-	OpcodeRet unfreezeHeroVar(OpcodeParameters *parameters);
-	OpcodeRet unfreezeVar(OpcodeParameters *parameters);
-	OpcodeRet herovar(OpcodeParameters *parameters);
-	OpcodeRet herovarGlobal(OpcodeParameters *parameters);
-	OpcodeRet herovarHeroVar(OpcodeParameters *parameters);
-	OpcodeRet herovarVar(OpcodeParameters *parameters);
-	OpcodeRet heroSys(OpcodeParameters *parameters);
-	OpcodeRet var(OpcodeParameters *parameters);
-	OpcodeRet sys(OpcodeParameters *parameters);
-	OpcodeRet quitHero(OpcodeParameters *parameters);
-	OpcodeRet quitGlobal(OpcodeParameters *parameters);
-	OpcodeRet quitHeroVar(OpcodeParameters *parameters);
-	OpcodeRet quitVar(OpcodeParameters *parameters);
-	OpcodeRet auto2hero(OpcodeParameters *parameters);
-	OpcodeRet auto2heroGlobal(OpcodeParameters *parameters);
-	OpcodeRet auto2heroHeroVar(OpcodeParameters *parameters);
-	OpcodeRet auto2heroVar(OpcodeParameters *parameters);
-	OpcodeRet face2hero(OpcodeParameters *parameters);
-	OpcodeRet face2heroGlobal(OpcodeParameters *parameters);
-	OpcodeRet face2heroHeroVar(OpcodeParameters *parameters);
-	OpcodeRet face2heroVar(OpcodeParameters *parameters);
-	OpcodeRet hearGlobal(OpcodeParameters *parameters);
-	OpcodeRet hearHeroVar(OpcodeParameters *parameters);
-	OpcodeRet hearVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeStart(OpcodeParameters *parameters, Work **pWork, WorkData *data);
+	OpcodeRet opcodeStartHeroExt(OpcodeParameters *parameters);
+	OpcodeRet opcodeReset(OpcodeParameters *parameters, void *unkown);
+	OpcodeRet opcodeExitHero(OpcodeParameters *parameters);
+	OpcodeRet opcodeSave(OpcodeParameters *parameters);
+	OpcodeRet opcodeLoad();
+	OpcodeRet opcodePassVariable(OpcodeParameters *parameters);
+	OpcodeRet opcodeFreeze(OpcodeParameters *parameters);
+	OpcodeRet opcodeFreezeGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeFreezeHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeFreezeVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeUnfreeze(OpcodeParameters *parameters);
+	OpcodeRet opcodeUnfreezeGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeUnfreezeHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeUnfreezeVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroVarGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroVarHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroVarVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHeroSys(OpcodeParameters *parameters);
+	OpcodeRet opcodeVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeSys(OpcodeParameters *parameters);
+	OpcodeRet opcodeQuitHero(OpcodeParameters *parameters);
+	OpcodeRet opcodeQuitGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeQuitHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeQuitVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeAuto2Hero(OpcodeParameters *parameters);
+	OpcodeRet opcodeAuto2HeroGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeAuto2HeroHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeAuto2HeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeFace2Hero(OpcodeParameters *parameters);
+	OpcodeRet opcodeFace2HeroGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeFace2HeroHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeFace2HeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHearGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeHearHeroVar(OpcodeParameters *parameters);
+	OpcodeRet opcodeHearVar(OpcodeParameters *parameters);
 
 	// Utils
 	void create(Hero *hero, byte *data1, byte *data2, byte *data3, byte *data4);
@@ -126,7 +126,7 @@ private:
 	uint32 _nHero;
 
 	// Opcode helpers
-	OpcodeRet freeze(HeroIndex heroIndex);
+	OpcodeRet opcodeFreeze(HeroIndex heroIndex);
 	OpcodeRet quit(HeroIndex heroIndex);
 	OpcodeRet auto2(OpcodeParameters *parameters);
 	OpcodeRet hear(OpcodeParameters *parameters);

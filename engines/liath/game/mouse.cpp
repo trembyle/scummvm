@@ -54,7 +54,7 @@ void MouseManager::unload() {
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
 
-OpcodeRet MouseManager::push() {
+OpcodeRet MouseManager::opcodePush() {
 	for (Common::Array<MouseBox *>::iterator i = _boxes.begin(); i != _boxes.end(); ++i)
 		++(*i)->count;
 
@@ -63,7 +63,7 @@ OpcodeRet MouseManager::push() {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet MouseManager::pop() {
+OpcodeRet MouseManager::opcodePop() {
 	for (Common::Array<MouseBox *>::iterator i = _boxes.begin(); i != _boxes.end(); ++i)
 		--(*i)->count;
 
@@ -72,7 +72,7 @@ OpcodeRet MouseManager::pop() {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet MouseManager::commandNumberBox(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeCommandNumberBox(OpcodeParameters *parameters) {
 	int32 result = numberBox(parameters->getDword(9), parameters->getDword(13));
 
 	getGame()->letValue((ParamOrigin)parameters->getByte(0),
@@ -83,19 +83,19 @@ OpcodeRet MouseManager::commandNumberBox(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet MouseManager::type(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeType(OpcodeParameters *parameters) {
 	error("MouseManager::MouseManager: Not implemented!");
 }
 
-OpcodeRet MouseManager::reset(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeReset(OpcodeParameters *parameters) {
 	error("MouseManager::reset: Not implemented!");
 }
 
-OpcodeRet MouseManager::key(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeKey(OpcodeParameters *parameters) {
 	error("MouseManager::key: Not implemented!");
 }
 
-OpcodeRet MouseManager::press(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodePress(OpcodeParameters *parameters) {
 	if (_pressMouse) {
 		if (_pressMouse == (bool)parameters->getDword(0)) {
 			_pressMouse = true;
@@ -108,20 +108,20 @@ OpcodeRet MouseManager::press(OpcodeParameters *parameters) {
 	return RET(false, parameters->test);
 }
 
-OpcodeRet MouseManager::scroll(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeScroll(OpcodeParameters *parameters) {
 	error("MouseManager::scroll: Not implemented!");
 }
 
-OpcodeRet MouseManager::check(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeCheck(OpcodeParameters *parameters) {
 	error("MouseManager::check: Not implemented!");
 }
 
 
-OpcodeRet MouseManager::addBox(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeAddBox(OpcodeParameters *parameters) {
 	error("MouseManager::addBox: Not implemented!");
 }
 
-OpcodeRet MouseManager::removeBox(OpcodeParameters *parameters) {
+OpcodeRet MouseManager::opcodeRemoveBox(OpcodeParameters *parameters) {
 	error("MouseManager::removeBox: Not implemented!");
 }
 

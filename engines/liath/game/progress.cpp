@@ -47,7 +47,7 @@ ProgressManager::~ProgressManager() {
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
 
-OpcodeRet ProgressManager::init(OpcodeParameters *parameters) {
+OpcodeRet ProgressManager::opcodeInit(OpcodeParameters *parameters) {
 	debugC(kLiathDebugInterpreter, "  count: %d - data = [%d, 0, %d, %d, %d, 0, %d, %d, %d, 0, 0]\n",
 		   parameters->getWord(0), parameters->getWord(4), parameters->getWord(8), parameters->getWord(12),
 		   parameters->getWord(16), parameters->getWord(20), parameters->getWord(24), parameters->getWord(28));
@@ -74,7 +74,7 @@ OpcodeRet ProgressManager::init(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ProgressManager::set(OpcodeParameters *parameters) {
+OpcodeRet ProgressManager::opcodeSet(OpcodeParameters *parameters) {
 	if (_progress.size() == 0)
 		return kOpcodeRetDefault;
 
@@ -91,7 +91,7 @@ OpcodeRet ProgressManager::set(OpcodeParameters *parameters) {
 }
 
 
-OpcodeRet ProgressManager::get(OpcodeParameters *parameters) {
+OpcodeRet ProgressManager::opcodeGet(OpcodeParameters *parameters) {
 	if (_progress.size() == 0)
 		return kOpcodeRetDefault;
 
@@ -108,7 +108,7 @@ OpcodeRet ProgressManager::get(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet ProgressManager::help(OpcodeParameters *parameters) {
+OpcodeRet ProgressManager::opcodeHelp(OpcodeParameters *parameters) {
 	byte param1 = parameters->getWord(0);
 	if (_progress.size() == 0 || param1 < 1 || param1 > 3) {
 		getGame()->letValue((ParamOrigin)parameters->getByte(4), parameters->getDword(5), parameters->getDword(9), INT2DSI(0));

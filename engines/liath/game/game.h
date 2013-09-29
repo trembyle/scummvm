@@ -39,10 +39,10 @@ public:
 	void playGame(ActionIndex action);
 
 	// Opcodes
-	OpcodeRet rnd(OpcodeParameters *parameters);
-	OpcodeRet global(OpcodeParameters *parameters);
-	OpcodeRet key(OpcodeParameters *parameters);
-	OpcodeRet bkey(OpcodeParameters *parameters);
+	OpcodeRet opcodeRandom(OpcodeParameters *parameters);
+	OpcodeRet opcodeGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeKey(OpcodeParameters *parameters);
+	OpcodeRet opcodeBKey(OpcodeParameters *parameters);
 
 	// Functions
 	void letValue(ParamOrigin type, HeroIndex index, uint32 offset, uint32 val);

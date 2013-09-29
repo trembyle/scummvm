@@ -36,11 +36,11 @@ SavegameManager::~SavegameManager() {
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
 
-OpcodeRet SavegameManager::save(OpcodeParameters *parameters) {
+OpcodeRet SavegameManager::opcodeSave(OpcodeParameters *parameters) {
 	error("SavegameManager::savegame: Not implemented!");
 }
 
-OpcodeRet SavegameManager::load(OpcodeParameters *parameters) {
+OpcodeRet SavegameManager::opcodeLoad(OpcodeParameters *parameters) {
 	error("SavegameManager::loadgame: Not implemented!");
 }
 

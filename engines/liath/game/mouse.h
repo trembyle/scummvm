@@ -39,17 +39,17 @@ public:
 	void unload();
 
 	// Opcodes
-	OpcodeRet commandNumberBox(OpcodeParameters *parameters);
-	OpcodeRet push();
-	OpcodeRet pop();
-	OpcodeRet type(OpcodeParameters *parameters);
-	OpcodeRet reset(OpcodeParameters *parameters);
-	OpcodeRet key(OpcodeParameters *parameters);
-	OpcodeRet press(OpcodeParameters *parameters);
-	OpcodeRet scroll(OpcodeParameters *parameters);
-	OpcodeRet check(OpcodeParameters *parameters);
-	OpcodeRet addBox(OpcodeParameters *parameters);
-	OpcodeRet removeBox(OpcodeParameters *parameters);
+	OpcodeRet opcodeCommandNumberBox(OpcodeParameters *parameters);
+	OpcodeRet opcodePush();
+	OpcodeRet opcodePop();
+	OpcodeRet opcodeType(OpcodeParameters *parameters);
+	OpcodeRet opcodeReset(OpcodeParameters *parameters);
+	OpcodeRet opcodeKey(OpcodeParameters *parameters);
+	OpcodeRet opcodePress(OpcodeParameters *parameters);
+	OpcodeRet opcodeScroll(OpcodeParameters *parameters);
+	OpcodeRet opcodeCheck(OpcodeParameters *parameters);
+	OpcodeRet opcodeAddBox(OpcodeParameters *parameters);
+	OpcodeRet opcodeRemoveBox(OpcodeParameters *parameters);
 
 private:
 	LiathEngine* _engine;

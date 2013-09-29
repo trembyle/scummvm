@@ -51,14 +51,14 @@ public:
 	void unload();
 
 	// Opcodes
-	OpcodeRet cash(OpcodeParameters *parameters);
-	OpcodeRet playWave(OpcodeParameters *parameters);
-	OpcodeRet playMusic(OpcodeParameters *parameters, bool useEffectLevel);
-	OpcodeRet stopMusic(OpcodeParameters *parameters);
-	OpcodeRet globalStopMusic(OpcodeParameters *parameters);
-	OpcodeRet playMidi(OpcodeParameters *parameters, bool doLoop);
-	OpcodeRet stopMidi();
-	OpcodeRet volume(OpcodeParameters *parameters);
+	OpcodeRet opcodeCash(OpcodeParameters *parameters);
+	OpcodeRet opcodePlayWave(OpcodeParameters *parameters);
+	OpcodeRet opcodePlayMusic(OpcodeParameters *parameters, bool useEffectLevel);
+	OpcodeRet opcodeStopMusic(OpcodeParameters *parameters);
+	OpcodeRet opcodeGlobalStopMusic(OpcodeParameters *parameters);
+	OpcodeRet opcodePlayMidi(OpcodeParameters *parameters, bool doLoop);
+	OpcodeRet opcodeStopMidi();
+	OpcodeRet opcodeVolume(OpcodeParameters *parameters);
 
 private:
 	struct MusicEntry {

@@ -40,13 +40,13 @@ public:
 	void load();
 
 	// Opcodes
-	OpcodeRet exitGame(OpcodeParameters *parameters);
-	OpcodeRet start(OpcodeParameters *parameters);
-	OpcodeRet startGlobal(OpcodeParameters *parameters);
-	OpcodeRet startHeroVariable(OpcodeParameters *parameters);
-	OpcodeRet startVariable(OpcodeParameters *parameters);
-	OpcodeRet number(OpcodeParameters *parameters);
-	OpcodeRet curAction(OpcodeParameters *parameters);
+	OpcodeRet opcodeExitGame(OpcodeParameters *parameters);
+	OpcodeRet opcodeStart(OpcodeParameters *parameters);
+	OpcodeRet opcodeStartGlobal(OpcodeParameters *parameters);
+	OpcodeRet opcodeStartHeroVariable(OpcodeParameters *parameters);
+	OpcodeRet opcodeStartVariable(OpcodeParameters *parameters);
+	OpcodeRet opcodeNumber(OpcodeParameters *parameters);
+	OpcodeRet opcodeCurrentAction(OpcodeParameters *parameters);
 
 	// Accessors
 	ActionIndex getCurrentAction() { return _currentAction; }

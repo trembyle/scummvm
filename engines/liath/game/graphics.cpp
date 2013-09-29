@@ -83,14 +83,14 @@ void GraphicsManager::unload() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet GraphicsManager::redraw(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeRedraw(OpcodeParameters *parameters) {
 	if ((!parameters->getDword(0) && _hMemBackgroundExt) || parameters->getDword(0))
 		drawBMP(parameters->getDword(0));
 
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet GraphicsManager::xscroll(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeXScroll(OpcodeParameters *parameters) {
 	uint32 scroll = DSI2INT(EXPR(parameters->getDword(0), parameters->getDword(4)));
 	getWork()->getCurrent()->xScroll += scroll;
 
@@ -99,7 +99,7 @@ OpcodeRet GraphicsManager::xscroll(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet GraphicsManager::yscroll(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeYScroll(OpcodeParameters *parameters) {
 	uint32 scroll = DSI2INT(EXPR(parameters->getDword(0), parameters->getDword(4)));
 	getWork()->getCurrent()->yScroll += scroll;
 
@@ -108,11 +108,11 @@ OpcodeRet GraphicsManager::yscroll(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet GraphicsManager::playAvs(OpcodeParameters *parameters, bool doStopMusic) {
+OpcodeRet GraphicsManager::opcodePlayAvs(OpcodeParameters *parameters, bool doStopMusic) {
 	error("GraphicsManager::playAvs: Not implemented!");
 }
 
-OpcodeRet GraphicsManager::setBackground(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeSetBackground(OpcodeParameters *parameters) {
 	uint32 index = DSI2INT(EXPR(parameters->getDword(0), parameters->getDword(4)));
 
 	if (_nBg != index)
@@ -123,11 +123,11 @@ OpcodeRet GraphicsManager::setBackground(OpcodeParameters *parameters) {
 	return (parameters->test ? kOpcodeRetNext : kOpcodeRetDefault);
 }
 
-OpcodeRet GraphicsManager::setHeroRGB(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeSetHeroRGB(OpcodeParameters *parameters) {
 	error("GraphicsManager::set_hero_rgb: Not implemented!");
 }
 
-OpcodeRet GraphicsManager::look(OpcodeParameters *parameters) {
+OpcodeRet GraphicsManager::opcodeLook(OpcodeParameters *parameters) {
 	error("GraphicsManager::look: Not implemented!");
 }
 

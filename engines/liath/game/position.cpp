@@ -45,7 +45,7 @@ PositionManager::~PositionManager() {
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
 
-OpcodeRet PositionManager::checkLimits(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeCheckLimits(OpcodeParameters *parameters) {
 	uint32 a2, a3;
 	bool limit = checkLimit(parameters->objectIndex, &a2, &a3);
 
@@ -55,19 +55,19 @@ OpcodeRet PositionManager::checkLimits(OpcodeParameters *parameters) {
 	return RET(limit, parameters->test);
 }
 
-OpcodeRet PositionManager::autoStart(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeAutoStart(OpcodeParameters *parameters) {
 	error("PositionManager::auto_start: Not implemented!");
 }
 
-OpcodeRet PositionManager::autoCheck(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeAutoCheck(OpcodeParameters *parameters) {
 	error("PositionManager::auto_check: Not implemented!");
 }
 
-OpcodeRet PositionManager::autoStop(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeAutoStop(OpcodeParameters *parameters) {
 	error("PositionManager::auto_stop: Not implemented!");
 }
 
-OpcodeRet PositionManager::pers(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodePers(OpcodeParameters *parameters) {
 	HeroIndex index = checkPers(parameters);
 
 	getGame()->letValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5), index);
@@ -75,7 +75,7 @@ OpcodeRet PositionManager::pers(OpcodeParameters *parameters) {
 	return RET(index, parameters->test);
 }
 
-OpcodeRet PositionManager::heroPers(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeHeroPers(OpcodeParameters *parameters) {
 	HeroIndex index = (HeroIndex)getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(1), parameters->getDword(5));
 
 	uint32 val = EXPR(parameters->getDword(9), parameters->getDword(13));
@@ -83,7 +83,7 @@ OpcodeRet PositionManager::heroPers(OpcodeParameters *parameters) {
 	return RET(checkHeroPers(index, val), parameters->test);
 }
 
-OpcodeRet PositionManager::dist(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeDist(OpcodeParameters *parameters) {
 	HeroIndex heroIndex = (HeroIndex)getGame()->getValue((ParamOrigin)parameters->getByte(0), parameters->getDword(3), parameters->getDword(7));
 
 	int32 expr = EXPR(parameters->getDword(27), parameters->getDword(31));
@@ -98,7 +98,7 @@ OpcodeRet PositionManager::dist(OpcodeParameters *parameters) {
 	return RET(distance == -1, parameters->test);
 }
 
-OpcodeRet PositionManager::feel(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeFeel(OpcodeParameters *parameters) {
 	FeelResult result;
 
 	feeler(EXPR(parameters->getDword(43), parameters->getDword(47)),
@@ -113,7 +113,7 @@ OpcodeRet PositionManager::feel(OpcodeParameters *parameters) {
 	return RET(result.res1 == -1, parameters->test);
 }
 
-OpcodeRet PositionManager::barrier(OpcodeParameters *parameters) {
+OpcodeRet PositionManager::opcodeBarrier(OpcodeParameters *parameters) {
 	error("PositionManager::barrier: Not implemented!");
 }
 

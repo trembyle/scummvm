@@ -37,7 +37,7 @@ public:
 	~ExpressionManager();
 
 	// Opcodes
-	OpcodeRet expression(OpcodeParameters *parameters);
+	OpcodeRet opcodeExpression(OpcodeParameters *parameters);
 
 	int32 expression(uint32 offset, uint32 count);
 

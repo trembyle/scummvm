@@ -207,7 +207,7 @@ void GameManager::load(ActionIndex action, GameData *gameData) {
 	// Setup hero objects & load hero data
 	_countHero = gameData->countHero;
 	_countVar = _param + 14;
-	getHero()->load(_countHero, 4 * _countVar);
+	getHero()->opcodeLoad(_countHero, 4 * _countVar);
 
 	// Setup global var area
 	_globalVar = (uint32 *)calloc(4 * _gParam, 1);
@@ -231,7 +231,7 @@ void GameManager::unload() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet GameManager::rnd(OpcodeParameters *parameters) {
+OpcodeRet GameManager::opcodeRandom(OpcodeParameters *parameters) {
 	debugC(kLiathDebugInterpreter, " value: %d\n", parameters->getDword(0));
 
 	uint32 val = (parameters->getDword(0) ? _engine->getRandom().getRandomNumber(parameters->getDword(0)): 0);
@@ -239,7 +239,7 @@ OpcodeRet GameManager::rnd(OpcodeParameters *parameters) {
 	return getReturnValue(val + 1 == parameters->getDword(0), parameters->test);
 }
 
-OpcodeRet GameManager::global(OpcodeParameters *parameters) {
+OpcodeRet GameManager::opcodeGlobal(OpcodeParameters *parameters) {
 	debugC(kLiathDebugInterpreter, "  global: %d  -  expression: %d - count: %d\n", parameters->getDword(0), parameters->getDword(8), parameters->getDword(4));
 
 	setGlobal(parameters->getDword(0), EXPR(parameters->getDword(8), parameters->getDword(4)));
@@ -247,11 +247,11 @@ OpcodeRet GameManager::global(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet GameManager::key(OpcodeParameters *parameters) {
+OpcodeRet GameManager::opcodeKey(OpcodeParameters *parameters) {
 	error("GameManager::key: Not implemented!");
 }
 
-OpcodeRet GameManager::bkey(OpcodeParameters *parameters) {
+OpcodeRet GameManager::opcodeBKey(OpcodeParameters *parameters) {
 	error("GameManager::bkey: Not implemented!");
 }
 

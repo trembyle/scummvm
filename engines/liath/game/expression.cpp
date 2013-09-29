@@ -43,7 +43,7 @@ ExpressionManager::~ExpressionManager() {
 //////////////////////////////////////////////////////////////////////////
 // Opcodes
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet ExpressionManager::expression(OpcodeParameters *parameters) {
+OpcodeRet ExpressionManager::opcodeExpression(OpcodeParameters *parameters) {
 	debugC(kLiathDebugInterpreter, "  expression: %d - count: %d\n", parameters->getDword(4), parameters->getDword(0));
 
 	int expr = expression(parameters->getDword(4), parameters->getDword(0));
