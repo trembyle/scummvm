@@ -121,7 +121,7 @@ OpcodeRet WorkManager::startObj(ObjectIndex object) {
 }
 
 OpcodeRet WorkManager::htime(OpcodeParameters *parameters) {
-	_currentWork->time = parameters->getDword(0);
+	_currentWork->field_FA = parameters->getDword(0);
 	_currentWork->field_FE = parameters->getDword(0);
 
 	return kOpcodeRetDefault;
