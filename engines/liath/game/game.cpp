@@ -279,7 +279,7 @@ void GameManager::letValue(ParamOrigin type, HeroIndex index, uint32 offset, uin
 	}
 }
 
-int32 GameManager::getValue(ParamOrigin type, HeroIndex index, uint32 offset, bool handleUnknownParams, bool handleOriginParam) {
+int32 GameManager::getValue(ParamOrigin type, HeroIndex index, uint32 offset, bool handleUnknownParams, bool handleOriginParam, bool useOffsetForOriginParam) {
 	switch (type) {
 	default:
 		if (!handleUnknownParams)
@@ -306,7 +306,7 @@ int32 GameManager::getValue(ParamOrigin type, HeroIndex index, uint32 offset, bo
 		if (!handleOriginParam)
 			error("GameManager::getValue: kOriginParam encountered!");
 
-		return index;
+		return useOffsetForOriginParam ? offset : index;
 	}
 }
 

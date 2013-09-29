@@ -61,50 +61,8 @@ OpcodeRet WorkManager::opcodeCel(OpcodeParameters *parameters) {
 }
 
 OpcodeRet WorkManager::opcodeCelExt(OpcodeParameters *parameters) {
-	HeroIndex heroIndex = 0;
-	uint32 val = 0;
-
-	switch (parameters->getByte(4)) {
-	default:
-		break;
-
-	case kOriginGlobal:
-		heroIndex = GLOBAL(parameters->getDword(9));
-		break;
-
-	case kOriginHero:
-		heroIndex = getHero()->getData(parameters->getDword(5), parameters->getDword(9));
-		break;
-
-	case kOriginHeroWork:
-		heroIndex = getHero()->getData(_currentWork->heroIndex, parameters->getDword(9));
-		break;
-
-	case kOriginParam:
-		heroIndex = parameters->getDword(5);
-		break;
-	}
-
-	switch (parameters->getByte(13)) {
-	default:
-		break;
-
-	case kOriginGlobal:
-		val = GLOBAL(parameters->getDword(18));
-		break;
-
-	case kOriginHero:
-		val = getHero()->getData(parameters->getDword(14), parameters->getDword(18));
-		break;
-
-	case kOriginHeroWork:
-		val = getHero()->getData(_currentWork->heroIndex, parameters->getDword(18));
-		break;
-
-	case kOriginParam:
-		val = parameters->getDword(18);
-		break;
-	}
+	HeroIndex heroIndex = getGame()->getValue((ParamOrigin) parameters->getByte(4), parameters->getDword(5), parameters->getDword(9));
+	uint32 val = getGame()->getValue((ParamOrigin) parameters->getByte(13), parameters->getDword(14), parameters->getDword(18), true, true, true);
 
 	Work *work = getHero()->get(heroIndex)->work;
 	return RET(work && work->field_68 == val && work->field_76 == parameters->getDword(0), parameters->test);
