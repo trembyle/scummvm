@@ -46,7 +46,7 @@ public:
 	OpcodeRet opcodeHeroDark(OpcodeParameters *parameters);
 	OpcodeRet opcodeRestart();
 	OpcodeRet opcodePopHeros();
-	OpcodeRet opcodePushHerous();
+	OpcodeRet opcodePushHeros();
 	OpcodeRet opcodeGlass(OpcodeParameters *parameters, bool doIncrement);
 	OpcodeRet opcodeStop(OpcodeParameters *parameters);
 	OpcodeRet opcodeStopGlobal(OpcodeParameters *parameters);

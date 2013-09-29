@@ -96,11 +96,27 @@ OpcodeRet WorkManager::opcodeRestart() {
 }
 
 OpcodeRet WorkManager::opcodePopHeros() {
-	error("WorkManager::pop_herous: Not implemented!");
+	for (Common::Array<Work *>::iterator it = _works.begin(); it != _works.end(); it++) {
+		Work *work = (*it);
+
+		if (!(work->field_34 & 2) && work->field_32 > 0)
+			--work->field_32;
+	}
+
+	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::opcodePushHerous() {
-	error("WorkManager::push_herous: Not implemented!");
+OpcodeRet WorkManager::opcodePushHeros() {
+	for (Common::Array<Work *>::iterator it = _works.begin(); it != _works.end(); it++) {
+		Work *work = (*it);
+
+		if (work->field_34 & 2)
+			continue;
+
+		++work->field_32;
+	}
+
+	return kOpcodeRetDefault;
 }
 
 OpcodeRet WorkManager::opcodeStop(OpcodeParameters *parameters) {

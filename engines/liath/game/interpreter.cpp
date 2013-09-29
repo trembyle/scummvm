@@ -443,7 +443,7 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 		return getWork()->opcodePopHeros();
 
 	case kOpcodePushHeros:
-		return getWork()->opcodePushHerous();
+		return getWork()->opcodePushHeros();
 
 	case kOpcodeTypeMouse:
 		return getMouse()->opcodeType(parameters);
