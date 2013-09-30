@@ -747,7 +747,7 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 		return getWork()->opcodeSavetop(parameters);
 
 	case kOpcodeEndTop:
-		return getWork()->opcodeSendtop();
+		return getWork()->opcodeEndtop();
 
 	case kOpcodeMouseScroll:
 		return getMouse()->opcodeScroll(parameters);

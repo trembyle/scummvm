@@ -48,8 +48,6 @@ void WorkManager::unload() {
 			SAFE_FREE(work->field_84);
 			SAFE_FREE(work->field_80);
 		}
-
-		// SAFE_FREE(work->hGlobal); // This is the hglobal (not need to free it)
 	}
 }
 
@@ -69,10 +67,10 @@ OpcodeRet WorkManager::opcodeCelExt(OpcodeParameters *parameters) {
 }
 
 OpcodeRet WorkManager::opcodeStartObject(ObjectIndex object) {
-	if (_currentWork->isObjectIndexSet)
+	if (_currentWork->field_58 == 1)
 		return kOpcodeRetNext;
 
-	_currentWork->isObjectIndexSet = true;
+	_currentWork->field_58 = 1;
 	_currentWork->objectIndex = object;
 
 	return kOpcodeRetDefault;
@@ -92,7 +90,25 @@ OpcodeRet WorkManager::opcodeHeroDark(OpcodeParameters *parameters) {
 }
 
 OpcodeRet WorkManager::opcodeRestart() {
-	error("WorkManager::restart: not implemented!");
+	for (Common::Array<Work *>::iterator it = _works.begin(); it != _works.end(); it++) {
+		Work *work = (*it);
+
+		if (work->status == 1) {
+			SAFE_FREE(work->object->field_18);
+			SAFE_FREE(work->field_84);
+			SAFE_FREE(work->field_80);
+		}
+
+		SAFE_FREE(work->field_E4);
+		SAFE_DELETE(work->sprite);
+
+		if (work->workHeroData) {
+			SAFE_FREE(work->workHeroData->field_B5);
+			SAFE_FREE(work->workHeroData);
+		}
+	}
+
+	return kOpcodeRetDefault;
 }
 
 OpcodeRet WorkManager::opcodePopHeros() {
@@ -120,7 +136,24 @@ OpcodeRet WorkManager::opcodePushHeros() {
 }
 
 OpcodeRet WorkManager::opcodeStop(OpcodeParameters *parameters) {
-	error("WorkManager::stop: Not implemented!");
+	Work *work = (parameters->getDword(0) ? getHero()->get(parameters->getDword(0))->work : _currentWork);
+
+	if (work) {
+		if (work->status || work->field_58 == 1 || !work->sprite)
+			return kOpcodeRetNext;
+
+		work->status = 2;
+		work->field_59 = work->field_58;
+		work->field_58 = 3;
+	} else {
+		Hero *hero = getHero()->get(parameters->getDword(0));
+		if (hero->object->field_1C == 0) {
+			hero->object->field_1C = 2;
+			hero->object->field_24 = hero->object->isObjectIndexSet;
+		}
+	}
+
+	return kOpcodeRetDefault;
 }
 
 OpcodeRet WorkManager::opcodeStopGlobal(OpcodeParameters *parameters) {
@@ -147,10 +180,10 @@ OpcodeRet WorkManager::opcodeContinue(OpcodeParameters *parameters) {
 
 	if (work && work->status == 2) {
 		work->status = 0;
-		work->isObjectIndexSet = work->field_59;
+		work->field_58 = work->field_59;
 	} else if (hero->object->field_1C == 2) {
 		hero->object->field_1C = 4;
-		hero->object->field_20 = hero->object->field_24;
+		hero->object->isObjectIndexSet = hero->object->field_24;
 	}
 
 	return kOpcodeRetDefault;
@@ -187,7 +220,7 @@ OpcodeRet WorkManager::opcodeSavetop(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-OpcodeRet WorkManager::opcodeSendtop() {
+OpcodeRet WorkManager::opcodeEndtop() {
 	_currentWork->field_B1 = 10000;
 	return kOpcodeRetDefault;
 }

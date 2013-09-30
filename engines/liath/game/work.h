@@ -57,7 +57,7 @@ public:
 	OpcodeRet opcodeContinueHeroVar(OpcodeParameters *parameters);
 	OpcodeRet opcodeContitnueVar(OpcodeParameters *parameters);
 	OpcodeRet opcodeSavetop(OpcodeParameters *parameters);
-	OpcodeRet opcodeSendtop();
+	OpcodeRet opcodeEndtop();
 
 	Work *getCurrent() { return _currentWork; }
 	Work *get(HeroIndex index);

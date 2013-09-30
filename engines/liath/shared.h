@@ -391,16 +391,23 @@ struct Music {
 struct Hero;
 struct HeroData;
 
-struct Object {
+struct WorkObject {
 	uint32 field_0;
+	// TODO
 	uint32 *field_18;
+	// TODO
 	uint16 field_41;
 	uint16 field_43;
 } PACKED_STRUCT;
 
 struct WorkHeroData {
+	uint32* field_B5;
 	int32 textIndex;
 	Music *music;
+} PACKED_STRUCT;
+
+struct Sprite {
+	// TODO
 } PACKED_STRUCT;
 
 struct WorkData {
@@ -434,15 +441,15 @@ struct Work {
 	uint32 field_45;
 	int16 field_55;
 	byte field_57;
-	bool isObjectIndexSet;
+	byte field_58;
 	bool field_59;
 	ObjectIndex objectIndex;
 	HeroIndex heroIndex;
 	uint16 field_60;
 	uint16 field_62;
-	Object *object;
+	WorkObject *object;
 	uint16 field_68;
-	//Sprite *sprite;
+	Sprite *sprite;
 
 	uint16 field_76;
 	HeroData *oldHeroData;
@@ -466,6 +473,8 @@ struct Work {
 
 	uint16 field_EC;
 	uint16 field_EE;
+
+	uint32 *field_E4;
 
 	uint32 field_F2;
 	uint32 field_F6;
@@ -499,13 +508,21 @@ struct HeroObject {
 	uint32 field_0;
 	uint32 field_4;
 	uint32 field_8;
-	uint32 field_C;
+	uint32 previousAction;
 	uint32 field_10;
 	uint32 field_14;
 	uint32 field_18;
-	uint32 field_1C;
-	uint32 field_20;
+	byte field_1C;
+	byte field_1D;
+	byte field_1E;
+	byte field_1F;
+	uint32 isObjectIndexSet;
 	uint32 field_24;
+	uint32 field_28;
+	uint32 field_2C;
+	uint32 field_30;
+	uint32 field_34;
+	uint32 field_38;
 } PACKED_STRUCT;
 
 struct HeroData {
