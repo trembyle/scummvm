@@ -71,8 +71,8 @@ OpcodeRet ActionManager::opcodeStart(OpcodeParameters *parameters) {
 		_avsY = parameters->getWord(39);
 	}
 
-	if (GLOBAL(121) == 131072 || GLOBAL(121) == 65536)
-		SETGLOBAL(121, 196608);
+	if (GLOBAL(121) == 0x20000 || GLOBAL(121) == 0x10000)
+		SETGLOBAL(121, 0x30000);
 
 	return kOpcodeRetExit;
 }
