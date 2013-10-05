@@ -56,6 +56,8 @@ private:
 
 	int32 _count;
 	bool _pressMouse;
+	int _countStopMouse;
+	int _timeCountStopMouse;
 
 	Common::Array<MouseBox *> _boxes;
 

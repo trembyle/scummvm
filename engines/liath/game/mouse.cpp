@@ -29,9 +29,11 @@
 #include "liath/helpers.h"
 #include "liath/liath.h"
 
+#include "common/system.h"
+
 namespace Liath {
 
-MouseManager::MouseManager(LiathEngine *engine) : _engine(engine), _count(0), _pressMouse(false) {}
+MouseManager::MouseManager(LiathEngine *engine) : _engine(engine), _count(0), _pressMouse(false), _countStopMouse(0), _timeCountStopMouse(0) {}
 
 MouseManager::~MouseManager() {
 	// Zero-out passed pointers
@@ -88,7 +90,11 @@ OpcodeRet MouseManager::opcodeType(OpcodeParameters *parameters) {
 }
 
 OpcodeRet MouseManager::opcodeReset(OpcodeParameters *parameters) {
-	error("MouseManager::reset: Not implemented!");
+	_countStopMouse = 1;
+	_timeCountStopMouse = parameters->getDword(0) + g_system->getMillis() - 1501;
+	_pressMouse = false;
+
+	return kOpcodeRetDefault;
 }
 
 OpcodeRet MouseManager::opcodeKey(OpcodeParameters *parameters) {
@@ -116,7 +122,6 @@ OpcodeRet MouseManager::opcodeCheck(OpcodeParameters *parameters) {
 	error("MouseManager::check: Not implemented!");
 }
 
-
 OpcodeRet MouseManager::opcodeAddBox(OpcodeParameters *parameters) {
 	error("MouseManager::addBox: Not implemented!");
 }
@@ -124,7 +129,6 @@ OpcodeRet MouseManager::opcodeAddBox(OpcodeParameters *parameters) {
 OpcodeRet MouseManager::opcodeRemoveBox(OpcodeParameters *parameters) {
 	error("MouseManager::removeBox: Not implemented!");
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 // Private functions
