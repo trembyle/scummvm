@@ -51,7 +51,7 @@ HeroManager::~HeroManager() {
 //////////////////////////////////////////////////////////////////////////
 // Loading
 //////////////////////////////////////////////////////////////////////////
-void HeroManager::opcodeLoad(uint32 count, size_t varSize) {
+void HeroManager::load(uint32 count, size_t varSize) {
 	// Open hero data file
 	Common::SeekableReadStream *stream = getResource()->createReadStreamForMember("game0001.dat");
 	if (!stream)
@@ -260,7 +260,7 @@ OpcodeRet HeroManager::opcodePassVariable(OpcodeParameters *parameters) {
 }
 
 OpcodeRet HeroManager::opcodeFreeze(OpcodeParameters *parameters) {
-	return opcodeFreeze((HeroIndex)parameters->getDword(0));
+	return freeze((HeroIndex)parameters->getDword(0));
 }
 
 OpcodeRet HeroManager::opcodeFreezeGlobal(OpcodeParameters *parameters) {
@@ -370,29 +370,29 @@ OpcodeRet HeroManager::opcodeSys(OpcodeParameters *parameters) {
 }
 
 OpcodeRet HeroManager::opcodeQuitHero(OpcodeParameters *parameters) {
-	return quit(parameters->getDword(0));
+	return quitHero(parameters->getDword(0));
 }
 
 OpcodeRet HeroManager::opcodeQuitGlobal(OpcodeParameters *parameters) {
-	return quit(GLOBAL(parameters->getDword(8)));
+	return quitHero(GLOBAL(parameters->getDword(8)));
 }
 
 OpcodeRet HeroManager::opcodeQuitHeroVar(OpcodeParameters *parameters) {
-	return quit(getData(parameters->getDword(4), parameters->getDword(8)));
+	return quitHero(getData(parameters->getDword(4), parameters->getDword(8)));
 }
 
 OpcodeRet HeroManager::opcodeQuitVar(OpcodeParameters *parameters) {
-	return quit(getData(getWork()->getCurrent()->heroIndex, parameters->getDword(8)));
+	return quitHero(getData(getWork()->getCurrent()->heroIndex, parameters->getDword(8)));
 }
 
 OpcodeRet HeroManager::opcodeAuto2Hero(OpcodeParameters *parameters) {
-	return RET(auto2(parameters) == kOpcodeRetNext, parameters->test);
+	return RET(auto2hero(parameters) == kOpcodeRetNext, parameters->test);
 }
 
 OpcodeRet HeroManager::opcodeAuto2HeroGlobal(OpcodeParameters *parameters) {
 	parameters->setDword(0, GLOBAL(parameters->getDword(4)));
 
-	return RET(auto2(parameters) == kOpcodeRetNext, parameters->test);
+	return RET(auto2hero(parameters) == kOpcodeRetNext, parameters->test);
 }
 
 OpcodeRet HeroManager::opcodeAuto2HeroHeroVar(OpcodeParameters *parameters) {
@@ -408,7 +408,7 @@ OpcodeRet HeroManager::opcodeAuto2HeroHeroVar(OpcodeParameters *parameters) {
 OpcodeRet HeroManager::opcodeAuto2HeroVar(OpcodeParameters *parameters) {
 	parameters->setDword(0, getData(getWork()->getCurrent()->heroIndex, parameters->getDword(4)));
 
-	return RET(auto2(parameters) == kOpcodeRetNext, parameters->test);
+	return RET(auto2hero(parameters) == kOpcodeRetNext, parameters->test);
 }
 
 OpcodeRet HeroManager::opcodeFace2Hero(OpcodeParameters *parameters) {
@@ -447,7 +447,7 @@ OpcodeRet HeroManager::opcodeFace2HeroVar(OpcodeParameters *parameters) {
 }
 
 OpcodeRet HeroManager::opcodeHearGlobal(OpcodeParameters *parameters) {
-	OpcodeRet ret = hear(parameters);
+	OpcodeRet ret = hearHero(parameters);
 
 	SETGLOBAL(parameters->getDword(4),  ret);
 
@@ -458,7 +458,7 @@ OpcodeRet HeroManager::opcodeHearGlobal(OpcodeParameters *parameters) {
 }
 
 OpcodeRet HeroManager::opcodeHearHeroVar(OpcodeParameters *parameters) {
-	OpcodeRet ret = hear(parameters);
+	OpcodeRet ret = hearHero(parameters);
 
 	setData(parameters->getDword(0), parameters->getDword(4), ret);
 
@@ -469,7 +469,7 @@ OpcodeRet HeroManager::opcodeHearHeroVar(OpcodeParameters *parameters) {
 }
 
 OpcodeRet HeroManager::opcodeHearVar(OpcodeParameters *parameters) {
-	OpcodeRet ret = hear(parameters);
+	OpcodeRet ret = hearHero(parameters);
 
 	setData(getWork()->getCurrent()->heroIndex, parameters->getDword(4), ret);
 
@@ -514,19 +514,19 @@ void HeroManager::remove(HeroIndex index) {
 //////////////////////////////////////////////////////////////////////////
 // Private functions
 //////////////////////////////////////////////////////////////////////////
-OpcodeRet HeroManager::opcodeFreeze(HeroIndex heroIndex) {
+OpcodeRet HeroManager::freeze(HeroIndex heroIndex) {
 	error("HeroManager::freeze: Not implemented!");
 }
 
-OpcodeRet HeroManager::quit(HeroIndex heroIndex) {
+OpcodeRet HeroManager::quitHero(HeroIndex heroIndex) {
 	error("HeroManager::quit: Not implemented!");
 }
 
-OpcodeRet HeroManager::auto2(OpcodeParameters *parameters) {
+OpcodeRet HeroManager::auto2hero(OpcodeParameters *parameters) {
 	error("HeroManager::auto2: Not implemented!");
 }
 
-OpcodeRet HeroManager::hear(OpcodeParameters *parameters) {
+OpcodeRet HeroManager::hearHero(OpcodeParameters *parameters) {
 	error("HeroManager::auto2: Not implemented!");
 }
 

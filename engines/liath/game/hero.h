@@ -35,7 +35,7 @@ public:
 	HeroManager(LiathEngine *engine);
 	~HeroManager();
 
-	void opcodeLoad(uint32 count, size_t size);
+	void load(uint32 count, size_t size);
 	void unload();
 
 	// Opcodes
@@ -77,7 +77,7 @@ public:
 	OpcodeRet opcodeHearHeroVar(OpcodeParameters *parameters);
 	OpcodeRet opcodeHearVar(OpcodeParameters *parameters);
 
-	// Utils
+	// Utilities
 	void create(Hero *hero, byte *data1, byte *data2, byte *data3, byte *data4);
 	void remove(HeroIndex index);
 
@@ -126,10 +126,10 @@ private:
 	uint32 _nHero;
 
 	// Opcode helpers
-	OpcodeRet opcodeFreeze(HeroIndex heroIndex);
-	OpcodeRet quit(HeroIndex heroIndex);
-	OpcodeRet auto2(OpcodeParameters *parameters);
-	OpcodeRet hear(OpcodeParameters *parameters);
+	OpcodeRet freeze(HeroIndex heroIndex);
+	OpcodeRet quitHero(HeroIndex heroIndex);
+	OpcodeRet auto2hero(OpcodeParameters *parameters);
+	OpcodeRet hearHero(OpcodeParameters *parameters);
 };
 
 } // End of namespace Liath

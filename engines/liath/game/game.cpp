@@ -207,7 +207,7 @@ void GameManager::load(ActionIndex action, GameData *gameData) {
 	// Setup hero objects & load hero data
 	_countHero = gameData->countHero;
 	_countVar = _param + 14;
-	getHero()->opcodeLoad(_countHero, 4 * _countVar);
+	getHero()->load(_countHero, 4 * _countVar);
 
 	// Setup global var area
 	_globalVar = (uint32 *)calloc(4 * _gParam, 1);
