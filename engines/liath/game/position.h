@@ -60,6 +60,16 @@ private:
 		}
 	};
 
+	struct Box {
+		int32 field_0;
+		int32 field_4;
+		int32 field_8[18];
+		int32 field_50[9];
+		int32 field_74[9];
+	};
+
+	Common::Array<Box *> _boxes;
+
 	// Helpers methods
 	bool checkLimit(ObjectIndex objectIndex, uint32 *a2, uint32 *a3);
 	void feeler(int32 expr1, int32 expr2, int32 expr3, FeelResult *result);
@@ -68,6 +78,7 @@ private:
 	int32 calcDist(Work *work, int32 *expr);
 	bool checkDistPers(Work *work);
 	bool checkHeroPers(HeroIndex heroIndex, int32 expr);
+	int isPath(int index, int value);
 
 };
 

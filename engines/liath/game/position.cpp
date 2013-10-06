@@ -130,7 +130,7 @@ bool PositionManager::checkLimit(ObjectIndex objectIndex, uint32 *a2, uint32 *a3
 }
 
 void PositionManager::feeler(int32 expr1, int32 expr2, int32 expr3, FeelResult *data) {
-	// We already have set the values to -1 in FeelData constructor
+	// We already have set the values to -1 in the FeelResult constructor
 
 	for (uint i = 0; i < 4; i++) {
 		int32 res = calcDir(feelData[expr2 + i], expr1, data);
@@ -211,6 +211,15 @@ bool PositionManager::checkHeroPers(HeroIndex heroIndex, int32 expr) {
 		return (work->field_AF >= test4);
 
 	return false;
+}
+
+int PositionManager::isPath(int index, int value) {
+	for (int i = 0; i < 9; i++) {
+		if (_boxes[index]->field_50[i] == value)
+			return i;
+	}
+
+	return 0;
 }
 
 } // End of namespace Liath
