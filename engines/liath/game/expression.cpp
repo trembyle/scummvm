@@ -70,6 +70,9 @@ int32 ExpressionManager::expression(uint32 offset, uint32 count) {
 	Expression *expressions = (Expression *)getSegment()->getData(kSegmentExpression, offset);
 	Work *work = getWork()->getCurrent();
 
+	// Clear the queue of expression data
+	_queue.clear();
+
 	for (uint index = 0; index < count; index++) {
 		Expression expr = expressions[index];
 
