@@ -94,15 +94,15 @@ public:
 	SpeakerQuinn1100 _quinnSpeaker;
 	SpeakerChief1100 _chiefSpeaker;
 	ScenePalette _palette1;
-	NamedHotspot _item1;
-	NamedHotspot _item2;
-	NamedHotspot _item3;
-	NamedHotspot _item4;
-	NamedHotspot _item5;
-	NamedHotspot _item6;
-	NamedHotspot _item7;
-	SceneActor _actor1;
-	SceneActor _actor2;
+	NamedHotspot _background;
+	NamedHotspot _sky;
+	NamedHotspot _fuana1;
+	NamedHotspot _fauna2;
+	NamedHotspot _bouldersBlockingCave;
+	NamedHotspot _boulders;
+	NamedHotspot _trail;
+	SceneActor _ship;
+	SceneActor _cloud;
 	SceneActor _shipFormation;
 	SceneActor _shipFormationShadow;
 	SceneActor _shotImpact1;
@@ -111,7 +111,7 @@ public:
 	SceneActor _shotImpact4;
 	SceneActor _shotImpact5;
 	SceneActor _laserShot;
-	SceneActor _animation;
+	SceneActor _animation;	// Used for cliff collapse and ship theft	
 	SceneActor _leftImpacts;
 	SceneActor _runningGuy1;
 	SceneActor _runningGuy2;

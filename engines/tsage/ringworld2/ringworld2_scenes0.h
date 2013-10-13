@@ -109,7 +109,7 @@ class Scene125: public SceneExt {
 
 	class Icon: public SceneActor {
 	public:
-		int _lookLineNum, _field98;
+		int _lookLineNum, _iconId;
 		bool _pressed;
 		SceneObject _object1, _object2;
 		SceneText _sceneText1, _sceneText2;
@@ -197,11 +197,11 @@ class Scene180: public SceneExt {
 private:
 	void setSceneDelay(int v);
 public:
-	SpeakerWebbster _webbsterSpeaker;
-	SpeakerDutyOfficer _dutyOfficerSpeaker;
-	SpeakerTeal _tealSpeaker;
+	SpeakerWebbster180 _webbsterSpeaker;
+	SpeakerDutyOfficer180 _dutyOfficerSpeaker;
+	SpeakerTeal180 _tealSpeaker;
 	SpeakerGameText _gameTextSpeaker;
-	SceneActor _object1, _object2, _object3, _object4, _object5;
+	SceneActor _dutyOfficer, _teal, _webbser, _door, _shipDisplay;
 	ScenePalette _palette;
 	SceneText _textList[20];
 	AnimationPlayerExt _animationPlayer;
@@ -306,7 +306,6 @@ public:
 	virtual void dispatch();
 };
 
-
 class Scene250: public SceneExt {
 	class Button: public SceneActor {
 	public:
@@ -320,8 +319,8 @@ class Scene250: public SceneExt {
 public:
 	int _currButtonY, _destButtonY, _elevatorSpeed;
 	bool _skippingFl, _skippableFl;
-	NamedHotspot _background, _item2, _item3, _item4;
-	Button _button1, _currentFloor;
+	NamedHotspot _background, _door, _directionIndicator;
+	Button _destinationFloor, _currentFloor;
 	Button _floor1, _floor2, _floor3, _floor4, _floor5;
 	Button _floor6, _floor7, _floor8, _floor9;
 	ASoundExt _sound1;
@@ -429,7 +428,7 @@ public:
 class Scene325: public SceneExt {
 	class Icon: public SceneActor {
 	public:
-		int _lookLineNum, _field98;
+		int _lookLineNum, _iconId;
 		bool _pressed;
 		SceneObject _object1, _object2;
 		SceneText _sceneText1, _sceneText2;
@@ -457,7 +456,7 @@ public:
 	int _soundQueue[10];
 	SpeakerQuinn _quinnSpeaker;
 	ScenePalette _palette;
-	SceneHotspot _background, _item2;
+	SceneHotspot _background, _terminal;
 	SceneObject _object1, _object2, _object3, _object4, _object5;
 	SceneObject _object6, _object7, _object8, _object9, _object10;
 	SceneObject _object11, _object12, _scannerTab;
@@ -476,7 +475,6 @@ public:
 	virtual void process(Event &event);
 	virtual void dispatch();
 };
-
 
 class Scene400: public SceneExt {
 	/* Items */
@@ -577,8 +575,9 @@ class Scene500: public SceneExt {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Object8: public SceneActor {
-		// This classes uses a custom draw method
+	class TransparentDoor: public SceneActor {
+	public:
+		virtual void draw();
 	};
 	class Aerosol: public SceneActor {
 	public:
@@ -598,18 +597,17 @@ class Scene500: public SceneExt {
 	};
 public:
 	int _stripNumber;
-	byte _buffer[2710];
 	SpeakerSeeker500 _seekerSpeaker;
 	SpeakerQuinn500 _quinnSpeaker;
-	SceneHotspot _background, _item2;
+	SceneHotspot _background, _airlockCorridor;
 	ControlPanel _controlPanel;
-	SceneActor _object1;
+	SceneActor _suits;
 	Seeker _seeker;
 	Suit _suit;
 	Doorway _doorway;
 	OxygenTanks _tanks1, _tanks2;
 	AirLock _airLock;
-	Object8 _object8;
+	TransparentDoor _transparentDoor;
 	Aerosol _aerosol;
 	SonicStunner _sonicStunner;
 	Locker1 _locker1;
@@ -638,7 +636,7 @@ class Scene600 : public SceneExt {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Item4 : public NamedHotspot {
+	class EngineCompartment : public NamedHotspot {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -666,14 +664,14 @@ class Scene600 : public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	int _field412;
+	int _roomState;
+	CompartmentHotspot _quantumDrive;
+	CompartmentHotspot _quantumRegulator;
+	CompartmentHotspot _powerNode;
+	EngineCompartment _engineCompartment;
 	CompartmentHotspot _background;
-	CompartmentHotspot _item2;
-	CompartmentHotspot _item3;
-	Item4 _item4;
-	CompartmentHotspot _item5;
-	BackgroundSceneObject _object1;
-	SceneActor _actor1;
+	SceneActor _stasisArea;
+	SceneActor _laserBeam;
 	SceneActor _computer;
 	SceneActor _stasisField;
 	Smoke _smoke;
@@ -681,7 +679,7 @@ public:
 	Laser _laser;
 	Aerosol _aerosol;
 	Scanner _scanner;
-	ASoundExt _aSound1;
+	ASoundExt _sound1;
 	SequenceManager _sequenceManager1;
 	SequenceManager _sequenceManager2;
 	byte _pixelMap[256];
@@ -696,7 +694,7 @@ public:
 };
 
 class Scene700: public SceneExt {
-	class Item11 : public NamedHotspot {
+	class Loft : public NamedHotspot {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -705,15 +703,15 @@ class Scene700: public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor2 : public SceneActor {
+	class LiftDoor : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor3 : public SceneActor {
+	class SuitRoomDoor : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor4 : public SceneActor {
+	class ControlPanel : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -721,35 +719,34 @@ class Scene700: public SceneExt {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor6 : public SceneActor {
+	class LoftDoor : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	NamedHotspot _item1;
-	NamedHotspot _item2;
-	NamedHotspot _item3;
-	NamedHotspot _item4;
-	NamedHotspot _item5;
-	NamedHotspot _item6;
-	NamedHotspot _item7;
-	NamedHotspot _item8;
-	NamedHotspot _item9;
-	NamedHotspot _item10;
-	Item11 _item11;
+	NamedHotspot _background;
+	NamedHotspot _debris1;
+	NamedHotspot _debris2;
+	NamedHotspot _debris3;
+	NamedHotspot _debris4;
+	NamedHotspot _restraintCollar;
+	NamedHotspot _storage2;
+	NamedHotspot _storage1;
+	NamedHotspot _stars;
+	NamedHotspot _light;
+	Loft _loft;
 	HandGrip _handGrip;
-	SceneActor _actor1;
-	Actor2 _actor2;
-	Actor3 _actor3;
-	Actor4 _actor4;
+	SceneActor _electromagnet;
+	LiftDoor _liftDoor;
+	SuitRoomDoor _suitRoomDoor;
+	ControlPanel _controlPanel;
 	Cable _cable;
-	Actor6 _actor6;
-	Actor6 _actor7;
-	Actor6 _actor8;
-	Actor6 _actor9;
+	LoftDoor _loftDoor1;
+	LoftDoor _loftDoor2;
+	LoftDoor _loftDoor3;
+	LoftDoor _loftDoor4;
 	SequenceManager _sequenceManager;
 	PaletteRotation *_rotation;
-	int _field100E;
 
 	Scene700();
 	virtual void postInit(SceneObjectList *OwnerList = NULL);
@@ -824,8 +821,8 @@ class Scene825: public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	NamedHotspot _background, _item2;
-	SceneActor _object1, _object2, _object3, _object4, _object5;
+	NamedHotspot _background, _console;
+	SceneActor _vertLine1, _vertLine2, _vertLine3, _vertLine4, _vertLine5;
 	Button _button1, _button2, _button3, _button4, _button5, _button6;
 	ASoundExt _sound1, _sound2, _sound3, _sound4;
 	SequenceManager _sequenceManager1;
@@ -872,7 +869,7 @@ public:
 	NamedHotspot _background, _eastDoor, _compartment, _sickBayIndicator;
 	NamedHotspot _liftControls;
 	Indicator _indicator;
-	SceneActor _object1, _fibre;
+	SceneActor _spark, _fibre;
 	LiftDoor _liftDoor;
 	SickBayDoor _sickBayDoor;
 	Clamp _clamp;
@@ -894,11 +891,11 @@ class Scene900 : public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	int _field412;
+	int _controlsScreenNumber;
 	Common::Point _magnetChangeAmount;
-	NamedHotspot _item1;
-	SceneActor _actor1;
-	SceneActor _actor2;
+	NamedHotspot _background;
+	SceneActor _controls;
+	SceneActor _cable;
 	SceneActor _electromagnet;
 	Button _button1;
 	Button _button2;

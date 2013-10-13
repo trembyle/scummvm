@@ -75,8 +75,6 @@ bool UITiledImage::display(int x, int y, int width, int height) {
 	int nuColumns = (width - (_middleLeft.right - _middleLeft.left) - (_middleRight.right - _middleRight.left)) / tileWidth;
 	int nuRows = (height - (_upMiddle.bottom - _upMiddle.top) - (_downMiddle.bottom - _downMiddle.top)) / tileHeight;
 
-	int col, row;
-
 	_gameRef->_renderer->startSpriteBatch();
 
 	// top left/right
@@ -88,27 +86,24 @@ bool UITiledImage::display(int x, int y, int width, int height) {
 	_image->_surface->displayTrans(x + (_upLeft.right - _upLeft.left) + nuColumns * tileWidth, y + (_upMiddle.bottom - _upMiddle.top) + nuRows * tileHeight, _downRight);
 
 	// left/right
-	int yyy = y + (_upMiddle.bottom - _upMiddle.top);
-	for (row = 0; row < nuRows; row++) {
-		_image->_surface->displayTrans(x,                                                       yyy, _middleLeft);
-		_image->_surface->displayTrans(x + (_middleLeft.right - _middleLeft.left) + nuColumns * tileWidth, yyy, _middleRight);
-		yyy += tileWidth;
+	if (nuRows > 0) {
+		int yyy = y + (_upMiddle.bottom - _upMiddle.top);
+		_image->_surface->displayTiled(x, yyy, _middleLeft, 1, nuRows);
+		_image->_surface->displayTiled(x + (_middleLeft.right - _middleLeft.left) + nuColumns * tileWidth, yyy, _middleRight, 1, nuRows);
 	}
 
 	// top/bottom
-	int xxx = x + (_upLeft.right - _upLeft.left);
-	for (col = 0; col < nuColumns; col++) {
-		_image->_surface->displayTrans(xxx, y, _upMiddle);
-		_image->_surface->displayTrans(xxx, y + (_upMiddle.bottom - _upMiddle.top) + nuRows * tileHeight, _downMiddle);
-		xxx += tileWidth;
+	if (nuColumns > 0) {
+		int xxx = x + (_upLeft.right - _upLeft.left);
+		_image->_surface->displayTiled(xxx, y, _upMiddle, nuColumns, 1);
+		_image->_surface->displayTiled(xxx, y + (_upMiddle.bottom - _upMiddle.top) + nuRows * tileHeight, _downMiddle, nuColumns, 1);
 	}
 
 	// tiles
 	if (nuRows > 0 && nuColumns > 0) {
-		yyy = y + (_upMiddle.bottom - _upMiddle.top);
-		xxx = x + (_upLeft.right - _upLeft.left);
-		_image->_surface->displayTrans(xxx, yyy, _middleMiddle);
-		_image->_surface->repeatLastDisplayOp(tileWidth, tileWidth, nuColumns, nuRows);
+		int yyy = y + (_upMiddle.bottom - _upMiddle.top);
+		int xxx = x + (_upLeft.right - _upLeft.left);
+		_image->_surface->displayTiled(xxx, yyy, _middleMiddle, nuColumns, nuRows);
 	}
 
 	_gameRef->_renderer->endSpriteBatch();
@@ -119,7 +114,7 @@ bool UITiledImage::display(int x, int y, int width, int height) {
 
 //////////////////////////////////////////////////////////////////////////
 bool UITiledImage::loadFile(const char *filename) {
-	byte *buffer = BaseFileManager::getEngineInstance()->readWholeFile(filename);
+	char *buffer = (char *)BaseFileManager::getEngineInstance()->readWholeFile(filename);
 	if (buffer == nullptr) {
 		_gameRef->LOG(0, "UITiledImage::LoadFile failed for file '%s'", filename);
 		return STATUS_FAILED;
@@ -158,7 +153,7 @@ TOKEN_DEF(HORIZONTAL_TILES)
 TOKEN_DEF(EDITOR_PROPERTY)
 TOKEN_DEF_END
 //////////////////////////////////////////////////////////////////////////
-bool UITiledImage::loadBuffer(byte *buffer, bool complete) {
+bool UITiledImage::loadBuffer(char *buffer, bool complete) {
 	TOKEN_TABLE_START(commands)
 	TOKEN_TABLE(TILED_IMAGE)
 	TOKEN_TABLE(TEMPLATE)
@@ -177,7 +172,7 @@ bool UITiledImage::loadBuffer(byte *buffer, bool complete) {
 	TOKEN_TABLE(EDITOR_PROPERTY)
 	TOKEN_TABLE_END
 
-	byte *params;
+	char *params;
 	int cmd;
 	BaseParser parser;
 	bool hTiles = false, vTiles = false;
@@ -185,17 +180,17 @@ bool UITiledImage::loadBuffer(byte *buffer, bool complete) {
 	int v1 = 0, v2 = 0, v3 = 0;
 
 	if (complete) {
-		if (parser.getCommand((char **)&buffer, commands, (char **)&params) != TOKEN_TILED_IMAGE) {
+		if (parser.getCommand(&buffer, commands, &params) != TOKEN_TILED_IMAGE) {
 			_gameRef->LOG(0, "'TILED_IMAGE' keyword expected.");
 			return STATUS_FAILED;
 		}
 		buffer = params;
 	}
 
-	while ((cmd = parser.getCommand((char **)&buffer, commands, (char **)&params)) > 0) {
+	while ((cmd = parser.getCommand(&buffer, commands, &params)) > 0) {
 		switch (cmd) {
 		case TOKEN_TEMPLATE:
-			if (DID_FAIL(loadFile((char *)params))) {
+			if (DID_FAIL(loadFile(params))) {
 				cmd = PARSERR_GENERIC;
 			}
 			break;
@@ -203,7 +198,7 @@ bool UITiledImage::loadBuffer(byte *buffer, bool complete) {
 		case TOKEN_IMAGE:
 			delete _image;
 			_image = new BaseSubFrame(_gameRef);
-			if (!_image || DID_FAIL(_image->setSurface((char *)params))) {
+			if (!_image || DID_FAIL(_image->setSurface(params))) {
 				delete _image;
 				_image = nullptr;
 				cmd = PARSERR_GENERIC;
@@ -211,48 +206,48 @@ bool UITiledImage::loadBuffer(byte *buffer, bool complete) {
 			break;
 
 		case TOKEN_UP_LEFT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_upLeft.left, &_upLeft.top, &_upLeft.right, &_upLeft.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_upLeft.left, &_upLeft.top, &_upLeft.right, &_upLeft.bottom);
 			break;
 
 		case TOKEN_UP_RIGHT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_upRight.left, &_upRight.top, &_upRight.right, &_upRight.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_upRight.left, &_upRight.top, &_upRight.right, &_upRight.bottom);
 			break;
 
 		case TOKEN_UP_MIDDLE:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_upMiddle.left, &_upMiddle.top, &_upMiddle.right, &_upMiddle.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_upMiddle.left, &_upMiddle.top, &_upMiddle.right, &_upMiddle.bottom);
 			break;
 
 		case TOKEN_DOWN_LEFT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_downLeft.left, &_downLeft.top, &_downLeft.right, &_downLeft.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_downLeft.left, &_downLeft.top, &_downLeft.right, &_downLeft.bottom);
 			break;
 
 		case TOKEN_DOWN_RIGHT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_downRight.left, &_downRight.top, &_downRight.right, &_downRight.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_downRight.left, &_downRight.top, &_downRight.right, &_downRight.bottom);
 			break;
 
 		case TOKEN_DOWN_MIDDLE:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_downMiddle.left, &_downMiddle.top, &_downMiddle.right, &_downMiddle.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_downMiddle.left, &_downMiddle.top, &_downMiddle.right, &_downMiddle.bottom);
 			break;
 
 		case TOKEN_MIDDLE_LEFT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_middleLeft.left, &_middleLeft.top, &_middleLeft.right, &_middleLeft.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_middleLeft.left, &_middleLeft.top, &_middleLeft.right, &_middleLeft.bottom);
 			break;
 
 		case TOKEN_MIDDLE_RIGHT:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_middleRight.left, &_middleRight.top, &_middleRight.right, &_middleRight.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_middleRight.left, &_middleRight.top, &_middleRight.right, &_middleRight.bottom);
 			break;
 
 		case TOKEN_MIDDLE_MIDDLE:
-			parser.scanStr((char *)params, "%d,%d,%d,%d", &_middleMiddle.left, &_middleMiddle.top, &_middleMiddle.right, &_middleMiddle.bottom);
+			parser.scanStr(params, "%d,%d,%d,%d", &_middleMiddle.left, &_middleMiddle.top, &_middleMiddle.right, &_middleMiddle.bottom);
 			break;
 
 		case TOKEN_HORIZONTAL_TILES:
-			parser.scanStr((char *)params, "%d,%d,%d", &h1, &h2, &h3);
+			parser.scanStr(params, "%d,%d,%d", &h1, &h2, &h3);
 			hTiles = true;
 			break;
 
 		case TOKEN_VERTICAL_TILES:
-			parser.scanStr((char *)params, "%d,%d,%d", &v1, &v2, &v3);
+			parser.scanStr(params, "%d,%d,%d", &v1, &v2, &v3);
 			vTiles = true;
 			break;
 

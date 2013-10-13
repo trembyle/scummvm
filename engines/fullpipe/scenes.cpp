@@ -74,6 +74,23 @@ Vars::Vars() {
 	selector = 0;
 }
 
+static int scenes[] = {
+	SC_1,  SC_2,  SC_3,  SC_4,  SC_5,  SC_6,  SC_7,  SC_8,  SC_9,  SC_10,
+	SC_11, SC_12, SC_13, SC_14, SC_15, SC_16, SC_17, SC_18, SC_19, SC_20,
+	SC_21, SC_22, SC_23, SC_24, SC_25, SC_26, SC_27, SC_28, SC_29, SC_30,
+	SC_31, SC_32, SC_33, SC_34, SC_35, SC_36, SC_37, SC_38, SC_DBGMENU
+};
+
+int FullpipeEngine::convertScene(int scene) {
+	if (!scene || scene >= SC_1)
+		return scene;
+
+	if (scene < 1 || scene > 39)
+		return SC_1;
+
+	return scenes[scene - 1];
+}
+
 bool FullpipeEngine::sceneSwitcher(EntranceInfo *entrance) {
 	GameVar *sceneVar;
 	Common::Point sceneDim;
@@ -1348,7 +1365,7 @@ int MovGraph_messageHandler(ExCommand *cmd) {
 
 		double sq = (ani->_oy - node->_y) * (ani->_oy - node->_y) + (ani->_ox - node->_x) * (ani->_ox - node->_x);
 		int off = (node->_field_14 >> 16) & 0xFF;
-		double off2 = (link->_movGraphNode2->_field_14 >> 8) & 0xff - off;
+		double off2 = ((link->_movGraphNode2->_field_14 >> 8) & 0xff) - off;
 
 		top = off + (int)(sqrt(sq) * off2 / link->_distance);
 	} else {

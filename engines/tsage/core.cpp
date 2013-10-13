@@ -2066,8 +2066,8 @@ SceneObject::SceneObject() : SceneHotspot() {
 	_visage = 0;
 	_strip = 0;
 	_frame = 0;
-	_effect = 0;
-	_shade = _shade2 = 0;
+	_effect = EFFECT_NONE;
+	_shade = _oldShade = 0;
 	_linkedActor = NULL;
 
 	_field8A = Common::Point(0, 0);
@@ -2473,7 +2473,7 @@ void SceneObject::synchronize(Serializer &s) {
 	if (g_vm->getGameID() == GType_Ringworld2) {
 		s.syncAsSint16LE(_effect);
 		s.syncAsSint16LE(_shade);
-		s.syncAsSint16LE(_shade2);
+		s.syncAsSint16LE(_oldShade);
 		SYNC_POINTER(_linkedActor);
 	}
 }
@@ -2482,7 +2482,8 @@ void SceneObject::postInit(SceneObjectList *OwnerList) {
 	if (!OwnerList)
 		OwnerList = g_globals->_sceneObjects;
 
-	if (!OwnerList->contains(this) || ((_flags & OBJFLAG_REMOVE) != 0)) {
+	bool isExisting = OwnerList->contains(this); 
+	if (!isExisting || ((_flags & OBJFLAG_REMOVE) != 0)) {
 		_percent = 100;
 		_priority = 255;
 		_flags = OBJFLAG_ZOOMED;
@@ -2501,7 +2502,8 @@ void SceneObject::postInit(SceneObjectList *OwnerList) {
 		_numFrames = 10;
 		_regionBitList = 0;
 
-		OwnerList->push_back(this);
+		if (!isExisting)
+			OwnerList->push_back(this);
 		_flags |= OBJFLAG_PANES;
 	}
 }
@@ -2519,9 +2521,9 @@ void SceneObject::remove() {
 
 void SceneObject::dispatch() {
 	if (g_vm->getGameID() == GType_Ringworld2) {
-		if (_shade != _shade2)
+		if (_shade != _oldShade)
 			_flags |= OBJFLAG_PANES;
-		_shade2 = _shade;
+		_oldShade = _shade;
 	}
 
 	uint32 currTime = g_globals->_events.getFrameNumber();
@@ -2639,8 +2641,9 @@ void SceneObject::dispatch() {
 			_linkedActor->setFrame(_frame);
 		}
 
-		if ((_effect == 1) && (getRegionIndex() < 11))
-			_shade = 0;
+		int regionIndex = getRegionIndex();
+		if ((_effect == EFFECT_SHADED) && (regionIndex < 11))
+			_shade = regionIndex;
 	}
 }
 
@@ -2669,7 +2672,24 @@ void SceneObject::removeObject() {
 
 GfxSurface SceneObject::getFrame() {
 	_visageImages.setVisage(_visage, _strip);
-	return _visageImages.getFrame(_frame);
+	GfxSurface frame = _visageImages.getFrame(_frame);
+
+	// If shading is needed, post apply the shadiing onto the frame
+	if ((g_vm->getGameID() == GType_Ringworld2) && (_shade >= 1)) {
+		Graphics::Surface s = frame.lockSurface();
+		byte *p = (byte *)s.getPixels();
+		byte *endP = p + s.w * s.h;
+		
+		while (p < endP) {
+			if (*p != frame._transColor)
+				*p = R2_GLOBALS._fadePaletteMap[_shade - 1][*p];
+			++p;
+		}
+
+		frame.unlockSurface();
+	}
+
+	return frame;
 }
 
 void SceneObject::reposition() {
@@ -2794,6 +2814,11 @@ void BackgroundSceneObject::setup2(int visage, int stripFrameNum, int frameNum, 
 
 void BackgroundSceneObject::copySceneToBackground() {
 	GLOBALS._sceneManager._scene->_backSurface.copyFrom(g_globals->gfxManager().getSurface(), 0, 0);
+
+	// WORKAROUND: Since savegames don't store the active screen data, once we copy the 
+	// foreground objects to the background, we have to prevent the scene being saved.
+	if (g_vm->getGameID() == GType_Ringworld2)
+		((Ringworld2::SceneExt *)GLOBALS._sceneManager._scene)->_preventSaving = true;
 }
 
 /*--------------------------------------------------------------------------*/
@@ -3290,7 +3315,7 @@ void Player::postInit(SceneObjectList *OwnerList) {
 	{
 		_moveDiff.x = 3;
 		_moveDiff.y = 2;
-		_effect = 1;
+		_effect = EFFECT_SHADED;
 		_shade = 0;
 		_linkedActor = NULL;
 
@@ -3304,20 +3329,24 @@ void Player::postInit(SceneObjectList *OwnerList) {
 
 void Player::disableControl() {
 	_canWalk = false;
-	_uiEnabled = false;
 	g_globals->_events.setCursor(CURSOR_NONE);
 	_enabled = false;
 
-	if ((g_vm->getGameID() != GType_Ringworld) && T2_GLOBALS._uiElements._active)
-		T2_GLOBALS._uiElements.hide();
+	if (g_vm->getGameID() != GType_Ringworld2) {
+		_uiEnabled = false;
+
+		if ((g_vm->getGameID() != GType_Ringworld) && T2_GLOBALS._uiElements._active)
+			T2_GLOBALS._uiElements.hide();
+	}
 }
 
 void Player::enableControl() {
 	CursorType cursor;
 
 	_canWalk = true;
-	_uiEnabled = true;
 	_enabled = true;
+	if (g_vm->getGameID() != GType_Ringworld2)
+		_uiEnabled = true;
 
 	switch (g_vm->getGameID()) {
 	case GType_BlueForce:
@@ -3325,7 +3354,7 @@ void Player::enableControl() {
 		cursor = g_globals->_events.getCursor();
 		g_globals->_events.setCursor(cursor);
 
-		if (T2_GLOBALS._uiElements._active)
+		if (g_vm->getGameID() == GType_BlueForce && T2_GLOBALS._uiElements._active)
 			T2_GLOBALS._uiElements.show();
 		break;
 
@@ -4235,11 +4264,11 @@ void SceneHandler::process(Event &event) {
 			g_vm->_debugger->onFrame();
 		}
 
-		if ((event.eventType == EVENT_KEYPRESS) && g_globals->_player._enabled && g_globals->_player._canWalk) {
+		if ((event.eventType == EVENT_KEYPRESS) && g_globals->_player._enabled) {
 			// Keyboard shortcuts for different actions
 			switch (event.kbd.keycode) {
 			case Common::KEYCODE_w:
-				g_globals->_events.setCursor(CURSOR_WALK);
+				g_globals->_events.setCursor(GLOBALS._player._canWalk ? CURSOR_WALK : CURSOR_USE);
 				event.handled = true;
 				break;
 			case Common::KEYCODE_l:

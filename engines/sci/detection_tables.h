@@ -555,6 +555,14 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 	 	Common::ES_ESP, Common::kPlatformDOS, 0, GUIO4(GUIO_NOSPEECH, GAMEOPTION_PREFER_DIGITAL_SFX, GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_FB01_MIDI)	},
 
+	// Eco Quest 2 - German DOS Floppy (supplied by frankenbuam in bug report #3615072)
+	{"ecoquest2", "Floppy", {
+		{"resource.map", 0, "d8b20073e64f41f6437f73143a186753", 5643},
+		{"resource.000", 0, "cc1d17e5637528dbe4a812699e1cbfc6", 4210876},
+		{"resource.msg", 0, "2f231d31af172ea72ed533fd112f971b", 133458},
+		AD_LISTEND},
+		Common::DE_DEU, Common::kPlatformDOS, 0, GUIO4(GUIO_NOSPEECH, GAMEOPTION_PREFER_DIGITAL_SFX, GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_FB01_MIDI)	},
+
 	// Freddy Pharkas - English DOS demo (from FRG)
 	// SCI interpreter version 1.001.069
 	{"freddypharkas", "Demo", {
@@ -3735,6 +3743,14 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		{"resource.000", 0, "63247e3901ab8963d4eece73747832e0", 5157378},
 		AD_LISTEND},
 	 	Common::EN_ANY, Common::kPlatformWindows, ADGF_CD, GUIO5(GUIO_MIDIGM, GAMEOPTION_SQ4_SILVER_CURSORS, GAMEOPTION_PREFER_DIGITAL_SFX, GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_FB01_MIDI)	},
+
+	// Space Quest 4 - English DOS CD patch 1.2 (unofficial - NRS) - THIS VERSION IS PIRATED/CRACKED AND REPACKAGED =DO NOT RE-ADD=
+	// In essence, this "patch" includes a mixture the CD and floppy versions (the whole game), without the speech file
+	{"sq4", "CD", {
+		{"resource.map", 0, "38287a646458a1dabded55d094407793", 7139},
+		{"resource.000", 0, "231fd8421e1f211e1bcf9d7b8b6408e7", 9525849},
+		AD_LISTEND},
+	 	Common::EN_ANY, Common::kPlatformDOS, ADGF_PIRATED, GUIO4(GAMEOPTION_SQ4_SILVER_CURSORS, GAMEOPTION_PREFER_DIGITAL_SFX, GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_FB01_MIDI)	},
 
 	// Space Quest 4 - Spanish DOS CD (from jvprat, is still text only, not talkie, also includes english language)
 	// Executable scanning reports "1.SQ4.057", VERSION file reports "1.000"

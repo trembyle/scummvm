@@ -38,8 +38,6 @@ namespace TsAGE {
 namespace Ringworld2 {
 
 Scene *Ringworld2Game::createScene(int sceneNumber) {
-	warning("Switching to scene %d", sceneNumber);
-
 	switch (sceneNumber) {
 	/* Scene group #0 */
 	case 50:
@@ -114,8 +112,10 @@ Scene *Ringworld2Game::createScene(int sceneNumber) {
 		// Cutscene - trip in space
 		return new Scene1010();
 	case 1020:
+		// Cutscene - trip in space 2
 		return new Scene1020();
 	case 1100:
+		// Canyon
 		return new Scene1100();
 	case 1200:
 		// ARM Base - Air Ducts Maze
@@ -172,7 +172,6 @@ Scene *Ringworld2Game::createScene(int sceneNumber) {
 		// Flup Tube Corridor Maze
 		return new Scene1950();
 	/* Scene group #2 */
-	//
 	case 2000:
 		// Spill Mountains
 		return new Scene2000();
@@ -322,8 +321,11 @@ bool Ringworld2Game::canLoadGameStateCurrently() {
  * Returns true if it is currently okay to save the game
  */
 bool Ringworld2Game::canSaveGameStateCurrently() {
-	// Don't allow a game to be saved if a dialog is active
-	return g_globals->_gfxManagers.size() == 1;
+	// Don't allow a game to be saved if a dialog is active, or if an animation
+	// is playing, or if an active scene prevents it
+	return g_globals->_gfxManagers.size() == 1 && R2_GLOBALS._animationCtr == 0 &&
+		(!R2_GLOBALS._sceneManager._scene ||
+		!((SceneExt *)R2_GLOBALS._sceneManager._scene)->_preventSaving);
 }
 
 /*--------------------------------------------------------------------------*/
@@ -338,6 +340,7 @@ SceneExt::SceneExt(): Scene() {
 	_savedPlayerEnabled = false;
 	_savedUiEnabled = false;
 	_savedCanWalk = false;
+	_preventSaving = false;
 
 	// WORKAROUND: In the original, playing animations don't reset the global _animationCtr
 	// counter as scene changes unless the playing animation explicitly finishes. For now,
@@ -617,7 +620,7 @@ void SceneHandlerExt::process(Event &event) {
 
 void SceneHandlerExt::postLoad(int priorSceneBeforeLoad, int currentSceneBeforeLoad) {
 	if (priorSceneBeforeLoad == -1 || priorSceneBeforeLoad == 50
-			|| priorSceneBeforeLoad == 180 || priorSceneBeforeLoad == 205)
+			|| currentSceneBeforeLoad == 180 || priorSceneBeforeLoad == 205)
 		setupPaletteMaps();
 
 	if (currentSceneBeforeLoad == 2900) {
@@ -1118,18 +1121,30 @@ void Ringworld2Game::start() {
 	if (slot >= 0)
 		R2_GLOBALS._sceneHandler->_loadGameSlot = slot;
 	else {
-		// Switch to the first game scene
+		// Switch to the first title screen
 		R2_GLOBALS._events.setCursor(CURSOR_WALK);
 		R2_GLOBALS._uiElements._active = true;
-		R2_GLOBALS._sceneManager.setNewScene(100);
+		R2_GLOBALS._sceneManager.setNewScene(180);
 	}
 
 	g_globals->_events.showCursor();
 }
 
+void Ringworld2Game::restartGame() {
+	if (MessageDialog::show(Ringworld2::R2_RESTART_MSG, CANCEL_BTN_STRING, YES_MSG) == 1)
+		restart();
+}
+
 void Ringworld2Game::restart() {
 	g_globals->_scenePalette.clearListeners();
 	g_globals->_soundHandler.stop();
+
+	// Reset the globals
+	g_globals->reset();
+
+	// Clear save/load slots
+	g_globals->_sceneHandler->_saveGameSlot = -1;
+	g_globals->_sceneHandler->_loadGameSlot = -1;
 
 	// Change to the first game scene
 	g_globals->_sceneManager.changeScene(100);
@@ -1307,18 +1322,18 @@ GfxSurface SceneActor::getFrame() {
 
 	// TODO: Proper effects handling
 	switch (_effect) {
-	case 0:
-	case 5:
+	case EFFECT_NONE:
+	case EFFECT_5:
 		// TODO: Figure out purpose of setting image flags to 64, and getting
 		// scene priorities -1 or _shade
 		break;
-	case 1:
+	case EFFECT_SHADED:
 		// TODO: Transposing using R2_GLOBALS._pixelArrayMap
 		break;
-	case 2:
+	case EFFECT_2:
 		// No effect
 		break;
-	case 4:
+	case EFFECT_4:
 		break;
 	default:
 		// TODO: Default effect
@@ -1778,7 +1793,9 @@ AnimationPlayer::~AnimationPlayer() {
 
 void AnimationPlayer::synchronize(Serializer &s) {
 	EventHandler::synchronize(s);
-	warning("TODO AnimationPlayer::synchronize");
+	
+	// TODO: Implement saving for animation player state. Currently, I disable saving 
+	// when an animation is active, so saving it's state would a "nice to have". 
 }
 
 void AnimationPlayer::remove() {
@@ -2087,7 +2104,7 @@ void AnimationPlayer::close() {
 
 	_field38 = 0;
 	if (g_globals != NULL)
-		R2_GLOBALS._animationCtr = MAX(R2_GLOBALS._animationCtr, 0);
+		R2_GLOBALS._animationCtr = MAX(R2_GLOBALS._animationCtr - 1, 0);
 }
 
 void AnimationPlayer::rleDecode(const byte *pSrc, byte *pDest, int size) {
@@ -2133,13 +2150,13 @@ void AnimationPlayer::getSlices() {
 /*--------------------------------------------------------------------------*/
 
 AnimationPlayerExt::AnimationPlayerExt(): AnimationPlayer() {
-	_v = 0;
+	_isActive = false;
 	_field3A = 0;
 }
 
 void AnimationPlayerExt::synchronize(Serializer &s) {
 	AnimationPlayer::synchronize(s);
-	s.syncAsSint16LE(_v);
+	s.syncAsSint16LE(_isActive);
 }
 
 /*--------------------------------------------------------------------------*/

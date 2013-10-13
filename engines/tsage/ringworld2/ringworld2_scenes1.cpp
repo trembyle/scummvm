@@ -478,10 +478,11 @@ void Scene1000::dispatch() {
  *--------------------------------------------------------------------------*/
 
 void Scene1010::postInit(SceneObjectList *OwnerList) {
-	SceneExt::postInit();
 	loadScene(1010);
-
+	SceneExt::postInit();
+	R2_GLOBALS._interfaceY = 200;
 	R2_GLOBALS._uiElements._active = false;
+
 	setZoomPercents(100, 1, 160, 100);
 	R2_GLOBALS._player.postInit();
 	R2_GLOBALS._player.setObjectWrapper(NULL);
@@ -533,16 +534,18 @@ void Scene1010::signal() {
 }
 
 /*--------------------------------------------------------------------------
- * Scene 1020 -
+ * Scene 1020 - Cutscene - trip in space 2
  *
  *--------------------------------------------------------------------------*/
+
 void Scene1020::postInit(SceneObjectList *OwnerList) {
-	SceneExt::postInit();
 	loadScene(1020);
+	SceneExt::postInit();
 
 	if (R2_GLOBALS._sceneManager._previousScene == 1010)
-		g_globals->gfxManager()._bounds.moveTo(Common::Point(160, 0));
+		_sceneBounds = Rect(160, 0, SCREEN_WIDTH + 160, 200);
 
+	R2_GLOBALS._interfaceY = 200;
 	R2_GLOBALS._v558B6.set(160, 0, 160, 161);
 	R2_GLOBALS._uiElements._active = false;
 	R2_GLOBALS._player.postInit();
@@ -658,9 +661,10 @@ void Scene1020::dispatch() {
 }
 
 /*--------------------------------------------------------------------------
- * Scene 1100 -
+ * Scene 1100 - Canyon
  *
  *--------------------------------------------------------------------------*/
+
 Scene1100::Scene1100() {
 	_nextStripNum = 0;
 	_paletteRefreshStatus = 0;
@@ -801,16 +805,16 @@ void Scene1100::postInit(SceneObjectList *OwnerList) {
 
 	scalePalette(65, 65, 65);
 
-	_actor2.postInit();
-	_actor2.setup(1100, 1, 1);
-	_actor2.fixPriority(10);
+	_cloud.postInit();
+	_cloud.setup(1100, 1, 1);
+	_cloud.fixPriority(10);
 
 	R2_GLOBALS._scrollFollower = NULL;
 
-	_item3.setDetails(Rect(56, 47, 68, 83), 1100, 7, -1, -1, 1, NULL);
-	_item4.setDetails(Rect(167, 132, 183, 167), 1100, 7, -1, -1, 1, NULL);
-	_item5.setDetails(Rect(26, 112, 87, 145), 1100, 13, -1, -1, 1, NULL);
-	_item7.setDetails(Rect(4, 70, 79, 167), 1100, 16, -1, -1, 1, NULL);
+	_fuana1.setDetails(Rect(56, 47, 68, 83), 1100, 7, -1, -1, 1, NULL);
+	_fauna2.setDetails(Rect(167, 132, 183, 167), 1100, 7, -1, -1, 1, NULL);
+	_bouldersBlockingCave.setDetails(Rect(26, 112, 87, 145), 1100, 13, -1, -1, 1, NULL);
+	_trail.setDetails(Rect(4, 70, 79, 167), 1100, 16, -1, -1, 1, NULL);
 
 	R2_GLOBALS._sound1.stop();
 
@@ -819,7 +823,7 @@ void Scene1100::postInit(SceneObjectList *OwnerList) {
 			R2_GLOBALS._player._characterIndex = R2_QUINN;
 		R2_GLOBALS._player._characterScene[R2_QUINN] = 1100;
 		R2_GLOBALS._player._characterScene[R2_SEEKER] = 1100;
-		_actor2.setPosition(Common::Point(150, 30));
+		_cloud.setPosition(Common::Point(150, 30));
 		R2_GLOBALS._sound1.play(93);
 		R2_GLOBALS._player.postInit();
 		R2_GLOBALS._player.hide();
@@ -848,18 +852,18 @@ void Scene1100::postInit(SceneObjectList *OwnerList) {
 		_trooper._numFrames = 5;
 		_trooper.setDetails(1100, 22, 23, 24, 1, (SceneItem *) NULL);
 
-		_actor1.postInit();
-		_actor1.setup(1512, 1, 1);
-		_actor1.setPosition(Common::Point(187, -25));
-		_actor1.fixPriority(48);
-		_actor1._moveDiff.y = 1;
-		_actor1.setDetails(1100, 37, -1, -1, 1, (SceneItem *) NULL);
+		_ship.postInit();
+		_ship.setup(1512, 1, 1);
+		_ship.setPosition(Common::Point(187, -25));
+		_ship.fixPriority(48);
+		_ship._moveDiff.y = 1;
+		_ship.setDetails(1100, 37, -1, -1, 1, (SceneItem *) NULL);
 
 		_sceneMode = 20;
 
 		setAction(&_sequenceManager1, this, 1, &R2_GLOBALS._player, NULL);
 	} else if (R2_GLOBALS._sceneManager._previousScene == 1000) {
-		_actor2.setPosition(Common::Point(50, 30));
+		_cloud.setPosition(Common::Point(50, 30));
 		_paletteRefreshStatus = 0;
 		_palette1.loadPalette(1101);
 		R2_GLOBALS._player.postInit();
@@ -899,7 +903,7 @@ void Scene1100::postInit(SceneObjectList *OwnerList) {
 
 		setAction(&_sequenceManager1, this, 1, &R2_GLOBALS._player, NULL);
 	} else {
-		_actor2.setPosition(Common::Point(180, 30));
+		_cloud.setPosition(Common::Point(180, 30));
 		if (R2_GLOBALS.getFlag(52))
 			R2_GLOBALS._sound1.play(98);
 		else
@@ -969,16 +973,17 @@ void Scene1100::postInit(SceneObjectList *OwnerList) {
 
 			_trooper.fixPriority(200);
 		}
-		_actor1.postInit();
-		_actor1.setup(1512, 1, 1);
-		_actor1.setPosition(Common::Point(187, 45));
-		_actor1.fixPriority(48);
-		_actor1._moveDiff.y = 1;
-		_actor1.setDetails(1100, 37, -1, -1, 1, (SceneItem *) NULL);
+		_ship.postInit();
+		_ship.setup(1512, 1, 1);
+		_ship.setPosition(Common::Point(187, 45));
+		_ship.fixPriority(48);
+		_ship._moveDiff.y = 1;
+		_ship.setDetails(1100, 37, -1, -1, 1, (SceneItem *) NULL);
 	}
-	_item6.setDetails(Rect(123, 69, 222, 105), 1100, 13, -1, -1, 1, NULL);
-	_item2.setDetails(Rect(0, 0, 480, 46), 1100, 0, -1, -1, 1, NULL);
-	_item1.setDetails(Rect(0, 0, 480, 200), 1100, 40, 41, 42, 1, NULL);
+
+	_boulders.setDetails(Rect(123, 69, 222, 105), 1100, 13, -1, -1, 1, NULL);
+	_sky.setDetails(Rect(0, 0, 480, 46), 1100, 0, -1, -1, 1, NULL);
+	_background.setDetails(Rect(0, 0, 480, 200), 1100, 40, 41, 42, 1, NULL);
 }
 
 void Scene1100::remove() {
@@ -1112,7 +1117,7 @@ void Scene1100::signal() {
 	case 20: {
 		Common::Point pt(187, -13);
 		NpcMover *mover = new NpcMover();
-		_actor1.addMover(mover, &pt, this);
+		_ship.addMover(mover, &pt, this);
 		}
 		break;
 	case 21: {
@@ -1120,7 +1125,7 @@ void Scene1100::signal() {
 		_trooper.animate(ANIM_MODE_5, NULL);
 		Common::Point pt(187, 45);
 		NpcMover *mover = new NpcMover();
-		_actor1.addMover(mover, &pt, this);
+		_ship.addMover(mover, &pt, this);
 		}
 		break;
 	case 22:
@@ -1259,7 +1264,7 @@ void Scene1100::signal() {
 		R2_GLOBALS._sound1.play(101);
 		Common::Point pt(187, -13);
 		NpcMover *mover = new NpcMover();
-		_actor1.addMover(mover, &pt, this);
+		_ship.addMover(mover, &pt, this);
 		}
 		break;
 	default:
@@ -1270,6 +1275,15 @@ void Scene1100::signal() {
 }
 
 void Scene1100::dispatch() {
+	// WORKAROUND: This fixes a problem with an overhang that gets blasted re-appearing
+	if (_animation._frame > 5 && _sceneMode == 13) {
+		_animation._endFrame = 9;
+		if (_animation._frame == 9)
+			// Use one of the scene's background scene objects to copy the scene to the background.
+			// This fixes the problem with the cliff overhang still appearing during the cutscene
+			_rightLandslide.copySceneToBackground();
+	}
+
 	if ((g_globals->_sceneObjects->contains(&_laserShot)) && (_laserShot._visage == 1102) && (_laserShot._strip == 4) && (_laserShot._frame == 1) && (_laserShot._flags & OBJFLAG_HIDING)) {
 		if (_paletteRefreshStatus == 1) {
 			_paletteRefreshStatus = 2;
@@ -6872,6 +6886,7 @@ void Scene1337::subD1A48(int arg1) {
  * Scene 1500 - Cutscene: Ship landing
  *
  *--------------------------------------------------------------------------*/
+
 void Scene1500::postInit(SceneObjectList *OwnerList) {
 	loadScene(1500);
 	R2_GLOBALS._uiElements._active = false;
@@ -7030,6 +7045,7 @@ void Scene1500::dispatch() {
  * Scene 1525 - Cutscene - Ship
  *
  *--------------------------------------------------------------------------*/
+
 void Scene1525::postInit(SceneObjectList *OwnerList) {
 	loadScene(1525);
 	R2_GLOBALS._uiElements._active = false;
@@ -7072,6 +7088,7 @@ void Scene1525::signal() {
  * Scene 1530 - Cutscene - Elevator
  *
  *--------------------------------------------------------------------------*/
+
 void Scene1530::postInit(SceneObjectList *OwnerList) {
 	if (R2_GLOBALS._sceneManager._previousScene == 1000)
 		loadScene(1650);
@@ -9275,6 +9292,7 @@ void Scene1550::enterArea() {
  * Scene 1575 -
  *
  *--------------------------------------------------------------------------*/
+
 Scene1575::Scene1575() {
 	_field412 = 0;
 	_field414 = 0;
@@ -9655,6 +9673,7 @@ void Scene1575::dispatch() {
  * Scene 1580 - Inside wreck
  *
  *--------------------------------------------------------------------------*/
+
 Scene1580::Scene1580() {
 	_field412 = 0;
 }

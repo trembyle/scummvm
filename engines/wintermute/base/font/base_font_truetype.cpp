@@ -286,6 +286,26 @@ BaseSurface *BaseFontTT::renderTextToTexture(const WideString &text, int width, 
 
 	BaseSurface *retSurface = _gameRef->_renderer->createSurface();
 	Graphics::Surface *convertedSurface = surface->convertTo(_gameRef->_renderer->getPixelFormat());
+
+	if (_deletableFont) {
+		// Reconstruct the alpha channel of the font.
+
+		// Since we painted it with color 0xFFFFFFFF onto a black background,
+		// the alpha channel is gone, but the color value of each pixel corresponds
+		// to its original alpha value.
+
+		Graphics::PixelFormat format = _gameRef->_renderer->getPixelFormat();
+		uint32 *pixels = (uint32 *)convertedSurface->getPixels();
+
+		// This is a Surface we created ourselves, so no empty space between rows.
+		for (int i = 0; i < surface->w * surface->h; ++i) {
+			uint8 a, r, g, b;
+			format.colorToRGB(*pixels, r, g, b);
+			a = r;
+			*pixels++ = format.ARGBToColor(a, r, g, b); 
+		}
+	}
+
 	retSurface->putSurface(*convertedSurface, true);
 	convertedSurface->free();
 	surface->free();
@@ -304,7 +324,7 @@ int BaseFontTT::getLetterHeight() {
 
 //////////////////////////////////////////////////////////////////////
 bool BaseFontTT::loadFile(const Common::String &filename) {
-	byte *buffer = BaseFileManager::getEngineInstance()->readWholeFile(filename);
+	char *buffer = (char *)BaseFileManager::getEngineInstance()->readWholeFile(filename);
 	if (buffer == nullptr) {
 		_gameRef->LOG(0, "BaseFontTT::LoadFile failed for file '%s'", filename.c_str());
 		return STATUS_FAILED;
@@ -341,7 +361,7 @@ TOKEN_DEF(OFFSET_X)
 TOKEN_DEF(OFFSET_Y)
 TOKEN_DEF_END
 //////////////////////////////////////////////////////////////////////
-bool BaseFontTT::loadBuffer(byte *buffer) {
+bool BaseFontTT::loadBuffer(char *buffer) {
 	TOKEN_TABLE_START(commands)
 	TOKEN_TABLE(TTFONT)
 	TOKEN_TABLE(SIZE)
@@ -361,15 +381,15 @@ bool BaseFontTT::loadBuffer(byte *buffer) {
 	int cmd;
 	BaseParser parser;
 
-	if (parser.getCommand((char **)&buffer, commands, (char **)&params) != TOKEN_TTFONT) {
+	if (parser.getCommand(&buffer, commands, &params) != TOKEN_TTFONT) {
 		_gameRef->LOG(0, "'TTFONT' keyword expected.");
 		return STATUS_FAILED;
 	}
-	buffer = (byte *)params;
+	buffer = params;
 
 	uint32 baseColor = 0x00000000;
 
-	while ((cmd = parser.getCommand((char **)&buffer, commands, (char **)&params)) > 0) {
+	while ((cmd = parser.getCommand(&buffer, commands, &params)) > 0) {
 		switch (cmd) {
 		case TOKEN_SIZE:
 			parser.scanStr(params, "%d", &_fontHeight);
@@ -419,7 +439,7 @@ bool BaseFontTT::loadBuffer(byte *buffer) {
 
 		case TOKEN_LAYER: {
 			BaseTTFontLayer *layer = new BaseTTFontLayer;
-			if (layer && DID_SUCCEED(parseLayer(layer, (byte *)params))) {
+			if (layer && DID_SUCCEED(parseLayer(layer, params))) {
 				_layers.add(layer);
 			} else {
 				delete layer;
@@ -452,7 +472,7 @@ bool BaseFontTT::loadBuffer(byte *buffer) {
 
 
 //////////////////////////////////////////////////////////////////////////
-bool BaseFontTT::parseLayer(BaseTTFontLayer *layer, byte *buffer) {
+bool BaseFontTT::parseLayer(BaseTTFontLayer *layer, char *buffer) {
 	TOKEN_TABLE_START(commands)
 	TOKEN_TABLE(OFFSET_X)
 	TOKEN_TABLE(OFFSET_Y)
@@ -464,7 +484,7 @@ bool BaseFontTT::parseLayer(BaseTTFontLayer *layer, byte *buffer) {
 	int cmd;
 	BaseParser parser;
 
-	while ((cmd = parser.getCommand((char **)&buffer, commands, (char **)&params)) > 0) {
+	while ((cmd = parser.getCommand(&buffer, commands, &params)) > 0) {
 		switch (cmd) {
 		case TOKEN_OFFSET_X:
 			parser.scanStr(params, "%d", &layer->_offsetX);
