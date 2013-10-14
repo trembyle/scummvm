@@ -77,8 +77,6 @@ MultiArchive::MultiArchive(const Common::String &path) {
 			debugC(2, kLiathDebugResource, "ERROR: MultiArchive: read behind the end of file map (%s)!", path.c_str());
 			break;
 		}
-
-		//debugC(9, kLastExpressDebugResource, "File entry: %s (offset:%d - Size: %d - HD: %u)", &name, entry.offset, entry.size, entry.isOnHD);
 	} while (!archive->eos() && !archive->err());
 
 	// Close stream
@@ -121,4 +119,4 @@ Common::SeekableReadStream *MultiArchive::createReadStreamForMember(const Common
 	return new Common::SeekableSubReadStream(archive, fDesc->_value.offset, fDesc->_value.offset + fDesc->_value.size, DisposeAfterUse::YES);
 }
 
-} // End of namespace LastExpress
+} // End of namespace Liath

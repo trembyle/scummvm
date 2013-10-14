@@ -45,6 +45,7 @@
 #define getGame()       _engine->getGameManager()
 #define getGraphics()   _engine->getGraphicsManager()
 #define getHero()       _engine->getHeroManager()
+#define getMessage()    _engine->getMessageManager()
 #define getMouse()      _engine->getMouseManager()
 #define getProgress()   _engine->getProgressManager()
 #define getPosition()   _engine->getPositionManager()

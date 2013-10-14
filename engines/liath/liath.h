@@ -52,6 +52,7 @@ class ExpressionManager;
 class GameManager;
 class GraphicsManager;
 class HeroManager;
+class MessageManager;
 class MouseManager;
 class PositionManager;
 class ProgressManager;
@@ -83,6 +84,7 @@ public:
 	GameManager       *getGameManager()       const { return _gameMan; }
 	GraphicsManager   *getGraphicsManager()   const { return _graphicsMan; }
 	HeroManager       *getHeroManager()       const { return _heroMan; }
+	MessageManager    *getMessageManager()    const { return _messageMan; }
 	MouseManager      *getMouseManager()      const { return _mouseMan; }
 	ProgressManager   *getProgressManager()   const { return _progressMan; }
 	PositionManager   *getPositionManager()   const { return _positionMan; }
@@ -108,6 +110,7 @@ private:
 	GameManager       *_gameMan;
 	GraphicsManager   *_graphicsMan;
 	HeroManager       *_heroMan;
+	MessageManager    *_messageMan;
 	MouseManager      *_mouseMan;
 	PositionManager   *_positionMan;
 	ProgressManager   *_progressMan;

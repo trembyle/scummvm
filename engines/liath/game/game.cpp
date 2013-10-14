@@ -21,6 +21,7 @@
 
 #include "liath/game/game.h"
 
+#include "liath/data/message.h"
 #include "liath/data/resource.h"
 #include "liath/data/segment.h"
 
@@ -153,8 +154,8 @@ label_load:
 		}
 	}
 
-	Message message;
-	bool hasMessage = getResource()->readMessage(&action->field_B9, &message);
+	MessageManager::Message message;
+	bool hasMessage = getMessage()->readMessage(&action->field_B9, &message);
 
 	if (hasMessage) {
 		getAction()->setFullname(getAction()->getName());

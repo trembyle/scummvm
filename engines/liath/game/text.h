@@ -40,14 +40,16 @@ public:
 	OpcodeRet opcodeCheck(OpcodeParameters *parameters);
 	OpcodeRet opcodeChange(OpcodeParameters *parameters);
 
+	void setNoStop(bool status) { _noStop = status; }
+
 private:
 	LiathEngine* _engine;
 
 	char _arrayTextNumber[500];
+	bool _noStop;
 
 	// Opcode helpers
 	OpcodeRet exitText(int32 val);
-
 
 	// Helper functions
 	int32 getFirstEmptyText();

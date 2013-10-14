@@ -48,9 +48,6 @@ public:
 	void readMultiData();
 	CdNumber getCd(const Common::String &filename);
 
-	// Message
-	bool readMessage(uint32 *pIndex, Message *message);
-
 private:
 	enum MediaType {
 		kMediaCd,

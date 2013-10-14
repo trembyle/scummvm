@@ -40,6 +40,8 @@ public:
 	OpcodeRet opcodeGet(OpcodeParameters *parameters);
 	OpcodeRet opcodeHelp(OpcodeParameters *parameters);
 
+	int16 getData(int index) { return _data[index]; }
+
 private:
 	LiathEngine* _engine;
 

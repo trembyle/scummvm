@@ -315,50 +315,6 @@ struct OpcodeParameters {
 } PACKED_STRUCT;
 
 //////////////////////////////////////////////////////////////////////////
-// Message
-//////////////////////////////////////////////////////////////////////////
-struct Message {
-	uint16 field_0;
-	uint16 field_2;
-	uint16 field_4;
-	uint16 field_6;
-	uint16 field_8;
-	uint16 field_A;
-	uint32 field_C;
-	byte field_10;
-	byte field_11;
-	uint32 field_12;
-	byte field_16;
-	uint32 field_17;
-	uint32 field_1B;
-	uint32 field_1F;
-	uint32 field_23;
-	uint32 field_27;
-	uint32 field_2B;
-	uint32 field_2F;
-	uint16 field_33;
-	byte field_35;
-	uint16 field_36;
-	uint32 field_38;
-	uint32 field_3C;
-	uint32 field_40;
-	uint32 field_44;
-	uint32 field_48;
-	uint32 field_4C;
-	uint32 field_50;
-	uint16 field_54;
-	uint16 field_56;
-	byte field_58;
-	uint32 field_59;
-	byte field_5D;
-	uint16 field_5E;
-	uint32 field_60[20];
-	byte field_B0;
-	byte field_B1;
-	uint16 field_B2;
-} PACKED_STRUCT;
-
-//////////////////////////////////////////////////////////////////////////
 // Action
 //////////////////////////////////////////////////////////////////////////
 struct Action {
@@ -375,7 +331,7 @@ struct Action {
 	uint32 objectIndex;
 	int32 field_20[38];
 	byte field_B8;
-	uint32 field_B9;
+	uint32 messageIndex;
 } PACKED_STRUCT;
 
 //////////////////////////////////////////////////////////////////////////

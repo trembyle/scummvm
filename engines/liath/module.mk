@@ -2,6 +2,7 @@ MODULE := engines/liath
 
 MODULE_OBJS := \
 	data/archive.o \
+	data/message.o \
 	data/resource.o \
 	data/segment.o \
 	game/action.o \

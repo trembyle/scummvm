@@ -33,9 +33,8 @@
 namespace Liath {
 
 ActionManager::ActionManager(LiathEngine *engine) : _engine(engine),
-	_currentAction(kActionNone), _previousAction(kActionNone),
+	_currentAction(kActionNone), _previousAction(kActionNone), _name("none"),
 	_aviType(0), _avsX(0), _avsY(0) {
-
 }
 
 ActionManager::~ActionManager() {

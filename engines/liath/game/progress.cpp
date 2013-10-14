@@ -21,6 +21,7 @@
 
 #include "liath/game/progress.h"
 
+#include "liath/data/message.h"
 #include "liath/data/resource.h"
 
 #include "liath/game/game.h"
@@ -119,9 +120,9 @@ OpcodeRet ProgressManager::opcodeHelp(OpcodeParameters *parameters) {
 	uint32 index;
 	for (index = 0; index < _progress.size() && _progress[index]->field_0; ++index);
 
-	Message message;
+	MessageManager::Message message;
 	uint32 messageIndex = _data[param1] + index;
-	if (index == _progress.size() || !getResource()->readMessage(&messageIndex, &message)) {
+	if (index == _progress.size() || !getMessage()->readMessage(&messageIndex, &message)) {
 		getGame()->letValue((ParamOrigin)parameters->getByte(4), parameters->getDword(5), parameters->getDword(9), INT2DSI(0));
 		return kOpcodeRetDefault;
 	}
