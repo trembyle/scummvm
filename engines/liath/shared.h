@@ -329,8 +329,12 @@ struct Action {
 	uint32 field_14;
 	uint32 field_18;
 	uint32 objectIndex;
-	int32 field_20[38];
-	byte field_B8;
+	int32 field_20[34];
+	byte field_A8;
+	uint32 field_A9;
+	uint32 field_AD;
+	uint32 field_B1;
+	uint32 field_B5;
 	uint32 messageIndex;
 } PACKED_STRUCT;
 

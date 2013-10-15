@@ -95,6 +95,8 @@ public:
 	TextManager       *getTextManager()       const { return _textMan; }
 	WorkManager       *getWorkManager()       const { return _workMan; }
 
+	byte getBPP() { return _pixelFormat.bytesPerPixel; }
+
 private:
 	const ADGameDescription *_gameDescription;
 	Graphics::PixelFormat _pixelFormat;

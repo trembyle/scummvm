@@ -67,8 +67,9 @@ GameManager::~GameManager() {
 
 	delete _interpreter;
 
-	// Free global vars
+	// Free variable areas
 	SAFE_FREE(_globalVar);
+	SAFE_FREE(_localVar);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -132,7 +133,7 @@ void GameManager::playAction() {
 
 label_load:
 		getAction()->load();
-		action = (Action *)getSegment()->getData(kSegmentAction, 2);
+		action = (Action *) getSegment()->getData(kSegmentAction, 2);
 
 		if (!action->backgroundOffset)
 			break;
@@ -144,35 +145,67 @@ label_load:
 			error("GameManager::playAction: Not implemented!");
 		}
 
-		_currentCd = getResource()->getCd((char *)getSegment()->getData(kSegmentAction, action->backgroundOffset));
+		_currentCd = getResource()->getCd((char *) getSegment()->getData(kSegmentAction, action->backgroundOffset));
 
 		if (!cd || cd == _currentCd) {
 			if (action->backgroundOffset) {
-				if (getResource()->hasFile((char *)getSegment()->getData(kSegmentAction, action->backgroundOffset)))
+				if (getResource()->hasFile((char *) getSegment()->getData(kSegmentAction, action->backgroundOffset)))
 					break;
 			}
 		}
 	}
 
+	// Compute action message
+	bool hasAction = false;
 	MessageManager::Message message;
-	bool hasMessage = getMessage()->readMessage(&action->field_B9, &message);
+	MessageManager::MessageAction messageAction;
 
+	bool hasMessage = getMessage()->readMessage(&action->messageIndex, &message);
 	if (hasMessage) {
-		getAction()->setFullname(getAction()->getName());
-	} else {
-		// TODO check in message.str
-
-		error("GameManager::playAction: Message reading not implemented!");
+		hasAction = getMessage()->readAction(message.messageIndex, &messageAction);
+		if (hasAction)
+			hasAction = messageAction.index == message.index;
 	}
 
-	getAction()->playVideo();
+	if (!hasAction) {
+		getAction()->setFullname(getAction()->getName());
+	} else {
+		getAction()->setFullname(messageAction.name);
+	}
 
+	// Play video if a filename has been set
+	getAction()->playVideo();
 
 	if (_currentWorkInfo) {
 		loadGameStartHero();
 		processAction();
 		return;
 	}
+
+	// Setup local data
+	_sizeLocal = action->field_20[13] * action->field_20[12];
+	_localVar = calloc(_sizeLocal, 4);
+	memset(_localVar, 0, _sizeLocal * 4);
+
+	// Re-initialize screen bpp
+	if (action->field_A8 == 1) {
+		error("GameManager::playAction: Screen re-init not implemented!");
+	} else if (action->field_A8 == 2) {
+		error("GameManager::playAction: Screen re-init not implemented!");
+	} else if (_engine->getBPP() != 1) {
+		error("GameManager::playAction: Screen re-init not implemented!");
+	}
+
+	// Initialize text palette
+	error("GameManager::playAction: text palette initialization not implemented!");
+
+
+
+
+	error("GameManager::playAction: Not implemented!");
+
+	error("GameManager::playAction: Not implemented!");
+
 	error("GameManager::playAction: Not implemented!");
 
 	ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : NULL);
@@ -208,6 +241,7 @@ void GameManager::load(ActionIndex action, GameData *gameData) {
 	// Setup hero objects & load hero data
 	_countHero = gameData->countHero;
 	_countVar = _param + 14;
+
 	getHero()->load(_countHero, 4 * _countVar);
 
 	// Setup global var area

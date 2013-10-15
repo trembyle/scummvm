@@ -70,9 +70,11 @@ private:
 	uint32 _oldTimer;
 	uint32 _countHero;
 	uint32 _countVar;
+	uint32 _sizeLocal;
 
-	// Global area
+	// Variable areas
 	void *_globalVar;
+	void *_localVar;
 
 	// Variables
 	CdNumber _currentCd;

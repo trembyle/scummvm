@@ -32,7 +32,6 @@ class LiathEngine;
 
 class ActionManager {
 public:
-
 	ActionManager(LiathEngine *engine);
 	~ActionManager();
 
