@@ -42,7 +42,10 @@ class StepArray : public CObject {
 	void clear();
 
 	int getCurrPointIndex() { return _currPointIndex; }
+	int getPointsCount() { return _maxPointIndex; }
+
 	Common::Point *getCurrPoint(Common::Point *point);
+	Common::Point *getPoint(Common::Point *point, int index, int offset);
 	bool gotoNextPoint();
 };
 
@@ -104,8 +107,7 @@ class StaticANIObject;
 
 class Movement : public GameObject {
   public:
-	int _field_24;
-	int _field_28;
+	Common::Point _somePoint;
 	int _lastFrameSpecialFlag;
 	int _flipFlag;
 	int _updateFlag1;
@@ -201,6 +203,8 @@ class StaticANIObject : public GameObject {
 	Movement *getMovementByName(char *name);
 	Common::Point *getCurrDimensions(Common::Point &p);
 
+	Common::Point *getSomeXY(Common::Point &p);
+
 	void clearFlags();
 	void setFlags40(bool state);
 	bool isIdle();
@@ -234,6 +238,7 @@ class StaticANIObject : public GameObject {
 	MovTable *countMovements();
 	void setSpeed(int speed);
 
+	void updateStepPos();
 	void stopAnim_maybe();
 
 	MessageQueue *changeStatics1(int msgNum);

@@ -137,7 +137,7 @@ bool InteractionController::handleInteraction(StaticANIObject *subj, GameObject 
 			obj->setPicAniInfo(&aniInfo);
 
 			if (abs(xpos - subj->_ox) > 1 || abs(ypos - subj->_oy) > 1) {
-				mq = getSc2MctlCompoundBySceneId(g_fullpipe->_currentScene->_sceneId)->method4C(subj, xpos, ypos, 1, cinter->_staticsId2);
+				mq = getSc2MctlCompoundBySceneId(g_fullpipe->_currentScene->_sceneId)->doWalkTo(subj, xpos, ypos, 1, cinter->_staticsId2);
 				if (mq) {
 					dur = mq->calcDuration(subj);
 					delete mq;
@@ -392,6 +392,17 @@ LABEL_38:
 	}
 
 	return true;
+}
+
+Interaction *InteractionController::getInteractionByObjectIds(int obId, int obId2, int obId3) {
+	for (ObList::iterator i = _interactions.begin(); i != _interactions.end(); ++i) {
+		Interaction *intr = (Interaction *)*i;
+
+		if (intr->_objectId1 == obId && intr->_objectId2 == obId2 && intr->_objectId3 == obId3)
+			return intr;
+	}
+
+	return 0;
 }
 
 Interaction::Interaction() {

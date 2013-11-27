@@ -2364,8 +2364,7 @@ Common::String MortevielleEngine::copy(const Common::String &s, int idx, size_t 
 
 	// Copy the substring into a temporary buffer
 	char *tmp = new char[size + 1];
-	strncpy(tmp, s.c_str() + idx - 1, size);
-	tmp[size] = '\0';
+	Common::strlcpy(tmp, s.c_str() + idx - 1, size + 1);
 
 	Common::String result(tmp);
 	delete[] tmp;
@@ -2934,7 +2933,9 @@ void MortevielleEngine::testKey(bool d) {
 
 	do {
 		_mouse.getMousePosition(x, y, click);
-		keyPressed();
+		quest = keyPressed();
+		if (quest && shouldQuit())
+			return;
 	} while (click);
 
 	// Event loop

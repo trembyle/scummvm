@@ -109,6 +109,7 @@ class MessageQueue : public CObject {
 
  public:
 	MessageQueue();
+	MessageQueue(int dataId);
 	MessageQueue(MessageQueue *src, int parId, int field_38);
 	virtual ~MessageQueue();
 
@@ -119,7 +120,11 @@ class MessageQueue : public CObject {
 
 	uint getCount() { return _exCommands.size(); }
 
+	void addExCommand(ExCommand *ex);
 	ExCommand *getExCommandByIndex(uint idx);
+	void deleteExCommandByIndex(uint idx, bool doFree);
+
+	void transferExCommands(MessageQueue *mq);
 
 	void replaceKeyCode(int key1, int key2);
 
@@ -168,6 +173,8 @@ void clearMessageHandlers();
 void processMessages();
 void updateGlobalMessageQueue(int id, int objid);
 void clearGlobalMessageQueueList1();
+
+bool chainQueue(int queueId, int flags);
 
 } // End of namespace Fullpipe
 

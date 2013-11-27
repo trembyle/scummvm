@@ -111,13 +111,13 @@ public:
 	SceneActor _shotImpact4;
 	SceneActor _shotImpact5;
 	SceneActor _laserShot;
-	SceneActor _animation;	// Used for cliff collapse and ship theft	
+	SceneActor _animation;	// Used for cliff collapse and ship theft
 	SceneActor _leftImpacts;
 	SceneActor _runningGuy1;
 	SceneActor _runningGuy2;
 	SceneActor _runningGuy3;
 	BackgroundSceneObject _rightLandslide;
-	BackgroundSceneObject _object2;
+	BackgroundSceneObject _purplePlant;
 	Seeker _seeker;
 	Trooper _trooper;
 	Chief _chief;
@@ -213,8 +213,7 @@ class Scene1337 : public SceneExt {
 
 	class Action1337: public Action {
 	public:
-		void subD18B5(int resNum, int stripNum, int frameNum);
-		void skipFrames(int32 skipCount);
+		void waitFrames(int32 frameCount);
 	};
 
 	class Action1: public Action1337 {
@@ -358,7 +357,7 @@ public:
 	void subC51A0(unkObj1337sub1 *subObj1, unkObj1337sub1 *subObj2);
 	void displayDialog(int dialogNumb);
 	void subPostInit();
-	void subCB59B();
+	void displayInstructions();
 	void suggestInstructions();
 	void shuffleCards();
 	void subCCF26();
@@ -370,7 +369,7 @@ public:
 	void subD0281();
 	void subD02CA();
 	void subD183F(int arg1, int arg2);
-	void subD18B5(int resNum, int rlbNum, int arg3);
+	void setCursorData(int resNum, int rlbNum, int frameNum);
 	int  subD18F5();
 	int  subD1917();
 	int  subD1940(bool flag);
@@ -386,10 +385,10 @@ public:
 
 class Scene1500 : public SceneExt {
 public:
-	SceneActor _actor1;
-	SceneActor _actor2;
-	SceneActor _actor3;
-	SceneActor _actor4;
+	SceneActor _starship;
+	SceneActor _starshipShadow;
+	SceneActor _smallShip;
+	SceneActor _smallShipShadow;
 	SequenceManager _sequenceManager;
 
 	virtual void postInit(SceneObjectList *OwnerList = NULL);
@@ -410,9 +409,9 @@ class Scene1530 : public SceneExt {
 public:
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	SceneActor _actor1;
-	SceneActor _actor2;
-	SceneActor _actor3;
+	SceneActor _seeker;
+	SceneActor _leftReactor;
+	SceneActor _rightReactor;
 
 	SequenceManager _sequenceManager;
 
@@ -422,14 +421,13 @@ public:
 };
 
 class Scene1550 : public SceneExt {
-	class SceneActor1550 : public SceneActor {
+	class Wall : public SceneActor {
 	public:
-		void subA4D14(int frameNumber, int strip);
+		void setupWall(int frameNumber, int strip);
 	};
 
 	class Junk : public SceneActor {
 	public:
-		int _fieldA4;
 		int _junkNumber;
 
 		Junk();
@@ -449,35 +447,27 @@ class Scene1550 : public SceneExt {
 		void setupShipComponent(int componentId);
 	};
 
-	class UnkObj15503 : public SceneActor {
-	public:
-		int _fieldA4;
+	class DishControlsWindow : public ModalWindow {
+		class DishControl : public SceneActor {
+		public:
+			int _controlId;
 
-		UnkObj15503();
-		void synchronize(Serializer &s);
+			DishControl();
+			void synchronize(Serializer &s);
 
-		virtual bool startAction(CursorType action, Event &event);
-	};
-
-	class UnkArea1550 : public SceneArea {
+			virtual bool startAction(CursorType action, Event &event);
+		};
 	public:
 		byte _field20;
 		SceneActor _areaActor;
-		UnkObj15503 _unkObj155031;
-		UnkObj15503 _unkObj155032;
+		DishControl _button;
+		DishControl _lever;
 
 		virtual void remove();
-		virtual void process(Event &event);
-		virtual void proc12(int visage, int stripFrameNum, int frameNum, int posX, int posY);
-		virtual void proc13(int resNum, int lookLineNum, int talkLineNum, int useLineNum);
+		virtual void setup2(int visage, int stripFrameNum, int frameNum, int posX, int posY);
 	};
 
 	class WorkingShip : public NamedHotspot {
-	public:
-		virtual bool startAction(CursorType action, Event &event);
-	};
-
-	class Hotspot3 : public NamedHotspot {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -492,77 +482,71 @@ class Scene1550 : public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor8 : public SceneActor {
+	class AirBag : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor9 : public SceneActor {
+	class Joystick : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor10 : public SceneActor {
+	class Gyroscope : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor11 : public SceneActor {
+	class DiagnosticsDisplay : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor12 : public SceneActor {
+	class DishTower : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor13 : public SceneActor {
+	class Dish : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
-	};
-
-	class Wall : public SceneActor1550 {
-		// Nothing specific found in the original
-		// TODO: check if it's an useless class
 	};
 
 public:
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	WorkingShip _shipHull;
-	WorkingShip _item2;
-	Hotspot3 _item3;
-	SceneActor _landingStrut;
-	SceneActor _actor2;
-	SceneActor _actor3;
-	SceneActor _actor4;
-	SceneActor _actor5;
+	WorkingShip _intactHull1, _intactHull2;
+	SceneHotspot _background;
+	SceneActor _wreckage2;	// also used for Lance of Truth landing strut
+	SceneActor _wreckage3;
+	SceneActor _wreckage4;
+	SceneActor _walkway;
+	SceneActor _dishTowerShadow;
 	Wreckage _wreckage;
 	Companion _companion;
-	Actor8 _actor8;
-	Actor9 _actor9;
-	Actor10 _actor10;
-	Actor11 _actor11;
-	Actor12 _actor12;
-	Actor13 _actor13;
+	AirBag _airbag;
+	Joystick _joystick;
+	Gyroscope _gyroscope;
+	DiagnosticsDisplay _diagnosticsDisplay;
+	DishTower _dishTower;
+	Dish _dish;
 	Junk _junk[8];
-	Wall _actor14;
+	Wall _wallCorner1;
 	Wall _northWall;	// Is also reused for landing strip
-	Wall _actor16;
+	Wall _wallCorner2;
 	Wall _westWall;		// Is also reused for left hand space
 	Wall _eastWall;
 	Wall _southWall;
 	ShipComponent _shipComponents[8];
-	UnkArea1550 _unkArea1;
+	DishControlsWindow _dishControlsWindow;
 	SequenceManager _sequenceManager1;
 	SequenceManager _sequenceManager2;
 
-	int _field412;
-	byte _field414;
-	int _field415;
-	int _field417;
-	int _field419;
+	bool _dontExit;
+	int _wallType;
+	int _dishMode;
+	int _sceneResourceId;
+	int _walkRegionsId;
 
 	Scene1550();
 	void synchronize(Serializer &s);
@@ -576,14 +560,14 @@ public:
 };
 
 class Scene1575 : public SceneExt {
-	class Hotspot1 : public NamedHotspot {
+	class Button : public NamedHotspot {
 	public:
-		int _field34;
-		int _field36;
+		int _buttonId;
+		bool _pressed;
 
-		Hotspot1();
+		Button();
 		void synchronize(Serializer &s);
-		void subA910D(int indx);
+		void initButton(int buttonId);
 
 		virtual void process(Event &event);
 		virtual bool startAction(CursorType action, Event &event);
@@ -594,12 +578,12 @@ public:
 	int _field416;
 	int _field418;
 	int _field41A;
-	Hotspot1 _item1;
-	Hotspot1 _item2;
-	Hotspot1 _item3;
-	Hotspot1 _item4;
-	Hotspot1 _item5;
-	Hotspot1 _item6;
+	Button _button1;
+	Button _button2;
+	Button _button3;
+	Button _button4;
+	Button _button5;
+	Button _button6;
 	SceneActor _actor1;
 	SceneActor _actor2;
 	SceneActor _actor3;
@@ -629,54 +613,53 @@ public:
 };
 
 class Scene1580 : public SceneExt {
-	class Hotspot1 : public NamedHotspot {
+	class JoystickPlug : public NamedHotspot {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Hotspot2 : public NamedHotspot {
+	class ScreenSlot : public NamedHotspot {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Actor2 : public SceneActor {
+	class Joystick : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor3 : public SceneActor {
+	class Screen : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor4 : public SceneActor {
+	class StorageCompartment : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor5 : public SceneActor {
+	class HatchButton : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor6 : public SceneActor {
+	class ThrusterValve : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor7 : public SceneActor {
+	class Ignitor : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	int _field412;
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	Hotspot1 _item1;
-	Hotspot2 _item2;
-	NamedHotspot _item3;
-	SceneActor _actor1;
+	JoystickPlug _joystickPlug;
+	ScreenSlot _screenSlot;
+	NamedHotspot _background;
+	SceneActor _screenDisplay;
 	SceneActor _arrActor[8];
-	Actor2 _actor2;
-	Actor3 _actor3;
-	Actor4 _actor4;
-	Actor5 _actor5;
-	Actor6 _actor6;
-	Actor7 _actor7;
+	Joystick _joystick;
+	Screen _screen;
+	StorageCompartment _storageCompartment;
+	HatchButton _hatchButton;
+	ThrusterValve _thrusterValve;
+	Ignitor _ignitor;
 	SequenceManager _sequenceManager;
 
 	Scene1580();
@@ -692,17 +675,16 @@ class Scene1625 : public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 public:
-	int _field412;
 	SpeakerMiranda1625 _mirandaSpeaker;
 	SpeakerTeal1625 _tealSpeaker;
 	SpeakerSoldier1625 _soldierSpeaker;
-	NamedHotspot _item1;
-	SceneActor _actor1;
+	NamedHotspot _background;
+	SceneActor _teal;
 	SceneActor _tealHead;
-	SceneActor _actor3;
+	SceneActor _mirandaMouth;
 	SceneActor _glass;
-	SceneActor _actor5;
-	SceneActor _actor6;
+	SceneActor _wristRestraints;
+	SceneActor _tealRightArm;
 	Wire _wire;
 	SequenceManager _sequenceManager;
 
@@ -716,16 +698,11 @@ public:
 };
 
 class Scene1700 : public SceneExt {
-	class Item2 : public NamedHotspot {
-	public:
-		virtual bool startAction(CursorType action, Event &event);
-	};
-
 	class RimTransport : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor12 : public SceneActor {
+	class Companion : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -745,10 +722,10 @@ class Scene1700 : public SceneExt {
 public:
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	NamedHotspot _item1;
-	Item2 _item2;
-	SceneActor _actor1;
-	SceneActor _actor2;
+	NamedHotspot _surface;
+	NamedHotspot _background;
+	SceneActor _playerShadow;
+	SceneActor _companionShadow;
 	SceneActor _slabWest;
 	SceneActor _slabEast;
 	SceneActor _slabShadowWest;
@@ -756,16 +733,15 @@ public:
 	SceneActor _westPlatform;
 	SceneActor _rimTransportDoor;
 	SceneActor _ledgeHopper;
-	SceneActor _actor10;
+	SceneActor _hatch;
 	RimTransport _rimTransport;
-	Actor12 _actor12;
+	Companion _companion;
 	NorthExit _northExit;
 	SouthExit _southExit;
 	WestExit _westExit;
 	SequenceManager _sequenceManager;
 
-	int _field77A;
-	int _field77C;
+	bool _walkFlag;
 
 	Scene1700();
 	void synchronize(Serializer &s);
@@ -791,7 +767,6 @@ class Scene1750 : public SceneExt {
 		void setupSlider(int incrAmount, int xp, int ys, int height, int thumbHeight);
 		void calculateSlider();
 
-		virtual void remove();
 		virtual void process(Event &event);
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -808,13 +783,13 @@ class Scene1750 : public SceneExt {
 
 public:
 	NamedHotspot _background;
-	NamedHotspot _redLights;
+	NamedHotspot _redLightsDescr;
 	NamedHotspot _greenLights;
 	NamedHotspot _frontView;
 	NamedHotspot _rearView;
-	SceneActor _actor1;
-	SceneActor _actor2;
-	SceneActor _actor3;
+	SceneActor _scannerIcon;
+	SceneActor _redLights;
+	SceneActor _radarSweep;
 	SpeedSlider _speedSlider;
 	Button _forwardButton;
 	Button _backwardButton;
@@ -823,12 +798,12 @@ public:
 	PaletteRotation *_rotation;
 
 	int _direction;
-	int _field413;
+	int _speedCurrent;
 	int _speed;
-	int _field417;
-	int _field419;
-	int _field41B;
-	int _field41D;
+	int _speedDelta;
+	int _rotationSegment;
+	int _rotationSegCurrent;
+	int _newRotation;
 
 	Scene1750();
 	virtual void synchronize(Serializer &s);
@@ -859,7 +834,7 @@ class Scene1800 : public SceneExt {
 		virtual bool startAction(CursorType action, Event &event);
 	};
 
-	class Exit1 : public SceneExit {
+	class SouthExit : public SceneExit {
 	public:
 		virtual void changeScene();
 	};
@@ -867,21 +842,21 @@ public:
 	int _locationMode;
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	NamedHotspot _item1;
-	NamedHotspot _item2;
-	NamedHotspot _item3;
-	NamedHotspot _item4;
+	NamedHotspot _elevator;
+	NamedHotspot _elevatorContents;
+	NamedHotspot _surface;
+	NamedHotspot _secBackground;
 	Background _background;
-	SceneActor _actor1;
+	SceneActor _playerShadow;
 	SceneActor _companion;
-	SceneActor _actor3;
+	SceneActor _companionShadow;
 	SceneActor _leftStaircase;
 	SceneActor _rightStaircase;
 	Lever _lever;
 	Doors _doors;
 	PassengerDoor _leftDoor;
 	PassengerDoor _rightDoor;
-	Exit1 _exit1;
+	SouthExit _southExit;
 	SequenceManager _sequenceManager;
 
 	Scene1800();
@@ -902,7 +877,7 @@ class Scene1850 : public SceneExt {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor6 : public SceneActor {
+	class Door : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
@@ -912,24 +887,24 @@ class Scene1850 : public SceneExt {
 	};
 
 public:
-	int _field412;
-	int _field414;
-	int _field416;
-	int _field418;
-	Common::Point _field41A;
-	int _field41E;
+	int _sceneMode;
+	int _shadeCountdown;
+	int _shadeDirection;
+	bool _shadeChanging;
+	Common::Point _playerDest;
+	int _seqNumber;
 	ScenePalette _palette1;
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
 	NamedHotspot _background;
 	Button _button;
 	SceneActor _companion;
-	SceneActor _actor2;
-	SceneActor _actor3;
-	SceneActor _actor4;
+	SceneActor _airbag;
+	SceneActor _screen;
+	SceneActor _helmet;
 	Robot _robot;
-	Actor6 _leftDoor;
-	Actor6 _rightDoor;
+	Door _leftDoor;
+	Door _rightDoor;
 	DisplayScreen _displayScreen;
 	SequenceManager _sequenceManager1;
 	SequenceManager _sequenceManager2;
@@ -961,11 +936,10 @@ class Scene1875 : public SceneExt {
 public:
 	SpeakerQuinn _quinnSpeaker;
 	SpeakerSeeker _seekerSpeaker;
-	NamedHotspot _item1;
-	NamedHotspot _item2;
-	SceneActor _actor1;
-	SceneActor _actor2;
-	SceneActor _actor3;
+	NamedHotspot _background;
+	NamedHotspot _screen;
+	SceneActor _map;
+	SceneActor _rimPosition;
 	Button _button1;
 	Button _button2;
 	Button _button3;
@@ -996,9 +970,9 @@ public:
 	SpeakerSeeker1900 _seekerSpeaker;
 	NamedHotspot _background;
 	NamedHotspot _elevator;
-	SceneActor _actor1;
-	BackgroundSceneObject _object1;
-	BackgroundSceneObject _object2;
+	SceneActor _companion;
+	BackgroundSceneObject _leftDoorFrame;
+	BackgroundSceneObject _rightDoorFrame;
 	LiftDoor _leftDoor, _rightDoor;
 	WestExit _westExit;
 	EastExit _eastExit;
@@ -1024,30 +998,30 @@ class Scene1925 : public SceneExt {
 	public:
 		virtual void changeScene();
 	};
-	class Exit2 : public SceneExit {
+	class ExitDown : public SceneExit {
 	public:
 		virtual void changeScene();
 	};
-	class Exit3 : public SceneExit {
+	class WestExit : public SceneExit {
 	public:
 		virtual void changeScene();
 	};
-	class Exit4 : public SceneExit {
+	class EastExit : public SceneExit {
 	public:
 		virtual void changeScene();
 	};
 public:
-	NamedHotspot _item1;
+	NamedHotspot _background;
 	Button _button;
 	Ladder _ladder;
-	SceneActor _actor1;
+	SceneActor _door;
 	ExitUp _exitUp;
-	Exit2 _exit2;
-	Exit3 _exit3;
-	Exit4 _exit4;
+	ExitDown _exitDown;
+	WestExit _westExit;
+	EastExit _eastExit;
 	SequenceManager _sequenceManager;
 
-	int _field9B8;
+	int _newSceneMode;
 	int _levelResNum[5];
 
 	Scene1925();
@@ -1083,12 +1057,12 @@ class Scene1945 : public SceneExt {
 		virtual void changeScene();
 	};
 public:
-	NamedHotspot _item1;
-	NamedHotspot _item2;
+	NamedHotspot _hole;
+	NamedHotspot _ice2;
 	Ice _ice;
 	Ladder _ladder;
-	SceneActor _actor1;
-	SceneActor _actor2;
+	SceneActor _coveringIce;
+	SceneActor _alcoholLamp;
 	Gunpowder _gunpowder;
 	ExitUp _exitUp;
 	CorridorExit _corridorExit;
@@ -1128,14 +1102,13 @@ class Scene1950 : public SceneExt {
 		SceneActor _areaActor;
 		KeypadButton _buttons[16];
 
-		byte _field20;
 		int _buttonIndex;
 
 		KeypadWindow();
 		virtual void synchronize(Serializer &s);
 		virtual void remove();
-		virtual void proc12(int visage, int stripFrameNum, int frameNum, int posX, int posY);
-		virtual void proc13(int resNum, int lookLineNum, int talkLineNum, int useLineNum);
+		virtual void setup2(int visage, int stripFrameNum, int frameNum, int posX, int posY);
+		virtual void setup3(int resNum, int lookLineNum, int talkLineNum, int useLineNum);
 	};
 
 	class Keypad : public NamedHotspot {
@@ -1152,10 +1125,6 @@ class Scene1950 : public SceneExt {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
 	};
-	class Actor4 : public SceneActor {
-	public:
-		virtual bool startAction(CursorType action, Event &event);
-	};
 	class Gem : public SceneActor {
 	public:
 		virtual bool startAction(CursorType action, Event &event);
@@ -1163,11 +1132,9 @@ class Scene1950 : public SceneExt {
 	class Vampire : public SceneActor {
 	public:
 		Common::Point _deadPosition;
-		int _fieldA8;
-		int _fieldAA;
+		int _deltaX;
+		int _deltaY;
 		int _vampireMode;
-		byte _fieldAE;
-		byte _fieldAF;
 
 		Vampire();
 		void synchronize(Serializer &s);
@@ -1223,7 +1190,7 @@ public:
 	SceneActor _containmentField;
 	Gem _gem;
 	SceneActor _cube;
-	SceneActor _actor7;
+	SceneActor _pulsingLights;
 	Vampire _vampire;
 	KeypadWindow _KeypadWindow;
 	NorthExit _northExit;
@@ -1236,10 +1203,10 @@ public:
 	DoorExit _doorExit;
 	SequenceManager _sequenceManager;
 
-	int _field412;
-	int _field414;
-	int _field416;
-	Common::Point _field418;
+	bool _upExitStyle;
+	bool _removeFlag;
+	bool _vampireActive;
+	Common::Point _vampireDestPos;
 	int _vampireIndex;
 
 	Scene1950();
@@ -1250,6 +1217,7 @@ public:
 	virtual void signal();
 	virtual void process(Event &event);
 };
+
 } // End of namespace Ringworld2
 } // End of namespace TsAGE
 

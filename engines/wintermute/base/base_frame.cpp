@@ -181,7 +181,7 @@ bool BaseFrame::loadBuffer(char *buffer, int lifeTime, bool keepLoaded) {
 	bool decoration = false;
 	bool mirrorX = false;
 	bool mirrorY = false;
-	BasePlatform::setRectEmpty(&rect);
+	rect.setEmpty();
 	char *surface_file = nullptr;
 
 	while ((cmd = parser.getCommand(&buffer, commands, &params)) > 0) {
@@ -325,7 +325,7 @@ bool BaseFrame::loadBuffer(char *buffer, int lifeTime, bool keepLoaded) {
 		}
 	}
 
-	if (BasePlatform::isRectEmpty(&rect)) {
+	if (rect.isRectEmpty()) {
 		sub->setDefaultRect();
 	} else {
 		sub->setRect(rect);
@@ -352,7 +352,7 @@ bool BaseFrame::getBoundingRect(Rect32 *rect, int x, int y, float scaleX, float 
 	if (!rect) {
 		return false;
 	}
-	BasePlatform::setRectEmpty(rect);
+	rect->setEmpty();
 
 	Rect32 subRect;
 
@@ -414,12 +414,12 @@ bool BaseFrame::persist(BasePersistenceManager *persistMgr) {
 	BaseScriptable::persist(persistMgr);
 
 	_applyEvent.persist(persistMgr);
-	persistMgr->transfer(TMEMBER(_delay));
-	persistMgr->transfer(TMEMBER(_editorExpanded));
-	persistMgr->transfer(TMEMBER(_keyframe));
-	persistMgr->transfer(TMEMBER(_killSound));
-	persistMgr->transfer(TMEMBER(_moveX));
-	persistMgr->transfer(TMEMBER(_moveY));
+	persistMgr->transferUint32(TMEMBER(_delay));
+	persistMgr->transferBool(TMEMBER(_editorExpanded));
+	persistMgr->transferBool(TMEMBER(_keyframe));
+	persistMgr->transferBool(TMEMBER(_killSound));
+	persistMgr->transferSint32(TMEMBER(_moveX));
+	persistMgr->transferSint32(TMEMBER(_moveY));
 	persistMgr->transferPtr(TMEMBER_PTR(_sound));
 	_subframes.persist(persistMgr);
 

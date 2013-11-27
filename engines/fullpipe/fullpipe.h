@@ -52,6 +52,7 @@ class Inventory2;
 struct CursorInfo;
 struct EntranceInfo;
 class ExCommand;
+class Floaters;
 class GameProject;
 class GameObject;
 class GlobalMessageQueueList;
@@ -163,6 +164,8 @@ public:
 
 	MovTable *_movTable;
 
+	Floaters *_floaters;
+
 	void initMap();
 	void updateMapPiece(int mapId, int update);
 	void updateScreen();
@@ -210,7 +213,7 @@ public:
 	int _objectIdAtCursor;
 
 	void setCursor(int id);
-	void updateCursorsCommon();
+	void updateCursorCommon();
 
 	int getObjectState(const char *objname);
 	void setObjectState(const char *name, int state);
@@ -227,10 +230,20 @@ public:
 	void openHelp();
 	void openMainMenu();
 
+	void initArcadeKeys(const char *varname);
 	void winArcade();
 	void getAllInventory();
 
 	int lift_getButtonIdP(int objid);
+	void lift_setButton(const char *name, int state);
+	void lift_sub5(Scene *sc, int qu1, int qu2);
+	void lift_exitSeq(ExCommand *ex);
+	void lift_closedoorSeq();
+	void lift_animation3();
+	void lift_goAnimation();
+	void lift_sub1(StaticANIObject *ani);
+	void lift_startExitQueue();
+	void lift_sub05(ExCommand *ex);
 
 public:
 

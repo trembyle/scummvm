@@ -56,9 +56,8 @@ private:
 		bool _marked;
 		uint32 _lastUsed;
 
-		BaseCachedTTFontText() {
+		BaseCachedTTFontText() : _text() {
 			//_text = L"";
-			_text = "";
 			_width = _maxHeight = _maxLength = -1;
 			_align = TAL_LEFT;
 			_surface = nullptr;
@@ -84,9 +83,9 @@ public:
 		}
 
 		bool persist(BasePersistenceManager *persistMgr) {
-			persistMgr->transfer(TMEMBER(_offsetX));
-			persistMgr->transfer(TMEMBER(_offsetY));
-			persistMgr->transfer(TMEMBER(_color));
+			persistMgr->transferSint32(TMEMBER(_offsetX));
+			persistMgr->transferSint32(TMEMBER(_offsetY));
+			persistMgr->transferUint32(TMEMBER(_color));
 			return STATUS_OK;
 		}
 
@@ -135,7 +134,7 @@ private:
 	size_t _maxCharWidth;
 	size_t _maxCharHeight;
 
-public:
+private:
 	bool _isBold;
 	bool _isItalic;
 	bool _isUnderline;

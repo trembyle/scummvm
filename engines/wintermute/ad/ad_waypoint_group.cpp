@@ -194,11 +194,11 @@ bool AdWaypointGroup::persist(BasePersistenceManager *persistMgr) {
 
 	BaseObject::persist(persistMgr);
 
-	persistMgr->transfer(TMEMBER(_active));
-	persistMgr->transfer(TMEMBER(_editorSelectedPoint));
+	persistMgr->transferBool(TMEMBER(_active));
+	persistMgr->transferSint32(TMEMBER(_editorSelectedPoint));
 	persistMgr->transferFloat(TMEMBER(_lastMimicScale));
-	persistMgr->transfer(TMEMBER(_lastMimicX));
-	persistMgr->transfer(TMEMBER(_lastMimicY));
+	persistMgr->transferSint32(TMEMBER(_lastMimicX));
+	persistMgr->transferSint32(TMEMBER(_lastMimicY));
 	_points.persist(persistMgr);
 
 	return STATUS_OK;

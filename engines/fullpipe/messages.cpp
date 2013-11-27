@@ -201,6 +201,19 @@ MessageQueue::MessageQueue() {
 	_flag1 = 0;
 }
 
+MessageQueue::MessageQueue(int dataId) {
+	_field_14 = 0;
+	_parId = 0;
+	_dataId = dataId;
+	_id = g_fullpipe->_globalMessageQueueList->compact();
+	_isFinished = 0;
+	_flags = 0;
+	_queueName = 0;
+	_counter = 0;
+	_field_38 = 0;
+	_flag1 = 0;
+}
+
 MessageQueue::MessageQueue(MessageQueue *src, int parId, int field_38) {
 	_counter = 0;
 	_field_38 = (field_38 == 0);
@@ -309,6 +322,10 @@ void MessageQueue::messageQueueCallback1(int par) {
 	debug(3, "STUB: MessageQueue::messageQueueCallback1()");
 }
 
+void MessageQueue::addExCommand(ExCommand *ex) {
+	_exCommands.push_front(ex);
+}
+
 ExCommand *MessageQueue::getExCommandByIndex(uint idx) {
 	if (idx > _exCommands.size())
 		return 0;
@@ -321,6 +338,30 @@ ExCommand *MessageQueue::getExCommandByIndex(uint idx) {
 	}
 
 	return *it;
+}
+
+void MessageQueue::deleteExCommandByIndex(uint idx, bool doFree) {
+	if (idx > _exCommands.size())
+		return;
+
+	Common::List<ExCommand *>::iterator it = _exCommands.begin();
+
+	while (idx) {
+		++it;
+		idx--;
+	}
+
+	_exCommands.erase(it);
+
+	if (doFree)
+		delete *it;
+}
+
+void MessageQueue::transferExCommands(MessageQueue *mq) {
+	while (mq->_exCommands.size()) {
+		_exCommands.push_back(mq->_exCommands.front());
+		mq->_exCommands.pop_front();
+	}
 }
 
 void MessageQueue::sendNextCommand() {
@@ -726,6 +767,25 @@ void updateGlobalMessageQueue(int id, int objid) {
 	if (m) {
 		m->update();
 	}
+}
+
+bool chainQueue(int queueId, int flags) {
+	MessageQueue *mq = g_fullpipe->_currentScene->getMessageQueueById(queueId);
+
+	if (!mq)
+		return false;
+
+	MessageQueue *nmq = new MessageQueue(mq, 0, 0);
+
+	nmq->_flags |= flags;
+
+	if (!mq->chain(0)) {
+		delete mq;
+
+		return false;
+	}
+
+	return true;
 }
 
 } // End of namespace Fullpipe
