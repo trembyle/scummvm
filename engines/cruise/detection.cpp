@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -35,7 +35,7 @@ struct CRUISEGameDescription {
 };
 
 const char *CruiseEngine::getGameId() const {
-	return _gameDescription->desc.gameid;
+	return _gameDescription->desc.gameId;
 }
 
 Common::Language CruiseEngine::getLanguage() const {
@@ -196,16 +196,16 @@ static const CRUISEGameDescription gameDescriptions[] = {
 class CruiseMetaEngine : public AdvancedMetaEngine {
 public:
 	CruiseMetaEngine() : AdvancedMetaEngine(Cruise::gameDescriptions, sizeof(Cruise::CRUISEGameDescription), cruiseGames) {
-		_singleid = "cruise";
-		_guioptions = GUIO2(GUIO_NOSPEECH, GUIO_NOMIDI);
+		_singleId = "cruise";
+		_guiOptions = GUIO2(GUIO_NOSPEECH, GUIO_NOMIDI);
 	}
 
 	virtual const char *getName() const {
-		return "CruisE";
+		return "Cinematique evo 2";
 	}
 
 	virtual const char *getOriginalCopyright() const {
-		return "Cruise for a Corpse (C) Delphine Software";
+		return "Cinematique evo 2 (C) Delphine Software";
 	}
 
 	virtual bool hasFeature(MetaEngineFeature f) const;
@@ -228,10 +228,9 @@ bool CruiseMetaEngine::hasFeature(MetaEngineFeature f) const {
 SaveStateList CruiseMetaEngine::listSaves(const char *target) const {
 	Common::SaveFileManager *saveFileMan = g_system->getSavefileManager();
 	Common::StringArray filenames;
-	Common::String pattern("cruise.s??");
+	Common::String pattern("cruise.s##");
 
 	filenames = saveFileMan->listSavefiles(pattern);
-	sort(filenames.begin(), filenames.end());	// Sort (hopefully ensuring we are sorted numerically..)
 
 	SaveStateList saveList;
 	for (Common::StringArray::const_iterator file = filenames.begin(); file != filenames.end(); ++file) {
@@ -242,14 +241,15 @@ SaveStateList CruiseMetaEngine::listSaves(const char *target) const {
 			Common::InSaveFile *in = saveFileMan->openForLoading(*file);
 			if (in) {
 				Cruise::CruiseSavegameHeader header;
-				Cruise::readSavegameHeader(in, header);
-				saveList.push_back(SaveStateDescriptor(slotNum, header.saveName));
-				delete header.thumbnail;
+				if (Cruise::readSavegameHeader(in, header))
+					saveList.push_back(SaveStateDescriptor(slotNum, header.saveName));
 				delete in;
 			}
 		}
 	}
 
+	// Sort saves based on slot number.
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -263,7 +263,11 @@ SaveStateDescriptor CruiseMetaEngine::querySaveMetaInfos(const char *target, int
 
 	if (f) {
 		Cruise::CruiseSavegameHeader header;
-		Cruise::readSavegameHeader(f, header);
+		if (!Cruise::readSavegameHeader(f, header, false)) {
+			delete f;
+			return SaveStateDescriptor();
+		}
+
 		delete f;
 
 		// Create the return descriptor
@@ -286,7 +290,7 @@ bool CruiseMetaEngine::createInstance(OSystem *syst, Engine **engine, const ADGa
 
 
 #if PLUGIN_ENABLED_DYNAMIC(CRUISE)
-REGISTER_PLUGIN_DYNAMIC(CRUISE, PLUGIN_TYPE_ENGINE, CruiseMetaEngine);
+	REGISTER_PLUGIN_DYNAMIC(CRUISE, PLUGIN_TYPE_ENGINE, CruiseMetaEngine);
 #else
-REGISTER_PLUGIN_STATIC(CRUISE, PLUGIN_TYPE_ENGINE, CruiseMetaEngine);
+	REGISTER_PLUGIN_STATIC(CRUISE, PLUGIN_TYPE_ENGINE, CruiseMetaEngine);
 #endif

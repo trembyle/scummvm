@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -232,7 +232,7 @@ const uint8 TuckerEngine::_charWidthCharset1[224] = {
 	0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07,
 	0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07,
 	0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07,
-	0x07, 0x00, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07,
+	0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07,
 	0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07
 };
 
@@ -329,14 +329,19 @@ static const SoundSequenceData _soundDataSeq19_20[] = {
 	{   53,  2,  14, 100, 1 }, {   78,  2,   0, 100, 2 }, {   80,  0,   0, 100, 4 },
 };
 
+// I've been told that there are versions of the game that don't play the
+// "introdub" music (130) for the first scene of the intro. The English "Euro
+// power pack" release does however, and I see no harm in doing it for every
+// version here. The volume is just a guess, though.
+
 const SoundSequenceDataList AnimationSequencePlayer::_soundSeqDataList[] = {
-	{   0,   0, 14, 10, 58, _soundDataSeq3_4 },
-	{   0,   0, 14,  5, 60, _soundDataSeq9_10 },
+	{ 130,  80, 14, 10, 58, _soundDataSeq3_4   },
+	{   0,   0, 14,  5, 60, _soundDataSeq9_10  },
 	{   0,   0, 14,  9, 48, _soundDataSeq21_20 },
 	{   1,  80, 14,  4, 25, _soundDataSeq13_14 },
 	{   1,  80, 13,  9, 43, _soundDataSeq15_16 },
 	{   1,  80, 11,  0, 11, _soundDataSeq27_28 },
-	{ 104, 100,  0,  0,  0, 0 },
+	{ 104, 100,  0,  0,  0, nullptr            },
 	{   0,   0,  4,  0,  7, _soundDataSeq19_20 }
 };
 
@@ -471,6 +476,7 @@ const char *const AnimationSequencePlayer::_audioFileNamesTable[] = {
 	"rdfx38.wav",
 	"rdfx8.wav",
 	"rdfx9.wav",
+	"introdub.raw",
 };
 
 } // namespace Tucker

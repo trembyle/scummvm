@@ -8,16 +8,15 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  *
  */
 
@@ -82,7 +81,7 @@ void KyraRpgEngine::initStaticResource() {
 	_dscTileIndex = _staticres->loadRawData(kRpgCommonDscTileIndex, temp);
 	_dscDim1 = (const int8 *)_staticres->loadRawData(kRpgCommonDscDimData1, temp);
 	_dscDim2 = (const int8 *)_staticres->loadRawData(kRpgCommonDscDimData2, temp);
-	_dscUnk2 = _staticres->loadRawData(kRpgCommonDscUnk2, temp);
+	_dscDoorScaleOffs = _staticres->loadRawData(kRpgCommonDscDoorScaleOffs, temp);
 	_dscBlockMap = _staticres->loadRawData(kRpgCommonDscBlockMap, temp);
 	_dscBlockIndex = (const int8 *)_staticres->loadRawData(kRpgCommonDscBlockIndex, temp);
 	_dscDimMap = _staticres->loadRawData(kRpgCommonDscDimMap, temp);

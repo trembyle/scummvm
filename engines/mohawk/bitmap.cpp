@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -29,7 +29,7 @@
 #include "common/substream.h"
 #include "common/system.h"
 #include "common/textconsole.h"
-#include "graphics/decoders/bmp.h"
+#include "image/bmp.h"
 
 namespace Mohawk {
 
@@ -53,6 +53,16 @@ MohawkBitmap::MohawkBitmap() {
 
 	_drawTable = drawTable;
 	_drawTableSize = ARRAYSIZE(drawTable);
+
+	_header.width = 0;
+	_header.height = 0;
+	_header.bytesPerRow = 0;
+	_header.format = 0;
+	_header.colorTable.colorCount = 0;
+	_header.colorTable.palette = nullptr;
+	_header.colorTable.rgbBits = 0;
+	_header.colorTable.tableSize = 0;
+	_data = nullptr;
 }
 
 MohawkBitmap::~MohawkBitmap() {
@@ -60,7 +70,7 @@ MohawkBitmap::~MohawkBitmap() {
 
 void MohawkBitmap::decodeImageData(Common::SeekableReadStream *stream) {
 	_data = stream;
-	_header.colorTable.palette = NULL;
+	_header.colorTable.palette = nullptr;
 
 	// NOTE: Only the bottom 12 bits of width/height/bytesPerRow are
 	// considered valid and bytesPerRow has to be an even number.
@@ -635,12 +645,12 @@ MohawkSurface *MystBitmap::decodeImage(Common::SeekableReadStream *stream) {
 	Common::SeekableReadStream *bmpStream = decompressLZ(stream, uncompressedSize);
 	delete stream;
 
-	Graphics::BitmapDecoder bitmapDecoder;
+	Image::BitmapDecoder bitmapDecoder;
 	if (!bitmapDecoder.loadStream(*bmpStream))
 		error("Could not decode Myst bitmap");
 
 	const Graphics::Surface *bmpSurface = bitmapDecoder.getSurface();
-	Graphics::Surface *newSurface = 0;
+	Graphics::Surface *newSurface = nullptr;
 
 	if (bmpSurface->format.bytesPerPixel == 1) {
 		_bitsPerPixel = 8;
@@ -652,7 +662,7 @@ MohawkSurface *MystBitmap::decodeImage(Common::SeekableReadStream *stream) {
 	}
 
 	// Copy the palette to one of our own
-	byte *newPal = 0;
+	byte *newPal = nullptr;
 
 	if (bitmapDecoder.hasPalette()) {
 		const byte *palette = bitmapDecoder.getPalette();
@@ -719,7 +729,7 @@ MohawkSurface *LivingBooksBitmap_v1::decodeImage(Common::SeekableReadStream *str
 			leRLE8 = true;
 
 		_data = stream;
-		stream = NULL;
+		stream = nullptr;
 	}
 
 	Graphics::Surface *surface = createSurface(_header.width, _header.height);

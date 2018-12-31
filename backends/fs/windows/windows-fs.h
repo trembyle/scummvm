@@ -17,22 +17,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef WINDOWS_FILESYSTEM_H
 #define WINDOWS_FILESYSTEM_H
 
-#include "backends/fs/abstract-fs.h"
-
-#if defined(ARRAYSIZE)
-#undef ARRAYSIZE
-#endif
 #include <windows.h>
-// winnt.h defines ARRAYSIZE, but we want our own one...
-#undef ARRAYSIZE
 #ifdef _WIN32_WCE
 #undef GetCurrentDirectory
 #endif
+
+#include "backends/fs/abstract-fs.h"
+
 #include <io.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -87,6 +84,7 @@ public:
 
 	virtual Common::SeekableReadStream *createReadStream();
 	virtual Common::WriteStream *createWriteStream();
+	virtual bool create(bool isDirectoryFlag);
 
 private:
 	/**

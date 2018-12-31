@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -102,11 +102,11 @@ static const Engines::ObsoleteGameID obsoleteGameIDsTable[] = {
 class SagaMetaEngine : public AdvancedMetaEngine {
 public:
 	SagaMetaEngine() : AdvancedMetaEngine(Saga::gameDescriptions, sizeof(Saga::SAGAGameDescription), sagaGames) {
-		_singleid = "saga";
+		_singleId = "saga";
 	}
 
-	virtual GameDescriptor findGame(const char *gameid) const {
-		return Engines::findGameID(gameid, _gameids, obsoleteGameIDsTable);
+	PlainGameDescriptor findGame(const char *gameId) const override {
+		return Engines::findGameID(gameId, _gameIds, obsoleteGameIDsTable);
 	}
 
 	virtual const char *getName() const {
@@ -157,7 +157,8 @@ bool SagaMetaEngine::hasFeature(MetaEngineFeature f) const {
 		(f == kSavesSupportMetaInfo) ||
 		(f == kSavesSupportThumbnail) ||
 		(f == kSavesSupportCreationDate) ||
-		(f == kSavesSupportPlayTime);
+		(f == kSavesSupportPlayTime) ||
+		(f == kSimpleSavesNames);
 }
 
 bool Saga::SagaEngine::hasFeature(EngineFeature f) const {
@@ -180,10 +181,9 @@ SaveStateList SagaMetaEngine::listSaves(const char *target) const {
 	Common::StringArray filenames;
 	char saveDesc[SAVE_TITLE_SIZE];
 	Common::String pattern = target;
-	pattern += ".s??";
+	pattern += ".s##";
 
 	filenames = saveFileMan->listSavefiles(pattern);
-	sort(filenames.begin(), filenames.end());	// Sort (hopefully ensuring we are sorted numerically..)
 
 	SaveStateList saveList;
 	int slotNum = 0;
@@ -203,6 +203,8 @@ SaveStateList SagaMetaEngine::listSaves(const char *target) const {
 		}
 	}
 
+	// Sort saves based on slot number.
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -232,7 +234,7 @@ SaveStateDescriptor SagaMetaEngine::querySaveMetaInfos(const char *target, int s
 		SaveStateDescriptor desc(slot, name);
 
 		// Some older saves were not written in an endian safe fashion.
-		// We try to detect this here by checking for extremly high version values.
+		// We try to detect this here by checking for extremely high version values.
 		// If found, we retry with the data swapped.
 		if (version > 0xFFFFFF) {
 			warning("This savegame is not endian safe, retrying with the data swapped");
@@ -254,7 +256,11 @@ SaveStateDescriptor SagaMetaEngine::querySaveMetaInfos(const char *target, int s
 		}
 
 		if (version >= 6) {
-			Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*in);
+			Graphics::Surface *thumbnail;
+			if (!Graphics::loadThumbnail(*in, thumbnail)) {
+				delete in;
+				return SaveStateDescriptor();
+			}
 			desc.setThumbnail(thumbnail);
 
 			uint32 saveDate = in->readUint32BE();

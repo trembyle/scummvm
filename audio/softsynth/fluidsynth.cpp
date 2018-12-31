@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #include "common/scummsys.h"
@@ -30,6 +31,9 @@
 #include "audio/musicplugin.h"
 #include "audio/mpu401.h"
 #include "audio/softsynth/emumidi.h"
+#if defined(IPHONE_IOS7) && defined(IPHONE_SANDBOXED)
+#include "backends/platform/ios7/ios7_common.h"
+#endif
 
 #include <fluidsynth.h>
 
@@ -83,27 +87,30 @@ MidiDriver_FluidSynth::MidiDriver_FluidSynth(Audio::Mixer *mixer)
 		_outputRate = 96000;
 }
 
+// The string duplication below is there only because older versions (1.1.6
+// and earlier?) of FluidSynth expected the string parameters to be non-const.
+
 void MidiDriver_FluidSynth::setInt(const char *name, int val) {
-	char *name2 = strdup(name);
+	char *name2 = scumm_strdup(name);
 
 	fluid_settings_setint(_settings, name2, val);
-	free(name2);
+	delete[] name2;
 }
 
 void MidiDriver_FluidSynth::setNum(const char *name, double val) {
-	char *name2 = strdup(name);
+	char *name2 = scumm_strdup(name);
 
 	fluid_settings_setnum(_settings, name2, val);
-	free(name2);
+	delete[] name2;
 }
 
 void MidiDriver_FluidSynth::setStr(const char *name, const char *val) {
-	char *name2 = strdup(name);
-	char *val2 = strdup(val);
+	char *name2 = scumm_strdup(name);
+	char *val2 = scumm_strdup(val);
 
 	fluid_settings_setstr(_settings, name2, val2);
-	free(name2);
-	free(val2);
+	delete[] name2;
+	delete[] val2;
 }
 
 int MidiDriver_FluidSynth::open() {
@@ -178,14 +185,24 @@ int MidiDriver_FluidSynth::open() {
 
 	const char *soundfont = ConfMan.get("soundfont").c_str();
 
+#if defined(IPHONE_IOS7) && defined(IPHONE_SANDBOXED)
+	// HACK: Due to the sandbox on non-jailbroken iOS devices, we need to deal
+	// with the chroot filesystem. All the path selected by the user are
+	// relative to the Document directory. So, we need to adjust the path to
+	// reflect that.
+	Common::String soundfont_fullpath = iOS7_getDocumentsDir();
+	soundfont_fullpath += soundfont;
+	_soundFont = fluid_synth_sfload(_synth, soundfont_fullpath.c_str(), 1);
+#else
 	_soundFont = fluid_synth_sfload(_synth, soundfont, 1);
+#endif
+
 	if (_soundFont == -1)
 		error("Failed loading custom sound font '%s'", soundfont);
 
 	MidiDriver_Emulated::open();
 
-	// The MT-32 emulator uses kSFXSoundType here. I don't know why.
-	_mixer->playStream(Audio::Mixer::kMusicSoundType, &_mixerSoundHandle, this, -1, Audio::Mixer::kMaxChannelVolume, 0, DisposeAfterUse::NO, true);
+	_mixer->playStream(Audio::Mixer::kPlainSoundType, &_mixerSoundHandle, this, -1, Audio::Mixer::kMaxChannelVolume, 0, DisposeAfterUse::NO, true);
 	return 0;
 }
 

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -33,9 +33,9 @@ class GobMetaEngine : public AdvancedMetaEngine {
 public:
 	GobMetaEngine();
 
-	virtual GameDescriptor findGame(const char *gameid) const;
+	PlainGameDescriptor findGame(const char *gameId) const override;
 
-	virtual const ADGameDescription *fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const;
+	ADDetectedGame fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const override;
 
 	virtual const char *getName() const;
 	virtual const char *getOriginalCopyright() const;
@@ -55,30 +55,30 @@ private:
 GobMetaEngine::GobMetaEngine() :
 	AdvancedMetaEngine(Gob::gameDescriptions, sizeof(Gob::GOBGameDescription), gobGames) {
 
-	_singleid   = "gob";
-	_guioptions = GUIO1(GUIO_NOLAUNCHLOAD);
+	_singleId   = "gob";
+	_guiOptions = GUIO1(GUIO_NOLAUNCHLOAD);
 }
 
-GameDescriptor GobMetaEngine::findGame(const char *gameid) const {
-	return Engines::findGameID(gameid, _gameids, obsoleteGameIDsTable);
+PlainGameDescriptor GobMetaEngine::findGame(const char *gameId) const {
+	return Engines::findGameID(gameId, _gameIds, obsoleteGameIDsTable);
 }
 
-const ADGameDescription *GobMetaEngine::fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const {
-	ADFilePropertiesMap filesProps;
+ADDetectedGame GobMetaEngine::fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const {
+	ADDetectedGame detectedGame = detectGameFilebased(allFiles, fslist, Gob::fileBased);
+	if (!detectedGame.desc) {
+		return ADDetectedGame();
+	}
 
-	const Gob::GOBGameDescription *game;
-	game = (const Gob::GOBGameDescription *)detectGameFilebased(allFiles, fslist, Gob::fileBased, &filesProps);
-	if (!game)
-		return 0;
+	const Gob::GOBGameDescription *game = (const Gob::GOBGameDescription *)detectedGame.desc;
 
 	if (game->gameType == Gob::kGameTypeOnceUponATime) {
 		game = detectOnceUponATime(fslist);
-		if (!game)
-			return 0;
+		if (game) {
+			detectedGame.desc = &game->desc;
+		}
 	}
 
-	reportUnknown(fslist.begin()->getParent(), filesProps);
-	return (const ADGameDescription *)game;
+	return detectedGame;
 }
 
 const Gob::GOBGameDescription *GobMetaEngine::detectOnceUponATime(const Common::FSList &fslist) {
@@ -151,7 +151,7 @@ const Gob::GOBGameDescription *GobMetaEngine::detectOnceUponATime(const Common::
 
 	if ((gameType == Gob::kOnceUponATimeInvalid) || (platform == Gob::kOnceUponATimePlatformInvalid)) {
 		warning("GobMetaEngine::detectOnceUponATime(): Detection failed (%d, %d)",
-		        (int) gameType, (int) platform);
+		        (int)gameType, (int)platform);
 		return 0;
 	}
 

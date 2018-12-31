@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -135,6 +135,17 @@ static const GroovieGameDescription gameDescriptions[] = {
 			"11h", "",
 			AD_ENTRY1s("disk.1", "5c0428cd3659fc7bbcd0aa16485ed5da", 227),
 			Common::EN_ANY, Common::kPlatformDOS, ADGF_UNSTABLE,
+			GUIO4(GUIO_MIDIADLIB, GUIO_MIDIMT32, GUIO_MIDIGM, GUIO_NOASPECT)
+		},
+		kGroovieV2, 1
+	},
+
+	// The 11th Hour Windows English
+	{
+		{
+			"11h", "",
+			AD_ENTRY1s("disk.1", "4c1d0549f544f052fba2b7a9aebd1077", 220),
+			Common::EN_ANY, Common::kPlatformWindows, ADGF_UNSTABLE,
 			GUIO4(GUIO_MIDIADLIB, GUIO_MIDIMT32, GUIO_MIDIGM, GUIO_NOASPECT)
 		},
 		kGroovieV2, 1
@@ -322,7 +333,7 @@ static const ADExtraGuiOptionsMap optionsList[] = {
 class GroovieMetaEngine : public AdvancedMetaEngine {
 public:
 	GroovieMetaEngine() : AdvancedMetaEngine(gameDescriptions, sizeof(GroovieGameDescription), groovieGames, optionsList) {
-		_singleid = "groovie";
+		_singleId = "groovie";
 
 		// Use kADFlagUseExtraAsHint in order to distinguish the 11th hour from
 		// its "Making of" as well as the Clandestiny Trailer; they all share
@@ -333,7 +344,7 @@ public:
 		// to the detection entries. In the latter case, this TODO should be
 		// replaced with an according explanation.
 		_flags = kADFlagUseExtraAsHint;
-		_guioptions = GUIO3(GUIO_NOSUBTITLES, GUIO_NOSFX, GUIO_NOASPECT);
+		_guiOptions = GUIO3(GUIO_NOSUBTITLES, GUIO_NOSFX, GUIO_NOASPECT);
 
 		// Need MIDI directory to detect 11H Mac Installed
 		_maxScanDepth = 2;

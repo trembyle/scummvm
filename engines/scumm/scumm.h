@@ -8,20 +8,20 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef SCUMM_H
-#define SCUMM_H
+#ifndef SCUMM_SCUMM_H
+#define SCUMM_SCUMM_H
 
 #include "engines/engine.h"
 
@@ -33,6 +33,7 @@
 #include "common/random.h"
 #include "common/rect.h"
 #include "common/rendermode.h"
+#include "common/serializer.h"
 #include "common/str.h"
 #include "common/textconsole.h"
 #include "graphics/surface.h"
@@ -88,7 +89,6 @@ class MusicEngine;
 class Player_Towns;
 class ScummEngine;
 class ScummDebugger;
-class Serializer;
 class Sound;
 
 struct Box;
@@ -172,7 +172,8 @@ enum {
 	DEBUG_SOUND	=	1 << 7,		// General Sound Debug
 	DEBUG_ACTORS	=	1 << 8,		// General Actor Debug
 	DEBUG_INSANE	=	1 << 9,		// Track INSANE
-	DEBUG_SMUSH	=	1 << 10		// Track SMUSH
+	DEBUG_SMUSH	=	1 << 10,		// Track SMUSH
+	DEBUG_MOONBASE_AI = 1 << 11		// Moonbase AI
 };
 
 struct VerbSlot;
@@ -256,6 +257,7 @@ enum ScummGameId {
 	GID_BASEBALL2003,
 	GID_BASKETBALL,
 	GID_MOONBASE,
+	GID_PJGAMES,
 	GID_HECUP		// CUP demos
 };
 
@@ -297,7 +299,14 @@ struct StringTab : StringSlot {
 	}
 };
 
+struct ScummEngine_v0_Delays {
+	bool _screenScroll;
+	uint _objectRedrawCount;
+	uint _objectStripRedrawCount;
+	uint _actorRedrawCount;
+	uint _actorLimbRedrawDrawCount;
 
+};
 
 enum WhereIsObject {
 	WIO_NOT_FOUND = -1,
@@ -366,7 +375,7 @@ class ResourceManager;
 /**
  * Base class for all SCUMM engines.
  */
-class ScummEngine : public Engine {
+class ScummEngine : public Engine, public Common::Serializable {
 	friend class ScummDebugger;
 	friend class CharsetRenderer;
 	friend class CharsetRendererTownsClassic;
@@ -586,7 +595,7 @@ protected:
 	bool _dumpScripts;
 	bool _hexdumpScripts;
 	bool _showStack;
-	uint16 _debugMode;
+	bool _debugMode;
 
 	// Save/Load class - some of this may be GUI
 	byte _saveLoadFlag, _saveLoadSlot;
@@ -595,13 +604,17 @@ protected:
 	Common::String _saveLoadFileName;
 	Common::String _saveLoadDescription;
 
-	bool saveState(Common::OutSaveFile *out, bool writeHeader = true);
-	bool saveState(int slot, bool compat);
+	bool saveState(Common::WriteStream *out, bool writeHeader = true);
+	bool saveState(int slot, bool compat, Common::String &fileName);
 	bool loadState(int slot, bool compat);
-	virtual void saveOrLoad(Serializer *s);
-	void saveResource(Serializer *ser, ResType type, ResId idx);
-	void loadResource(Serializer *ser, ResType type, ResId idx);
-	void loadResourceOLD(Serializer *ser, ResType type, ResId idx);	// "Obsolete"
+	bool loadState(int slot, bool compat, Common::String &fileName);
+	virtual void saveLoadWithSerializer(Common::Serializer &s);
+	void saveResource(Common::Serializer &ser, ResType type, ResId idx);
+	void loadResource(Common::Serializer &ser, ResType type, ResId idx);
+	void loadResourceOLD(Common::Serializer &ser, ResType type, ResId idx);	// "Obsolete"
+
+	virtual Common::SeekableReadStream *openSaveFileForReading(int slot, bool compat, Common::String &fileName);
+	virtual Common::WriteStream *openSaveFileForWriting(int slot, bool compat, Common::String &fileName);
 
 	Common::String makeSavegameName(int slot, bool temporary) const {
 		return makeSavegameName(_targetName, slot, temporary);
@@ -618,17 +631,14 @@ public:
 	void requestSave(int slot, const Common::String &name);
 	void requestLoad(int slot);
 
+	Common::String getTargetName() const { return _targetName; }
+
 // thumbnail + info stuff
 public:
-	Graphics::Surface *loadThumbnailFromSlot(int slot) {
-		return loadThumbnailFromSlot(_targetName.c_str(), slot);
-	}
-	static Graphics::Surface *loadThumbnailFromSlot(const char *target, int slot);
-
-	static bool loadInfosFromSlot(const char *target, int slot, SaveStateMetaInfos *stuff);
+	static bool querySaveMetaInfos(const char *target, int slot, int heversion, Common::String &desc, Graphics::Surface *&thumbnail, SaveStateMetaInfos *&timeInfos);
 
 protected:
-	void saveInfos(Common::WriteStream* file);
+	void saveInfos(Common::WriteStream *file);
 	static bool loadInfos(Common::SeekableReadStream *file, SaveStateMetaInfos *stuff);
 
 protected:
@@ -640,7 +650,7 @@ protected:
 	byte _opcode;
 	byte _currentScript;
 	int _scummStackPos;
-	int _vmStack[150];
+	int _vmStack[256];
 
 	OpcodeEntry _opcodes[256];
 
@@ -652,7 +662,7 @@ protected:
 	int	getScriptSlot();
 
 	void startScene(int room, Actor *a, int b);
-	void startManiac();
+	bool startManiac();
 
 public:
 	void runScript(int script, bool freezeResistant, bool recursive, int *lvarptr, int cycle = 0);
@@ -669,6 +679,7 @@ protected:
 	virtual void checkAndRunSentenceScript();
 	void runExitScript();
 	void runEntryScript();
+	void runQuitScript();
 	void runAllScripts();
 	void freezeScripts(int scr);
 	void unfreezeScripts();
@@ -701,6 +712,7 @@ protected:
 	virtual int readVar(uint var);
 	virtual void writeVar(uint var, int value);
 
+protected:
 	void beginCutscene(int *args);
 	void endCutscene();
 	void abortCutscene();
@@ -1093,6 +1105,8 @@ public:
 	// Indy4 Amiga specific
 	byte *_verbPalette;
 
+	ScummEngine_v0_Delays _V0Delay;
+
 protected:
 	int _shadowPaletteSize;
 	byte _currentPalette[3 * 256];
@@ -1127,6 +1141,8 @@ public:
 
 	byte getNumBoxes();
 	byte *getBoxMatrixBaseAddr();
+	byte *getBoxConnectionBase(int box);
+
 	int getNextBox(byte from, byte to);
 
 	void setBoxFlags(int box, int val);
@@ -1150,6 +1166,7 @@ protected:
 		int x1, y1, scale1;
 		int x2, y2, scale2;
 	};
+	friend void syncWithSerializer(Common::Serializer &, ScaleSlot &);
 	ScaleSlot _scaleSlots[20];
 	void setScaleSlot(int slot, int x1, int y1, int scale1, int x2, int y2, int scale2);
 	void setBoxScaleSlot(int box, int slot);
@@ -1179,6 +1196,7 @@ protected:
 	byte _charsetBuffer[512];
 
 	bool _keepText;
+	byte _msgCount;
 
 	int _nextLeft, _nextTop;
 
@@ -1359,6 +1377,8 @@ public:
 
 	byte VAR_SCRIPT_CYCLE;			// Used in runScript()/runObjectScript()
 	byte VAR_NUM_SCRIPT_CYCLES;		// Used in runAllScripts()
+
+	byte VAR_QUIT_SCRIPT;			// Used in confirmExitDialog()
 
 	// Exists both in V7 and in V72HE:
 	byte VAR_NUM_GLOBAL_OBJS;

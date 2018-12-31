@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -28,7 +28,7 @@
 
 #include "common/system.h"
 #include "graphics/palette.h"
-#include "graphics/decoders/pcx.h"
+#include "image/pcx.h"
 #include "common/file.h"
 #include "common/rect.h"
 #include "engines/util.h"
@@ -106,7 +106,7 @@ GraphicsManager::~GraphicsManager() {
 void GraphicsManager::setGraphicalMode(int width, int height) {
 	if (!_initGraphicsFl) {
 		Graphics::PixelFormat pixelFormat16(2, 5, 6, 5, 0, 11, 5, 0, 0);
-		initGraphics(width, height, true, &pixelFormat16);
+		initGraphics(width, height, &pixelFormat16);
 
 		// Init surfaces
 		_backBuffer = _vm->_globals->allocMemory(SCREEN_WIDTH * 2 * SCREEN_HEIGHT);
@@ -301,7 +301,7 @@ void GraphicsManager::fillSurface(byte *surface, byte *col, int size) {
 
 void GraphicsManager::loadPCX640(byte *surface, const Common::String &file, byte *palette, bool typeFlag) {
 	Common::File f;
-	Graphics::PCXDecoder pcxDecoder;
+	Image::PCXDecoder pcxDecoder;
 
 	// Clear the passed surface
 	memset(surface, 0, SCREEN_WIDTH * 2 * SCREEN_HEIGHT);
@@ -439,9 +439,7 @@ void GraphicsManager::display8BitRect(const byte *surface, int xs, int ys, int w
 }
 
 void GraphicsManager::displayScaled8BitRect(const byte *surface, int xp, int yp, int width, int height, int destX, int destY) {
-	int xCtr;
 	const byte *palette;
-	int savedXCount;
 	byte *loopDestP;
 	const byte *loopSrcP;
 	int yCtr;
@@ -454,10 +452,10 @@ void GraphicsManager::displayScaled8BitRect(const byte *surface, int xp, int yp,
 
 	do {
 		yCtr = yCount;
-		xCtr = xCount;
+		int xCtr = xCount;
 		loopSrcP = srcP;
 		loopDestP = destP;
-		savedXCount = xCount;
+		int savedXCount = xCount;
 		palette = _palettePixels;
 
 		do {
@@ -678,6 +676,7 @@ void GraphicsManager::updateScreen() {
 
 	// Update the screen
 	g_system->updateScreen();
+	debugC(1, kDebugGraphics, "updateScreen()");
 }
 
 void GraphicsManager::copyWinscanVbe3(const byte *srcData, byte *destSurface) {
@@ -1143,10 +1142,12 @@ void GraphicsManager::displayDirtyRects() {
 }
 
 void GraphicsManager::displayRefreshRects() {
+	debugC(1, kDebugGraphics, "displayRefreshRects() start");
 	Graphics::Surface *screenSurface = NULL;
 	if (_showDirtyRects) {
 		screenSurface = g_system->lockScreen();
 		g_system->copyRectToScreen(_screenBuffer, _screenLineSize, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		debugC(1, kDebugGraphics, "\tcopyRectToScreen(_screenBuffer, %d, %d, %d, %d, %d) - Full Blit", _screenLineSize, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 
 	// Loop through copying over any  specified rects to the screen
@@ -1155,6 +1156,7 @@ void GraphicsManager::displayRefreshRects() {
 
 		byte *srcP = _screenBuffer + _screenLineSize * r.top + (r.left * 2);
 		g_system->copyRectToScreen(srcP, _screenLineSize, r.left, r.top, r.width(), r.height());
+		debugC(1, kDebugGraphics, "\tcopyRectToScreen(_screenBuffer[%d][%d], %d, %d, %d, %d, %d) - Rect Blit", (r.left * 2), (_screenLineSize * r.top), _screenLineSize, r.left, r.top, r.width(), r.height());
 
 		if (_showDirtyRects)
 			screenSurface->frameRect(r, 0xffffff);
@@ -1164,6 +1166,7 @@ void GraphicsManager::displayRefreshRects() {
 		g_system->unlockScreen();
 
 	resetRefreshRects();
+	debugC(1, kDebugGraphics, "displayRefreshRects() end");
 }
 
 /**
@@ -1781,7 +1784,7 @@ void GraphicsManager::initScreen(const Common::String &file, int mode, bool init
 
 		do {
 			int dataVal1 = _vm->_script->handleOpcode(ptr + 20 * dataOffset);
-			if (_vm->shouldQuit())
+			if (dataVal1 == -1 || _vm->shouldQuit())
 				return;
 
 			if (dataVal1 == 2)

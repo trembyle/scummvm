@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -55,10 +55,14 @@ public:
 
 	static void setReadyForEvents(bool ready);
 
-	static void getPluginDirectories(Common::FSList &dirs);
 	static void setWindowCaption(const char *caption);
 	static void getDPI(float *values);
 	static void displayMessageOnOSD(const char *msg);
+	static bool openUrl(const char *url);
+	static bool hasTextInClipboard();
+	static Common::String getTextFromClipboard();
+	static bool setTextInClipboard(const Common::String &text);
+	static bool isConnectionLimited();
 	static void showVirtualKeyboard(bool enable);
 	static void addSysArchivesToSearchSet(Common::SearchSet &s, int priority);
 
@@ -90,10 +94,14 @@ private:
 
 	static jmethodID _MID_getDPI;
 	static jmethodID _MID_displayMessageOnOSD;
+	static jmethodID _MID_openUrl;
+	static jmethodID _MID_hasTextInClipboard;
+	static jmethodID _MID_getTextFromClipboard;
+	static jmethodID _MID_setTextInClipboard;
+	static jmethodID _MID_isConnectionLimited;
 	static jmethodID _MID_setWindowCaption;
 	static jmethodID _MID_showVirtualKeyboard;
 	static jmethodID _MID_getSysArchives;
-	static jmethodID _MID_getPluginDirectories;
 	static jmethodID _MID_initSurface;
 	static jmethodID _MID_deinitSurface;
 
@@ -125,6 +133,8 @@ private:
 	static void enableZoning(JNIEnv *env, jobject self, jboolean enable);
 
 	static void setPause(JNIEnv *env, jobject self, jboolean value);
+
+	static jstring getCurrentCharset(JNIEnv *env, jobject self);
 };
 
 inline bool JNI::haveSurface() {

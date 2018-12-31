@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -156,6 +156,7 @@ static const byte fragment14[] = {OP_LIBCALL | OPSIZE8, 58,
 		OP_IMM, FRAGMENT_DWORD((42 << 23)), OP_ONE, OP_ZERO, OP_LIBCALL | OPSIZE8, 44,
 		OP_LIBCALL | OPSIZE8, 97, OP_JUMP | OPSIZE16, FRAGMENT_WORD(2220)
 };
+static const byte fragment15[] = { OP_JMPFALSE | OPSIZE16, FRAGMENT_WORD(154) };
 
 #undef FRAGMENT_WORD
 
@@ -225,6 +226,9 @@ const WorkaroundEntry workaroundList[] = {
 	// DW1 PSX DEMO: Alters a script in the PSX DW1 demo to show the Idle animation scene rather than
 	// quitting the game when no user input happens for a while
 	{TINSEL_V1, true, true, Common::kPlatformPSX, 0, 2186, sizeof(fragment14), fragment14},
+
+	// DW1-GRA: Fixes hang in Temple, when trying to use items on the big hammer
+	{TINSEL_V1, false, false, Common::kPlatformUnknown, 276915849, 0x98, sizeof(fragment15), fragment15},
 
 	{TINSEL_V0, false, false, Common::kPlatformUnknown, 0, 0, 0, NULL}
 };

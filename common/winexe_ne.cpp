@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -30,7 +30,7 @@
 namespace Common {
 
 NEResources::NEResources() {
-	_exe = 0;
+	_exe = nullptr;
 }
 
 NEResources::~NEResources() {
@@ -40,7 +40,7 @@ NEResources::~NEResources() {
 void NEResources::clear() {
 	if (_exe) {
 		delete _exe;
-		_exe = 0;
+		_exe = nullptr;
 	}
 
 	_resources.clear();
@@ -270,14 +270,14 @@ const NEResources::Resource *NEResources::findResource(const WinResourceID &type
 		if (it->type == type && it->id == id)
 			return &*it;
 
-	return 0;
+	return nullptr;
 }
 
 SeekableReadStream *NEResources::getResource(const WinResourceID &type, const WinResourceID &id) {
 	const Resource *res = findResource(type, id);
 
 	if (!res)
-		return 0;
+		return nullptr;
 
 	_exe->seek(res->offset);
 	return _exe->readStream(res->size);

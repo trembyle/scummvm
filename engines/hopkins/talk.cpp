@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -68,7 +68,7 @@ void TalkManager::startAnimatedCharacterDialogue(const Common::String &filename)
 	getStringFromBuffer(40, spriteFilename, (const char *)_characterBuffer);
 	getStringFromBuffer(0, _questionsFilename, (const char *)_characterBuffer);
 	getStringFromBuffer(20, _answersFilename, (const char *)_characterBuffer);
-	
+
 	switch (_vm->_globals->_language) {
 	case LANG_FR:
 		_answersFilename = _questionsFilename = "RUE.TXT";
@@ -120,9 +120,9 @@ void TalkManager::startAnimatedCharacterDialogue(const Common::String &filename)
 	if (_vm->_globals->_introSpeechOffFl) {
 		int idx = 1;
 		int answer;
-		do
+		do {
 			answer = dialogAnswer(idx++, false);
-		while (answer != -1);
+		} while (answer != -1);
 	}
 	clearCharacterAnim();
 	_vm->_globals->_introSpeechOffFl = false;
@@ -208,9 +208,9 @@ void TalkManager::startStaticCharacterDialogue(const Common::String &filename) {
 	if (_vm->_globals->_introSpeechOffFl) {
 		int idx = 1;
 		int answer;
-		do
+		do {
 			answer = dialogAnswer(idx++, true);
-		while (answer != -1);
+		} while (answer != -1);
 	}
 
 	_characterBuffer = _vm->_globals->freeMemory(_characterBuffer);
@@ -613,7 +613,6 @@ void TalkManager::displayBobDialogAnim(int idx) {
 			_vm->_objectsMan->_bob[idx]._flipFl = false;
 			_vm->_objectsMan->_bob[idx]._animData = _vm->_animMan->_animBqe[idx]._data;
 			_vm->_objectsMan->_bob[idx]._bobMode = 10;
-			bqeData = _characterSprite;
 			_vm->_objectsMan->_bob[idx]._spriteData = _characterSprite;
 			_vm->_objectsMan->_bob[idx]._bobModeChange = newMode;
 			_vm->_objectsMan->_bob[idx]._modeChangeCtr = -1;
@@ -825,7 +824,7 @@ void TalkManager::handleAnswer(int zone, int verb) {
 		int lastOpcodeResult = 1;
 		do {
 			int opcodeType = _vm->_script->handleOpcode(ptr + 20 * lastOpcodeResult);
-			if (_vm->shouldQuit())
+			if (opcodeType == -1 || _vm->shouldQuit())
 				return;
 
 			if (opcodeType == 2)
@@ -880,9 +879,9 @@ void TalkManager::handleForestAnswser(int zone, int verb) {
 		_vm->_objectsMan->setBobAnimation(6);
 		_vm->_soundMan->playSample(1);
 		_vm->_objectsMan->showSpecialActionAnimation(_vm->_objectsMan->_forestSprite, "13,14,15,14,13,12,13,14,15,16,-1,", 4);
-		do
+		do {
 			_vm->_events->refreshScreenAndEvents();
-		while (_vm->_objectsMan->getBobAnimDataIdx(6) < 12);
+		} while (_vm->_objectsMan->getBobAnimDataIdx(6) < 12);
 		_vm->_objectsMan->stopBobAnimation(6);
 		_vm->_objectsMan->setBobAnimation(8);
 
@@ -928,9 +927,9 @@ void TalkManager::handleForestAnswser(int zone, int verb) {
 		_vm->_objectsMan->setBobAnimation(5);
 		_vm->_soundMan->playSample(1);
 		_vm->_objectsMan->showSpecialActionAnimation(_vm->_objectsMan->_forestSprite, "13,14,15,14,13,12,13,14,15,16,-1,", 4);
-		do
+		do {
 			_vm->_events->refreshScreenAndEvents();
-		while (_vm->_objectsMan->getBobAnimDataIdx(5) < 12);
+		} while (_vm->_objectsMan->getBobAnimDataIdx(5) < 12);
 		_vm->_objectsMan->stopBobAnimation(5);
 		_vm->_objectsMan->setBobAnimation(7);
 		switch (_vm->_globals->_screenId) {

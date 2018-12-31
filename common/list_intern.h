@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef COMMON_LIST_INTERN_H
@@ -54,7 +55,7 @@ namespace ListInternal {
 
 		NodeBase *_node;
 
-		Iterator() : _node(0) {}
+		Iterator() : _node(nullptr) {}
 		explicit Iterator(NodeBase *node) : _node(node) {}
 
 		// Prefix inc
@@ -107,7 +108,7 @@ namespace ListInternal {
 
 		const NodeBase *_node;
 
-		ConstIterator() : _node(0) {}
+		ConstIterator() : _node(nullptr) {}
 		explicit ConstIterator(const NodeBase *node) : _node(node) {}
 		ConstIterator(const Iterator<T> &x) : _node(x._node) {}
 

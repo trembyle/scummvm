@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef GRAPHICS_SCALER_ASPECT_H
@@ -42,18 +43,20 @@ FORCEINLINE int aspect2Real(int y) {
 /**
  * TODO: explain
  */
-void makeRectStretchable(int &x, int &y, int &w, int &h);
+void makeRectStretchable(int &x, int &y, int &w, int &h, bool interpolate);
 
 /**
  * TODO: explain
  */
+                    
 int stretch200To240(uint8 *buf,
                     uint32 pitch,
                     int width,
                     int height,
                     int srcX,
                     int srcY,
-                    int origSrcY);
+                    int origSrcY,
+                    bool interpolate);
 
 
 /**

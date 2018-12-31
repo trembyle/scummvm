@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -57,6 +57,7 @@ MoviePlayer::MoviePlayer(AGOSEngine_Feeble *vm)
 	memset(baseName, 0, sizeof(baseName));
 
 	_ticks = 0;
+	_bgSoundStream = nullptr;
 }
 
 MoviePlayer::~MoviePlayer() {
@@ -251,8 +252,8 @@ bool MoviePlayerDXA::load() {
 	}
 
 	Common::String videoName = Common::String::format("%s.dxa", baseName);
-	Common::SeekableReadStream *videoStream = _vm->_archives.createReadStreamForMember(videoName);
-	if (!videoStream)
+	Common::File *videoStream = new Common::File();
+	if (!videoStream->open(videoName))
 		error("Failed to load video file %s", videoName.c_str());
 	if (!loadStream(videoStream))
 		error("Failed to load video stream from file %s", videoName.c_str());
@@ -287,7 +288,7 @@ void MoviePlayerDXA::copyFrameToBuffer(byte *dst, uint x, uint y, uint pitch) {
 
 void MoviePlayerDXA::playVideo() {
 	// Most of the videos included in the Amiga version, reduced the
-	// resoluton to 384 x 280, so require the screen to be cleared,
+	// resolution to 384 x 280, so require the screen to be cleared,
 	// before starting playing those videos.
 	if (getWidth() == 384 && getHeight() == 280) {
 		_vm->clearSurfaces();
@@ -421,8 +422,8 @@ MoviePlayerSMK::MoviePlayerSMK(AGOSEngine_Feeble *vm, const char *name)
 bool MoviePlayerSMK::load() {
 	Common::String videoName = Common::String::format("%s.smk", baseName);
 
-	Common::SeekableReadStream *videoStream = _vm->_archives.createReadStreamForMember(videoName);
-	if (!videoStream)
+	Common::File *videoStream = new Common::File();
+	if (!videoStream->open(videoName))
 		error("Failed to load video file %s", videoName.c_str());
 	if (!loadStream(videoStream))
 		error("Failed to load video stream from file %s", videoName.c_str());
@@ -518,7 +519,7 @@ bool MoviePlayerSMK::processFrame() {
 
 MoviePlayer *makeMoviePlayer(AGOSEngine_Feeble *vm, const char *name) {
 	char baseName[40];
-	char filename[20];
+	char filename[45];
 
 	int baseLen = strlen(name) - 4;
 	memset(baseName, 0, sizeof(baseName));
@@ -527,30 +528,30 @@ MoviePlayer *makeMoviePlayer(AGOSEngine_Feeble *vm, const char *name) {
 	if (vm->getLanguage() == Common::DE_DEU && baseLen >= 8) {
 		// Check short filename to work around
 		// bug in a German Windows 2CD version.
-		char shortName[20];
+		char shortName[10];
 		memset(shortName, 0, sizeof(shortName));
 		memcpy(shortName, baseName, 6);
 
 		sprintf(filename, "%s~1.dxa", shortName);
-		if (vm->_archives.hasFile(filename)) {
+		if (Common::File::exists(filename)) {
 			memset(baseName, 0, sizeof(baseName));
 			memcpy(baseName, filename, 8);
 		}
 
 		sprintf(filename, "%s~1.smk", shortName);
-		if (vm->_archives.hasFile(filename)) {
+		if (Common::File::exists(filename)) {
 			memset(baseName, 0, sizeof(baseName));
 			memcpy(baseName, filename, 8);
 		}
 	}
 
 	sprintf(filename, "%s.dxa", baseName);
-	if (vm->_archives.hasFile(filename)) {
+	if (Common::File::exists(filename)) {
 		return new MoviePlayerDXA(vm, baseName);
 	}
 
 	sprintf(filename, "%s.smk", baseName);
-	if (vm->_archives.hasFile(filename)) {
+	if (Common::File::exists(filename)) {
 		return new MoviePlayerSMK(vm, baseName);
 	}
 

@@ -8,21 +8,20 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
- *
  */
 
-#ifndef TOLTECS_H
-#define TOLTECS_H
+#ifndef TOLTECS_TOLTECS_H
+#define TOLTECS_TOLTECS_H
 
 #include "common/scummsys.h"
 #include "common/endian.h"
@@ -36,13 +35,16 @@
 
 #include "graphics/surface.h"
 
+#include "gui/debugger.h"
+
+#include "toltecs/console.h"
+
 namespace Toltecs {
 
 struct ToltecsGameDescription;
 
 class AnimationPlayer;
 class ArchiveReader;
-class Console;
 class Input;
 class MenuSystem;
 class MoviePlayer;
@@ -109,6 +111,8 @@ public:
 	Common::Language getLanguage() const;
 	const Common::String& getTargetName() const { return _targetName; }
 	void syncSoundSettings();
+
+	GUI::Debugger *getDebugger() { return _console; }
 
 	void setupSysStrings();
 	void requestSavegame(int slotNum, Common::String &description);
@@ -221,10 +225,10 @@ public:
 	const char *getSavegameFilename(int num);
 	static Common::String getSavegameFilename(const Common::String &target, int num);
 
-	static kReadSaveHeaderError readSaveHeader(Common::SeekableReadStream *in, bool loadThumbnail, SaveHeader &header);
+	WARN_UNUSED_RESULT static kReadSaveHeaderError readSaveHeader(Common::SeekableReadStream *in, SaveHeader &header, bool skipThumbnail = true);
 
 };
 
 } // End of namespace Toltecs
 
-#endif /* TOLTECS_H */
+#endif /* TOLTECS_TOLTECS_H */

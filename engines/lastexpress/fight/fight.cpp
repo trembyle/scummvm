@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -90,7 +90,7 @@ void Fight::eventMouse(const Common::Event &ev) {
 
 		// Handle right button click
 		if (ev.type == Common::EVENT_RBUTTONUP) {
-			getSoundQueue()->removeFromQueue(kEntityTables0);
+			getSoundQueue()->stop(kEntityTables0);
 			setStopped();
 
 			getGlobalTimer() ? _state = 0 : ++_state;
@@ -137,7 +137,7 @@ void Fight::eventMouse(const Common::Event &ev) {
 		// Stop fight if clicked
 		if (ev.type == Common::EVENT_LBUTTONUP) {
 			_handleTimer = false;
-			getSoundQueue()->removeFromQueue(kEntityTables0);
+			getSoundQueue()->stop(kEntityTables0);
 			bailout(kFightEndExit);
 		}
 
@@ -145,7 +145,7 @@ void Fight::eventMouse(const Common::Event &ev) {
 		if (ev.type == Common::EVENT_RBUTTONUP) {
 			if (getGlobalTimer()) {
 				if (getSoundQueue()->isBuffered("TIMER"))
-					getSoundQueue()->removeFromQueue("TIMER");
+					getSoundQueue()->stop("TIMER");
 
 				setGlobalTimer(900);
 			}
@@ -222,7 +222,7 @@ Fight::FightEndType Fight::setup(FightType type) {
 		break;
 
 	case kFightMilos:
-		sceneIndex = (getObjects()->get(kObjectCompartment1).location2 < kObjectLocation3) ? kSceneFightMilos : kSceneFightMilosBedOpened;
+		sceneIndex = (getObjects()->get(kObjectCompartment1).model < kObjectModel3) ? kSceneFightMilos : kSceneFightMilosBedOpened;
 		break;
 
 	case kFightAnna:

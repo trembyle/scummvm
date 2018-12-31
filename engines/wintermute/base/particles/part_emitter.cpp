@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -214,7 +214,8 @@ bool PartEmitter::initParticle(PartParticle *particle, uint32 currentTime, uint3
 	Vector2 vecVel(0, velocity);
 
 	Matrix4 matRot;
-	matRot.rotationZ(Common::deg2rad(BaseUtils::normalizeAngle(angle - 180)));
+	float radZrot = Common::deg2rad<float>(BaseUtils::normalizeAngle(angle - 180.0));
+	matRot.rotationZ(radZrot);
 	matRot.transformVector2(vecVel);
 
 	if (_alphaTimeBased) {
@@ -433,7 +434,8 @@ bool PartEmitter::addForce(const Common::String &name, PartForce::TForceType typ
 
 	force->_direction = Vector2(0, strength);
 	Matrix4 matRot;
-	matRot.rotationZ(Common::deg2rad(BaseUtils::normalizeAngle(angle - 180)));
+	float radZrot = Common::deg2rad<float>(BaseUtils::normalizeAngle(angle - 180.0));
+	matRot.rotationZ(radZrot);
 	matRot.transformVector2(force->_direction);
 
 	return STATUS_OK;

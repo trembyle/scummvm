@@ -49,12 +49,17 @@ public abstract class ScummVM implements SurfaceHolder.Callback, Runnable {
 	// Feed an event to ScummVM.  Safe to call from other threads.
 	final public native void pushEvent(int type, int arg1, int arg2, int arg3,
 										int arg4, int arg5);
+	final public native String getCurrentCharset();
 
 	// Callbacks from C++ peer instance
 	abstract protected void getDPI(float[] values);
 	abstract protected void displayMessageOnOSD(String msg);
+	abstract protected void openUrl(String url);
+	abstract protected boolean hasTextInClipboard();
+	abstract protected byte[] getTextFromClipboard();
+	abstract protected boolean setTextInClipboard(byte[] text);
+	abstract protected boolean isConnectionLimited();
 	abstract protected void setWindowCaption(String caption);
-	abstract protected String[] getPluginDirectories();
 	abstract protected void showVirtualKeyboard(boolean enable);
 	abstract protected String[] getSysArchives();
 
@@ -86,13 +91,15 @@ public abstract class ScummVM implements SurfaceHolder.Callback, Runnable {
 		Log.d(LOG_TAG, String.format("surfaceChanged: %dx%d (%d)",
 										width, height, format));
 
+		// store values for the native code
+		// make sure to do it before notifying the lock
+		// as it leads to a race condition otherwise
+		setSurface(width, height);
+
 		synchronized(_sem_surface) {
 			_surface_holder = holder;
 			_sem_surface.notifyAll();
 		}
-
-		// store values for the native code
-		setSurface(width, height);
 	}
 
 	// SurfaceHolder callback
@@ -442,10 +449,6 @@ public abstract class ScummVM implements SurfaceHolder.Callback, Runnable {
 			}
 		}
 
-		File cache_dir = ScummVMApplication.getLastCacheDir();
-		String libname = System.mapLibraryName("scummvm");
-		File libpath = new File(cache_dir, libname);
-
-		System.load(libpath.getPath());
+		System.loadLibrary("scummvm");
 	}
 }

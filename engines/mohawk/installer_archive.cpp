@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -28,7 +28,7 @@
 namespace Mohawk {
 
 InstallerArchive::InstallerArchive() : Common::Archive() {
-	_stream = 0;
+	_stream = nullptr;
 }
 
 InstallerArchive::~InstallerArchive() {
@@ -103,7 +103,7 @@ bool InstallerArchive::open(const Common::String &filename) {
 }
 
 void InstallerArchive::close() {
-	delete _stream; _stream = 0;
+	delete _stream; _stream = nullptr;
 	_map.clear();
 }
 
@@ -124,7 +124,7 @@ const Common::ArchiveMemberPtr InstallerArchive::getMember(const Common::String 
 
 Common::SeekableReadStream *InstallerArchive::createReadStreamForMember(const Common::String &name) const {
 	if (!_stream || !_map.contains(name))
-		return 0;
+		return nullptr;
 
 	const FileEntry &entry = _map[name];
 

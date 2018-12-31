@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 /*
@@ -165,7 +166,8 @@ void MidiDriver_DMEDIA::send(uint32 b) {
 	if (mdSend(_midiPort, &event, 1) != 1) {
 		warning("failed sending MIDI event (dump follows...)");
 		warning("MIDI Event (len=%u):", event.msglen);
-		for (int i = 0; i < event.msglen; i++) warning("%02x ", (int)event.msg[i]);
+		for (int i = 0; i < event.msglen; i++)
+			warning("%02x ", (int)event.msg[i]);
 	}
 }
 
@@ -185,7 +187,8 @@ void MidiDriver_DMEDIA::sysEx (const byte *msg, uint16 length) {
 
 	if (mdSend(_midiPort, &event, 1) != 1) {
 		fprintf(stderr, "failed sending MIDI SYSEX event (dump follows...)\n");
-		for (int i = 0; i < event.msglen; i++) warning("%02x ", (int)event.msg[i]);
+		for (int i = 0; i < event.msglen; i++)
+			warning("%02x ", (int)event.msg[i]);
 	}
 }
 

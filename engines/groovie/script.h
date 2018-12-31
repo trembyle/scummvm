@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -22,6 +22,8 @@
 
 #ifndef GROOVIE_SCRIPT_H
 #define GROOVIE_SCRIPT_H
+
+#include "groovie/groovie.h"
 
 #include "common/random.h"
 #include "common/rect.h"
@@ -43,7 +45,6 @@ enum EngineVersion {
 
 class CellGame;
 class Debugger;
-class GroovieEngine;
 
 class Script {
 	friend class Debugger;
@@ -59,6 +60,8 @@ public:
 
 	bool loadScript(Common::String scriptfile);
 	void directGameLoad(int slot);
+	void directGameSave(int slot, const Common::String &desc);
+	bool canDirectSave() const;
 	void step();
 
 	void setMouseClick(uint8 button);
@@ -81,7 +84,7 @@ private:
 	Common::String _savedScriptFile;
 
 	// Save names
-	Common::String _saveNames[10];
+	Common::String _saveNames[MAX_SAVES];
 
 	// Code
 	byte *_code;
@@ -238,6 +241,7 @@ private:
 	void o2_setvideoskip();
 	void o2_copyscreentobg();
 	void o2_copybgtoscreen();
+	void o2_stub42();
 	void o2_stub52();
 	void o2_setscriptend();
 };

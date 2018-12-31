@@ -8,20 +8,20 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef LASTEXPRESS_H
-#define LASTEXPRESS_H
+#ifndef LASTEXPRESS_LASTEXPRESS_H
+#define LASTEXPRESS_LASTEXPRESS_H
 
 #include "lastexpress/debug.h"
 #include "lastexpress/eventhandler.h"
@@ -79,7 +79,7 @@ public:
 	~LastExpressEngine();
 
 	// Misc
-	Common::RandomSource getRandom() const {return _random; }
+	Common::RandomSource& getRandom() {return _random; }
 
 	// Game
 	Cursor          *getCursor()          const { return _cursor; }
@@ -104,13 +104,8 @@ public:
 	bool isDemo() const;
 
 	// Frame Counter
-	uint32 getFrameCounter() { return _frameCounter; }
-	void setFrameCounter(uint32 count) { _frameCounter = count; }
-
-protected:
-	// Sound Timer
-	static void soundTimer(void *ptr);
-	void handleSoundTimer();
+	// TODO: all callers could use _system->getMillis() directly without extra conversions
+	uint32 getFrameCounter() const;
 
 private:
 	const ADGameDescription *_gameDescription;
@@ -127,7 +122,6 @@ private:
 	Menu   *_menu;
 
 	// Frame counter
-	uint32 _frameCounter;
 	uint32 _lastFrameCount;
 
 	// Managers
@@ -146,4 +140,4 @@ private:
 
 } // End of namespace LastExpress
 
-#endif // LASTEXPRESS_H
+#endif // LASTEXPRESS_LASTEXPRESS_H

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -420,7 +420,7 @@ void Surface::wordWrap(char *text, uint16 width, char **&lines, uint8 &numLines)
 			wordEnd = strchr(wordStart, '\0') - 1;
 		}
 
-		int wordBytes = (int) (wordEnd - s + 1);
+		int wordBytes = (int)(wordEnd - s + 1);
 		uint16 wordSize = (wordBytes == 0) ? 0 : textWidth(s, wordBytes);
 		if (gDebugLevel >= ERROR_DETAILED) {
 			char wordBuffer[MAX_DESC_SIZE];
@@ -479,16 +479,15 @@ Surface *Surface::newDialog(uint16 width, uint8 numLines, const char **lines, bo
 
 Surface *Surface::newDialog(uint16 width, const char *line, int color) {
 	char **lines;
-	char *lineCopy = strdup(line);
+	Common::String lineCopy(line);
 	uint8 numLines;
-	wordWrap(lineCopy, width - (Surface::textX() * 2), lines, numLines);
+	wordWrap(lineCopy.begin(), width - (Surface::textX() * 2), lines, numLines);
 
 	// Create the dialog
 	Surface *result = newDialog(width, numLines, const_cast<const char **>(lines), true, color);
 
 	// Deallocate used resources
 	free(lines);
-	free(lineCopy);
 
 	return result;
 }
@@ -1262,6 +1261,7 @@ static const ItemDesc copyProtectElements[] = {
 	{Common::NL_NLD, 57, 40, 208, 40, WORDING_HEADER, 32},
 	{Common::ES_ESP, 57, 40, 208, 40, WORDING_HEADER, 32},
 	{Common::IT_ITA, 57, 40, 208, 40, WORDING_HEADER, 32},
+	{Common::RU_RUS, 57, 40, 208, 40, WORDING_HEADER, 32},
 
 	{Common::UNK_LANG, 138, 168, 16, 8, NUMBER_HEADER, 32},
 	{Common::UNK_LANG, 145, 168, 16, 8, NUMBER_HEADER, 32},

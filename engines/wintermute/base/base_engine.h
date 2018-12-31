@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -36,6 +36,22 @@
 
 namespace Wintermute {
 
+enum WMETargetExecutable {
+	OLDEST_VERSION,
+	WME_1_0_0,
+	WME_1_1_0,
+	WME_1_2_0,
+	WME_1_3_0,
+	WME_1_4_0,
+	WME_1_5_0,
+	WME_1_6_0,
+	WME_1_7_0,
+	WME_1_8_0,
+	WME_1_8_6,
+	WME_1_9_0,
+	LATEST_VERSION
+};
+
 class BaseFileManager;
 class BaseRegistry;
 class BaseGame;
@@ -53,10 +69,12 @@ class BaseEngine : public Common::Singleton<Wintermute::BaseEngine> {
 	Common::RandomSource *_rnd;
 	SystemClassRegistry *_classReg;
 	Common::Language _language;
+	WMETargetExecutable _targetExecutable;
 public:
 	BaseEngine();
 	~BaseEngine();
-	static void createInstance(const Common::String &targetName, const Common::String &gameId, Common::Language lang);
+	static void createInstance(const Common::String &targetName, const Common::String &gameId, Common::Language lang, WMETargetExecutable targetExecutable = LATEST_VERSION);
+
 	void setGameRef(BaseGame *gameRef) { _gameRef = gameRef; }
 
 	Common::RandomSource *getRandomSource() { return _rnd; }
@@ -70,9 +88,12 @@ public:
 	static const Timer *getTimer();
 	static const Timer *getLiveTimer();
 	static void LOG(bool res, const char *fmt, ...);
-	const char *getGameTargetName() const { return _targetName.c_str(); }
+	Common::String getGameTargetName() const { return _targetName; }
 	Common::String getGameId() const { return _gameId; }
 	Common::Language getLanguage() const { return _language; }
+	WMETargetExecutable getTargetExecutable() const {
+		return _targetExecutable;
+	}
 };
 
 } // End of namespace Wintermute

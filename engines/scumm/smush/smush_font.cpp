@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -22,6 +22,7 @@
 
 
 #include "common/file.h"
+#include "common/str.h"
 #include "scumm/scumm.h"
 #include "scumm/util.h"
 
@@ -115,9 +116,7 @@ int SmushFont::drawChar(byte *buffer, int dst_width, int x, int y, byte chr) {
 int SmushFont::draw2byte(byte *buffer, int dst_width, int x, int y, int idx) {
 	int w = _vm->_2byteWidth;
 	int h = _vm->_2byteHeight;
-
-	byte *src = _vm->get2byteCharPtr(idx);
-	byte *dst = buffer + dst_width * (y + (_vm->_game.id == GID_CMI ? 7 : (_vm->_game.id == GID_DIG ? 2 : 0))) + x;
+	const byte *src = _vm->get2byteCharPtr(idx);
 	byte bits = 0;
 
 	char color = (_color != -1) ? _color : 1;
@@ -128,18 +127,60 @@ int SmushFont::draw2byte(byte *buffer, int dst_width, int x, int y, int idx) {
 	if (_vm->_game.id == GID_FT)
 		color = 1;
 
-	for (int j = 0; j < h; j++) {
-		for (int i = 0; i < w; i++) {
-			if ((i % 8) == 0)
-				bits = *src++;
-			if (bits & revBitMask(i % 8)) {
-				dst[i + 1] = 0;
-				dst[dst_width + i] = 0;
-				dst[dst_width + i + 1] = 0;
-				dst[i] = color;
+	enum ShadowMode {
+		kNone,
+		kNormalShadowMode,
+		kKoreanV7ShadowMode,
+		kKoreanV8ShadowMode
+	};
+
+	ShadowMode shadowMode = kNone;
+
+	if (_vm->_language == Common::KO_KOR) {
+		if (_vm->_game.version == 8)
+			shadowMode = kKoreanV8ShadowMode;
+		else
+			shadowMode = kKoreanV7ShadowMode;
+	}
+
+	int shadowOffsetXTable[4] = {-1, 0, 1, 0};
+	int shadowOffsetYTable[4] = {0, 1, 0, 0};
+	int shadowOffsetColorTable[4] = {0, 0, 0, color};
+
+	int shadowIdx = 3;
+	if (shadowMode == kKoreanV8ShadowMode)
+		shadowIdx = 0;
+	else if (shadowMode == kKoreanV7ShadowMode)
+		shadowIdx = 2;
+
+	const byte *origSrc = src;
+
+	for (; shadowIdx < 4; shadowIdx++) {
+		int offX = x + shadowOffsetXTable[shadowIdx];
+		int offY = y + shadowOffsetYTable[shadowIdx];
+		byte drawColor = shadowOffsetColorTable[shadowIdx];
+
+		src = origSrc;
+
+		byte *dst = buffer + dst_width * (offY + (_vm->_game.id == GID_CMI ? 7 : (_vm->_game.id == GID_DIG ? 2 : 0))) + offX;
+
+		for (int j = 0; j < h; j++) {
+			for (int i = 0; i < w; i++) {
+				if (offX + i < 0)
+					continue;
+				if ((i % 8) == 0)
+					bits = *src++;
+				if (bits & revBitMask(i % 8)) {
+					if (shadowMode == kNormalShadowMode) {
+						dst[i + 1] = 0;
+						dst[dst_width + i] = 0;
+						dst[dst_width + i + 1] = 0;
+					}
+					dst[i] = drawColor;
+				}
 			}
+			dst += dst_width;
 		}
-		dst += dst_width;
 	}
 	return w + 1;
 }
@@ -186,11 +227,11 @@ void SmushFont::drawStringWrap(const char *str, byte *buffer, int dst_width, int
 	debugC(DEBUG_SMUSH, "SmushFont::drawStringWrap(%s, %d, %d, %d, %d, %d)", str, x, y, left, right, center);
 
 	const int width = right - left;
-	char *s = strdup(str);
+	Common::String s(str);
 	char *words[MAX_WORDS];
 	int word_count = 0;
 
-	char *tmp = s;
+	Common::String::iterator tmp = s.begin();
 	while (tmp) {
 		assert(word_count < MAX_WORDS);
 		words[word_count++] = tmp;
@@ -253,8 +294,6 @@ void SmushFont::drawStringWrap(const char *str, byte *buffer, int dst_width, int
 			y += getStringHeight(substrings[i]);
 		}
 	}
-
-	free(s);
 }
 
 } // End of namespace Scumm

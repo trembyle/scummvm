@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -44,42 +44,6 @@ enum {
 	kCTSLeftNoRobot			= 13,
 	kCTSLowerCannon			= 14,
 	kCTSCount				= 14
-};
-
-static const uint32 kScene3009CannonScopeVideos[] = {
-	0x1010000D,
-	0x340A0049,
-	0x340A0049,
-	0x0282081D,
-	0x0082080D,
-	0x0882080D,
-	0x0882080D,
-	0x0282081D,
-	0x004B000B,
-	0x014B000B,
-	0x044B000B,
-	0x0282081D,
-	0x0282081D,
-	0x0282081D,
-	0x340A0049
-};
-
-static const uint32 kScene3009CannonActionVideos[] = {
-	0x00000000,
-	0x8004001B,	// 1 Fire cannon at wall, it breaks (lowered)
-	0x0004001A,	// 2 Fire cannon at wall, nothing happens (lowered)
-	0x1048404B,	// 3 Fire cannon at emptyness (raised)
-	0x50200109,	// 4 Fire cannon, robot missed (raised)
-	0x12032109,	// 5 Fire cannon, robot hit (raised)
-	0x10201109,	// 6 Fire cannon, no robot (raised)
-	0x000A2030,	// 7 Raise the cannon
-	0x000A0028,	// 8
-	0x000A0028,	// 9
-	0x000A0028,	// 10
-	0x040A1069,	// 11
-	0x040A1069,	// 12
-	0x040A1069,	// 13
-	0x240A1101	// 14 Lower the cannon
 };
 
 static const uint32 kSsScene3009SymbolEdgesFileHashes[] = {
@@ -261,7 +225,7 @@ uint32 SsScene3009SymbolArrow::handleMessage(int messageNum, const MessageParam 
 			_countdown = 2;
 			loadSprite(kSsScene3009SymbolArrowFileHashes1[_index], kSLFDefDrawOffset);
 			playSound(0);
-			sendMessage(_asSymbol, 0x2005, _incrDecr);
+			sendMessage(_asSymbol, NM_KLAYMEN_CLIMB_LADDER, _incrDecr);
 		}
 		messageResult = 1;
 		break;
@@ -294,7 +258,7 @@ uint32 AsScene3009VerticalIndicator::handleMessage(int messageNum, const Message
 	switch (messageNum) {
 	case 0x1011:
 		if (_enabled) {
-			sendMessage(_parentScene, 0x2002, 0);
+			sendMessage(_parentScene, NM_POSITION_CHANGE, 0);
 		}
 		messageResult = 1;
 		break;
@@ -388,7 +352,7 @@ AsScene3009Symbol::AsScene3009Symbol(NeverhoodEngine *vm, Scene3009 *parentScene
 uint32 AsScene3009Symbol::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Sprite::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x2005:
+	case NM_KLAYMEN_CLIMB_LADDER:
 		if (param.asInteger()) {
 			if (_symbolIndex == 11)
 				_symbolIndex = 0;
@@ -501,7 +465,7 @@ uint32 SsScene3010DeadBoltButton::handleMessage(int messageNum, const MessagePar
 				_buttonLocked = true;
 				sendMessage(_parentScene, 0x2000, _buttonIndex);
 			} else {
-				sendMessage(_parentScene, 0x2002, _buttonIndex);
+				sendMessage(_parentScene, NM_POSITION_CHANGE, _buttonIndex);
 			}
 			_needRefresh = true;
 			updatePosition();
@@ -565,7 +529,7 @@ void AsScene3010DeadBolt::update() {
 uint32 AsScene3010DeadBolt::hmAnimation(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Sprite::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x3002:
+	case NM_ANIMATION_STOP:
 		gotoNextState();
 		break;
 	}

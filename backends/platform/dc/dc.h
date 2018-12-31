@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -43,7 +43,9 @@ class Interactive
  public:
   virtual int key(int k, byte &shiftFlags) = 0;
   virtual void mouse(int x, int y) = 0;
+  virtual ~Interactive() = 0;
 };
+inline Interactive::~Interactive() { }
 
 #include "softkbd.h"
 
@@ -55,21 +57,16 @@ class DCHardware {
 };
 
 class DCCDManager : public DefaultAudioCDManager {
-  // Initialize the specified CD drive for audio playback.
-  bool openCD(int drive);
+public:
+	// Poll cdrom status
+	// Returns true if cd audio is playing
+	bool isPlaying() const;
 
-  // Poll cdrom status
-  // Returns true if cd audio is playing
-  bool pollCD();
+	// Play cdrom audio track
+	bool play(int track, int numLoops, int startFrame, int duration, bool onlyEmulate = false);
 
-  // Play cdrom audio track
-  void playCD(int track, int num_loops, int start_frame, int duration);
-
-  // Stop cdrom audio track
-  void stopCD();
-
-  // Update cdrom audio status
-  void updateCD();
+	// Stop cdrom audio track
+	void stop();
 };
 
 class OSystem_Dreamcast : private DCHardware, public EventsBaseBackend, public PaletteManager, public FilesystemFactory
@@ -109,7 +106,7 @@ class OSystem_Dreamcast : private DCHardware, public EventsBaseBackend, public P
 protected:
 	// PaletteManager API
   void setPalette(const byte *colors, uint start, uint num);
-  void grabPalette(byte *colors, uint start, uint num);
+  void grabPalette(byte *colors, uint start, uint num) const;
 
 public:
 
@@ -253,6 +250,11 @@ public:
  protected:
   Plugin* createPlugin(const Common::FSNode &node) const;
   bool isPluginFilename(const Common::FSNode &node) const;
+  void addCustomDirectories(Common::FSList &dirs) const;
+ public:
+  PluginList getPlugins();
+ private:
+  const char *pluginCustomDirectory;
 #endif
 };
 
@@ -261,3 +263,6 @@ extern int handleInput(struct mapledev *pad,
 		       int &mouse_x, int &mouse_y,
 		       byte &shiftFlags, Interactive *inter = NULL);
 extern bool selectGame(char *&, char *&, Common::Language &, Common::Platform &, class Icon &);
+#ifdef DYNAMIC_MODULES
+extern bool selectPluginDir(Common::String &selection, const Common::FSNode &base);
+#endif

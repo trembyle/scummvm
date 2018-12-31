@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -38,6 +38,7 @@ namespace Hopkins {
 HopkinsEngine::HopkinsEngine(OSystem *syst, const HopkinsGameDescription *gameDesc) : Engine(syst),
 		_gameDescription(gameDesc), _randomSource("Hopkins") {
 	DebugMan.addDebugChannel(kDebugPath, "Path", "Pathfinding debug level");
+	DebugMan.addDebugChannel(kDebugGraphics, "Graphics", "Graphics debug level");
 	_animMan = new AnimationManager(this);
 	_computer = new ComputerManager(this);
 	_dialog = new DialogsManager(this);
@@ -232,7 +233,7 @@ bool HopkinsEngine::runWin95Demo() {
 				if (!_globals->_censorshipFl)
 					_animMan->playAnim("BANQUE.ANM", "BANKUK.ANM", 200, 28, 200);
 				else
-					_animMan->playAnim("BANQUE.ANM", "BANKUK.ANM", 200, 28, 200);
+					_animMan->playAnim("BANKUK.ANM", "BANQUE.ANM", 200, 28, 200);
 				_soundMan->_specialSoundNum = 0;
 				_soundMan->removeSample(1);
 				_soundMan->removeSample(2);
@@ -314,9 +315,9 @@ bool HopkinsEngine::runWin95Demo() {
 					_graphicsMan->loadImage("ENDUK");
 				_graphicsMan->fadeInLong();
 				_events->mouseOn();
-				do
+				do {
 					_events->refreshScreenAndEvents();
-				while (_events->getMouseButton() != 1);
+				} while (_events->getMouseButton() != 1);
 				_graphicsMan->fadeOutLong();
 				restoreSystem();
 			} else
@@ -665,6 +666,7 @@ bool HopkinsEngine::runLinuxDemo() {
 			_linesMan->setMaxLineIdx(40);
 			_globals->_characterMaxPosY = 435;
 			_objectsMan->sceneControl2("IM26", "IM26", "ANIM26", "IM26", 30, true);
+			break;
 
 		case 33:
 			_objectsMan->sceneControl("IM33", "IM33", "ANIM33", "IM33", 8, false);
@@ -1923,7 +1925,6 @@ void HopkinsEngine::bombExplosion() {
 }
 
 void HopkinsEngine::restoreSystem() {
-	quitGame();
 	_events->refreshEvents();
 }
 
@@ -2047,9 +2048,9 @@ void HopkinsEngine::playUnderwaterBaseCutscene() {
 	_graphicsMan->fadeInLong();
 	_objectsMan->enableHidingBehavior();
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (!shouldQuit() && _objectsMan->getBobAnimDataIdx(8) != 22);
+	} while (!shouldQuit() && _objectsMan->getBobAnimDataIdx(8) != 22);
 
 	if (!shouldQuit()) {
 		_graphicsMan->fadeOutLong();
@@ -2092,9 +2093,9 @@ void HopkinsEngine::playEnding() {
 	_graphicsMan->fadeInLong();
 	_globals->_eventMode = EVENTMODE_IGNORE;
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(6) != 54);
+	} while (_objectsMan->getBobAnimDataIdx(6) != 54);
 
 	_globals->_introSpeechOffFl = true;
 	_talkMan->startAnimatedCharacterDialogue("GM4.PE2");
@@ -2104,38 +2105,38 @@ void HopkinsEngine::playEnding() {
 	_objectsMan->setBobAnimation(9);
 	_objectsMan->setBobAnimation(7);
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(7) != 54);
+	} while (_objectsMan->getBobAnimDataIdx(7) != 54);
 
 	_soundMan->playSample(1);
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(7) != 65);
+	} while (_objectsMan->getBobAnimDataIdx(7) != 65);
 
 	_globals->_introSpeechOffFl = true;
 	_talkMan->startAnimatedCharacterDialogue("DUELB4.PE2");
 	_events->mouseOff();
 	_globals->_disableInventFl = true;
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(7) != 72);
+	} while (_objectsMan->getBobAnimDataIdx(7) != 72);
 
 	_globals->_introSpeechOffFl = true;
 	_talkMan->startAnimatedCharacterDialogue("DUELH1.PE2");
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(7) != 81);
+	} while (_objectsMan->getBobAnimDataIdx(7) != 81);
 
 	_globals->_introSpeechOffFl = true;
 	_talkMan->startAnimatedCharacterDialogue("DUELB5.PE2");
 
-	do
+	do {
 		_events->refreshScreenAndEvents();
-	while (_objectsMan->getBobAnimDataIdx(7) != 120);
+	} while (_objectsMan->getBobAnimDataIdx(7) != 120);
 
 	_objectsMan->stopBobAnimation(7);
 	if (_globals->_saveData->_data[svGameWonFl] == 1) {
@@ -2150,9 +2151,9 @@ void HopkinsEngine::playEnding() {
 
 		_events->_rateCounter = 0;
 		if (!_events->_escKeyFl) {
-			do
+			do {
 				_events->refreshEvents();
-			while (_events->_rateCounter < 2000 / _globals->_speed && !_events->_escKeyFl);
+			} while (_events->_rateCounter < 2000 / _globals->_speed && !_events->_escKeyFl);
 		}
 		_events->_escKeyFl = false;
 		_graphicsMan->fadeOutLong();
@@ -2184,15 +2185,15 @@ void HopkinsEngine::playEnding() {
 		_talkMan->startAnimatedCharacterDialogue("GM5.PE2");
 		_globals->_disableInventFl = true;
 
-		do
+		do {
 			_events->refreshScreenAndEvents();
-		while (_objectsMan->getBobAnimDataIdx(8) != 5);
+		} while (_objectsMan->getBobAnimDataIdx(8) != 5);
 
 		_soundMan->directPlayWav("SOUND41.WAV");
 
-		do
+		do {
 			_events->refreshScreenAndEvents();
-		while (_objectsMan->getBobAnimDataIdx(8) != 21);
+		} while (_objectsMan->getBobAnimDataIdx(8) != 21);
 
 		_graphicsMan->fadeOutLong();
 		_graphicsMan->endDisplayBob();
@@ -2861,7 +2862,6 @@ void HopkinsEngine::syncSoundSettings() {
 }
 
 bool HopkinsEngine::displayAdultDisclaimer() {
-	int xp, yp;
 	int buttonIndex;
 
 	_graphicsMan->_minX = 0;
@@ -2881,8 +2881,8 @@ bool HopkinsEngine::displayAdultDisclaimer() {
 	_events->_mouseSpriteId = 0;
 
 	do {
-		xp = _events->getMouseX();
-		yp = _events->getMouseY();
+		int xp = _events->getMouseX();
+		int yp = _events->getMouseY();
 
 		buttonIndex = 0;
 		if (xp >= 37 && xp <= 169 && yp >= 406 && yp <= 445)

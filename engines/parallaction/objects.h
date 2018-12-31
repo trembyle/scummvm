@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -112,13 +112,12 @@ struct Command {
 	bool			_valid;
 
 	Command();
-	~Command();
 
 	// Common fields
 	uint32			_flags;
 	ZonePtr			_zone;
 	Common::String	_zoneName;
-	char*			_string;
+	Common::String	_string;
 	uint16			_callable;
 	uint16			_object;
 	Common::Point	 _move;
@@ -132,7 +131,7 @@ struct Command {
 	int				_zeta1;
 	int				_zeta2;
 	int				_characterId;
-	char*			_string2;
+	Common::String	_string2;
 	int				_musicCommand;
 	int				_musicParm;
 };
@@ -428,14 +427,12 @@ struct Instruction {
 	// BRA specific
 	byte		_colors[3];
 	ScriptVar	_opC;
-	char		*_text;
-	char		*_text2;
+	Common::String _text;
+	Common::String _text2;
 	int			_y;
 	uint32		_endif;
 
 	Instruction();
-	~Instruction();
-
 };
 
 enum {
@@ -474,7 +471,7 @@ protected:
 public:
 
 	GfxObj		*gfxobj;
-	char		*_scriptName;
+	Common::String _scriptName;
 
 	Animation();
 	virtual ~Animation();

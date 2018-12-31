@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -51,6 +51,7 @@
 #include "common/textconsole.h"
 #include "common/tokenizer.h"
 #include "common/translation.h"
+#include "common/osd_message_queue.h"
 
 #include "gui/gui-manager.h"
 #include "gui/error.h"
@@ -66,6 +67,15 @@
 #endif
 
 #include "backends/keymapper/keymapper.h"
+#ifdef USE_CLOUD
+#ifdef USE_LIBCURL
+#include "backends/cloud/cloudmanager.h"
+#include "backends/networking/curl/connectionmanager.h"
+#endif
+#ifdef USE_SDL_NET
+#include "backends/networking/sdl_net/localwebserver.h"
+#endif
+#endif
 
 #if defined(_WIN32_WCE)
 #include "backends/platform/wince/CELauncherDialog.h"
@@ -75,6 +85,9 @@
 #include "gui/launcher.h"
 #endif
 
+#ifdef USE_UPDATES
+#include "gui/updates-dialog.h"
+#endif
 
 static bool launcherDialog() {
 
@@ -93,8 +106,8 @@ static bool launcherDialog() {
 	return (dlg.runModal() != -1);
 }
 
-static const EnginePlugin *detectPlugin() {
-	const EnginePlugin *plugin = 0;
+static const Plugin *detectPlugin() {
+	const Plugin *plugin = nullptr;
 
 	// Make sure the gameid is set in the config manager, and that it is lowercase.
 	Common::String gameid(ConfMan.getActiveDomainName());
@@ -115,20 +128,20 @@ static const EnginePlugin *detectPlugin() {
 	printf("User picked target '%s' (gameid '%s')...\n", ConfMan.getActiveDomainName().c_str(), gameid.c_str());
 	printf("  Looking for a plugin supporting this gameid... ");
 
- 	GameDescriptor game = EngineMan.findGame(gameid, &plugin);
+	PlainGameDescriptor game = EngineMan.findGame(gameid, &plugin);
 
 	if (plugin == 0) {
 		printf("failed\n");
 		warning("%s is an invalid gameid. Use the --list-games option to list supported gameid", gameid.c_str());
 	} else {
-		printf("%s\n  Starting '%s'\n", plugin->getName(), game.description().c_str());
+		printf("%s\n  Starting '%s'\n", plugin->getName(), game.description);
 	}
 
 	return plugin;
 }
 
 // TODO: specify the possible return values here
-static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const Common::String &edebuglevels) {
+static Common::Error runGame(const Plugin *plugin, OSystem &system, const Common::String &edebuglevels) {
 	// Determine the game data path, for validation and error messages
 	Common::FSNode dir(ConfMan.get("path"));
 	Common::Error err = Common::kNoError;
@@ -148,12 +161,25 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 #endif
 
 	// Verify that the game path refers to an actual directory
-	if (!(dir.exists() && dir.isDirectory()))
+        if (!dir.exists()) {
+		err = Common::kPathDoesNotExist;
+        } else if (!dir.isDirectory()) {
 		err = Common::kPathNotDirectory;
+        }
 
 	// Create the game engine
-	if (err.getCode() == Common::kNoError)
-		err = (*plugin)->createInstance(&system, &engine);
+	if (err.getCode() == Common::kNoError) {
+		const MetaEngine &metaEngine = plugin->get<MetaEngine>();
+		// Set default values for all of the custom engine options
+		// Apparently some engines query them in their constructor, thus we
+		// need to set this up before instance creation.
+		const ExtraGuiOptions engineOptions = metaEngine.getExtraGuiOptions(Common::String());
+		for (uint i = 0; i < engineOptions.size(); i++) {
+			ConfMan.registerDefault(engineOptions[i].configOption, engineOptions[i].defaultState);
+		}
+
+		err = metaEngine.createInstance(&system, &engine);
+	}
 
 	// Check for errors
 	if (!engine || err.getCode() != Common::kNoError) {
@@ -167,13 +193,10 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 			dir.getPath().c_str()
 			);
 
-		// Autoadded is set only when no path was provided and
-		// the game is run from command line.
-		//
-		// Thus, we remove this garbage entry
-		//
-		// Fixes bug #1544799
-		if (ConfMan.hasKey("autoadded")) {
+		// If a temporary target failed to launch, remove it from the configuration manager
+		// so it not visible in the launcher.
+		// Temporary targets are created when starting games from the command line using the game id.
+		if (ConfMan.hasKey("id_came_from_command_line")) {
 			ConfMan.removeGameDomain(ConfMan.getActiveDomainName().c_str());
 		}
 
@@ -184,10 +207,13 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 	Common::String caption(ConfMan.get("description"));
 
 	if (caption.empty()) {
-		caption = EngineMan.findGame(ConfMan.get("gameid")).description();
+		PlainGameDescriptor game = EngineMan.findGame(ConfMan.get("gameid"));
+		if (game.description) {
+			caption = game.description;
+		}
 	}
 	if (caption.empty())
-		caption = ConfMan.getActiveDomainName();	// Use the domain (=target) name
+		caption = ConfMan.getActiveDomainName(); // Use the domain (=target) name
 	if (!caption.empty())	{
 		system.setWindowCaption(caption.c_str());
 	}
@@ -197,7 +223,7 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 	//
 
 	// Add the game path to the directory search list
-	SearchMan.addDirectory(dir.getPath(), dir, 0, 4);
+	engine->initializePath(dir);
 
 	// Add extrapath (if any) to the directory search list
 	if (ConfMan.hasKey("extrapath")) {
@@ -222,18 +248,23 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 	Common::StringTokenizer tokenizer(edebuglevels, " ,");
 	while (!tokenizer.empty()) {
 		Common::String token = tokenizer.nextToken();
-		if (!DebugMan.enableDebugChannel(token))
+		if (token.equalsIgnoreCase("all"))
+			DebugMan.enableAllDebugChannels();
+		else if (!DebugMan.enableDebugChannel(token))
 			warning(_("Engine does not support debug level '%s'"), token.c_str());
 	}
 
+#ifdef USE_TRANSLATION
+	Common::String previousLanguage = TransMan.getCurrentLanguage();
+	if (ConfMan.hasKey("gui_use_game_language")
+	    && ConfMan.getBool("gui_use_game_language")
+	    && ConfMan.hasKey("language")) {
+		TransMan.setLanguage(ConfMan.get("language"));
+	}
+#endif
+
 	// Initialize any game-specific keymaps
 	engine->initKeymap();
-
-	// Set default values for all of the custom engine options
-	const ExtraGuiOptions engineOptions = (*plugin)->getExtraGuiOptions(Common::String());
-	for (uint i = 0; i < engineOptions.size(); i++) {
-		ConfMan.registerDefault(engineOptions[i].configOption, engineOptions[i].defaultState);
-	}
 
 	// Inform backend that the engine is about to be run
 	system.engineInit();
@@ -256,6 +287,10 @@ static Common::Error runGame(const EnginePlugin *plugin, OSystem &system, const 
 	// Reset the file/directory mappings
 	SearchMan.clear();
 
+#ifdef USE_TRANSLATION
+	TransMan.setLanguage(previousLanguage);
+#endif
+
 	// Return result (== 0 means no error)
 	return result;
 }
@@ -272,6 +307,10 @@ static void setupGraphics(OSystem &system) {
 			system.setFeatureState(OSystem::kFeatureAspectRatioCorrection, ConfMan.getBool("aspect_ratio"));
 		if (ConfMan.hasKey("fullscreen"))
 			system.setFeatureState(OSystem::kFeatureFullscreenMode, ConfMan.getBool("fullscreen"));
+		if (ConfMan.hasKey("filtering"))
+			system.setFeatureState(OSystem::kFeatureFilteringMode, ConfMan.getBool("filtering"));
+		if (ConfMan.hasKey("stretch_mode"))
+			system.setStretchMode(ConfMan.get("stretch_mode").c_str());
 	system.endGFXTransaction();
 
 	// When starting up launcher for the first time, the user might have specified
@@ -321,7 +360,7 @@ static void setupKeymapper(OSystem &system) {
 	act = new Action(primaryGlobalKeymap, "REMP", _("Remap keys"));
 	act->addEvent(EVENT_KEYMAPPER_REMAP);
 
-	act = new Action(primaryGlobalKeymap, "FULS", _("Toggle FullScreen"));
+	act = new Action(primaryGlobalKeymap, "FULS", _("Toggle fullscreen"));
 	act->addKeyEvent(KeyState(KEYCODE_RETURN, ASCII_RETURN, KBD_ALT));
 
 	mapper->addGlobalKeymap(primaryGlobalKeymap);
@@ -370,14 +409,19 @@ extern "C" int scummvm_main(int argc, const char * const argv[]) {
 	if (settings.contains("debuglevel")) {
 		gDebugLevel = (int)strtol(settings["debuglevel"].c_str(), 0, 10);
 		printf("Debuglevel (from command line): %d\n", gDebugLevel);
-		settings.erase("debuglevel");	// This option should not be passed to ConfMan.
+		settings.erase("debuglevel"); // This option should not be passed to ConfMan.
 	} else if (ConfMan.hasKey("debuglevel"))
 		gDebugLevel = ConfMan.getInt("debuglevel");
 
 	if (settings.contains("debugflags")) {
 		specialDebug = settings["debugflags"];
 		settings.erase("debugflags");
-	}
+	} else if (ConfMan.hasKey("debugflags"))
+		specialDebug = ConfMan.get("debugflags");
+
+	if (settings.contains("debug-channels-only"))
+		gDebugChannelsOnly = true;
+
 
 	PluginManager::instance().init();
  	PluginManager::instance().loadAllPlugins(); // load plugins for cached plugin manager
@@ -450,8 +494,22 @@ extern "C" int scummvm_main(int argc, const char * const argv[]) {
 	g_eventRec.RegisterEventSource();
 #endif
 
+	Common::OSDMessageQueue::instance().registerEventSource();
+
 	// Now as the event manager is created, setup the keymapper
 	setupKeymapper(system);
+
+#ifdef USE_UPDATES
+	if (!ConfMan.hasKey("updates_check") && g_system->getUpdateManager()) {
+		GUI::UpdatesDialog dlg;
+		dlg.runModal();
+	}
+#endif
+
+#if defined(USE_CLOUD) && defined(USE_LIBCURL)
+	CloudMan.init();
+	CloudMan.syncSaves();
+#endif
 
 	// Unless a game was specified, show the launcher dialog
 	if (0 == ConfMan.getActiveDomain())
@@ -462,7 +520,7 @@ extern "C" int scummvm_main(int argc, const char * const argv[]) {
 	// cleanly, so this is now enabled to encourage people to fix bits :)
 	while (0 != ConfMan.getActiveDomain()) {
 		// Try to find a plugin which feels responsible for the specified game.
-		const EnginePlugin *plugin = detectPlugin();
+		const Plugin *plugin = detectPlugin();
 		if (plugin) {
 			// Unload all plugins not needed for this game,
 			// to save memory
@@ -492,12 +550,12 @@ extern "C" int scummvm_main(int argc, const char * const argv[]) {
 			g_eventRec.deinit();
 #endif
 
-		#if defined(UNCACHED_PLUGINS) && defined(DYNAMIC_MODULES)
+#if defined(UNCACHED_PLUGINS) && defined(DYNAMIC_MODULES)
 			// do our best to prevent fragmentation by unloading as soon as we can
 			PluginManager::instance().unloadPluginsExcept(PLUGIN_TYPE_ENGINE, NULL, false);
 			// reallocate the config manager to get rid of any fragmentation
 			ConfMan.defragment();
-		#endif
+#endif
 
 			// Did an error occur ?
 			if (result.getCode() != Common::kNoError && result.getCode() != Common::kUserCanceled) {
@@ -506,43 +564,77 @@ extern "C" int scummvm_main(int argc, const char * const argv[]) {
 			}
 
 			// Quit unless an error occurred, or Return to launcher was requested
-			#ifndef FORCE_RTL
+#ifndef FORCE_RTL
 			if (result.getCode() == Common::kNoError && !g_system->getEventManager()->shouldRTL())
 				break;
-			#endif
+#endif
 			// Reset RTL flag in case we want to load another engine
 			g_system->getEventManager()->resetRTL();
-			#ifdef FORCE_RTL
+#ifdef FORCE_RTL
 			g_system->getEventManager()->resetQuit();
-			#endif
-			#ifdef ENABLE_EVENTRECORDER
+#endif
+#ifdef ENABLE_EVENTRECORDER
 			if (g_eventRec.checkForContinueGame()) {
 				continue;
 			}
-			#endif
+#endif
+
+			// At this point, we usually return to the launcher. However, the
+			// game may have requested that one or more other games be "chained"
+			// to the current one, with optional save slots to start the games
+			// at. At the time of writing, this is used for the Maniac Mansion
+			// easter egg in Day of the Tentacle.
+
+			Common::String chainedGame;
+			int saveSlot = -1;
+
+			ChainedGamesMan.pop(chainedGame, saveSlot);
 
 			// Discard any command line options. It's unlikely that the user
 			// wanted to apply them to *all* games ever launched.
 			ConfMan.getDomain(Common::ConfigManager::kTransientDomain)->clear();
 
-			// Clear the active config domain
-			ConfMan.setActiveDomain("");
+			if (!chainedGame.empty()) {
+				if (saveSlot != -1) {
+					ConfMan.setInt("save_slot", saveSlot, Common::ConfigManager::kTransientDomain);
+				}
+				// Start the chained game
+				ConfMan.setActiveDomain(chainedGame);
+			} else {
+				// Clear the active config domain
+				ConfMan.setActiveDomain("");
+			}
 
 			PluginManager::instance().loadAllPlugins(); // only for cached manager
-
 		} else {
 			GUI::displayErrorDialog(_("Could not find any engine capable of running the selected game"));
+
+			// Clear the active domain
+			ConfMan.setActiveDomain("");
 		}
 
 		// reset the graphics to default
 		setupGraphics(system);
-		launcherDialog();
+		if (0 == ConfMan.getActiveDomain()) {
+			launcherDialog();
+		}
 	}
+#ifdef USE_CLOUD
+#ifdef USE_SDL_NET
+	Networking::LocalWebserver::destroy();
+#endif
+#ifdef USE_LIBCURL
+	Networking::ConnectionManager::destroy();
+	//I think it's important to destroy it after ConnectionManager
+	Cloud::CloudManager::destroy();
+#endif
+#endif
 	PluginManager::instance().unloadAllPlugins();
 	PluginManager::destroy();
 	GUI::GuiManager::destroy();
 	Common::ConfigManager::destroy();
 	Common::DebugManager::destroy();
+	Common::OSDMessageQueue::destroy();
 #ifdef ENABLE_EVENTRECORDER
 	GUI::EventRecorder::destroy();
 #endif

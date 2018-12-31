@@ -8,11 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -23,6 +24,8 @@
 #include "scumm/actor.h"
 #include "scumm/charset.h"
 #include "scumm/scumm_v7.h"
+
+#include "common/util.h"
 
 namespace Scumm {
 
@@ -84,17 +87,8 @@ void ScummEngine::setCameraFollows(Actor *a, bool setCamera) {
 }
 
 void ScummEngine::clampCameraPos(Common::Point *pt) {
-	if (pt->x < VAR(VAR_CAMERA_MIN_X))
-		pt->x = (short) VAR(VAR_CAMERA_MIN_X);
-
-	if (pt->x > VAR(VAR_CAMERA_MAX_X))
-		pt->x = (short) VAR(VAR_CAMERA_MAX_X);
-
-	if (pt->y < VAR(VAR_CAMERA_MIN_Y))
-		pt->y = (short) VAR(VAR_CAMERA_MIN_Y);
-
-	if (pt->y > VAR(VAR_CAMERA_MAX_Y))
-		pt->y = (short) VAR(VAR_CAMERA_MAX_Y);
+	pt->x = CLIP<short>(pt->x, VAR(VAR_CAMERA_MIN_X), VAR(VAR_CAMERA_MAX_X));
+	pt->y = CLIP<short>(pt->y, VAR(VAR_CAMERA_MIN_Y), VAR(VAR_CAMERA_MAX_Y));
 }
 
 void ScummEngine::moveCamera() {

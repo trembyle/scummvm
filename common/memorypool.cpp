@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -43,7 +43,7 @@ static size_t adjustChunkSize(size_t chunkSize) {
 MemoryPool::MemoryPool(size_t chunkSize)
 	: _chunkSize(adjustChunkSize(chunkSize)) {
 
-	_next = NULL;
+	_next = nullptr;
 
 	_chunksPerPage = INITIAL_CHUNKS_PER_PAGE;
 }
@@ -64,7 +64,7 @@ void MemoryPool::allocPage() {
 
 	// Allocate a new page
 	page.numChunks = _chunksPerPage;
-	assert(page.numChunks * _chunkSize < 16*1024*1024);	// Refuse to allocate pages bigger than 16 MB
+	assert(page.numChunks * _chunkSize < 16*1024*1024); // Refuse to allocate pages bigger than 16 MB
 
 	page.start = ::malloc(page.numChunks * _chunkSize);
 	assert(page.start);
@@ -154,7 +154,7 @@ void MemoryPool::freeUnusedPages() {
 
 			::free(_pages[i].start);
 			++freedPagesCount;
-			_pages[i].start = NULL;
+			_pages[i].start = nullptr;
 		}
 	}
 
@@ -163,7 +163,7 @@ void MemoryPool::freeUnusedPages() {
 	// Remove all now unused pages
 	size_t newSize = 0;
 	for (size_t i = 0; i < _pages.size(); ++i) {
-		if (_pages[i].start != NULL) {
+		if (_pages[i].start != nullptr) {
 			if (newSize != i)
 				_pages[newSize] = _pages[i];
 			++newSize;

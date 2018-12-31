@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -785,6 +785,8 @@ void KyraEngine_LoK::seq_dispelMagicAnimation() {
 			return;
 	}
 	_screen->hideMouse();
+	// TODO
+	// This condition is always false. Is this a typo or a bug in the original?
 	if (_currentCharacter->sceneId == 210 && _currentCharacter->sceneId < 160)
 		_currentCharacter->facing = 3;
 	if (_malcolmFlag == 7 && _beadStateVar == 3) {
@@ -1483,8 +1485,7 @@ int KyraEngine_LoK::handleMalcolmFlag() {
 		_malcolmFrame = 0;
 		_malcolmFlag = 2;
 		_malcolmTimer2 = 0;
-
-		// Fall through to the next case
+		// fall through
 
 	case 2:
 		if (_system->getMillis() >= _malcolmTimer2) {

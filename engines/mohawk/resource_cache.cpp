@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -64,7 +64,7 @@ void ResourceCache::add(uint32 tag, uint16 id, Common::SeekableReadStream *data)
 // Returns NULL if not found
 Common::SeekableReadStream *ResourceCache::search(uint32 tag, uint16 id) {
 	if (!enabled)
-		return NULL;
+		return nullptr;
 
 	debugC(kDebugCache, "Searching for tag 0x%04X id %d", tag, id);
 
@@ -79,7 +79,7 @@ Common::SeekableReadStream *ResourceCache::search(uint32 tag, uint16 id) {
 	}
 
 	debugC(kDebugCache, "tag 0x%04X id %d not found", tag, id);
-	return NULL;
+	return nullptr;
 }
 
 } // End of namespace Mohawk

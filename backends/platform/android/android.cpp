@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -347,14 +347,16 @@ void OSystem_Android::initBackend() {
 
 	ConfMan.registerDefault("fullscreen", true);
 	ConfMan.registerDefault("aspect_ratio", true);
+	ConfMan.registerDefault("touchpad_mouse_mode", true);
 
 	ConfMan.setInt("autosave_period", 0);
 	ConfMan.setBool("FM_high_quality", false);
 	ConfMan.setBool("FM_medium_quality", true);
 
-	// TODO hackity hack
-	if (ConfMan.hasKey("multi_midi"))
-		_touchpad_mode = !ConfMan.getBool("multi_midi");
+	if (ConfMan.hasKey("touchpad_mouse_mode"))
+		_touchpad_mode = ConfMan.getBool("touchpad_mouse_mode");
+	else
+		ConfMan.setBool("touchpad_mouse_mode", true);
 
 	// must happen before creating TimerManager to avoid race in
 	// creating EventManager
@@ -396,18 +398,15 @@ void OSystem_Android::initBackend() {
 	EventsBaseBackend::initBackend();
 }
 
-void OSystem_Android::addPluginDirectories(Common::FSList &dirs) const {
-	ENTER();
-
-	JNI::getPluginDirectories(dirs);
-}
-
 bool OSystem_Android::hasFeature(Feature f) {
 	return (f == kFeatureFullscreenMode ||
 			f == kFeatureAspectRatioCorrection ||
 			f == kFeatureCursorPalette ||
 			f == kFeatureVirtualKeyboard ||
-			f == kFeatureOverlaySupportsAlpha);
+			f == kFeatureOverlaySupportsAlpha ||
+			f == kFeatureOpenUrl ||
+			f == kFeatureTouchpadMode ||
+			f == kFeatureClipboardSupport);
 }
 
 void OSystem_Android::setFeatureState(Feature f, bool enable) {
@@ -431,6 +430,10 @@ void OSystem_Android::setFeatureState(Feature f, bool enable) {
 		if (!enable)
 			disableCursorPalette();
 		break;
+	case kFeatureTouchpadMode:
+		ConfMan.setBool("touchpad_mouse_mode", enable);
+		_touchpad_mode = enable;
+		break;
 	default:
 		break;
 	}
@@ -446,6 +449,8 @@ bool OSystem_Android::getFeatureState(Feature f) {
 		return _virtkeybd_on;
 	case kFeatureCursorPalette:
 		return _use_mouse_palette;
+	case kFeatureTouchpadMode:
+		return ConfMan.getBool("touchpad_mouse_mode");
 	default:
 		return false;
 	}
@@ -592,6 +597,22 @@ Common::String OSystem_Android::getSystemLanguage() const {
 							getSystemProperty("persist.sys.country").c_str());
 }
 
+bool OSystem_Android::openUrl(const Common::String &url) {
+	return JNI::openUrl(url.c_str());
+}
+
+bool OSystem_Android::hasTextInClipboard() {
+	return JNI::hasTextInClipboard();
+}
+
+Common::String OSystem_Android::getTextFromClipboard() {
+	return JNI::getTextFromClipboard();
+}
+
+bool OSystem_Android::setTextInClipboard(const Common::String &text) {
+	return JNI::setTextInClipboard(text);
+}
+
 Common::String OSystem_Android::getSystemProperty(const char *name) const {
 	char value[PROP_VALUE_MAX];
 
@@ -599,11 +620,5 @@ Common::String OSystem_Android::getSystemProperty(const char *name) const {
 
 	return Common::String(value, len);
 }
-
-#ifdef DYNAMIC_MODULES
-void AndroidPluginProvider::addCustomDirectories(Common::FSList &dirs) const {
-	((OSystem_Android *)g_system)->addPluginDirectories(dirs);
-}
-#endif
 
 #endif

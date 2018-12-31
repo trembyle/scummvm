@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -94,27 +94,11 @@ Common::List<Graphics::PixelFormat> OSystem_Android::getSupportedFormats() const
 	Common::List<Graphics::PixelFormat> res;
 	res.push_back(GLES565Texture::pixelFormat());
 	res.push_back(GLES5551Texture::pixelFormat());
+	res.push_back(GLES8888Texture::pixelFormat());
 	res.push_back(GLES4444Texture::pixelFormat());
 	res.push_back(Graphics::PixelFormat::createFormatCLUT8());
 
 	return res;
-}
-
-Common::String OSystem_Android::getPixelFormatName(const Graphics::PixelFormat &format) const {
-	if (format.bytesPerPixel == 1)
-		return "CLUT8";
-
-	if (format.aLoss == 8)
-		return Common::String::format("RGB%u%u%u",
-										8 - format.rLoss,
-										8 - format.gLoss,
-										8 - format.bLoss);
-
-	return Common::String::format("RGBA%u%u%u%u",
-									8 - format.rLoss,
-									8 - format.gLoss,
-									8 - format.bLoss,
-									8 - format.aLoss);
 }
 
 void OSystem_Android::initTexture(GLESBaseTexture **texture,
@@ -139,7 +123,7 @@ void OSystem_Android::initTexture(GLESBaseTexture **texture,
 	if (format_current != format_new) {
 		if (*texture)
 			LOGD("switching pixel format from: %s",
-					getPixelFormatName((*texture)->getPixelFormat()).c_str());
+					(*texture)->getPixelFormat().toString().c_str());
 
 		delete *texture;
 
@@ -147,19 +131,21 @@ void OSystem_Android::initTexture(GLESBaseTexture **texture,
 			*texture = new GLES565Texture();
 		else if (format_new == GLES5551Texture::pixelFormat())
 			*texture = new GLES5551Texture();
+		else if (format_new == GLES8888Texture::pixelFormat())
+			*texture = new GLES8888Texture();
 		else if (format_new == GLES4444Texture::pixelFormat())
 			*texture = new GLES4444Texture();
 		else {
 			// TODO what now?
 			if (format_new != format_clut8)
 				LOGE("unsupported pixel format: %s",
-					getPixelFormatName(format_new).c_str());
+					format_new.toString().c_str());
 
 			*texture = new GLESFakePalette565Texture;
 		}
 
 		LOGD("new pixel format: %s",
-				getPixelFormatName((*texture)->getPixelFormat()).c_str());
+				(*texture)->getPixelFormat().toString().c_str());
 	}
 
 	(*texture)->allocBuffer(width, height);
@@ -233,7 +219,7 @@ void OSystem_Android::initViewport() {
 	GLCALL(glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST));
 
 	GLCALL(glEnable(GL_BLEND));
-	GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	GLCALL(glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA));
 
 	GLCALL(glEnableClientState(GL_VERTEX_ARRAY));
 	GLCALL(glEnableClientState(GL_TEXTURE_COORD_ARRAY));
@@ -405,7 +391,7 @@ void OSystem_Android::setPalette(const byte *colors, uint start, uint num) {
 		WRITE_UINT16(p, pf.RGBToColor(colors[0], colors[1], colors[2]));
 }
 
-void OSystem_Android::grabPalette(byte *colors, uint start, uint num) {
+void OSystem_Android::grabPalette(byte *colors, uint start, uint num) const {
 	ENTER("%p, %u, %u", colors, start, num);
 
 #ifdef USE_RGB_COLOR
@@ -466,7 +452,7 @@ void OSystem_Android::updateScreen() {
 		GLCALL(glTranslatex(0, -_shake_offset << 16, 0));
 	}
 
-// TODO this doesnt work on those sucky drivers, do it differently
+// TODO this doesn't work on those sucky drivers, do it differently
 //	if (_show_overlay)
 //		GLCALL(glColor4ub(0x9f, 0x9f, 0x9f, 0x9f));
 
@@ -726,7 +712,7 @@ void OSystem_Android::setMouseCursor(const void *buf, uint w, uint h,
 		_mouse_keycolor = keycolor;
 
 		p = _mouse_texture_palette->palette() + _mouse_keycolor * 2;
-		WRITE_UINT16(p, READ_UINT16(p) & ~1);
+		WRITE_UINT16(p, 0);
 	}
 
 	if (w == 0 || h == 0)
@@ -752,12 +738,12 @@ void OSystem_Android::setMouseCursor(const void *buf, uint w, uint h,
 			return;
 		}
 
-		uint16 *s = (uint16 *)buf;
+		const uint16 *s = (const uint16 *)buf;
 		uint16 *d = (uint16 *)tmp;
 		for (uint16 y = 0; y < h; ++y, d += pitch / 2 - w)
 			for (uint16 x = 0; x < w; ++x, d++)
-				if (*s++ != (keycolor & 0xffff))
-					*d |= 1;
+				if (*s++ == (keycolor & 0xffff))
+					*d = 0;
 
 		_mouse_texture->updateBuffer(0, 0, w, h, tmp, pitch);
 
@@ -779,7 +765,7 @@ void OSystem_Android::setCursorPaletteInternal(const byte *colors,
 		WRITE_UINT16(p, pf.RGBToColor(colors[0], colors[1], colors[2]));
 
 	p = _mouse_texture_palette->palette() + _mouse_keycolor * 2;
-	WRITE_UINT16(p, READ_UINT16(p) & ~1);
+	WRITE_UINT16(p, 0);
 }
 
 void OSystem_Android::setCursorPalette(const byte *colors,
@@ -821,7 +807,7 @@ void OSystem_Android::disableCursorPalette() {
 		}
 
 		byte *p = _mouse_texture_palette->palette() + _mouse_keycolor * 2;
-		WRITE_UINT16(p, READ_UINT16(p) & ~1);
+		WRITE_UINT16(p, 0);
 	}
 }
 

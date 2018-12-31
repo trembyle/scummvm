@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -36,17 +36,17 @@ namespace Mohawk {
 class InstallerArchive : public Common::Archive {
 public:
 	InstallerArchive();
-	~InstallerArchive();
+	~InstallerArchive() override;
 
 	bool open(const Common::String &filename);
 	void close();
-	bool isOpen() const { return _stream != 0; }
+	bool isOpen() const { return _stream != nullptr; }
 
 	// Common::Archive API implementation
-	bool hasFile(const Common::String &name) const;
-	int listMembers(Common::ArchiveMemberList &list) const;
-	const Common::ArchiveMemberPtr getMember(const Common::String &name) const;
-	Common::SeekableReadStream *createReadStreamForMember(const Common::String &name) const;
+	bool hasFile(const Common::String &name) const override;
+	int listMembers(Common::ArchiveMemberList &list) const override;
+	const Common::ArchiveMemberPtr getMember(const Common::String &name) const override;
+	Common::SeekableReadStream *createReadStreamForMember(const Common::String &name) const override;
 
 private:
 	struct FileEntry {

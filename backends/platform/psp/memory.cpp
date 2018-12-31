@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -72,7 +72,7 @@ void PspMemory::copy(byte *dst, const byte *src, uint32 bytes) {
 	if (alignSrc) {						// we'll need to realign our reads
 		copy32Misaligned((uint32 *)dst, src, bytes, alignSrc);
 	} else {
-		copy32Aligned((uint32 *)dst, (uint32 *)src, bytes);
+		copy32Aligned((uint32 *)dst, (const uint32 *)src, bytes);
 	}
 
 #ifdef TEST_MEMORY_COPY
@@ -141,7 +141,7 @@ void PspMemory::copy32Aligned(uint32 *dst32, const uint32 *src32, uint32 bytes) 
 	PSP_DEBUG_PRINT("bytesLeft[%d]\n", bytesLeft);
 
 	byte *dst = (byte *)dst32;
-	byte *src = (byte *)src32;
+	const byte *src = (const byte *)src32;
 
 	while (bytesLeft--) {
 		*dst++ = *src++;
@@ -343,7 +343,7 @@ void PspMemorySwap::swap32Aligned(uint32 *dst32, const uint32 *src32, uint32 byt
 	bytesLeft = bytes & 0x3;
 
 	if (bytesLeft) {	// for swap, can only be 1 short left
-		*((uint16 *)dst32) = format.swapRedBlue16(*((uint16 *)src32));
+		*((uint16 *)dst32) = format.swapRedBlue16(*((const uint16 *)src32));
 	}
 }
 

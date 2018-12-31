@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef GRAPHICS_THUMBNAIL_H
@@ -51,7 +52,7 @@ bool skipThumbnail(Common::SeekableReadStream &in);
 /**
  * Loads a thumbnail from the given input stream.
  */
-Graphics::Surface *loadThumbnail(Common::SeekableReadStream &in);
+bool loadThumbnail(Common::SeekableReadStream &in, Graphics::Surface *&thumbnail, bool skipThumbnail = false);
 
 /**
  * Saves a thumbnail to the given write stream.

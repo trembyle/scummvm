@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -168,11 +168,6 @@ static const uint32 kScene2401FileHashes2[] = {
 	0xD0910068, 0xD09100A8, 0
 };
 
-static const uint32 kScene2401FileHashes3[] = {
-	0xD0910020, 0xD0910038, 0xD0910008,
-	0xD0910068, 0xD09100A8, 0
-};
-
 static const NRect kScene2401Rects[] = {
 	{ 369, 331, 394, 389 },
 	{ 395, 331, 419, 389 },
@@ -253,22 +248,22 @@ void Scene2401::update() {
 			if (puzzleSolved) {
 				setGlobalVar(V_NOTES_DOOR_UNLOCKED, 1);
 				setGlobalVar(V_NOTES_PUZZLE_SOLVED, 1);
-				sendMessage(_asDoor, 0x4808, 0);
+				sendMessage(_asDoor, NM_KLAYMEN_OPEN_DOOR, 0);
 			} else if (waterInside) {
 				playPipeSound(0xD0431020);
 				for (uint i = 0; i < 5; i++) {
-					sendMessage(_asWaterFlushing[i], 0x2002, getSubVar(VA_CURR_WATER_PIPES_LEVEL, i));
+					sendMessage(_asWaterFlushing[i], NM_POSITION_CHANGE, getSubVar(VA_CURR_WATER_PIPES_LEVEL, i));
 					setSubVar(VA_CURR_WATER_PIPES_LEVEL, i, 0);
 				}
 			}
 		} else if (_pipeStatus >= 5) {
 			_ssWaterPipes[_pipeStatus]->setVisible(true);
 			_countdown1 = 8;
-			playPipeSound(kScene2401FileHashes3[getSubVar(VA_CURR_WATER_PIPES_LEVEL, _pipeStatus - 5)]);
+			playPipeSound(kScene2401FileHashes2[getSubVar(VA_CURR_WATER_PIPES_LEVEL, _pipeStatus - 5)]);
 		} else {
 			_ssWaterPipes[_pipeStatus]->setVisible(true);
 			_countdown1 = _pipeStatus == 4 ? 16 : 8;
-			playPipeSound(kScene2401FileHashes3[getSubVar(VA_GOOD_WATER_PIPES_LEVEL, _pipeStatus)]);
+			playPipeSound(kScene2401FileHashes2[getSubVar(VA_GOOD_WATER_PIPES_LEVEL, _pipeStatus)]);
 		}
 		_pipeStatus++;
 	}
@@ -283,7 +278,7 @@ void Scene2401::update() {
 uint32 Scene2401::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Scene::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x100D:
+	case NM_ANIMATION_START:
 		if (param.asInteger() == 0x402064D8)
 			sendEntityMessage(_klaymen, 0x1014, _ssButton);
 		else if (param.asInteger() == 0x02144CB1)
@@ -313,7 +308,7 @@ uint32 Scene2401::handleMessage(int messageNum, const MessageParam &param, Entit
 		} else if (param.asInteger() == 0x09C4B40A && _countdown2 > 12)
 			_countdown2 = 12;
 		break;
-	case 0x2000:
+	case NM_ANIMATION_UPDATE:
 		messageResult = 0;
 		for (uint32 i = 0; i < 5; i++)
 			if (kScene2401Rects[i].contains(_mouseClickPos.x, _mouseClickPos.y)) {
@@ -334,15 +329,15 @@ uint32 Scene2401::handleMessage(int messageNum, const MessageParam &param, Entit
 			_countdown1 = 8;
 		} else if (sender == _ssFloorButton && getGlobalVar(V_WATER_RUNNING)) {
 			_countdown2 = 144;
-			sendMessage(_asFlowingWater, 0x2002, 0);
+			sendMessage(_asFlowingWater, NM_POSITION_CHANGE, 0);
 			playSound(0, 0xE1130324);
 		}
 		break;
-	case 0x482A:
+	case NM_MOVE_TO_BACK:
 		_palette->addBasePalette(0xB103B604, 0, 65, 0);
 		_palette->startFadeToPalette(12);
 		break;
-	case 0x482B:
+	case NM_MOVE_TO_FRONT:
 		_palette->addBasePalette(0x91D3A391, 0, 65, 0);
 		_palette->startFadeToPalette(12);
 		break;
@@ -411,7 +406,7 @@ Scene2402::~Scene2402() {
 void Scene2402::update() {
 	if (_countdown != 0 && (--_countdown) == 0) {
 		if (_pipeStatus >= 10) {
-			sendMessage(_asDoor, 0x4808, 0);
+			sendMessage(_asDoor, NM_KLAYMEN_OPEN_DOOR, 0);
 			_ssDoorFrame->loadSprite(0x00B415E0, kSLFDefDrawOffset | kSLFDefPosition);
 		} else if (_pipeStatus >= 5) {
 			_countdown = 8;
@@ -428,7 +423,7 @@ void Scene2402::update() {
 uint32 Scene2402::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Scene::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x100D:
+	case NM_ANIMATION_START:
 		if (param.asInteger() == 0x402064D8)
 			sendEntityMessage(_klaymen, 0x1014, _ssButton);
 		else if (param.asInteger() == 0x01C66840) {
@@ -516,13 +511,13 @@ Scene2403::Scene2403(NeverhoodEngine *vm, Module *parentModule, int which)
 uint32 Scene2403::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Scene::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x100D:
+	case NM_ANIMATION_START:
 		if (param.asInteger() == 0x040424D0)
 			sendEntityMessage(_klaymen, 0x1014, _ssButton);
 		else if (param.asInteger() == 0x180CE614)
 			sendEntityMessage(_klaymen, 0x1014, _asLightCord);
 		break;
-	case 0x2000:
+	case NM_ANIMATION_UPDATE:
 		_isClimbingLadder = true;
 		setRectList(0x004B5E28);
 		break;
@@ -541,7 +536,7 @@ uint32 Scene2403::handleMessage(int messageNum, const MessageParam &param, Entit
 			}
 		}
 		break;
-	case 0x480F:
+	case NM_KLAYMEN_LOWER_LEVER:
 		if (sender == _asLightCord)
 			leaveScene(2);
 		break;
@@ -637,7 +632,7 @@ Scene2406::Scene2406(NeverhoodEngine *vm, Module *parentModule, int which)
 uint32 Scene2406::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Scene::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x100D:
+	case NM_ANIMATION_START:
 		if (param.asInteger() == 0x41062804) {
 			if (getGlobalVar(V_SPIKES_RETRACTED))
 				setMessageList(0x004B7758);
@@ -645,7 +640,7 @@ uint32 Scene2406::handleMessage(int messageNum, const MessageParam &param, Entit
 				setMessageList(0x004B7738);
 		}
 		break;
-	case 0x2000:
+	case NM_ANIMATION_UPDATE:
 		_isClimbingLadder = true;
 		setRectList(0x004B78D8);
 		break;

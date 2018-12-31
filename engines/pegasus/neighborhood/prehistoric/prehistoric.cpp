@@ -11,12 +11,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -124,11 +124,6 @@ void Prehistoric::setUpAIRules() {
 			AIHasItemCondition *hasLogCondition = new AIHasItemCondition(kHistoricalLog);
 			AIRule *rule = new AIRule(hasLogCondition, doneAction);
 			g_AIArea->addAIRule(rule);
-		} else {
-			AIPlayMessageAction *messageAction = new AIPlayMessageAction("Images/AI/Prehistoric/XP25W", false);
-			AIHasItemCondition *hasLogCondition = new AIHasItemCondition(kHistoricalLog);
-			AIRule *rule = new AIRule(hasLogCondition, messageAction);
-			g_AIArea->addAIRule(rule);
 		}
 
 		if (!_vm->isOldDemo()) {
@@ -167,6 +162,13 @@ void Prehistoric::setUpAIRules() {
 			rule = new AIRule(timerCondition, messageAction);
 			g_AIArea->addAIRule(rule);
 		}
+
+		if (!_vm->isDemo()) {
+			AIPlayMessageAction *messageAction = new AIPlayMessageAction("Images/AI/Prehistoric/XP25W", false);
+			AIHasItemCondition *hasLogCondition = new AIHasItemCondition(kHistoricalLog);
+			AIRule *rule = new AIRule(hasLogCondition, messageAction);
+			g_AIArea->addAIRule(rule);
+		}
 	}
 }
 
@@ -202,11 +204,11 @@ TimeValue Prehistoric::getViewTime(const RoomID room, const DirectionConstant di
 void Prehistoric::findSpotEntry(const RoomID room, const DirectionConstant direction, SpotFlags flags, SpotTable::Entry &entry) {
 	Neighborhood::findSpotEntry(room, direction, flags, entry);
 
+	// The original strangely disabled the loop for the two volcano spots:
+	// (kPrehistoric01, kSouth) and (kPrehistoric25, kSouth)
+	// We don't do that here.
+
 	switch (MakeRoomView(room, direction)) {
-	case MakeRoomView(kPrehistoric01, kSouth):
-	case MakeRoomView(kPrehistoric25, kSouth):
-		entry.clear();
-		break;
 	case MakeRoomView(kPrehistoric01, kEast):
 		if (GameState.getPrehistoricSeenFlyer1())
 			entry.clear();

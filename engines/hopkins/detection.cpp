@@ -8,16 +8,15 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  *
  */
 
@@ -29,6 +28,7 @@
 #include "common/memstream.h"
 #include "engines/advancedDetector.h"
 #include "common/system.h"
+#include "common/translation.h"
 #include "graphics/colormasks.h"
 #include "graphics/surface.h"
 
@@ -69,6 +69,30 @@ static const PlainGameDescriptor hopkinsGames[] = {
 
 #include "hopkins/detection_tables.h"
 
+static const ADExtraGuiOptionsMap optionsList[] = {
+	{
+		GAMEOPTION_GORE_DEFAULT_OFF,
+		{
+			_s("Gore Mode"),
+			_s("Enable Gore Mode when available"),
+			"enable_gore",
+			false
+		}
+	},
+
+	{
+		GAMEOPTION_GORE_DEFAULT_ON,
+		{
+			_s("Gore Mode"),
+			_s("Enable Gore Mode when available"),
+			"enable_gore",
+			true
+		}
+	},
+
+	AD_EXTRA_GUI_OPTIONS_TERMINATOR
+};
+
 const static char *directoryGlobs[] = {
 	"voice",
 	"link",
@@ -77,17 +101,17 @@ const static char *directoryGlobs[] = {
 
 class HopkinsMetaEngine : public AdvancedMetaEngine {
 public:
-	HopkinsMetaEngine() : AdvancedMetaEngine(Hopkins::gameDescriptions, sizeof(Hopkins::HopkinsGameDescription), hopkinsGames) {
+	HopkinsMetaEngine() : AdvancedMetaEngine(Hopkins::gameDescriptions, sizeof(Hopkins::HopkinsGameDescription), hopkinsGames, optionsList) {
 		_maxScanDepth = 3;
 		_directoryGlobs = directoryGlobs;
 	}
 
 	virtual const char *getName() const {
-		return "Hopkins Engine";
+		return "Hopkins FBI";
 	}
 
 	virtual const char *getOriginalCopyright() const {
-		return "Hopkins FBI (c)1997-2003 MP Entertainment";
+		return "Hopkins FBI (C) 1997-2003 MP Entertainment";
 	}
 
 	virtual bool hasFeature(MetaEngineFeature f) const;
@@ -104,7 +128,8 @@ bool HopkinsMetaEngine::hasFeature(MetaEngineFeature f) const {
 		(f == kSupportsLoadingDuringStartup) ||
 		(f == kSupportsDeleteSave) ||
 		(f == kSavesSupportMetaInfo) ||
-		(f == kSavesSupportThumbnail);
+		(f == kSavesSupportThumbnail) ||
+		(f == kSimpleSavesNames);
 }
 
 bool Hopkins::HopkinsEngine::hasFeature(EngineFeature f) const {
@@ -126,10 +151,9 @@ SaveStateList HopkinsMetaEngine::listSaves(const char *target) const {
 	Common::SaveFileManager *saveFileMan = g_system->getSavefileManager();
 	Common::StringArray filenames;
 	Common::String saveDesc;
-	Common::String pattern = Common::String::format("%s.0??", target);
+	Common::String pattern = Common::String::format("%s.0##", target);
 
 	filenames = saveFileMan->listSavefiles(pattern);
-	sort(filenames.begin(), filenames.end());   // Sort to get the files in numerical order
 
 	Hopkins::hopkinsSavegameHeader header;
 
@@ -144,9 +168,6 @@ SaveStateList HopkinsMetaEngine::listSaves(const char *target) const {
 			if (in) {
 				if (Hopkins::SaveLoadManager::readSavegameHeader(in, header)) {
 					saveList.push_back(SaveStateDescriptor(slot, header._saveName));
-
-					header._thumbnail->free();
-					delete header._thumbnail;
 				}
 
 				delete in;
@@ -154,6 +175,8 @@ SaveStateList HopkinsMetaEngine::listSaves(const char *target) const {
 		}
 	}
 
+	// Sort saves based on slot number.
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -172,7 +195,11 @@ SaveStateDescriptor HopkinsMetaEngine::querySaveMetaInfos(const char *target, in
 
 	if (f) {
 		Hopkins::hopkinsSavegameHeader header;
-		Hopkins::SaveLoadManager::readSavegameHeader(f, header);
+		if (!Hopkins::SaveLoadManager::readSavegameHeader(f, header, false)) {
+			delete f;
+			return SaveStateDescriptor();
+		}
+
 		delete f;
 
 		// Create the return descriptor
@@ -190,7 +217,7 @@ SaveStateDescriptor HopkinsMetaEngine::querySaveMetaInfos(const char *target, in
 
 
 #if PLUGIN_ENABLED_DYNAMIC(HOPKINS)
-REGISTER_PLUGIN_DYNAMIC(HOPKINS, PLUGIN_TYPE_ENGINE, HopkinsMetaEngine);
+	REGISTER_PLUGIN_DYNAMIC(HOPKINS, PLUGIN_TYPE_ENGINE, HopkinsMetaEngine);
 #else
-REGISTER_PLUGIN_STATIC(HOPKINS, PLUGIN_TYPE_ENGINE, HopkinsMetaEngine);
+	REGISTER_PLUGIN_STATIC(HOPKINS, PLUGIN_TYPE_ENGINE, HopkinsMetaEngine);
 #endif

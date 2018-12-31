@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -43,28 +43,28 @@ namespace LastExpress {
 
 August::August(LastExpressEngine *engine) : Entity(engine, kEntityAugust) {
 	ADD_CALLBACK_FUNCTION(August, reset);
-	ADD_CALLBACK_FUNCTION(August, updateFromTime);
-	ADD_CALLBACK_FUNCTION(August, draw);
-	ADD_CALLBACK_FUNCTION(August, updatePosition);
-	ADD_CALLBACK_FUNCTION(August, enterExitCompartment);
-	ADD_CALLBACK_FUNCTION(August, enterExitCompartment2);
-	ADD_CALLBACK_FUNCTION(August, enterExitCompartment3);
+	ADD_CALLBACK_FUNCTION_I(August, updateFromTime);
+	ADD_CALLBACK_FUNCTION_S(August, draw);
+	ADD_CALLBACK_FUNCTION_SII(August, updatePosition);
+	ADD_CALLBACK_FUNCTION_SI(August, enterExitCompartment);
+	ADD_CALLBACK_FUNCTION_SI(August, enterExitCompartment2);
+	ADD_CALLBACK_FUNCTION_SI(August, enterExitCompartment3);
 	ADD_CALLBACK_FUNCTION(August, callbackActionOnDirection);
-	ADD_CALLBACK_FUNCTION(August, callSavepoint);
-	ADD_CALLBACK_FUNCTION(August, callSavepointNoDrawing);
-	ADD_CALLBACK_FUNCTION(August, draw2);
-	ADD_CALLBACK_FUNCTION(August, playSound);
-	ADD_CALLBACK_FUNCTION(August, playSound16);
+	ADD_CALLBACK_FUNCTION_SIIS(August, callSavepoint);
+	ADD_CALLBACK_FUNCTION_IIS(August, callSavepointNoDrawing);
+	ADD_CALLBACK_FUNCTION_SSI(August, draw2);
+	ADD_CALLBACK_FUNCTION_S(August, playSound);
+	ADD_CALLBACK_FUNCTION_S(August, playSound16);
 	ADD_CALLBACK_FUNCTION(August, callbackActionRestaurantOrSalon);
-	ADD_CALLBACK_FUNCTION(August, savegame);
-	ADD_CALLBACK_FUNCTION(August, updateEntity);
-	ADD_CALLBACK_FUNCTION(August, function17);
-	ADD_CALLBACK_FUNCTION(August, updateEntity2);
-	ADD_CALLBACK_FUNCTION(August, function19);
-	ADD_CALLBACK_FUNCTION(August, function20);
-	ADD_CALLBACK_FUNCTION(August, function21);
+	ADD_CALLBACK_FUNCTION_II(August, savegame);
+	ADD_CALLBACK_FUNCTION_II(August, updateEntity);
+	ADD_CALLBACK_FUNCTION_I(August, function17);
+	ADD_CALLBACK_FUNCTION_II(August, updateEntity2);
+	ADD_CALLBACK_FUNCTION_TYPE(August, function19, EntityParametersIISS);
+	ADD_CALLBACK_FUNCTION_TYPE(August, function20, EntityParametersISSI);
+	ADD_CALLBACK_FUNCTION_I(August, function21);
 	ADD_CALLBACK_FUNCTION(August, chapter1);
-	ADD_CALLBACK_FUNCTION(August, function23);
+	ADD_CALLBACK_FUNCTION_I(August, function23);
 	ADD_CALLBACK_FUNCTION(August, dinner);
 	ADD_CALLBACK_FUNCTION(August, chapter1Handler);
 	ADD_CALLBACK_FUNCTION(August, function26);
@@ -82,8 +82,8 @@ August::August(LastExpressEngine *engine) : Entity(engine, kEntityAugust) {
 	ADD_CALLBACK_FUNCTION(August, function38);
 	ADD_CALLBACK_FUNCTION(August, function39);
 	ADD_CALLBACK_FUNCTION(August, chapter3);
-	ADD_CALLBACK_FUNCTION(August, function41);
-	ADD_CALLBACK_FUNCTION(August, function42);
+	ADD_CALLBACK_FUNCTION_II(August, function41);
+	ADD_CALLBACK_FUNCTION_III(August, function42);
 	ADD_CALLBACK_FUNCTION(August, chapter3Handler);
 	ADD_CALLBACK_FUNCTION(August, function44);
 	ADD_CALLBACK_FUNCTION(August, function45);
@@ -116,7 +116,7 @@ August::August(LastExpressEngine *engine) : Entity(engine, kEntityAugust) {
 
 //////////////////////////////////////////////////////////////////////////
 IMPLEMENT_FUNCTION(1, August, reset)
-	Entity::reset(savepoint, true);
+	Entity::reset(savepoint, kClothes2, true);
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
 IMPLEMENT_FUNCTION_SI(6, August, enterExitCompartment2, ObjectIndex)
-	Entity::enterExitCompartment(savepoint, kPosition_6470, kPosition_6130, kCarGreenSleeping, kObjectCompartment3, true);
+	Entity::enterExitCompartment(savepoint, kPosition_6470, kPosition_6130, kCarGreenSleeping, kObjectCompartment3, true, true);
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
@@ -199,7 +199,7 @@ IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
 IMPLEMENT_FUNCTION_S(13, August, playSound16)
-	Entity::playSound(savepoint, false, kFlagDefault);
+	Entity::playSound(savepoint, false, kVolumeFull);
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
@@ -250,7 +250,7 @@ IMPLEMENT_FUNCTION_I(17, August, function17, TimeValue)
 		ENTITY_PARAM(0, 1) = 0;
 
 		setCallback(1);
-		setup_updateEntity(kCarRedSleeping, kPosition_540);
+		setup_updateEntity2(kCarRedSleeping, kPosition_540);
 		break;
 
 	case kActionCallback:
@@ -338,7 +338,7 @@ IMPLEMENT_FUNCTION_II(19, August, function19, bool, bool)
 	case kAction1:
 		getData()->inventoryItem = kItemNone;
 		getSound()->playSound(kEntityPlayer, "CAT1002");
-		getSound()->playSound(kEntityAugust, "AUG3101", kFlagInvalid, 15);
+		getSound()->playSound(kEntityAugust, "AUG3101", kSoundVolumeEntityDefault, 15);
 		break;
 
 	case kActionDefault:
@@ -358,7 +358,7 @@ IMPLEMENT_FUNCTION_II(19, August, function19, bool, bool)
 				strcpy((char *)&parameters->seq1, "666");
 				break;
 			}
-			// Fallback to next action
+			// fall through
 
 		case kChapter4:
 		case kChapter5:
@@ -397,7 +397,7 @@ IMPLEMENT_FUNCTION_II(19, August, function19, bool, bool)
 			strcat((char *)&parameters->seq2, parameters->param1 ? "Fc" : "Dc");
 
 			setCallback(3);
-			setup_enterExitCompartment((char *)&parameters->seq2, kObjectCompartment3);
+			setup_enterExitCompartment2((char *)&parameters->seq2, kObjectCompartment3);
 			break;
 
 		case 3:
@@ -443,7 +443,7 @@ IMPLEMENT_FUNCTION_I(20, August, function20, bool)
 				strcpy((char *)&parameters->seq1, "666");
 				break;
 			}
-			// Fallback to next case
+			// fall through
 
 		case kChapter4:
 		case kChapter5:
@@ -451,12 +451,18 @@ IMPLEMENT_FUNCTION_I(20, August, function20, bool)
 			break;
 		}
 
-		if (params->param1) {
-			strcpy((char *)&parameters->seq2, Common::String::format("%s%s", (char *)&parameters->seq1, "Gc").c_str());
+		if (parameters->param1) {
+			Common::String sequence = Common::String::format("%s%s", (char *)&parameters->seq1, "Gc");
+			assert(sequence.size() <= 12); // .size() does not count terminating zero
+
+			strcpy((char *)&parameters->seq2, sequence.c_str());
 
 			getObjects()->update(kObjectCompartment3, kEntityPlayer, kObjectLocation1, kCursorKeepValue, kCursorKeepValue);
 		} else {
-			strcpy((char *)&parameters->seq2, Common::String::format("%s%s", (char *)&parameters->seq1, "Ec").c_str());
+			Common::String sequence = Common::String::format("%s%s", (char *)&parameters->seq1, "Ec");
+			assert(sequence.size() <= 12);
+
+			strcpy((char *)&parameters->seq2, sequence.c_str());
 		}
 
 		setCallback(1);
@@ -471,10 +477,12 @@ IMPLEMENT_FUNCTION_I(20, August, function20, bool)
 		case 1: {
 			getData()->location = kLocationOutsideCompartment;
 
-			Common::String sequence2 = Common::String::format("%s%s", (char *)&parameters->seq2, "Pc");
-			strcpy((char *)&parameters->seq2, (char *)&parameters->seq1);
+			Common::String sequence2 = Common::String::format("%s%s", (char *)&parameters->seq1, "Pc");
+			assert(sequence2.size() <= 12);
 
-			getEntities()->drawSequenceLeft(kEntityAugust, sequence2.c_str());
+			strcpy((char *)&parameters->seq2, sequence2.c_str());
+
+			getEntities()->drawSequenceLeft(kEntityAugust, (char *)&parameters->seq2);
 			getEntities()->enterCompartment(kEntityAugust, kObjectCompartment3, true);
 
 			if (getProgress().chapter != kChapter3 || getState()->time >= kTime1998000) {
@@ -484,15 +492,22 @@ IMPLEMENT_FUNCTION_I(20, August, function20, bool)
 				setCallback(2);
 				setup_playSound("AUG2094");
 			}
+
 			}
 			break;
 
 		case 2:
-		case 3:
+		case 3: {
 			getSavePoints()->push(kEntityAugust, kEntityMertens, kAction269436673);
-			strcpy((char *)&parameters->seq2, Common::String::format("%s%s", (char *)&parameters->seq1, "Qc").c_str());
+
+			Common::String sequence = Common::String::format("%s%s", (char *)&parameters->seq1, "Qc");
+			assert(sequence.size() <= 13);
+
+			strcpy((char *)&parameters->seq2, sequence.c_str());
 
 			getEntities()->drawSequenceLeft(kEntityAugust, (char *)&parameters->seq2);
+
+			}
 			break;
 		}
 		break;
@@ -562,13 +577,13 @@ label_continue:
 	case kActionOpenDoor:
 		if (getProgress().chapter == kChapter1 && !getProgress().eventMetAugust && getProgress().jacket == kJacketGreen) {
 			getObjects()->update(kObjectOutsideTylerCompartment, kEntityPlayer, kObjectLocationNone, kCursorKeepValue, kCursorKeepValue);
-			getData()->location = kLocationInsideCompartment;
+			getEntityData(kEntityPlayer)->location = kLocationInsideCompartment;
 
 			setCallback(6);
 			setup_savegame(kSavegameTypeEvent, kEventMeetAugustHisCompartment);
 			break;
 		}
-		// Fallback to next case
+		// fall through
 
 	case kActionKnock:
 		getObjects()->update(kObjectCompartment3, kEntityAugust, kObjectLocation1, kCursorNormal, kCursorNormal);
@@ -635,12 +650,12 @@ label_continue:
 			params->param2 = 0;
 			params->param3 = 0;
 			params->param5 = 0;
-			params->param6 = 0;
+			params->param6 = 1;
 			CURRENT_PARAM(1, 1) = 0;
 			break;
 
 		case 6:
-			getAction()->playAnimation(getObjects()->get(kObjectCompartment3).location2 == kObjectLocation1 ? kEventMeetAugustHisCompartmentBed : kEventMeetAugustHisCompartment);
+			getAction()->playAnimation(getObjects()->get(kObjectCompartment3).model == kObjectModel1 ? kEventMeetAugustHisCompartmentBed : kEventMeetAugustHisCompartment);
 			getProgress().eventMetAugust = true;
 			getObjects()->update(kObjectCompartment3, kEntityAugust, kObjectLocation1, kCursorNormal, kCursorNormal);
 
@@ -674,14 +689,17 @@ label_continue:
 				setup_playSound(getProgress().eventMetAugust ? "AUG1128F" : "AUG1128H");
 				return;
 			}
-			// Fallback to next case
-
+			// fall through
 		case 9:
 		case 10:
 		case 11:
 		case 12:
 		case 13:
-			getObjects()->update(kObjectCompartment3, kEntityAugust, kObjectLocation1, kCursorTalk, (getProgress().eventMetAugust || getProgress().jacket != kJacketGreen) ? kCursorNormal : kCursorHand);
+			{
+				CursorStyle cursor1 = (getCallback() == 12 || getCallback() == 13) ? kCursorNormal : kCursorTalk;
+				CursorStyle cursor2 = (getProgress().eventMetAugust || getProgress().jacket != kJacketGreen) ? kCursorNormal : kCursorHand;
+				getObjects()->update(kObjectCompartment3, kEntityAugust, kObjectLocation1, cursor1, cursor2);
+			}
 
 			if (getCallback() == 12 || getCallback() == 13) {
 				params->param2 = 0;
@@ -793,10 +811,10 @@ IMPLEMENT_FUNCTION_I(23, August, function23, TimeValue)
 		if (!params->param2) {
 
 			if (!CURRENT_PARAM(1, 3))
-				CURRENT_PARAM(1, 3) = getState()->timeTicks + 45;
+				CURRENT_PARAM(1, 3) = getState()->timeTicks + 75;
 
 			if (CURRENT_PARAM(1, 3) >= getState()->timeTicks)
-				break;
+				goto label_callback_9;
 
 			if (!params->param5) {
 				setCallback(8);
@@ -840,11 +858,11 @@ label_callback_9:
 		if (CURRENT_PARAM(1, 1) >= getState()->timeTicks)
 			break;
 
-		if (getObjects()->get(kObjectCompartment1).location == kObjectLocation1) {
+		if (getObjects()->get(kObjectCompartment1).status == kObjectLocation1) {
 			if (!Entity::updateParameter(CURRENT_PARAM(1, 2), getState()->timeTicks, 75))
 				break;
 
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, kCursorNormal, kCursorNormal);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, kCursorNormal, kCursorNormal);
 
 			params->param6++;
 
@@ -866,20 +884,20 @@ label_callback_9:
 				params->param8++;
 
 				if (params->param8 >= 3) {
-					getObjects()->update(kObjectCompartment1, kEntityPlayer, getObjects()->get(kObjectCompartment1).location, kCursorHandKnock, kCursorHand);
+					getObjects()->update(kObjectCompartment1, kEntityPlayer, getObjects()->get(kObjectCompartment1).status, kCursorHandKnock, kCursorHand);
 					callbackAction();
-					break;
+					return;
 				}
 
 				params->param6 = 0;
 			}
 
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, params->param4 ? kCursorNormal : kCursorTalk, kCursorHand);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, params->param4 ? kCursorNormal : kCursorTalk, kCursorHand);
 			CURRENT_PARAM(1, 2) = 0;
 		} else {
 
 			if (getProgress().eventCorpseMovedFromFloor && getProgress().jacket != kJacketBlood) {
-				params->param7 = (getObjects()->get(kObjectCompartment1).location2 == kObjectLocation1) ? 8 : 7;
+				params->param7 = (getObjects()->get(kObjectCompartment1).model == kObjectModel1) ? kEventMeetAugustTylerCompartmentBed : kEventMeetAugustTylerCompartment;
 				getObjects()->update(kObjectOutsideTylerCompartment, kEntityPlayer, kObjectLocationNone, kCursorKeepValue, kCursorKeepValue);
 
 				setCallback(4);
@@ -900,21 +918,21 @@ label_callback_9:
 			setCallback(15);
 			setup_playSound("LIB012");
 		} else if (!params->param4) {
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, kCursorNormal, kCursorNormal);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, kCursorNormal, kCursorNormal);
 
 			setCallback(17);
-			setup_playSound("AUG1002A");
+			setup_playSound16("AUG1002A");
 		}
 		break;
 
 	case kActionOpenDoor:
 		if (getProgress().eventCorpseMovedFromFloor && getProgress().jacket != kJacketBlood) {
 			if (params->param3) {
-				getData()->location = kLocationInsideCompartment;
+				getEntityData(kEntityPlayer)->location = kLocationInsideCompartment;
 
-				params->param7 = (getObjects()->get(kObjectCompartment1).location2 == kObjectLocation1) ? kEventMeetAugustHisCompartmentBed : kEventMeetAugustHisCompartment;
+				params->param7 = (getObjects()->get(kObjectCompartment1).model == kObjectModel1) ? kEventMeetAugustHisCompartmentBed : kEventMeetAugustHisCompartment;
 			} else {
-				params->param7 = (getObjects()->get(kObjectCompartment1).location2 == kObjectLocation1) ? kEventMeetAugustTylerCompartmentBed : kEventMeetAugustTylerCompartment;
+				params->param7 = (getObjects()->get(kObjectCompartment1).model == kObjectModel1) ? kEventMeetAugustTylerCompartmentBed : kEventMeetAugustTylerCompartment;
 			}
 
 			setCallback(14);
@@ -931,14 +949,14 @@ label_callback_9:
 		if (getEntities()->isInsideCompartment(kEntityPlayer, kCarGreenSleeping, kPosition_8200)
 		 || getEntities()->isInsideCompartment(kEntityPlayer, kCarGreenSleeping, kPosition_7850)
 		 || getEntities()->isOutsideAlexeiWindow()) {
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, kCursorNormal, kCursorNormal);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, kCursorNormal, kCursorNormal);
 
 			if (getEntities()->isOutsideAlexeiWindow())
 				getScenes()->loadSceneFromPosition(kCarGreenSleeping, 49);
 
 			getSound()->playSound(kEntityPlayer, "LIB012");
 
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, kCursorTalk, kCursorHand);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, kCursorTalk, kCursorHand);
 
 			params->param2 = 1;
 		} else {
@@ -996,8 +1014,8 @@ label_callback_9:
 
 		case 6:
 		case 7:
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, params->param4 ? kCursorNormal : kCursorTalk, kCursorHand);
-			ENTITY_PARAM(1, 2) = 0;
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, params->param4 ? kCursorNormal : kCursorTalk, kCursorHand);
+			CURRENT_PARAM(1, 2) = 0;
 			break;
 
 		case 8:
@@ -1032,7 +1050,7 @@ label_callback_9:
 			break;
 
 		case 13:
-			getSound()->playSound(kEntityPlayer, getObjects()->get(kObjectCompartment1).location == kObjectLocation1 ? "LIB032" : "LIB014");
+			getSound()->playSound(kEntityPlayer, getObjects()->get(kObjectCompartment1).status == kObjectLocation1 ? "LIB032" : "LIB014");
 			getAction()->playAnimation(kEventAugustFindCorpse);
 
 			if (getEvent(kEventDinerAugustOriginalJacket))
@@ -1044,8 +1062,8 @@ label_callback_9:
 			break;
 
 		case 14:
-			if (!params->param2)
-				getSound()->playSound(kEntityPlayer, getObjects()->get(kObjectCompartment1).location == kObjectLocation1 ? "LIB032" : "LIB014");
+			if (!params->param3)
+				getSound()->playSound(kEntityPlayer, getObjects()->get(kObjectCompartment1).status == kObjectLocation1 ? "LIB032" : "LIB014");
 
 			getObjects()->update(kObjectCompartment1, kEntityPlayer, kObjectLocationNone, kCursorHandKnock, kCursorHand);
 			getObjects()->update(kObjectOutsideTylerCompartment, kEntityPlayer, kObjectLocationNone, kCursorKeepValue, kCursorKeepValue);
@@ -1070,7 +1088,7 @@ label_callback_9:
 
 		case 17:
 			params->param4 = 1;
-			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).location, kCursorNormal, kCursorHand);
+			getObjects()->update(kObjectCompartment1, kEntityAugust, getObjects()->get(kObjectCompartment1).status, kCursorNormal, kCursorHand);
 			break;
 		}
 		break;
@@ -1162,7 +1180,7 @@ IMPLEMENT_FUNCTION(25, August, chapter1Handler)
 			break;
 
 		case 1:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction204704037);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction204704037);
 			getEntities()->drawSequenceRight(kEntityAugust, "803DS");
 			if (getEntities()->isInRestaurant(kEntityPlayer))
 				getEntities()->updateFrame(kEntityAugust);
@@ -1195,7 +1213,7 @@ IMPLEMENT_FUNCTION(25, August, chapter1Handler)
 			break;
 
 		case 5:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction204704037);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction204704037);
 			getEntities()->drawSequenceRight(kEntityAugust, "803DS");
 			if (getEntities()->isInRestaurant(kEntityPlayer))
 				getEntities()->updateFrame(kEntityAugust);
@@ -1366,7 +1384,7 @@ IMPLEMENT_FUNCTION(28, August, function28)
 			params->param1 = kItemInvalid;
 
 		getEntities()->drawSequenceLeft(kEntityAugust, "010B");
-		getSavePoints()->push(kEntityAugust, kEntityServers0, kAction304061224);
+		getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction304061224);
 		getData()->inventoryItem = (InventoryItem)params->param1;
 		break;
 
@@ -1376,13 +1394,13 @@ IMPLEMENT_FUNCTION(28, August, function28)
 			break;
 
 		case 1:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction203859488);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction203859488);
 			getData()->inventoryItem = (InventoryItem)params->param1;
 			getEntities()->drawSequenceLeft(kEntityAugust, "010B");
 			break;
 
 		case 2:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction136702400);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction136702400);
 			getEntities()->drawSequenceLeft(kEntityAugust, "010B");
 			setup_function29();
 			break;
@@ -1399,7 +1417,7 @@ IMPLEMENT_FUNCTION(28, August, function28)
 
 	case kAction170016384:
 		getData()->inventoryItem = kItemNone;
-		getEntities()->drawSequenceLeft(kEntityServers0, "BLANK");
+		getEntities()->drawSequenceLeft(kEntityWaiter1, "BLANK");
 		getEntities()->drawSequenceLeft(kEntityAugust, "010G");
 
 		setCallback(2);
@@ -1423,16 +1441,16 @@ IMPLEMENT_FUNCTION(29, August, function29)
 		break;
 
 	case kActionNone:
-		if (!getProgress().field_28 || (params->param2 && params->param3 == kTimeInvalid))
+		if (!getProgress().field_28 || params->param2 || params->param3 == kTimeInvalid)
 			break;
 
-		if (getState()->time < kTime1134000) {
+		if (getState()->time <= kTime1134000) {
 
 			if (!getEntities()->isInRestaurant(kEntityPlayer)
-			 || getSoundQueue()->isBuffered("MRB1076") || getSoundQueue()->isBuffered("MRB1078") || getSoundQueue()->isBuffered("MRB1078A"))
+			 || getSoundQueue()->isBuffered("MRB1076") || getSoundQueue()->isBuffered("MRB1078") || getSoundQueue()->isBuffered("MRB1078A") || !params->param3)
 				params->param3 = (uint)getState()->time + 225;
 
-			if (params->param3 > getState()->time)
+			if (params->param3 >= getState()->time)
 				break;
 		}
 
@@ -1515,7 +1533,7 @@ IMPLEMENT_FUNCTION(30, August, restaurant)
 			if (getProgress().eventMetAugust)
 				getData()->inventoryItem = kItemNone;
 
-			getSound()->playSound(kEntityAugust, "Aug1003A");
+			getSound()->playSound(kEntityAugust, "AUG1003A");
 		} else {
 			getData()->inventoryItem = kItemNone;
 			getSavePoints()->push(kEntityAugust, kEntityAnna, kAction201437056);
@@ -1551,7 +1569,7 @@ IMPLEMENT_FUNCTION(30, August, restaurant)
 			break;
 
 		case 3:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction292758554);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction292758554);
 			getSavePoints()->push(kEntityAugust, kEntityAnna, kAction122358304);
 			getEntities()->drawSequenceLeft(kEntityAugust, "001K");
 			getSound()->playSound(kEntityAugust, "AUG1003");
@@ -1563,7 +1581,12 @@ IMPLEMENT_FUNCTION(30, August, restaurant)
 			break;
 
 		case 4:
-
+			getAction()->playAnimation(getProgress().eventMetAugust ? kEventAugustPresentAnna : kEventAugustPresentAnnaFirstIntroduction);
+			getSavePoints()->push(kEntityAugust, kEntityAnna, kAction201437056);
+			getEntities()->drawSequenceRight(kEntityAugust, getProgress().eventMetAugust ? "803GS" : "010P");
+			getScenes()->loadSceneFromPosition(kCarRestaurant, getProgress().eventMetAugust ? 55 : 65);
+			setCallback(getProgress().eventMetAugust ? 5 : 6);
+			setup_callbackActionOnDirection();
 			break;
 
 		case 5:
@@ -1610,7 +1633,7 @@ IMPLEMENT_FUNCTION(31, August, function31)
 			break;
 
 		case 2:
-			setCallback(2);
+			setCallback(3);
 			setup_function21(kTime1161000);
 			break;
 
@@ -1635,7 +1658,7 @@ IMPLEMENT_FUNCTION(32, August, function32)
 		break;
 
 	case kActionNone:
-		if (Entity::updateParameterTime(kTime1179000, (!getEntities()->isInSalon(kEntityAnna) || getEntities()->isInSalon(kEntityPlayer)), params->param6, 0)) {
+		if (params->param6 != kTimeInvalid && Entity::updateParameterTime(kTime1179000, (!getEntities()->isInSalon(kEntityAnna) || getEntities()->isInSalon(kEntityPlayer)), params->param6, 0)) {
 			getSavePoints()->push(kEntityAugust, kEntityAnna, kAction123712592);
 		}
 
@@ -1815,7 +1838,7 @@ IMPLEMENT_FUNCTION(36, August, chapter2Handler)
 		break;
 
 	case kActionNone:
-		Entity::timeCheckSavepoint(kTime1755000, params->param2, kEntityAugust, kEntityServers0, kAction252568704);
+		Entity::timeCheckSavepoint(kTime1755000, params->param2, kEntityAugust, kEntityWaiter1, kAction252568704);
 
 		if (getState()->time > kTime1773000 && params->param1 && getEntities()->isSomebodyInsideRestaurantOrSalon()) {
 			getData()->inventoryItem = kItemNone;
@@ -1863,7 +1886,7 @@ IMPLEMENT_FUNCTION(36, August, chapter2Handler)
 			break;
 
 		case 3:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction286534136);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction286534136);
 
 			setCallback(4);
 			setup_updateEntity(kCarGreenSleeping, kPosition_6470);
@@ -1882,7 +1905,7 @@ IMPLEMENT_FUNCTION(36, August, chapter2Handler)
 			if (!getEvent(kEventAugustGoodMorning))
 				getData()->inventoryItem = kItemInvalid;
 
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction219522616);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction219522616);
 			getEntities()->drawSequenceLeft(kEntityAugust, "016B");
 			params->param1 = 1;
 			break;
@@ -1990,6 +2013,7 @@ IMPLEMENT_FUNCTION(38, August, function38)
 		case 2:
 			getScenes()->loadSceneFromItemPosition(kItem3);
 			getData()->location = kLocationInsideCompartment;
+			getEntities()->drawSequenceLeft(kEntityAugust, "109B");
 			break;
 
 		case 3:
@@ -2112,6 +2136,7 @@ IMPLEMENT_FUNCTION_II(41, August, function41, CarIndex, EntityPosition)
 			getData()->inventoryItem = kItemNone;
 
 		if (getEntities()->updateEntity(kEntityAugust, (CarIndex)params->param1, (EntityPosition)params->param2)) {
+			getData()->inventoryItem = kItemNone;
 			callbackAction();
 			break;
 		}
@@ -2183,7 +2208,7 @@ IMPLEMENT_FUNCTION_III(42, August, function42, CarIndex, EntityPosition, bool)
 		getData()->inventoryItem = kItemNone;
 
 		getSound()->playSound(kEntityPlayer, "CAT1002");
-		getSound()->playSound(kEntityAugust, getEvent(kEventAugustBringBriefcase) ? "AUG3103" : "AUG3100", kFlagInvalid, 15);
+		getSound()->playSound(kEntityAugust, getEvent(kEventAugustBringBriefcase) ? "AUG3103" : "AUG3100", kSoundVolumeEntityDefault, 15);
 		break;
 
 	case kActionExcuseMe:
@@ -2219,6 +2244,7 @@ IMPLEMENT_FUNCTION(43, August, chapter3Handler)
 		// Set as same position as Anna
 		if (params->param1) {
 			getData()->entityPosition = getEntityData(kEntityAnna)->entityPosition;
+			getData()->location = getEntityData(kEntityAnna)->location;
 			getData()->car = getEntityData(kEntityAnna)->car;
 		}
 
@@ -2315,7 +2341,7 @@ IMPLEMENT_FUNCTION(44, August, function44)
 		getData()->location = kLocationOutsideCompartment;
 
 		setCallback(1);
-		setup_updatePosition("122H", kCarRestaurant, 57);
+		setup_updatePosition("112H", kCarRestaurant, 57);
 		break;
 
 	case kActionCallback:
@@ -2389,7 +2415,7 @@ IMPLEMENT_FUNCTION(45, August, function45)
 	case kAction1:
 		getData()->inventoryItem = kItemNone;
 		getSound()->playSound(kEntityPlayer, "CAT1002");
-		getSound()->playSound(kEntityAugust, "AUG3102", kFlagInvalid, 15);
+		getSound()->playSound(kEntityAugust, "AUG3102", kSoundVolumeEntityDefault, 15);
 		break;
 
 	case kActionDefault:
@@ -2404,10 +2430,10 @@ IMPLEMENT_FUNCTION_END
 IMPLEMENT_FUNCTION(46, August, function46)
 	switch (savepoint.action) {
 	default:
-		Entity::timeCheckCallback(kTime2088000, params->param1, 1, WRAP_SETUP_FUNCTION(August, setup_function47));
 		break;
 
 	case kActionNone:
+		Entity::timeCheckCallback(kTime2088000, params->param1, 1, WRAP_SETUP_FUNCTION(August, setup_function47));
 		break;
 
 	case kActionDrawScene:
@@ -2642,7 +2668,7 @@ IMPLEMENT_FUNCTION(52, August, function52)
 	case kActionKnock:
 	case kActionOpenDoor:
 		if (getInventory()->hasItem(kItemBriefcase)) {
-			getData()->location = kLocationInsideCompartment;
+			getEntityData(kEntityPlayer)->location = kLocationInsideCompartment;
 			if (savepoint.action == kActionKnock)
 				getSound()->playSound(kEntityPlayer, "LIB012");
 
@@ -2766,13 +2792,13 @@ IMPLEMENT_FUNCTION(54, August, function54)
 		break;
 
 	case kActionNone:
-		if (!params->param4 || params->param2 || getProgress().field_44)
+		if (!params->param3 || params->param1 || getProgress().field_44)
 			getData()->inventoryItem = kItemNone;
 		else
 			getData()->inventoryItem = kItemInvalid;
 
-		if (!params->param2 && params->param1) {
-			if (!Entity::updateParameter(params->param5, getState()->time, params->param1))
+		if (getEvent(kEventAugustTalkCigar) && params->param2 && !params->param1) {
+			if (!Entity::updateParameter(params->param4, getState()->time, 9000))
 				break;
 
 			getData()->inventoryItem = kItemNone;
@@ -2798,10 +2824,10 @@ IMPLEMENT_FUNCTION(54, August, function54)
 		break;
 
 	case kActionDrawScene:
-		if (!getEntities()->isPlayerPosition(kCarRestaurant, 60) || params->param3) {
-			if (!params->param2 && getEntities()->isPlayerPosition(kCarRestaurant, 57))
+		if (!getEntities()->isPlayerPosition(kCarRestaurant, 60) || params->param2 || params->param1) {
+			if (!params->param1 && getEntities()->isPlayerPosition(kCarRestaurant, 57))
 				getScenes()->loadSceneFromPosition(kCarRestaurant, 50);
-		} else if (!params->param2) {
+		} else {
 			getEntities()->updatePositionEnter(kEntityAugust, kCarRestaurant, 57);
 			getEntities()->drawSequenceRight(kEntityAugust, "105C3");
 		}
@@ -2824,36 +2850,32 @@ IMPLEMENT_FUNCTION(54, August, function54)
 			getData()->location = kLocationInsideCompartment;
 			getSavePoints()->push(kEntityAugust, kEntityAbbot, kAction123712592);
 			getEntities()->drawSequenceLeft(kEntityAugust, "105B3");
-			params->param4 = 1;
+			params->param3 = 1;
 			break;
 
 		case 3:
 			getAction()->playAnimation(kEventAugustTalkCigar);
-			getEntities()->drawSequenceLeft(kEntityAugust, params->param3 ? "122B" : "105B3");
+			getEntities()->drawSequenceLeft(kEntityAugust, params->param2 ? "122B" : "105B3");
 			getScenes()->processScene();
 
-			params->param1 = 9000;
-			params->param4 = 0;
+			params->param3 = 0;
 			break;
 		}
 		break;
 
 	case kAction122288808:
 		getEntities()->drawSequenceLeft(kEntityAugust, "122B");
-		params->param2 = 0;
-
-		if (getEvent(kEventAugustTalkCigar))
-			params->param1 = 9000;
+		params->param1 = 0;
 		break;
 
 	case kAction122358304:
 		getEntities()->drawSequenceLeft(kEntityAugust, "BLANK");
+		params->param1 = 1;
 		params->param2 = 1;
-		params->param3 = 1;
 		break;
 
 	case kAction136196244:
-		params->param2 = 1;
+		params->param1 = 1;
 		getData()->inventoryItem = kItemNone;
 		break;
 	}
@@ -2960,7 +2982,7 @@ IMPLEMENT_FUNCTION(58, August, chapter4Handler)
 
 	case kActionDefault:
 		setCallback(1);
-		setup_function20(false);
+		setup_function20(true);
 		break;
 
 	case kActionCallback:
@@ -3034,7 +3056,6 @@ IMPLEMENT_FUNCTION(60, August, function60)
 	case kActionNone: {
 		bool pushSavepoint = false;
 		if (!params->param2) {
-			pushSavepoint = true;
 			params->param2 = (uint)getState()->time + 450;
 		}
 
@@ -3044,7 +3065,7 @@ IMPLEMENT_FUNCTION(60, August, function60)
 		}
 
 		if (pushSavepoint)
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction207330561);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction207330561);
 
 		if (!params->param1)
 			break;
@@ -3074,7 +3095,7 @@ IMPLEMENT_FUNCTION(60, August, function60)
 			break;
 
 		case 2:
-			getSavePoints()->push(kEntityAugust, kEntityServers0, kAction286403504);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter1, kAction286403504);
 			setup_function61();
 			break;
 		}
@@ -3199,7 +3220,7 @@ IMPLEMENT_FUNCTION(62, August, function62)
 
 		case 5:
 			getEntities()->drawSequenceLeft(kEntityAugust, "122B");
-			getSavePoints()->push(kEntityAugust, kEntityServers1, kAction291721418);
+			getSavePoints()->push(kEntityAugust, kEntityWaiter2, kAction291721418);
 			break;
 		}
 		break;
@@ -3239,7 +3260,7 @@ IMPLEMENT_FUNCTION(63, August, function63)
 		if (!Entity::updateParameter(params->param5, getState()->timeTicks, params->param1))
 			break;
 
-		params->param2 = (params->param6 < 1 ? 1 : 0);
+		params->param2 = (params->param2 == 0 ? 1 : 0);
 
 		getEntities()->drawSequenceLeft(kEntityAugust, params->param2 ? "122H" : "122F");
 
@@ -3249,7 +3270,7 @@ IMPLEMENT_FUNCTION(63, August, function63)
 
 	case kAction1:
 		if (getEntities()->isInSalon(kEntityAlexei)) {
-			RESET_ENTITY_STATE(kEntityAlexei, Alexei, setup_function44);
+			RESET_ENTITY_STATE(kEntityAlexei, Alexei, setup_goToPlatform);
 		}
 
 		getData()->inventoryItem = kItemNone;
@@ -3514,9 +3535,9 @@ IMPLEMENT_FUNCTION(69, August, unhookCars)
 		break;
 
 	case kActionDefault:
-		getSoundQueue()->processEntries();
+		getSoundQueue()->endAmbient();
 		if (getSoundQueue()->isBuffered("ARRIVE"))
-			getSoundQueue()->removeFromQueue("ARRIVE");
+			getSoundQueue()->stop("ARRIVE");
 
 		setCallback(1);
 		setup_savegame(kSavegameTypeEvent, kEventAugustUnhookCarsBetrayal);
@@ -3526,7 +3547,7 @@ IMPLEMENT_FUNCTION(69, August, unhookCars)
 		if (getCallback() == 1) {
 			getAction()->playAnimation(getProgress().field_C ? kEventAugustUnhookCarsBetrayal : kEventAugustUnhookCars);
 			getEntities()->clearSequences(kEntityAugust);
-			getSoundQueue()->resetState();
+			getSoundQueue()->startAmbient();
 			getSound()->playSound(kEntityPlayer, "MUS050");
 			getScenes()->loadSceneFromPosition(kCarRestaurant, 85, 1);
 			getSavePoints()->pushAll(kEntityAugust, kActionProceedChapter5);

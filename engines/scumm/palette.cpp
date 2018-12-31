@@ -8,11 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -877,9 +878,9 @@ void ScummEngine::setShadowPalette(int redScale, int greenScale, int blueScale, 
 	}
 
 	for (i = start; i < end; i++) {
-		int r = (int) ((pal[0] >> 2) * redScale) >> 8;
-		int g = (int) ((pal[1] >> 2) * greenScale) >> 8;
-		int b = (int) ((pal[2] >> 2) * blueScale) >> 8;
+		int r = (int)((pal[0] >> 2) * redScale) >> 8;
+		int g = (int)((pal[1] >> 2) * greenScale) >> 8;
+		int b = (int)((pal[2] >> 2) * blueScale) >> 8;
 		pal += 3;
 
 		uint8 bestitem = 0;

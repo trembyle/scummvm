@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef COMMON_LIST_H
@@ -169,7 +170,7 @@ public:
 			const_iterator i2;
 			const_iterator e2 = list.end();
 
-			for (i = begin(), i2 = list.begin();  (i != e) && (i2 != e2) ; ++i, ++i2) {
+			for (i = begin(), i2 = list.begin(); (i != e) && (i2 != e2); ++i, ++i2) {
 				static_cast<Node *>(i._node)->_data = static_cast<const Node *>(i2._node)->_data;
 			}
 

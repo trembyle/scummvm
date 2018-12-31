@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -227,6 +227,7 @@ protected:
 	uint8 *_vcnTransitionMask;
 	uint8 *_vcnShift;
 	uint8 *_vcnColTable;
+	uint8 _vcnBpp;
 	uint16 *_blockDrawingBuffer;
 	uint8 *_sceneWindowBuffer;
 	uint8 _blockBrightness;
@@ -263,7 +264,7 @@ protected:
 	const int8 *_dscDim1;
 	const int8 *_dscDim2;
 	const int16 *_dscShapeX;
-	const uint8 *_dscUnk2;
+	const uint8 *_dscDoorScaleOffs;
 	const uint8 *_dscBlockMap;
 	const int8 *_dscBlockIndex;
 	const uint8 *_dscTileIndex;

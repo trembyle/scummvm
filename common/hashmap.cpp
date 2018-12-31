@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -95,10 +95,10 @@ void updateHashCollisionStats(int collisions, int dummyHits, int lookups, int ar
 		g_size / g_totalHashmaps, g_max_size,
 		g_capacity / g_totalHashmaps, g_max_capacity);
 	debug("  %d less than %d; %d less than %d; %d less than %d; %d less than %d",
-			g_stats[0], 2*8/3,
-			g_stats[1],2*16/3,
-			g_stats[2],2*32/3,
-			g_stats[3],2*64/3);
+		g_stats[0], 2 *  8 / 3,
+		g_stats[1], 2 * 16 / 3,
+		g_stats[2], 2 * 32 / 3,
+		g_stats[3], 2 * 64 / 3);
 
 	// TODO:
 	// * Should record the maximal size of the map during its lifetime, not that at its death

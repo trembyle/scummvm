@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -82,7 +82,7 @@ PspIoStream::~PspIoStream() {
 /* Function to open the file pointed to by the path.
  *
  */
-void *PspIoStream::open() {
+SceUID PspIoStream::open() {
 	DEBUG_ENTER_FUNC();
 
 	if (PowerMan.beginCriticalSection()) {
@@ -91,15 +91,15 @@ void *PspIoStream::open() {
 	}
 
 	_handle = sceIoOpen(_path.c_str(), _writeMode ? PSP_O_WRONLY | PSP_O_CREAT | PSP_O_TRUNC : PSP_O_RDONLY, 0777);
-	if (!_handle) {
+	if (_handle <= 0) {
 		_error = true;
-		_handle = NULL;
+		_handle = 0;
 	}
 
 	// Get the file size. This way is much faster than going to the end of the file and back
 	SceIoStat stat;
 	sceIoGetstat(_path.c_str(), &stat);
-	_fileSize = *((uint32 *)(void *)&stat.st_size);	// 4GB file (32 bits) is big enough for us
+	_fileSize = stat.st_size;	// 4GB file (32 bits) is big enough for us
 
 	PSP_DEBUG_PRINT("%s filesize[%d]\n", _path.c_str(), _fileSize);
 
@@ -107,7 +107,7 @@ void *PspIoStream::open() {
 
 	PowerMan.endCriticalSection();
 
-	return (void *)_handle;
+	return _handle;
 }
 
 bool PspIoStream::err() const {

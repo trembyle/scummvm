@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -491,18 +491,17 @@ void Room::update() {
 		if (_hotspotId != 0)
 			s.writeString(0, 0, _hotspotName, false);
 	} else {
-		// Word wrap (if necessary) the status line and dispaly it
-		char *statusLineCopy = strdup(_statusLine);
+		// Word wrap (if necessary) the status line and display it
+		Common::String statusLineCopy(_statusLine);
 		char **lines;
 		uint8 numLines;
 		int16 yPos = 0;
-		s.wordWrap(statusLineCopy, s.width(), lines, numLines);
+		s.wordWrap(statusLineCopy.begin(), s.width(), lines, numLines);
 		for (int lineNum = 0; lineNum < numLines; ++lineNum) {
 			s.writeString(0, yPos, lines[lineNum], false, white);
 			yPos += FONT_HEIGHT;
 		}
 		Memory::dealloc(lines);
-		Memory::dealloc(statusLineCopy);
 	}
 
 	// Debug - if the bottle object is on layer 0FEh, then display it's surface

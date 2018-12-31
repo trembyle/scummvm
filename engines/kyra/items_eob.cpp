@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -444,7 +444,7 @@ void EoBCoreEngine::printFullItemName(Item item) {
 		tmpString = (itm->flags & 0x40) ? nameId : nameUnid;
 	}
 
-	_txt->printMessage(tmpString.c_str());
+	_txt->printMessage(convertAsciiToSjis(tmpString).c_str());
 }
 
 void EoBCoreEngine::identifyQueuedItems(Item itemQueue) {
@@ -468,16 +468,16 @@ void EoBCoreEngine::drawItemIconShape(int pageNum, Item itemId, int x, int y) {
 		if (_flags.gameID == GI_EOB1) {
 			ovl = (_configRenderMode == Common::kRenderCGA) ? _itemsOverlayCGA : &_itemsOverlay[icn << 4];
 		} else {
-			_screen->setFadeTableIndex(3);
-			_screen->setShapeFadeMode(1, true);
+			_screen->setFadeTable(_lightBlueFadingTable);
+			_screen->setShapeFadingLevel(1);
 		}
 	}
 
 	_screen->drawShape(pageNum, _itemIconShapes[icn], x, y, 0, ovl ? 2 : 0, ovl);
 
 	if (applyBluePal) {
-		_screen->setFadeTableIndex(4);
-		_screen->setShapeFadeMode(1, false);
+		_screen->setFadeTable(_greyFadingTable);
+		_screen->setShapeFadingLevel(0);
 	}
 }
 
@@ -643,7 +643,8 @@ void EoBCoreEngine::explodeObject(EoBFlyingObject *fo, int block, Item item) {
 
 	int b = _expObjectTlMode ? _expObjectTlMode[tl] : 2;
 
-	if (b == 0 || (b == 1 && (fo->direction & 1) == (_currentDirection & 1))) {
+	uint8 fdr = fo ? fo->direction : 0;
+	if (b == 0 || (b == 1 && (fdr & 1) == (_currentDirection & 1))) {
 		snd_processEnvironmentalSoundEffect(35, _currentBlock);
 		return;
 	}

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -25,11 +25,13 @@
 #include "common/file.h"
 #include "common/fs.h"
 #include "common/textconsole.h"
+#include "common/system.h"
+#include "backends/fs/fs-factory.h"
 
 namespace Common {
 
 File::File()
-	: _handle(0) {
+	: _handle(nullptr) {
 }
 
 File::~File() {
@@ -44,7 +46,7 @@ bool File::open(const String &filename, Archive &archive) {
 	assert(!filename.empty());
 	assert(!_handle);
 
-	SeekableReadStream *stream = 0;
+	SeekableReadStream *stream = nullptr;
 
 	if ((stream = archive.createReadStreamForMember(filename))) {
 		debug(8, "Opening hashed: %s", filename.c_str());
@@ -81,7 +83,7 @@ bool File::open(SeekableReadStream *stream, const String &name) {
 	} else {
 		debug(2, "File::open: opening '%s' failed", name.c_str());
 	}
-	return _handle != NULL;
+	return _handle != nullptr;
 }
 
 
@@ -99,11 +101,11 @@ bool File::exists(const String &filename) {
 
 void File::close() {
 	delete _handle;
-	_handle = NULL;
+	_handle = nullptr;
 }
 
 bool File::isOpen() const {
-	return _handle != NULL;
+	return _handle != nullptr;
 }
 
 bool File::err() const {
@@ -142,16 +144,29 @@ uint32 File::read(void *ptr, uint32 len) {
 }
 
 
-DumpFile::DumpFile() : _handle(0) {
+DumpFile::DumpFile() : _handle(nullptr) {
 }
 
 DumpFile::~DumpFile() {
 	close();
 }
 
-bool DumpFile::open(const String &filename) {
+bool DumpFile::open(const String &filename, bool createPath) {
 	assert(!filename.empty());
 	assert(!_handle);
+
+	if (createPath) {
+		for (uint32 i = 0; i < filename.size(); ++i) {
+			if (filename[i] == '/' || filename[i] == '\\') {
+				Common::String subpath = filename;
+				subpath.erase(i);
+				if (subpath.empty()) continue;
+				AbstractFSNode *node = g_system->getFilesystemFactory()->makeFileNodePath(subpath);
+				if (node->exists()) continue;
+				if (!node->create(true)) warning("DumpFile: unable to create directories from path prefix");
+			}
+		}
+	}
 
 	FSNode node(filename);
 	return open(node);
@@ -167,19 +182,19 @@ bool DumpFile::open(const FSNode &node) {
 
 	_handle = node.createWriteStream();
 
-	if (_handle == NULL)
+	if (_handle == nullptr)
 		debug(2, "File %s not found", node.getName().c_str());
 
-	return _handle != NULL;
+	return _handle != nullptr;
 }
 
 void DumpFile::close() {
 	delete _handle;
-	_handle = NULL;
+	_handle = nullptr;
 }
 
 bool DumpFile::isOpen() const {
-	return _handle != NULL;
+	return _handle != nullptr;
 }
 
 bool DumpFile::err() const {
@@ -201,5 +216,7 @@ bool DumpFile::flush() {
 	assert(_handle);
 	return _handle->flush();
 }
+
+int32 DumpFile::pos() const { return _handle->pos(); }
 
 } // End of namespace Common

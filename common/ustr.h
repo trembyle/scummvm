@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef COMMON_USTR_H
@@ -25,6 +26,8 @@
 #include "common/scummsys.h"
 
 namespace Common {
+
+class String;
 
 /**
  * Very simple string class for UTF-32 strings in ScummVM. The main intention
@@ -181,6 +184,7 @@ public:
 	const_iterator end() const {
 		return begin() + size();
 	}
+
 private:
 	void makeUnique();
 	void ensureCapacity(uint32 new_size, bool keep_old);
@@ -188,6 +192,18 @@ private:
 	void decRefCount(int *oldRefCount);
 	void initWithCStr(const value_type *str, uint32 len);
 };
+
+U32String convertUtf8ToUtf32(const String &str);
+
+enum CodePage {
+	kUtf8,
+	kWindows1250,
+	kWindows1251,
+	kWindows1252,
+	kWindows1255
+};
+
+U32String convertToU32String(const char *str, CodePage page = kUtf8);
 
 } // End of namespace Common
 

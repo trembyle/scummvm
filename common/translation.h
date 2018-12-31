@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef COMMON_TRANSLATION_H
@@ -43,7 +44,7 @@ struct TLanguage {
 	const char *name;
 	int id;
 
-	TLanguage() : name(0), id(0) {}
+	TLanguage() : name(nullptr), id(0) {}
 	TLanguage(const char *n, int i) : name(n), id(i) {}
 };
 

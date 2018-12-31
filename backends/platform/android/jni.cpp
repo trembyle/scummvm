@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -45,6 +45,7 @@
 #include "common/config-manager.h"
 #include "common/error.h"
 #include "common/textconsole.h"
+#include "common/translation.h"
 #include "engines/engine.h"
 
 #include "backends/platform/android/android.h"
@@ -76,10 +77,14 @@ bool JNI::_ready_for_events = 0;
 
 jmethodID JNI::_MID_getDPI = 0;
 jmethodID JNI::_MID_displayMessageOnOSD = 0;
+jmethodID JNI::_MID_openUrl = 0;
+jmethodID JNI::_MID_hasTextInClipboard = 0;
+jmethodID JNI::_MID_getTextFromClipboard = 0;
+jmethodID JNI::_MID_setTextInClipboard = 0;
+jmethodID JNI::_MID_isConnectionLimited = 0;
 jmethodID JNI::_MID_setWindowCaption = 0;
 jmethodID JNI::_MID_showVirtualKeyboard = 0;
 jmethodID JNI::_MID_getSysArchives = 0;
-jmethodID JNI::_MID_getPluginDirectories = 0;
 jmethodID JNI::_MID_initSurface = 0;
 jmethodID JNI::_MID_deinitSurface = 0;
 
@@ -108,7 +113,9 @@ const JNINativeMethod JNI::_natives[] = {
 	{ "enableZoning", "(Z)V",
 		(void *)JNI::enableZoning },
 	{ "setPause", "(Z)V",
-		(void *)JNI::setPause }
+		(void *)JNI::setPause },
+	{ "getCurrentCharset", "()Ljava/lang/String;",
+		(void *)JNI::getCurrentCharset }
 };
 
 JNI::JNI() {
@@ -233,6 +240,101 @@ void JNI::displayMessageOnOSD(const char *msg) {
 	env->DeleteLocalRef(java_msg);
 }
 
+bool JNI::openUrl(const char *url) {
+	bool success = true;
+	JNIEnv *env = JNI::getEnv();
+	jstring javaUrl = env->NewStringUTF(url);
+
+	env->CallVoidMethod(_jobj, _MID_openUrl, javaUrl);
+
+	if (env->ExceptionCheck()) {
+		LOGE("Failed to open URL");
+
+		env->ExceptionDescribe();
+		env->ExceptionClear();
+		success = false;
+	}
+
+	env->DeleteLocalRef(javaUrl);
+	return success;
+}
+
+bool JNI::hasTextInClipboard() {
+	bool hasText = false;
+	JNIEnv *env = JNI::getEnv();
+	hasText = env->CallBooleanMethod(_jobj, _MID_hasTextInClipboard);
+
+	if (env->ExceptionCheck()) {
+		LOGE("Failed to check the contents of the clipboard");
+
+		env->ExceptionDescribe();
+		env->ExceptionClear();
+		hasText = true;
+	}
+
+	return hasText;
+}
+
+Common::String JNI::getTextFromClipboard() {
+	JNIEnv *env = JNI::getEnv();
+
+	jbyteArray javaText = (jbyteArray)env->CallObjectMethod(_jobj, _MID_getTextFromClipboard);
+
+	if (env->ExceptionCheck()) {
+		LOGE("Failed to retrieve text from the clipboard");
+
+		env->ExceptionDescribe();
+		env->ExceptionClear();
+
+		return Common::String();
+	}
+
+	int len = env->GetArrayLength(javaText);
+	char* buf = new char[len];
+	env->GetByteArrayRegion(javaText, 0, len, reinterpret_cast<jbyte*>(buf));
+	Common::String text(buf, len);
+	delete[] buf;
+
+	return text;
+}
+
+bool JNI::setTextInClipboard(const Common::String &text) {
+	bool success = true;
+	JNIEnv *env = JNI::getEnv();
+
+	jbyteArray javaText = env->NewByteArray(text.size());
+	env->SetByteArrayRegion(javaText, 0, text.size(), reinterpret_cast<const jbyte*>(text.c_str()));
+
+	success = env->CallBooleanMethod(_jobj, _MID_setTextInClipboard, javaText);
+
+	if (env->ExceptionCheck()) {
+		LOGE("Failed to add text to the clipboard");
+
+		env->ExceptionDescribe();
+		env->ExceptionClear();
+		success = false;
+	}
+
+	env->DeleteLocalRef(javaText);
+	return success;
+}
+
+bool JNI::isConnectionLimited() {
+	bool limited = false;
+	JNIEnv *env = JNI::getEnv();
+	limited = env->CallBooleanMethod(_jobj, _MID_isConnectionLimited);
+
+	if (env->ExceptionCheck()) {
+		LOGE("Failed to check whether connection's limited");
+
+		env->ExceptionDescribe();
+		env->ExceptionClear();
+		limited = true;
+	}
+
+	return limited;
+}
+
 void JNI::setWindowCaption(const char *caption) {
 	JNIEnv *env = JNI::getEnv();
 	jstring java_caption = env->NewStringUTF(caption);
@@ -289,46 +391,6 @@ void JNI::addSysArchivesToSearchSet(Common::SearchSet &s, int priority) {
 			env->ReleaseStringUTFChars(path_obj, path);
 		}
 
-		env->DeleteLocalRef(path_obj);
-	}
-}
-
-void JNI::getPluginDirectories(Common::FSList &dirs) {
-	JNIEnv *env = JNI::getEnv();
-
-	jobjectArray array =
-		(jobjectArray)env->CallObjectMethod(_jobj, _MID_getPluginDirectories);
-
-	if (env->ExceptionCheck()) {
-		LOGE("Error finding plugin directories");
-
-		env->ExceptionDescribe();
-		env->ExceptionClear();
-
-		return;
-	}
-
-	jsize size = env->GetArrayLength(array);
-	for (jsize i = 0; i < size; ++i) {
-		jstring path_obj = (jstring)env->GetObjectArrayElement(array, i);
-
-		if (path_obj == 0)
-			continue;
-
-		const char *path = env->GetStringUTFChars(path_obj, 0);
-
-		if (path == 0) {
-			LOGE("Error getting string characters from plugin directory");
-
-			env->ExceptionClear();
-			env->DeleteLocalRef(path_obj);
-
-			continue;
-		}
-
-		dirs.push_back(Common::FSNode(path));
-
-		env->ReleaseStringUTFChars(path_obj, path);
 		env->DeleteLocalRef(path_obj);
 	}
 }
@@ -421,7 +483,7 @@ void JNI::setAudioStop() {
 void JNI::create(JNIEnv *env, jobject self, jobject asset_manager,
 				jobject egl, jobject egl_display,
 				jobject at, jint audio_sample_rate, jint audio_buffer_size) {
-	LOGI(gScummVMFullVersion);
+	LOGI("%s", gScummVMFullVersion);
 
 	assert(!_system);
 
@@ -452,9 +514,13 @@ void JNI::create(JNIEnv *env, jobject self, jobject asset_manager,
 	FIND_METHOD(, setWindowCaption, "(Ljava/lang/String;)V");
 	FIND_METHOD(, getDPI, "([F)V");
 	FIND_METHOD(, displayMessageOnOSD, "(Ljava/lang/String;)V");
+	FIND_METHOD(, openUrl, "(Ljava/lang/String;)V");
+	FIND_METHOD(, hasTextInClipboard, "()Z");
+	FIND_METHOD(, getTextFromClipboard, "()[B");
+	FIND_METHOD(, setTextInClipboard, "([B)Z");
+	FIND_METHOD(, isConnectionLimited, "()Z");
 	FIND_METHOD(, showVirtualKeyboard, "(Z)V");
 	FIND_METHOD(, getSysArchives, "()[Ljava/lang/String;");
-	FIND_METHOD(, getPluginDirectories, "()[Ljava/lang/String;");
 	FIND_METHOD(, initSurface, "()Ljavax/microedition/khronos/egl/EGLSurface;");
 	FIND_METHOD(, deinitSurface, "()V");
 
@@ -543,10 +609,6 @@ jint JNI::main(JNIEnv *env, jobject self, jobjectArray args) {
 		env->DeleteLocalRef(arg);
 	}
 
-#ifdef DYNAMIC_MODULES
-	PluginManager::instance().addPluginProvider(new AndroidPluginProvider());
-#endif
-
 	LOGI("Entering scummvm_main with %d args", argc);
 
 	res = scummvm_main(argc, argv);
@@ -616,6 +678,15 @@ void JNI::setPause(JNIEnv *env, jobject self, jboolean value) {
 		for (uint i = 0; i < 3; ++i)
 			sem_post(&pause_sem);
 	}
+}
+
+jstring JNI::getCurrentCharset(JNIEnv *env, jobject self) {
+#ifdef USE_TRANSLATION
+	if (TransMan.getCurrentCharset() != "ASCII") {
+		return env->NewStringUTF(TransMan.getCurrentCharset().c_str());
+	}
+#endif
+	return env->NewStringUTF("ISO-8859-1");
 }
 
 #endif

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -55,7 +55,7 @@ void upgradeTargetIfNecessary(const ObsoleteGameID *obsoleteList) {
 	}
 }
 
-GameDescriptor findGameID(
+PlainGameDescriptor findGameID(
 	const char *gameid,
 	const PlainGameDescriptor *gameids,
 	const ObsoleteGameID *obsoleteList
@@ -63,7 +63,7 @@ GameDescriptor findGameID(
 	// First search the list of supported gameids for a match.
 	const PlainGameDescriptor *g = findPlainGameDescriptor(gameid, gameids);
 	if (g)
-		return GameDescriptor(*g);
+		return *g;
 
 	// If we didn't find the gameid in the main list, check if it
 	// is an obsolete game id.
@@ -73,16 +73,16 @@ GameDescriptor findGameID(
 			if (0 == scumm_stricmp(gameid, o->from)) {
 				g = findPlainGameDescriptor(o->to, gameids);
 				if (g && g->description)
-					return GameDescriptor(gameid, "Obsolete game ID (" + Common::String(g->description) + ")");
+					return PlainGameDescriptor::of(gameid, g->description);
 				else
-					return GameDescriptor(gameid, "Obsolete game ID");
+					return PlainGameDescriptor::of(gameid, "Obsolete game ID");
 			}
 			o++;
 		}
 	}
 
 	// No match found
-	return GameDescriptor();
+	return PlainGameDescriptor::empty();
 }
 
 } // End of namespace Engines

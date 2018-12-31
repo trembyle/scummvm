@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -24,6 +24,7 @@
 #define SCUMM_IMUSE_H
 
 #include "common/scummsys.h"
+#include "common/serializer.h"
 #include "common/mutex.h"
 #include "scumm/music.h"
 
@@ -35,7 +36,6 @@ namespace Scumm {
 class IMuseInternal;
 class Player;
 class ScummEngine;
-class Serializer;
 
 typedef void (*sysexfunc)(Player *, const byte *, uint16);
 
@@ -62,7 +62,7 @@ public:
 public:
 	virtual void on_timer(MidiDriver *midi) = 0;
 	virtual void pause(bool paused) = 0;
-	virtual int save_or_load(Serializer *ser, ScummEngine *scumm, bool fixAfterLoad = true) = 0;
+	virtual void saveLoadIMuse(Common::Serializer &ser, ScummEngine *scumm, bool fixAfterLoad = true) = 0;
 	virtual bool get_sound_active(int sound) const = 0;
 	virtual int32 doCommand(int numargs, int args[]) = 0;
 	virtual int clear_queue() = 0;

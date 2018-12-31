@@ -1,24 +1,24 @@
 /* ScummVM - Graphic Adventure Engine
-*
-* ScummVM is the legal property of its developers, whose names
-* are too numerous to list here. Please refer to the COPYRIGHT
-* file distributed with this source distribution.
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
-
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-*
-*/
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 
 #ifndef TOON_TOON_H
 #define TOON_TOON_H
@@ -47,8 +47,9 @@ struct ADGameDescription;
 
 #define TOON_DAT_VER_MAJ 0  // 1 byte
 #define TOON_DAT_VER_MIN 3  // 1 byte
-#define TOON_SAVEGAME_VERSION 4
+#define TOON_SAVEGAME_VERSION 5
 #define DATAALIGNMENT 4
+#define MAX_SAVE_SLOT 99
 
 #define TOON_SCREEN_WIDTH 640
 #define TOON_SCREEN_HEIGHT 400
@@ -111,6 +112,7 @@ public:
 	Common::Error run();
 	GUI::Debugger *getDebugger() { return _console; }
 	bool showMainmenu(bool &loadedGame);
+	bool showOptions();
 	void init();
 	bool loadToonDat();
 	char **loadTextsVariants(Common::File &in);
@@ -122,6 +124,7 @@ public:
 	void parseInput();
 	void initChapter();
 	void initFonts();
+	void setFont(bool alternative);
 	void loadScene(int32 SceneId, bool forGameLoad = false);
 	void exitScene();
 	void loadCursor();
@@ -421,6 +424,7 @@ protected:
 	FontRenderer *_fontRenderer;
 	Animation *_fontToon;
 	Animation *_fontEZ;
+	Animation *_currentFont;
 
 	AudioManager *_audioManager;
 
@@ -431,6 +435,7 @@ protected:
 	bool _firstFrame;
 	bool _isDemo;
 	bool _showConversationText;
+	bool _useAlternativeFont;
 	bool _needPaletteFlush;
 private:
 	ToonConsole *_console;

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -86,7 +86,7 @@ void SoundMixer::stop(int16 fadeLength) {
 
 	_fade = true;
 	_fadeVol = 65536;
-	_fadeSamples = (int) (fadeLength * (((double) _rate) / 10.0));
+	_fadeSamples = (int)(fadeLength * (((double) _rate) / 10.0));
 	_fadeVolStep = MAX((int32) 1, (int32) (65536 / _fadeSamples));
 	_curFadeSamples = 0;
 }
@@ -133,7 +133,7 @@ void SoundMixer::setSample(SoundDesc &sndDesc, int16 repCount, int16 frequency,
 	} else {
 		_fade = true;
 		_fadeVol = 0;
-		_fadeSamples = (int) (fadeLength * (((double) _rate) / 10.0));
+		_fadeSamples = (int)(fadeLength * (((double) _rate) / 10.0));
 		_fadeVolStep = - MAX((int32) 1, (int32) (65536 / _fadeSamples));
 	}
 }

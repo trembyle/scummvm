@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 // Disable symbol overrides so that we can use system headers.
@@ -28,8 +29,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-// winnt.h defines ARRAYSIZE, but we want our own one...
-#undef ARRAYSIZE
 
 #include "audio/musicplugin.h"
 #include "audio/mpu401.h"
@@ -183,6 +182,9 @@ MusicDevices WindowsMusicPlugin::getDevices() const {
 			break;
 		deviceNames.push_back(tmp.szPname);
 	}
+
+	// Limit us to the number of actually retrieved devices.
+	numDevs = deviceNames.size();
 
 	// Check for non-unique device names. This may happen if someone has devices with identical
 	// names (e. g. more than one USB device of the exact same hardware type). It seems that this

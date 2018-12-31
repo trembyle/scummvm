@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -59,15 +59,12 @@
  */
 namespace Hopkins {
 
-#define DEBUG_BASIC 1
-#define DEBUG_INTERMEDIATE 2
-#define DEBUG_DETAILED 3
-
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
 enum HopkinsDebugChannels {
-	kDebugPath      = 1 <<  0
+	kDebugPath     = 1 << 0,
+	kDebugGraphics = 1 << 1
 };
 
 /**
@@ -75,8 +72,6 @@ enum HopkinsDebugChannels {
  * ensure portability. Typical usage: MKTAG24('E','N','D').
  */
 #define MKTAG24(a0,a1,a2) ((uint32)((a2) | (a1) << 8 | ((a0) << 16)))
-
-#define READ_LE_INT16(x) (int16) READ_LE_UINT16(x)
 
 struct HopkinsGameDescription;
 
@@ -135,6 +130,8 @@ protected:
 	// Engine APIs
 	virtual Common::Error run();
 	virtual bool hasFeature(EngineFeature f) const;
+
+	GUI::Debugger *getDebugger() { return _debug; }
 
 public:
 	AnimationManager *_animMan;

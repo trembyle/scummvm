@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -523,9 +523,10 @@ void DreamWebEngine::candles(ReelRoutine &routine) {
 void DreamWebEngine::gates(ReelRoutine &routine) {
 	if (checkSpeed(routine)) {
 		uint16 nextReelPointer = routine.reelPointer() + 1;
+		uint16 checkIntro3ReelPointer = (getLanguage() != Common::ES_ESP) ? 110 : 111;
 		if (nextReelPointer == 116)
 			_sound->playChannel1(17);
-		if (nextReelPointer >= 110)
+		if (nextReelPointer >= checkIntro3ReelPointer)
 			routine.period = 2;
 		if (nextReelPointer == 120) {
 			_getBack = 1;
@@ -743,10 +744,12 @@ void DreamWebEngine::introMonks2(ReelRoutine &routine) {
 		}
 
 		if (nextReelPointer == 110) {
+			int introCountCheck = (getLanguage() != Common::DE_DEU && getLanguage() != Common::ES_ESP) ? 35 : 40;
+
 			_introCount++;
 			monks2text();
 
-			if (_introCount == 35)
+			if (_introCount == introCountCheck)
 				nextReelPointer = 111;
 			else
 				nextReelPointer = 98;

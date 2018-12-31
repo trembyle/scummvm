@@ -17,12 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef MASSADD_DIALOG_H
 #define MASSADD_DIALOG_H
 
 #include "gui/dialog.h"
+#include "gui/widgets/list.h"
 #include "common/fs.h"
 #include "common/hashmap.h"
 #include "common/stack.h"
@@ -43,13 +45,13 @@ public:
 
 	Common::String getFirstAddedTarget() const {
 		if (!_games.empty())
-			return _games.front().gameid();
+			return _games.front().gameId;
 		return Common::String();
 	}
 
 private:
 	Common::Stack<Common::FSNode>  _scanStack;
-	GameList _games;
+	DetectedGames _games;
 
 	/**
 	 * Map each path occuring in the config file to the target(s) using that path.

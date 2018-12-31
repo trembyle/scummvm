@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -35,19 +35,19 @@
 namespace LastExpress {
 
 Cooks::Cooks(LastExpressEngine *engine) : Entity(engine, kEntityCooks) {
-	ADD_CALLBACK_FUNCTION(Cooks, draw);
-	ADD_CALLBACK_FUNCTION(Cooks, playSound);
-	ADD_CALLBACK_FUNCTION(Cooks, function3);
-	ADD_CALLBACK_FUNCTION(Cooks, function4);
+	ADD_CALLBACK_FUNCTION_S(Cooks, draw);
+	ADD_CALLBACK_FUNCTION_S(Cooks, playSound);
+	ADD_CALLBACK_FUNCTION(Cooks, uptrainVersion);
+	ADD_CALLBACK_FUNCTION(Cooks, downtrainVersion);
 	ADD_CALLBACK_FUNCTION(Cooks, chapter1);
-	ADD_CALLBACK_FUNCTION(Cooks, chapter1Handler);
-	ADD_CALLBACK_FUNCTION(Cooks, function7);
+	ADD_CALLBACK_FUNCTION(Cooks, inKitchenDinner);
+	ADD_CALLBACK_FUNCTION(Cooks, lockUp);
 	ADD_CALLBACK_FUNCTION(Cooks, chapter2);
-	ADD_CALLBACK_FUNCTION(Cooks, chapter2Handler);
+	ADD_CALLBACK_FUNCTION(Cooks, inKitchenBreakfast);
 	ADD_CALLBACK_FUNCTION(Cooks, chapter3);
-	ADD_CALLBACK_FUNCTION(Cooks, chapter3Handler);
+	ADD_CALLBACK_FUNCTION(Cooks, inKitchenLunch);
 	ADD_CALLBACK_FUNCTION(Cooks, chapter4);
-	ADD_CALLBACK_FUNCTION(Cooks, chapter4Handler);
+	ADD_CALLBACK_FUNCTION(Cooks, inKitchenDinner2);
 	ADD_CALLBACK_FUNCTION(Cooks, chapter5);
 }
 
@@ -62,7 +62,7 @@ IMPLEMENT_FUNCTION_S(2, Cooks, playSound)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(3, Cooks, function3)
+IMPLEMENT_FUNCTION(3, Cooks, uptrainVersion)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -98,26 +98,17 @@ IMPLEMENT_FUNCTION(3, Cooks, function3)
 			break;
 		}
 
-		if (getEntities()->isPlayerPosition(kCarRestaurant, 46)) {
+		if (getEntities()->isPlayerPosition(kCarRestaurant, 76)) {
 			getEntities()->drawSequenceLeft(kEntityCooks, "308D");
 
-			if (!getSoundQueue()->isBuffered(kEntityCooks)) {
-				if (params->param1) {
-					if (!getEntities()->hasValidFrame(kEntityCooks)) {
-						getSound()->playSound(kEntityCooks, "LIB015");
-						getEntities()->clearSequences(kEntityCooks);
-						callbackAction();
-					}
-					break;
-				}
-
+			if (!getSoundQueue()->isBuffered(kEntityCooks) && !params->param1) {
 				// Kitchen apprentice getting a lesson :D
 				getSound()->playSound(kEntityCooks, "KIT1011A");
 				params->param1 = 1;
 			}
 		}
 
-		if (params->param1 && !getEntities()->hasValidFrame(kEntityCooks)) {
+		if (params->param1 && !getEntities()->hasValidFrame(kEntityCooks) && !getSoundQueue()->isBuffered(kEntityCooks)) {
 			getSound()->playSound(kEntityCooks, "LIB015");
 			getEntities()->clearSequences(kEntityCooks);
 			callbackAction();
@@ -147,7 +138,7 @@ IMPLEMENT_FUNCTION(3, Cooks, function3)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(4, Cooks, function4)
+IMPLEMENT_FUNCTION(4, Cooks, downtrainVersion)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -159,22 +150,21 @@ IMPLEMENT_FUNCTION(4, Cooks, function4)
 
 		switch (getProgress().chapter) {
 		default:
+			getSound()->playSound(kEntityCooks, "KIT1011");
+			setCallback(3);
+			setup_draw("308B");
 			break;
 
 		case kChapter1:
-			setCallback(2);
-			setup_playSound("ZFX1011");
+			setCallback(1);
+			setup_playSound("KIT1010");
 			break;
 
 		case kChapter3:
 			setCallback(2);
-			setup_playSound("ZFX1011");
+			setup_playSound("KIT1012");
 			break;
 		}
-
-		getSound()->playSound(kEntityCooks, "KIT1011");
-		setCallback(3);
-		setup_draw("308B");
 		break;
 
 	case kActionDrawScene:
@@ -187,23 +177,14 @@ IMPLEMENT_FUNCTION(4, Cooks, function4)
 		if (getEntities()->isPlayerPosition(kCarRestaurant, 80)) {
 			getEntities()->drawSequenceLeft(kEntityCooks, "308D");
 
-			if (!getSoundQueue()->isBuffered(kEntityCooks)) {
-				if (params->param1) {
-					if (!getEntities()->hasValidFrame(kEntityCooks)) {
-						getSound()->playSound(kEntityCooks, "LIB015");
-						getEntities()->clearSequences(kEntityCooks);
-						callbackAction();
-					}
-					break;
-				}
-
+			if (!getSoundQueue()->isBuffered(kEntityCooks) && !params->param1) {
 				// Kitchen apprentice getting a lesson :D
 				getSound()->playSound(kEntityCooks, "KIT1011A");
 				params->param1 = 1;
 			}
 		}
 
-		if (params->param1 && !getEntities()->hasValidFrame(kEntityCooks)) {
+		if (params->param1 && !getEntities()->hasValidFrame(kEntityCooks) && !getSoundQueue()->isBuffered(kEntityCooks)) {
 			getSound()->playSound(kEntityCooks, "LIB015");
 			getEntities()->clearSequences(kEntityCooks);
 			callbackAction();
@@ -225,7 +206,7 @@ IMPLEMENT_FUNCTION(4, Cooks, function4)
 		case 3:
 			getEntities()->drawSequenceLeft(kEntityCooks, "308C");
 			getEntities()->updatePositionExit(kEntityCooks, kCarRestaurant, 75);
-			getEntities()->updatePositionEnter(kEntityCooks, kCarRestaurant, 78);
+			getEntities()->updatePositionExit(kEntityCooks, kCarRestaurant, 78);
 			break;
 		}
 		break;
@@ -239,7 +220,7 @@ IMPLEMENT_FUNCTION(5, Cooks, chapter1)
 		break;
 
 	case kActionNone:
-		Entity::timeCheck(kTimeChapter1, params->param1, WRAP_SETUP_FUNCTION(Cooks, setup_chapter1Handler));
+		Entity::timeCheck(kTimeChapter1, params->param1, WRAP_SETUP_FUNCTION(Cooks, setup_inKitchenDinner));
 		break;
 
 	case kActionDefault:
@@ -254,7 +235,7 @@ IMPLEMENT_FUNCTION(5, Cooks, chapter1)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(6, Cooks, chapter1Handler)
+IMPLEMENT_FUNCTION(6, Cooks, inKitchenDinner)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -281,7 +262,7 @@ IMPLEMENT_FUNCTION(6, Cooks, chapter1Handler)
 		if (params->param1) {
 			if (getEntities()->isPlayerPosition(kCarRestaurant, 73)) {
 				setCallback(1);
-				setup_function3();
+				setup_uptrainVersion();
 			}
 		} else {
 			if (params->param3) {
@@ -311,7 +292,7 @@ IMPLEMENT_FUNCTION(6, Cooks, chapter1Handler)
 		break;
 
 	case kAction101632192:
-		setup_function7();
+		setup_lockUp();
 		break;
 
 	case kAction224849280:
@@ -322,7 +303,7 @@ IMPLEMENT_FUNCTION(6, Cooks, chapter1Handler)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(7, Cooks, function7)
+IMPLEMENT_FUNCTION(7, Cooks, lockUp)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -350,7 +331,7 @@ IMPLEMENT_FUNCTION(8, Cooks, chapter2)
 		break;
 
 	case kActionNone:
-		setup_chapter2Handler();
+		setup_inKitchenBreakfast();
 		break;
 
 	case kActionDefault:
@@ -368,7 +349,7 @@ IMPLEMENT_FUNCTION(8, Cooks, chapter2)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(9, Cooks, chapter2Handler)
+IMPLEMENT_FUNCTION(9, Cooks, inKitchenBreakfast)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -388,6 +369,9 @@ IMPLEMENT_FUNCTION(9, Cooks, chapter2Handler)
 		break;
 
 	case kActionDrawScene:
+		if (!getEntities()->isInKitchen(kEntityPlayer))
+			break;
+
 		if (params->param2) {
 			setCallback(1);
 			setup_playSound("ZFX1011");
@@ -411,7 +395,7 @@ IMPLEMENT_FUNCTION(10, Cooks, chapter3)
 		break;
 
 	case kActionNone:
-		setup_chapter3Handler();
+		setup_inKitchenLunch();
 		break;
 
 	case kActionDefault:
@@ -419,7 +403,7 @@ IMPLEMENT_FUNCTION(10, Cooks, chapter3)
 
 		getData()->entityPosition = kPosition_5900;
 		getData()->car = kCarRestaurant;
-		getData()->inventoryItem = kItemNone;
+		getData()->inventoryItem = kItemNone; // not in the original version, but it does no harm, I suppose?
 
 		getProgress().field_4C = 0;
 
@@ -428,7 +412,7 @@ IMPLEMENT_FUNCTION(10, Cooks, chapter3)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(11, Cooks, chapter3Handler)
+IMPLEMENT_FUNCTION(11, Cooks, inKitchenLunch)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -459,7 +443,7 @@ IMPLEMENT_FUNCTION(11, Cooks, chapter3Handler)
 		if (params->param1) {
 			if (getEntities()->isPlayerPosition(kCarRestaurant, 80)) {
 				setCallback(1);
-				setup_function4();
+				setup_downtrainVersion();
 			}
 		} else {
 			if (params->param3) {
@@ -502,7 +486,7 @@ IMPLEMENT_FUNCTION(12, Cooks, chapter4)
 		break;
 
 	case kActionNone:
-		setup_chapter4Handler();
+		setup_inKitchenDinner2();
 		break;
 
 	case kActionDefault:
@@ -520,7 +504,7 @@ IMPLEMENT_FUNCTION(12, Cooks, chapter4)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(13, Cooks, chapter4Handler)
+IMPLEMENT_FUNCTION(13, Cooks, inKitchenDinner2)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -552,7 +536,6 @@ IMPLEMENT_FUNCTION(13, Cooks, chapter4Handler)
 			setup_playSound("ZFX1012");
 		}
 		break;
-
 
 	case kActionCallback:
 		// Play the next part of background sound

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -130,19 +130,18 @@ void DemoPlayer::clearScreen() {
 
 void DemoPlayer::playVideo(const char *fileName) {
 	uint32 waitTime = 0;
-	char *file, *filePtr;
-
-	file = filePtr = strdup(fileName);
+	Common::String filePtr(fileName);
+	Common::String::iterator file = filePtr.begin();
 
 	// Trimming spaces front
 	while (*file == ' ')
 		file++;
 
-	char *spaceBack = strchr(file, ' ');
-	if (spaceBack) {
-		char *nextSpace = strchr(spaceBack, ' ');
+	Common::String::iterator spaceBack = Common::find(file, filePtr.end(), ' ');
+	if (spaceBack != filePtr.end()) {
+		Common::String::iterator nextSpace = Common::find(spaceBack, filePtr.end(), ' ');
 
-		if (nextSpace)
+		if (nextSpace != filePtr.end())
 			*nextSpace = '\0';
 
 		*spaceBack++ = '\0';
@@ -180,9 +179,6 @@ void DemoPlayer::playVideo(const char *fileName) {
 		if (waitTime > 0)
 			_vm->_util->longDelay(waitTime);
 	}
-
-
-	free(filePtr);
 }
 
 void DemoPlayer::playADL(const char *params) {

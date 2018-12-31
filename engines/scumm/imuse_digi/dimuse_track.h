@@ -17,12 +17,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #if !defined(SCUMM_IMUSE_DIGI_TRACK_H) && defined(ENABLE_SCUMM_7_8)
 #define SCUMM_IMUSE_DIGI_TRACK_H
 
 #include "common/scummsys.h"
+#include "audio/mixer.h"
+
+namespace Audio {
+class QueuingAudioStream;
+}
 
 namespace Scumm {
 
@@ -60,7 +66,7 @@ struct Track {
 	int32 curRegion;	// id of current used region
 	int32 curHookId;	// id of current used hook id
 	int32 volGroupId;	// id of volume group (IMUSE_VOLGRP_VOICE, IMUSE_VOLGRP_SFX, IMUSE_VOLGRP_MUSIC)
-	int32 soundType;	// type of sound data (kSpeechSoundType, kSFXSoundType, kMusicSoundType)
+	int32 soundType;	// type of sound data (IMUSE_BUNDLE, IMUSE_RESOURCE)
 	int32 feedSize;		// size of sound data needed to be filled at each callback iteration
 	int32 dataMod12Bit;	// value used between all callback to align 12 bit source of data
 	int32 mixerFlags;	// flags for sound mixer's channel (kFlagStereo, kFlag16Bits, kFlagUnsigned)

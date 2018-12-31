@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -209,10 +209,15 @@ bool BaseFileManager::registerPackages() {
 			// than the equivalent of using equalsIgnoreCase.
 			Common::String fileName = fileIt->getName();
 			fileName.toLowercase();
+			bool searchSignature = false;
 
-			if (!fileName.hasSuffix(".dcp")) {
+			if (!fileName.hasSuffix(".dcp") && !fileName.hasSuffix(".exe")) {
 				continue;
 			}
+			if (fileName.hasSuffix(".exe")) {
+				searchSignature = true;
+			}
+
 			// HACK: for Reversion1, avoid loading xlanguage_pt.dcp from the main folder:
 			if (_language != Common::PT_BRA && targetName.hasPrefix("reversion1")) {
 				if (fileName == "xlanguage_pt.dcp") {
@@ -222,7 +227,7 @@ bool BaseFileManager::registerPackages() {
 
 			// Again, make the parent's name all lowercase to avoid any case
 			// issues.
-			Common::String parentName = fileIt->getParent().getName();
+			Common::String parentName = it->getName();
 			parentName.toLowercase();
 
 			// Avoid registering all the language files
@@ -246,8 +251,13 @@ bool BaseFileManager::registerPackages() {
 				// Italian
 				} else if (_language == Common::IT_ITA && (fileName != "italian.dcp" && fileName != "xlanguage_it.dcp")) {
 					continue;
+				// Latvian
+				} else if (_language == Common::LV_LAT && (fileName != "latvian.dcp" && fileName != "xlanguage_lv.dcp")) {
+					// TODO: 'latvian.dcp' is just guesswork. Is there any
+					// game using Latvian and using this filename?
+					continue;
 				// Polish
-				} else if (_language == Common::PL_POL && (fileName != "polish.dcp" && fileName != "xlanguage_po.dcp")) {
+				} else if (_language == Common::PL_POL && (fileName != "polish.dcp" && fileName != "xlanguage_pl.dcp")) {
 					continue;
 				// Portuguese
 				} else if (_language == Common::PT_BRA && (fileName != "portuguese.dcp" && fileName != "xlanguage_pt.dcp")) {
@@ -258,7 +268,7 @@ bool BaseFileManager::registerPackages() {
 				}
 			}
 			debugC(kWintermuteDebugFileAccess, "Registering %s %s", fileIt->getPath().c_str(), fileIt->getName().c_str());
-			registerPackage((*fileIt));
+			registerPackage((*fileIt), "", searchSignature);
 		}
 	}
 

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -318,8 +318,7 @@ WinCursorGroup *WinCursorGroup::createCursorGroup(Common::PEResources &exe, cons
 
 		// Plane count
 		if (stream->readUint16LE() != 1) {
-			delete group;
-			return 0;
+			warning("PlaneCount is not 1.");
 		}
 
 		stream->readUint16LE(); // bits per pixel

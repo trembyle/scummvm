@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -33,7 +33,6 @@
 #include "common/random.h"
 #include "common/rect.h"
 #include "common/stack.h"
-#include "engines/advancedDetector.h"
 #include "engines/engine.h"
 #include "common/error.h"
 #include "graphics/surface.h"
@@ -92,6 +91,7 @@ enum DataType {
 #define MORT_DAT_REQUIRED_VERSION 1
 #define MORT_DAT "mort.dat"
 #define GAME_FRAME_DELAY (1000 / 50)
+#define DISK_ACCESS_DELAY 1000
 
 const int kTime1 = 410;
 const int kTime2 = 250;
@@ -115,6 +115,7 @@ const int kInventoryStringIndex = 186;
 const int kQuestionStringIndex = 247;
 const int kDialogStringIndex = 292;
 const int kMenuPlaceStringIndex = 435;
+const int kStartingScreenStringIndex = 456;
 const int kMenuActionStringIndex = 476;
 const int kMenuSelfStringIndex = 497;
 const int kMenuSayStringIndex = 502;
@@ -122,7 +123,6 @@ const int kMaxPatt = 20;
 
 const int kResolutionScaler = 2;
 /*
-9   "A glance at the forbidden$",
 18  "It's already open$",
 26  "A photograph$"
 */
@@ -133,11 +133,6 @@ enum Places {
 	LANDING = 15,     CRYPT = 16,       SECRET_PASSAGE = 17, ROOM18 = 18,      MOUNTAIN = 19,
 	CHAPEL = 20,      MANOR_FRONT = 21, MANOR_BACK = 22,     INSIDE_WELL = 23, WELL = 24,
 	DOOR = 25,        ROOM26 = 26,      COAT_ARMS = 27
-};
-
-struct Pattern {
-	byte _tay, _tax;
-	byte _des[kMaxPatt + 1][kMaxPatt + 1];
 };
 
 struct SaveStruct {
@@ -391,6 +386,7 @@ private:
 	void prepareNextObject();
 	void putObject();
 	void resetObjectPlace();
+	void resetCoreVar();
 	void drawDiscussionBox();
 	void displayNarrativePicture(int af, int ob);
 	void menuUp();
@@ -407,7 +403,7 @@ public:
 	int  _charAnswerMax[9];
 	byte _tabdon[4001];
 	bool _soundOff;
-	bool _blo;
+	bool _outsideOnlyFl;
 	bool _destinationOk;
 	bool _largestClearScreen;
 	float _addFix;
@@ -420,24 +416,26 @@ public:
 	int _maff;
 	int _caff;
 	int _crep;
+	int _is;		// ???
 
 	byte _destinationArray[7][25];
 
 	byte *_curPict;
 	byte *_curAnim;
 	byte *_rightFramePict;
-	
-	Debugger _debugger;
-	ScreenSurface _screenSurface;
+
 	PaletteManager _paletteManager;
 	GfxSurface _backgroundSurface;
 	Common::RandomSource _randomSource;
-	SoundManager _soundManager;
-	SavegameManager _savegameManager;
-	Menu _menu;
-	MouseHandler _mouse;
-	TextHandler _text;
-	DialogManager _dialogManager;
+
+	Debugger *_debugger;
+	ScreenSurface *_screenSurface;
+	SoundManager *_soundManager;
+	SavegameManager *_savegameManager;
+	Menu *_menu;
+	MouseHandler *_mouse;
+	TextHandler *_text;
+	DialogManager *_dialogManager;
 
 	MortevielleEngine(OSystem *system, const MortevielleGameDescription *gameDesc);
 	~MortevielleEngine();
@@ -448,7 +446,7 @@ public:
 	virtual Common::Error saveGameState(int slot, const Common::String &desc);
 	virtual Common::Error run();
 	virtual void pauseEngineIntern(bool pause);
-	virtual GUI::Debugger *getDebugger() {return &_debugger;}
+	virtual GUI::Debugger *getDebugger() {return _debugger;}
 	uint32 getGameFlags() const;
 	Common::Language getLanguage() const;
 	Common::Language getOriginalLanguage() const;
@@ -469,6 +467,7 @@ public:
 	void gameLoaded();
 	void initGame();
 	void displayAloneText();
+	void displayInterScreenMessage(int mesgId);
 	void draw(int x, int y);
 	void charToHour();
 	void hourToChar();

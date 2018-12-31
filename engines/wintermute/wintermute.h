@@ -8,30 +8,33 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef WINTERMUTE_H
-#define WINTERMUTE_H
+#ifndef WINTERMUTE_WINTERMUTE_H
+#define WINTERMUTE_WINTERMUTE_H
 
 #include "engines/engine.h"
-#include "engines/advancedDetector.h"
 #include "gui/debugger.h"
+#include "common/fs.h"
 
 namespace Wintermute {
 
 class Console;
 class BaseGame;
 class SystemClassRegistry;
+class DebuggerController;
+struct WMEGameDescription;
+
 // our engine debug channels
 enum {
 	kWintermuteDebugLog = 1 << 0, // The debug-logs from the original engine
@@ -42,13 +45,18 @@ enum {
 	kWintermuteDebugGeneral = 1 << 5
 };
 
+enum WintermuteGameFeatures {
+ 	/** A game with low-spec resources. */
+ 	GF_LOWSPEC_ASSETS       = 1 << 0
+};
+
 class WintermuteEngine : public Engine {
 public:
-	WintermuteEngine(OSystem *syst, const ADGameDescription *desc);
+	WintermuteEngine(OSystem *syst, const WMEGameDescription *desc);
 	WintermuteEngine();
 	~WintermuteEngine();
 
-	virtual GUI::Debugger *getDebugger() { return _debugger; }
+	virtual Wintermute::Console *getConsole() { return _debugger; }
 	void trigDebugger() { _trigDebug = true; }
 
 	virtual Common::Error run();
@@ -65,11 +73,13 @@ private:
 	int init();
 	void deinit();
 	int messageLoop();
-	GUI::Debugger *_debugger;
+	Wintermute::Console *_debugger;
 	BaseGame *_game;
-	const ADGameDescription *_gameDescription;
+	Wintermute::DebuggerController *_dbgController;
+	const WMEGameDescription *_gameDescription;
 
 	friend class Console;
+	friend class DebuggerController;
 };
 
 } // End of namespace Wintermute

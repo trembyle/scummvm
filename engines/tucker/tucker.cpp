@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -27,6 +27,7 @@
 #include "common/debug.h"
 #include "common/error.h"
 #include "common/keyboard.h"
+#include "common/savefile.h"
 #include "common/textconsole.h"
 
 #include "engines/util.h"
@@ -43,6 +44,34 @@ namespace Tucker {
 TuckerEngine::TuckerEngine(OSystem *system, Common::Language language, uint32 flags)
 	: Engine(system), _gameLang(language), _gameFlags(flags), _rnd("tucker") {
 	_console = new TuckerConsole(this);
+
+	resetVariables();
+
+	_execData3Counter = 0;
+	_currentSaveLoadGameState = 1;
+	_fileLoadSize = 0;
+	_csDataSize = 0;
+	_startSlot = ConfMan.hasKey("save_slot") ? ConfMan.getInt("save_slot") : -1;
+
+	_player = nullptr;
+	_loadTempBuf = nullptr;
+	_cursorGfxBuf = nullptr;
+	_charsetGfxBuf = nullptr;
+	_panelGfxBuf = nullptr;
+	_itemsGfxBuf = nullptr;
+	_spritesGfxBuf = nullptr;
+	_locationBackgroundGfxBuf = nullptr;
+	_data5Buf = nullptr;
+	_data3GfxBuf = nullptr;
+	_quadBackgroundGfxBuf = nullptr;
+	_objTxtBuf = nullptr;
+	_panelObjectsGfxBuf = nullptr;
+	_ptTextBuf = nullptr;
+	_infoBarBuf = nullptr;
+	_bgTextBuf = nullptr;
+	_charNameBuf = nullptr;
+	_locationBackgroundMaskBuf = nullptr;
+	_csDataBuf = nullptr;
 }
 
 TuckerEngine::~TuckerEngine() {
@@ -61,10 +90,11 @@ bool TuckerEngine::hasFeature(EngineFeature f) const {
 }
 
 Common::Error TuckerEngine::run() {
-	initGraphics(kScreenWidth, kScreenHeight, false);
+	initGraphics(kScreenWidth, kScreenHeight);
 	syncSoundSettings();
 	_compressedSound.openFile();
-	handleIntroSequence();
+	if (_startSlot == -1)
+		handleIntroSequence();
 	if ((_gameFlags & kGameFlagIntroOnly) == 0 && !shouldQuit()) {
 		mainLoop();
 	}
@@ -84,17 +114,17 @@ void TuckerEngine::allocateBuffers() {
 	_charsetGfxBuf = (uint8 *)calloc(1, 22400);
 	_cursorGfxBuf = (uint8 *)calloc(1, 256 * 7);
 	_infoBarBuf = (uint8 *)calloc(1, 1000);
-	_charNameBuf = 0;
-	_bgTextBuf = 0;
-	_objTxtBuf = 0;
+	_charNameBuf = nullptr;
+	_bgTextBuf = nullptr;
+	_objTxtBuf = nullptr;
 	_panelObjectsGfxBuf = (uint8 *)calloc(1, 20000);
-	_data5Buf = 0;
+	_data5Buf = nullptr;
 	_data3GfxBuf = (uint8 *)calloc(1, 250000);
 	_quadBackgroundGfxBuf = (uint8 *)calloc(1, 320 * 140 * 4);
 	_locationBackgroundMaskBuf = (uint8 *)calloc(1, 640 * 140);
-	_csDataBuf = 0;
+	_csDataBuf = nullptr;
 	_spritesGfxBuf = (uint8 *)calloc(1, 160000);
-	_ptTextBuf = 0;
+	_ptTextBuf = nullptr;
 	memset(_charWidthTable, 0, sizeof(_charWidthTable));
 }
 
@@ -119,26 +149,27 @@ void TuckerEngine::freeBuffers() {
 	free(_ptTextBuf);
 }
 
-void TuckerEngine::restart() {
+void TuckerEngine::resetVariables() {
 	_quitGame = false;
 	_fastMode = false;
 	_syncCounter = 0;
 	_lastFrameTime = _system->getMillis();
 	_mainLoopCounter1 = _mainLoopCounter2 = 0;
 	_timerCounter2 = 0;
-	_partNum = _currentPartNum = 0;
-	_locationNum = 0;
-	_nextLocationNum = (_gameFlags & kGameFlagDemo) == 0 ? kStartupLocationGame : kStartupLocationDemo;
+	_part = _currentPart = kPartInit;
+	_location = kLocationNone;
+	_nextLocation = (_gameFlags & kGameFlagDemo) ? kLocationInitDemo : kLocationInit;
 	_gamePaused = false;
 	_gameDebug = false;
-	_displayGameHints = false;
-	_displaySpeechText = (_gameFlags & kGameFlagNoSubtitles) == 0 ? ConfMan.getBool("subtitles") : false;
+	_displaySpeechText = (_gameFlags & kGameFlagNoSubtitles) ? false : ConfMan.getBool("subtitles");
 	memset(_flagsTable, 0, sizeof(_flagsTable));
 
 	_gameHintsIndex = 0;
 	_gameHintsCounter = 0;
-	_gameHintsDisplayText = 0;
 	_gameHintsStringNum = 0;
+
+	_displayGameHints = false;
+	_displayHintsText = false;
 
 	if ((_gameFlags & kGameFlagDemo) == 0) {
 		_locationWidthTable = _locationWidthTableGame;
@@ -176,20 +207,20 @@ void TuckerEngine::restart() {
 	_leftMouseButtonPressed = _rightMouseButtonPressed = false;
 	_lastKeyPressed = 0;
 	memset(_inputKeys, 0, sizeof(_inputKeys));
-	_cursorNum = 0;
-	_cursorType = 0;
+	_cursorStyle = kCursorNormal;
+	_cursorState = kCursorStateNormal;
 	_updateCursorFlag = false;
 
-	_panelNum = 1;
-	_panelState = 0;
+	_panelStyle = kPanelStyleIcons;
+	_panelState = kPanelStateNormal;
+	_panelType  = kPanelTypeNormal;
 	_forceRedrawPanelItems = true;
 	_redrawPanelItemsCounter = 0;
-	_switchPanelFlag = 0;
 	memset(_panelObjectsOffsetTable, 0, sizeof(_panelObjectsOffsetTable));
 	_switchPanelCounter = 0;
 	_conversationOptionsCount = 0;
 	_fadedPanel = false;
-	_panelLockedFlag = 0;
+	_panelLockedFlag = false;
 	_conversationOptionLinesCount = 0;
 	memset(_inventoryItemsState, 0, sizeof(_inventoryItemsState));
 	memset(_inventoryObjectsList, 0, sizeof(_inventoryObjectsList));
@@ -216,18 +247,18 @@ void TuckerEngine::restart() {
 	_pendingActionDelay = 0;
 	_charPositionFlagNum = 0;
 	_charPositionFlagValue = 0;
-	_actionVerb = kVerbWalk;
+	_actionVerb = _currentActionVerb = _previousActionVerb = kVerbWalk;
+	_actionVerbLocked = false;
 	_nextAction = 0;
 	_selectedObjectNum = 0;
 	_selectedObjectType = 0;
 	_selectedCharacterNum = 0;
 	_actionObj1Type = _actionObj2Type = 0;
 	_actionObj1Num = _actionObj2Num = 0;
-	_actionRequiresTwoObjects = 0;
-	_actionVerbLocked = 0;
+	_actionRequiresTwoObjects = false;
 	_actionPosX = 0;
 	_actionPosY = 0;
-	_selectedObjectLocationMask = 0;
+	_selectedObjectLocationMask = false;
 	memset(&_selectedObject, 0, sizeof(_selectedObject));
 	_selectedCharacterDirection = 0;
 	_selectedCharacter2Num = 0;
@@ -247,10 +278,10 @@ void TuckerEngine::restart() {
 	_nextTableToLoadIndex = 0;
 	memset(_nextTableToLoadTable, 0, sizeof(_nextTableToLoadTable));
 	_soundInstructionIndex = 0;
-	_tableInstructionsPtr = 0;
+	_tableInstructionsPtr = nullptr;
 	memset(_tableInstructionObj1Table, 0, sizeof(_tableInstructionObj1Table));
 	memset(_tableInstructionObj2Table, 0, sizeof(_tableInstructionObj2Table));
-	_tableInstructionFlag = 0;
+	_tableInstructionFlag = false;
 	_tableInstructionItemNum1 = _tableInstructionItemNum2 = 0;
 	memset(_instructionsActionsTable, 0, sizeof(_instructionsActionsTable));
 	_validInstructionId = false;
@@ -266,39 +297,37 @@ void TuckerEngine::restart() {
 	_skipCurrentCharacterDraw = false;
 	_yPosCurrent = 131;
 	_xPosCurrent = 160;
-	_characterSpeechDataPtr = 0;
+	_characterSpeechDataPtr = nullptr;
 	_ptTextOffset = 0;
 	memset(_characterAnimationsTable, 0, sizeof(_characterAnimationsTable));
 	memset(_characterStateTable, 0, sizeof(_characterStateTable));
 	_backgroundSprOffset = 0;
-	_currentActionVerb = 0;
-	_previousActionVerb = 0;
 	_mainSpritesBaseOffset = 0;
 	_currentSpriteAnimationLength = 0;
 	_currentSpriteAnimationFrame = 0;
 	_currentSpriteAnimationFrame2 = 0;
 	_characterAnimationIndex = -1;
 	_characterFacingDirection = _characterPrevFacingDirection = 0;
-	_characterBackFrontFacing = _characterPrevBackFrontFacing = 0;
+	_characterBackFrontFacing = _characterPrevBackFrontFacing = false;
 	_characterAnimationNum = 0;
 	_noCharacterAnimationChange = 0;
-	_changeBackgroundSprite = 0;
 	_characterSpriteAnimationFrameCounter = 0;
-	_locationMaskIgnore = 0;
+	_locationMaskIgnore = false;
 	_locationMaskType = 0;
 	_locationMaskCounter = 0;
-	_updateSpriteFlag1 = 0;
-	_updateSpriteFlag2 = 0;
 	_handleMapCounter = 0;
 	_noPositionChangeAfterMap = false;
+	_changeBackgroundSprite = false;
+	_updateSpriteFlag1 = false;
+	_updateSpriteFlag2 = false;
 
-	_mirroredDrawing = 0;
-	_loadLocBufPtr = 0;
-	_backgroundSpriteDataPtr = 0;
+	_mirroredDrawing = false;
+	_loadLocBufPtr = nullptr;
+	_backgroundSpriteDataPtr = nullptr;
 	_locationHeight = 0;
 	_scrollOffset = 0;
 	_currentGfxBackgroundCounter = 0;
-	_currentGfxBackground = 0;
+	_currentGfxBackground = nullptr;
 	_fadePaletteCounter = 0;
 	memset(_currentPalette, 0, sizeof(_currentPalette));
 	_fullRedraw = false;
@@ -319,14 +348,16 @@ void TuckerEngine::restart() {
 	memset(_updateLocation14ObjNum, 0, sizeof(_updateLocation14ObjNum));
 	memset(_updateLocation14Delay, 0, sizeof(_updateLocation14Delay));
 	_updateLocationCounter2 = 0;
-	_updateLocationFlag = 0;
+	_updateLocationFlag = false;
 	_updateLocation70StringLen = 0;
 	memset(_updateLocation70String, 0, sizeof(_updateLocation70String));
+
+	_lastSaveTime = _system->getMillis();
 }
 
 void TuckerEngine::mainLoop() {
 	allocateBuffers();
-	restart();
+	resetVariables();
 
 	loadCharSizeDta();
 	if ((_gameFlags & kGameFlagDemo) != 0) {
@@ -335,24 +366,33 @@ void TuckerEngine::mainLoop() {
 	}
 	loadCharset();
 	loadPanel();
+
 	loadFile("infobar.txt", _infoBarBuf);
-	_data5Buf = loadFile("data5.c", 0);
-	_bgTextBuf = loadFile("bgtext.c", 0);
-	_charNameBuf = loadFile("charname.c", 0);
-	_csDataBuf = loadFile("csdata.c", 0);
+	// WORKAROUND capitalized "With"/"Con" in the English/Spanish versions
+	// Fixes Trac#10445.
+	if (_gameLang == Common::EN_ANY) {
+		_infoBarBuf[getPositionForLine(kVerbPrepositionWith, _infoBarBuf)] = 'w';
+	} else if (_gameLang == Common::ES_ESP) {
+		_infoBarBuf[getPositionForLine(kVerbPrepositionWith, _infoBarBuf)] = 'c';
+	}
+
+	_data5Buf    = loadFile("data5.c", nullptr);
+	_bgTextBuf   = loadFile("bgtext.c", nullptr);
+	_charNameBuf = loadFile("charname.c", nullptr);
+	_csDataBuf   = loadFile("csdata.c", nullptr);
 	_csDataSize = _fileLoadSize;
 
 	_currentSaveLoadGameState = 1;
 
-	loadBudSpr(0);
+	loadBudSpr();
 	loadCursor();
-	setCursorNum(_cursorNum);
-	setCursorType(_cursorType);
+	setCursorStyle(_cursorStyle);
+	setCursorState(_cursorState);
 
 	_flagsTable[219] = 1;
 	_flagsTable[105] = 1;
 
-	_spriteAnimationFrameIndex =  _spriteAnimationsTable[14].firstFrameIndex;
+	_spriteAnimationFrameIndex =  _spriteAnimationsTable[14]._firstFrameIndex;
 
 	if (ConfMan.hasKey("save_slot")) {
 		const int slot = ConfMan.getInt("save_slot");
@@ -360,13 +400,13 @@ void TuckerEngine::mainLoop() {
 			loadGameState(slot);
 		}
 	} else if (ConfMan.hasKey("boot_param")) {
-		_nextLocationNum = ConfMan.getInt("boot_param");
+		_nextLocation = (Location)ConfMan.getInt("boot_param");
 	}
 
 	do {
 		++_syncCounter;
 		if (_flagsTable[137] != _flagsTable[138]) {
-			loadBudSpr(0);
+			loadBudSpr();
 			_flagsTable[138] = _flagsTable[137];
 		}
 		if (_syncCounter >= 2) {
@@ -387,13 +427,13 @@ void TuckerEngine::mainLoop() {
 		if (_nextAction != 0) {
 			loadActionsTable();
 		}
-		if (_nextLocationNum > 0) {
+		if (_nextLocation != kLocationNone) {
 			setupNewLocation();
 		}
 		updateCharPosition();
-		if (_cursorType == 0) {
+		if (_cursorState == kCursorStateNormal) {
 			updateCursor();
-		} else if (_panelState == 2) {
+		} else if (_panelType == kPanelTypeLoadSavePlayQuit) {
 			handleMouseOnPanel();
 		}
 		if (_mainLoopCounter2 == 0) {
@@ -412,7 +452,7 @@ void TuckerEngine::mainLoop() {
 				}
 				if (_flagsTable[158] == 1) {
 					_flagsTable[158] = 0;
-					_skipCurrentCharacterDraw = 1;
+					_skipCurrentCharacterDraw = true;
 				}
 				_mainLoopCounter1 = 0;
 			}
@@ -434,13 +474,13 @@ void TuckerEngine::mainLoop() {
 			_mainLoopCounter1 = 0;
 		}
 		if (_locationHeight == 140) {
-			switchPanelType();
+			togglePanelStyle();
 			redrawPanelItems();
 			if (_displayGameHints && _gameHintsIndex < 6) {
 				updateGameHints();
 			}
-			if (_panelState == 0) {
-				if (_panelLockedFlag == 1 || _pendingActionDelay > 0) {
+			if (_panelType == kPanelTypeNormal) {
+				if (_panelLockedFlag || _pendingActionDelay > 0) {
 					if (!_fadedPanel) {
 						updateItemsGfxColors(0x60, 0x80);
 						_fadedPanel = true;
@@ -450,7 +490,7 @@ void TuckerEngine::mainLoop() {
 					clearItemsGfx();
 					if (_gamePaused) {
 						drawPausedInfoBar();
-					} else if (_gameHintsDisplayText == 1 && _mouseIdleCounter > 1000) {
+					} else if (_displayHintsText && _mouseIdleCounter > 1000) {
 						drawGameHintString();
 					} else {
 						drawInfoString();
@@ -459,19 +499,16 @@ void TuckerEngine::mainLoop() {
 			}
 		}
 		_mainSpritesBaseOffset = 0;
-		if (_locationWidthTable[_locationNum] > 3) {
+		if (_locationWidthTable[_location] > 3) {
 			++_currentGfxBackgroundCounter;
 			if (_currentGfxBackgroundCounter > 39) {
 				_currentGfxBackgroundCounter = 0;
 			}
 			_currentGfxBackground = _quadBackgroundGfxBuf + (_currentGfxBackgroundCounter / 10) * 44800;
-			if (_fadePaletteCounter < 34 && _locationNum == 22) {
-				_spritesTable[0].gfxBackgroundOffset = (_currentGfxBackgroundCounter / 10) * 640;
-				_mainSpritesBaseOffset = _currentGfxBackgroundCounter / 10;
-				if (_locationNum == 22 && _currentGfxBackgroundCounter <= 29) {
-					_spritesTable[0].gfxBackgroundOffset = 640;
-					_mainSpritesBaseOffset = 1;
-				}
+			if (_fadePaletteCounter < 34 && _location == kLocationFishingTrawler) {
+				int offset = (_currentGfxBackgroundCounter > 29 ? 1 : (_currentGfxBackgroundCounter / 10));
+				_spritesTable[0]._gfxBackgroundOffset = offset * 640;
+				_mainSpritesBaseOffset = offset;
 			}
 			_fullRedraw = true;
 		} else {
@@ -489,11 +526,11 @@ void TuckerEngine::mainLoop() {
 		drawData3();
 		execData3PreUpdate();
 		for (int i = 0; i < _spritesCount; ++i) {
-			if (!_spritesTable[i].disabled) {
+			if (!_spritesTable[i]._disabled) {
 				drawSprite(i);
 			}
 		}
-		if (_skipCurrentCharacterDraw != 1) {
+		if (!_skipCurrentCharacterDraw) {
 			if (_backgroundSpriteCurrentAnimation > -1 && _backgroundSpriteCurrentFrame > 0) {
 				drawBackgroundSprites();
 			} else {
@@ -503,7 +540,7 @@ void TuckerEngine::mainLoop() {
 		if (_locationHeight == 140) {
 			redrawPanelOverBackground();
 		}
-		if (_panelState == 3) {
+		if (_panelType == kPanelTypeLoadSaveSavegame) {
 			saveOrLoad();
 		}
 		execData3PostUpdate();
@@ -522,7 +559,7 @@ void TuckerEngine::mainLoop() {
 				--_miscSoundFxDelayCounter[num];
 				if (_miscSoundFxDelayCounter[num] == 0) {
 					const int index = _miscSoundFxNum[num];
-					startSound(_locationSoundsTable[index].offset, index, _locationSoundsTable[index].volume);
+					startSound(_locationSoundsTable[index]._offset, index, _locationSoundsTable[index]._volume);
 				}
 			}
 		}
@@ -552,7 +589,7 @@ void TuckerEngine::mainLoop() {
 		}
 		if (_inputKeys[kInputKeyPause]) {
 			_inputKeys[kInputKeyPause] = false;
-			if (_locationNum != 70) {
+			if (_location != kLocationComputerScreen) {
 				_gamePaused = true;
 			}
 		}
@@ -565,7 +602,7 @@ void TuckerEngine::mainLoop() {
 		}
 		if (_inputKeys[kInputKeyHelp]) {
 			_inputKeys[kInputKeyHelp] = false;
-			if (_displayGameHints && _gameHintsDisplayText == 1) {
+			if (_displayGameHints && _displayHintsText) {
 				_gameHintsStringNum = _gameHintsIndex + 1;
 				_mouseIdleCounter = 1100;
 			}
@@ -576,11 +613,20 @@ void TuckerEngine::mainLoop() {
 				_flagsTable[236] = 74;
 			}
 		}
+
 		if (_flagsTable[236] > 70) {
 			handleCreditsSequence();
 			_quitGame = true;
 		}
+
+		if (shouldPerformAutoSave(_lastSaveTime)) {
+			writeAutosave();
+		}
 	} while (!_quitGame && _flagsTable[100] == 0);
+
+	// auto save on quit
+	writeAutosave();
+
 	if (_flagsTable[100] == 1) {
 		handleCongratulationsSequence();
 	}
@@ -604,6 +650,12 @@ void TuckerEngine::parseEvents() {
 	while (_eventMan->pollEvent(ev)) {
 		switch (ev.type) {
 		case Common::EVENT_KEYDOWN:
+			switch (ev.kbd.ascii) {
+			// do not use KEYCODE_PERIOD here so that it works with most keyboard layouts
+			case '.':
+				_inputKeys[kInputKeySkipSpeech] = true;
+				break;
+			}
 			switch (ev.kbd.keycode) {
 			case Common::KEYCODE_f:
 				if (ev.kbd.hasFlags(Common::KBD_CTRL)) {
@@ -614,7 +666,7 @@ void TuckerEngine::parseEvents() {
 				_inputKeys[kInputKeyPause] = true;
 				break;
 			case Common::KEYCODE_F1:
-				_inputKeys[kInputKeyToggleInventory] = true;
+				_inputKeys[kInputKeyTogglePanelStyle] = true;
 				break;
 			case Common::KEYCODE_F2:
 				_inputKeys[kInputKeyToggleTextSpeech] = true;
@@ -624,6 +676,7 @@ void TuckerEngine::parseEvents() {
 				break;
 			case Common::KEYCODE_ESCAPE:
 				_inputKeys[kInputKeyEscape] = true;
+				_inputKeys[kInputKeySkipSpeech] = true;
 				break;
 			case Common::KEYCODE_d:
 				if (ev.kbd.hasFlags(Common::KBD_CTRL)) {
@@ -649,14 +702,37 @@ void TuckerEngine::parseEvents() {
 		case Common::EVENT_RBUTTONDOWN:
 			updateCursorPos(ev.mouse.x, ev.mouse.y);
 			_mouseButtonsMask |= 2;
+			_inputKeys[kInputKeySkipSpeech] = true;
 			break;
 		case Common::EVENT_RBUTTONUP:
 			updateCursorPos(ev.mouse.x, ev.mouse.y);
+			break;
+		case Common::EVENT_WHEELUP:
+			_mouseButtonsMask |= 4;
+			break;
+		case Common::EVENT_WHEELDOWN:
+			_mouseButtonsMask |= 8;
 			break;
 		default:
 			break;
 		}
 	}
+
+	if (_inputKeys[kInputKeyTogglePanelStyle]) {
+		if (_panelType == kPanelTypeNormal && _panelState == kPanelStateNormal) {
+			_switchPanelCounter = 1;
+			_panelState = kPanelStateShrinking;
+		}
+		_inputKeys[kInputKeyTogglePanelStyle] = false;
+	}
+
+	if (_inputKeys[kInputKeySkipSpeech]) {
+		if (isSpeechSoundPlaying()) {
+			stopSpeechSound();
+		}
+		_inputKeys[kInputKeySkipSpeech] = false;
+	}
+
 	_quitGame = shouldQuit();
 }
 
@@ -667,36 +743,39 @@ void TuckerEngine::updateCursorPos(int x, int y) {
 	_mousePosY = y;
 }
 
-void TuckerEngine::setCursorNum(int num) {
-	_cursorNum = num;
+void TuckerEngine::setCursorStyle(CursorStyle style) {
+	_cursorStyle = style;
 	static const int cursorW = 16;
 	static const int cursorH = 16;
-	CursorMan.replaceCursor(_cursorGfxBuf + _cursorNum * 256, cursorW, cursorH, 1, 1, 0);
+	CursorMan.replaceCursor(_cursorGfxBuf + _cursorStyle * 256, cursorW, cursorH, 1, 1, 0);
 }
 
-void TuckerEngine::setCursorType(int type) {
-	_cursorType = type;
-	CursorMan.showMouse(_cursorType < 2);
+void TuckerEngine::setCursorState(CursorState state) {
+	_cursorState = state;
+	CursorMan.showMouse(_cursorState != kCursorStateDisabledHidden);
+}
+
+void TuckerEngine::showCursor(bool visible) {
+	CursorMan.showMouse(visible);
 }
 
 void TuckerEngine::setupNewLocation() {
-	debug(2, "setupNewLocation() current %d next %d", _locationNum, _nextLocationNum);
-	_locationNum = _nextLocationNum;
+	debug(2, "setupNewLocation() current %d next %d", _location, _nextLocation);
+	_location = _nextLocation;
 	loadObj();
-	_switchPanelFlag = 0;
-	_nextLocationNum = 0;
+	_nextLocation = kLocationNone;
 	_fadePaletteCounter = 0;
 	_mainLoopCounter2 = 0;
 	_mainLoopCounter1 = 0;
 	_characterFacingDirection = 0;
-	_actionVerbLocked = 0;
-	_locationMaskIgnore = 0;
+	_actionVerbLocked = false;
+	_locationMaskIgnore = false;
 	_backgroundSprOffset = 0;
 	if (_backgroundSpriteCurrentAnimation > 0 && _backgroundSpriteCurrentFrame > 0) {
 		_backgroundSpriteCurrentAnimation = -1;
 		_backgroundSpriteCurrentFrame = 0;
 	}
-	if (_panelLockedFlag == 0 || (_backgroundSpriteCurrentAnimation > 0 && _locationNum != 25)) {
+	if (!_panelLockedFlag || (_backgroundSpriteCurrentAnimation > 0 && _location != kLocationVentSystem)) {
 		_locationMaskType = 0;
 	} else {
 		_locationMaskType = 3;
@@ -727,7 +806,7 @@ void TuckerEngine::setupNewLocation() {
 
 void TuckerEngine::copyLocBitmap(const char *filename, int offset, bool isMask) {
 	int type = !isMask ? 1 : 0;
-	if (offset > 0 && _locationNum == 16) {
+	if (offset > 0 && _location == kLocationPark) {
 		type = 0;
 	}
 	loadImage(filename, _loadTempBuf, type);
@@ -742,13 +821,15 @@ void TuckerEngine::copyLocBitmap(const char *filename, int offset, bool isMask) 
 }
 
 void TuckerEngine::updateMouseState() {
-	if (_cursorType < 2) {
+	if (_cursorState != kCursorStateDisabledHidden) {
 		_leftMouseButtonPressed = (_mouseButtonsMask & 1) != 0;
 		if (_leftMouseButtonPressed) {
 			_mouseIdleCounter = 0;
 			_gameHintsStringNum = 0;
 		}
 		_rightMouseButtonPressed = (_mouseButtonsMask & 2) != 0;
+		_mouseWheelUp   = _mouseButtonsMask & 4;
+		_mouseWheelDown = _mouseButtonsMask & 8;
 		_mouseButtonsMask = 0;
 		if (_prevMousePosX == _mousePosX && _prevMousePosY == _mousePosY) {
 			++_mouseIdleCounter;
@@ -757,20 +838,24 @@ void TuckerEngine::updateMouseState() {
 			_gameHintsStringNum = 0;
 		}
 	}
-	if (_cursorType == 1) {
-		if (_panelState == 1) {
-			setCursorNum(1);
+	if (_cursorState == kCursorStateDialog) {
+		if (_panelType == kPanelTypeEmpty) {
+			setCursorStyle(kCursorTalk);
 		}
+#if 0
+		// confine cursor to dialog area
 		if (_mousePosY < 140) {
 			_mousePosY = 140;
+			_system->warpMouse(_mousePosX, _mousePosY);
 		}
+#endif
 	}
 }
 
 void TuckerEngine::updateCharPositionHelper() {
-	setCursorType(2);
+	setCursorState(kCursorStateDisabledHidden );
 	_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
-	_currentActionVerb = 0;
+	_currentActionVerb = kVerbWalk;
 	startSpeechSound(_speechSoundNum, _speechVolume);
 	int pos = getPositionForLine(_speechSoundNum, _characterSpeechDataPtr);
 	_characterSpeechDataPtr += pos;
@@ -778,10 +863,10 @@ void TuckerEngine::updateCharPositionHelper() {
 }
 
 void TuckerEngine::updateCharPosition() {
-	if (_currentActionVerb == 0 || _locationMaskCounter == 0) {
+	if (_currentActionVerb == kVerbWalk || _locationMaskCounter == 0) {
 		return;
 	}
-	if (_currentActionVerb == 1 && _locationNum != 18) {
+	if (_currentActionVerb == kVerbLook && _location != kLocationRoystonsHomeBoxroom) {
 		int pos;
 		_actionPosX = _xPosCurrent;
 		_actionPosY = _yPosCurrent - 64;
@@ -794,7 +879,7 @@ void TuckerEngine::updateCharPosition() {
 			}
 			if (_currentActionObj1Num == 259) {
 				handleSpecialObjectSelectionSequence();
-				_currentActionVerb = 0;
+				_currentActionVerb = kVerbWalk;
 				return;
 			}
 			_speechSoundNum = _currentActionObj1Num;
@@ -829,21 +914,21 @@ void TuckerEngine::updateCharPosition() {
 			updateCharPositionHelper();
 			return;
 		case 1:
-			if (_locationAnimationsTable[_selectedCharacter2Num].getFlag == 1) {
-				_speechSoundNum = _speechSoundBaseNum + _locationAnimationsTable[_selectedCharacter2Num].inventoryNum;
+			if (_locationAnimationsTable[_selectedCharacter2Num]._getFlag == 1) {
+				_speechSoundNum = _speechSoundBaseNum + _locationAnimationsTable[_selectedCharacter2Num]._inventoryNum;
 				_characterSpeechDataPtr = _ptTextBuf;
 				updateCharPositionHelper();
 				return;
 			} else if (_currentActionObj1Num == 91) {
 				handleSpecialObjectSelectionSequence();
-				_currentActionVerb = 0;
+				_currentActionVerb = kVerbWalk;
 				return;
 			}
 			break;
 		case 2:
 			_characterSpeechDataPtr = _ptTextBuf;
-			_speechSoundNum = 2175 + _charPosTable[_selectedCharacterNum].description;
-			if (_charPosTable[_selectedCharacterNum].description != 0) {
+			_speechSoundNum = 2175 + _charPosTable[_selectedCharacterNum]._description;
+			if (_charPosTable[_selectedCharacterNum]._description != 0) {
 				updateCharPositionHelper();
 				return;
 			}
@@ -852,61 +937,63 @@ void TuckerEngine::updateCharPosition() {
 	}
 	int actionKey = _currentActionObj2Num * 1000000 + _currentInfoString2SourceType * 100000 + _currentActionVerb * 10000 + _currentInfoString1SourceType * 1000 + _currentActionObj1Num;
 	debug(3, "updateCharPosition() actionKey %d",  actionKey);
-	int skip = 0;
-	Action *action = 0;
-	for (int i = 0; i < _actionsCount && skip == 0; ++i) {
+	bool skip = false;
+	Action *action = nullptr;
+	for (int i = 0; i < _actionsCount && !skip; ++i) {
 		action = &_actionsTable[i];
-		if (action->key == actionKey) {
-			skip = 1;
-			if (action->testFlag1Num != 0) {
-				if (action->testFlag1Num < 500) {
-					if (_flagsTable[action->testFlag1Num] != action->testFlag1Value) {
-						skip = 0;
-					}
-				} else if (_inventoryItemsState[action->testFlag1Num - 500] != action->testFlag1Value) {
-					skip = 0;
+		if (action->_key == actionKey) {
+			skip = true;
+			if (action->_testFlag1Num != 0) {
+				if (action->_testFlag1Num < 500) {
+					if (action->_testFlag1Num >= 300)
+						error("updateCharPosition() - Unexpected value for _testFlag1Num : %d", action->_testFlag1Num);
+					if (_flagsTable[action->_testFlag1Num] != action->_testFlag1Value)
+						skip = false;
+				} else if (_inventoryItemsState[action->_testFlag1Num - 500] != action->_testFlag1Value) {
+					skip = false;
 				}
-				debug(3, "updateCharPosition() flag1 %d value %d", action->testFlag1Num, action->testFlag1Value);
+				debug(3, "updateCharPosition() flag1 %d value %d", action->_testFlag1Num, action->_testFlag1Value);
 			}
-			if (action->testFlag2Num != 0) {
-				if (action->testFlag2Num < 500) {
-					if (_flagsTable[action->testFlag2Num] != action->testFlag2Value) {
-						skip = 0;
-					}
-				} else if (_inventoryItemsState[action->testFlag2Num - 500] != action->testFlag2Value) {
-					skip = 0;
+			if (action->_testFlag2Num != 0) {
+				if (action->_testFlag2Num < 500) {
+					if (action->_testFlag2Num >= 300)
+						error("updateCharPosition() - Unexpected value for _testFlag1Num : %d", action->_testFlag1Num);
+					if (_flagsTable[action->_testFlag2Num] != action->_testFlag2Value)
+						skip = false;
+				} else if (_inventoryItemsState[action->_testFlag2Num - 500] != action->_testFlag2Value) {
+					skip = false;
 				}
-				debug(3, "updateCharPosition() flag2 %d value %d", action->testFlag2Num, action->testFlag2Value);
+				debug(3, "updateCharPosition() flag2 %d value %d", action->_testFlag2Num, action->_testFlag2Value);
 			}
 		}
 	}
-	if (skip == 0) {
+	if (!skip) {
 		playSpeechForAction(_currentActionVerb);
-		_currentActionVerb = 0;
+		_currentActionVerb = kVerbWalk;
 		return;
 	}
 	assert(action);
-	if (action->speech != 6) {
-		if (action->speech < 100) {
-			_spriteAnimationFrameIndex = _spriteAnimationsTable[action->speech].firstFrameIndex;
-			_currentSpriteAnimationLength = _spriteAnimationsTable[action->speech].numParts;
-			_mirroredDrawing = action->flipX;
+	if (action->_speech != 6) {
+		if (action->_speech < 100) {
+			_spriteAnimationFrameIndex = _spriteAnimationsTable[action->_speech]._firstFrameIndex;
+			_currentSpriteAnimationLength = _spriteAnimationsTable[action->_speech]._numParts;
+			_mirroredDrawing = (action->_flipX != 0);
 			_characterFacingDirection = 5;
 			_mainLoopCounter2 = 0;
 		} else {
-			_backgroundSpriteCurrentAnimation = action->speech - 100;
+			_backgroundSpriteCurrentAnimation = action->_speech - 100;
 			_backgroundSpriteCurrentFrame = 0;
-			_mirroredDrawing = 0;
+			_mirroredDrawing = false;
 		}
 	}
-	_pendingActionDelay = action->delay;
-	_charPositionFlagNum = action->setFlagNum;
-	_charPositionFlagValue = action->setFlagValue;
-	_pendingActionIndex = action->index;
-	_characterSoundFxDelayCounter = action->fxDelay;
-	_characterSoundFxNum = action->fxNum;
+	_pendingActionDelay = action->_delay;
+	_charPositionFlagNum = action->_setFlagNum;
+	_charPositionFlagValue = action->_setFlagValue;
+	_pendingActionIndex = action->_index;
+	_characterSoundFxDelayCounter = action->_fxDelay;
+	_characterSoundFxNum = action->_fxNum;
 	_previousActionVerb = _currentActionVerb;
-	_currentActionVerb = 0;
+	_currentActionVerb = kVerbWalk;
 }
 
 void TuckerEngine::updateFlagsForCharPosition() {
@@ -916,18 +1003,20 @@ void TuckerEngine::updateFlagsForCharPosition() {
 			return;
 		}
 		switch (_previousActionVerb) {
-		case 3:
-		case 4:
-		case 8:
-		case 2:
+		case kVerbTalk:
+		case kVerbOpen:
+		case kVerbClose:
+		case kVerbUse:
 			debug(3, "updateFlagsForCharPosition() set flag %d value %d", _charPositionFlagNum, _charPositionFlagValue);
 			_flagsTable[_charPositionFlagNum] = _charPositionFlagValue;
 			break;
-		case 6:
+		case kVerbTake:
 			if (_charPositionFlagValue == 1) {
 				addObjectToInventory(_charPositionFlagNum);
 				_forceRedrawPanelItems = true;
 			}
+			break;
+		default:
 			break;
 		}
 		if (_pendingActionIndex > 0) {
@@ -979,30 +1068,31 @@ void TuckerEngine::setBlackPalette() {
 }
 
 void TuckerEngine::updateCursor() {
-	setCursorNum(0);
-	if (_backgroundSpriteCurrentAnimation == -1 && _panelLockedFlag == 0 && _selectedObject.locationObject_locationNum > 0) {
-		_selectedObject.locationObject_locationNum = 0;
+	setCursorStyle(kCursorNormal);
+	if (_backgroundSpriteCurrentAnimation == -1 && !_panelLockedFlag && _selectedObject._locationObjectLocation != kLocationNone) {
+		_selectedObject._locationObjectLocation = kLocationNone;
 	}
-	if (_locationMaskType > 0 || _selectedObject.locationObject_locationNum > 0 || _pendingActionDelay > 0) {
+	if (_locationMaskType > 0 || _selectedObject._locationObjectLocation != kLocationNone || _pendingActionDelay > 0) {
 		return;
 	}
 	if (_rightMouseButtonPressed) {
 		if (!_updateCursorFlag) {
-			++_actionVerb;
-			if (_actionVerb > 8) {
-				_actionVerb = 0;
+			if (_actionVerb == kVerbLast) {
+				_actionVerb = kVerbFirst;
+			} else {
+				_actionVerb = (Verb)(_actionVerb + 1);
 			}
 			_updateCursorFlag = true;
-			_actionVerbLocked = 1;
+			_actionVerbLocked = true;
 			_actionRequiresTwoObjects = false;
 		}
 	} else {
 		_updateCursorFlag = false;
 	}
-	if (_actionVerbLocked == 0) {
+	if (!_actionVerbLocked) {
 		setActionVerbUnderCursor();
-		if (_actionVerb == 0 && _locationNum == 63) {
-			_actionVerb = 8;
+		if (_actionVerb == kVerbWalk && _location == kLocationTV) {
+			_actionVerb = kVerbUse;
 		}
 	}
 	_selectedObjectNum = 0;
@@ -1016,19 +1106,19 @@ void TuckerEngine::updateCursor() {
 	} else {
 		num = getObjectUnderCursor();
 		if (num > -1) {
-			_selectedObjectNum = _locationObjectsTable[num].textNum;
+			_selectedObjectNum = _locationObjectsTable[num]._textNum;
 		}
 	}
 	handleMouseClickOnInventoryObject();
-	if (_actionVerb == 2 && _selectedObjectType != 2) {
+	if (_actionVerb == kVerbTalk && _selectedObjectType != 2) {
 		_selectedObjectNum = 0;
 		_selectedObjectType = 0;
-	} else if (_actionVerb == 5 && _selectedObjectType != 3 && !_actionRequiresTwoObjects) {
+	} else if (_actionVerb == kVerbGive && _selectedObjectType != 3 && !_actionRequiresTwoObjects) {
 		_selectedObjectNum = 0;
 		_selectedObjectType = 0;
 	}
-	if (_actionVerbLocked == 0 && _selectedObjectType == 2 && _selectedObjectNum != 21) {
-		_actionVerb = 2;
+	if (!_actionVerbLocked && _selectedObjectType == 2 && _selectedObjectNum != 21) {
+		_actionVerb = kVerbTalk;
 	}
 	if (!_actionRequiresTwoObjects) {
 		_actionObj1Num = _selectedObjectNum;
@@ -1047,15 +1137,21 @@ void TuckerEngine::updateCursor() {
 	if (!_leftMouseButtonPressed) {
 		_mouseClick = 0;
 	}
+	if (_mousePosY >= 150) {
+		if (_mouseWheelUp)
+			moveDownInventoryObjects();
+		else if (_mouseWheelDown)
+			moveUpInventoryObjects();
+	}
 	if (_leftMouseButtonPressed && _mouseClick == 0) {
-		_fadedPanel = 0;
+		_fadedPanel = false;
 		_mouseClick = 1;
 		clearItemsGfx();
 		drawInfoString();
 		if (_mousePosY >= 150 && _mousePosX < 212) {
 			if (_mousePosX < 200) {
 				setActionVerbUnderCursor();
-				_actionVerbLocked = 1;
+				_actionVerbLocked = true;
 				_actionRequiresTwoObjects = false;
 			} else if (_mousePosY < 175) {
 				moveDownInventoryObjects();
@@ -1065,16 +1161,16 @@ void TuckerEngine::updateCursor() {
 		} else {
 			if (_selectedObjectType == 3) {
 				setActionForInventoryObject();
-			} else if (_actionVerb != 0) {
-				_actionVerbLocked = 0;
+			} else if (_actionVerb != kVerbWalk) {
+				_actionVerbLocked = false;
 				setActionState();
 			} else if (_actionObj1Num == 261 || (_actionObj1Num == 205 && _flagsTable[143] == 0)) {
-				_actionVerbLocked = 0;
+				_actionVerbLocked = false;
 				setActionState();
 			} else {
-				_actionVerbLocked = 0;
+				_actionVerbLocked = false;
 				_actionRequiresTwoObjects = false;
-				_currentActionVerb = 0;
+				_currentActionVerb = kVerbWalk;
 				setSelectedObjectKey();
 			}
 		}
@@ -1092,26 +1188,26 @@ void TuckerEngine::stopSounds() {
 
 void TuckerEngine::playSounds() {
 	for (int i = 0; i < _locationSoundsCount; ++i) {
-		if (_locationSoundsTable[i].type == 1 || _locationSoundsTable[i].type == 2 || _locationSoundsTable[i].type == 5 ||
-			(_locationSoundsTable[i].type == 7 && _flagsTable[_locationSoundsTable[i].flagNum] == _locationSoundsTable[i].flagValueStartFx)) {
-			startSound(_locationSoundsTable[i].offset, i, _locationSoundsTable[i].volume);
+		if (_locationSoundsTable[i]._type == 1 || _locationSoundsTable[i]._type == 2 || _locationSoundsTable[i]._type == 5 ||
+			(_locationSoundsTable[i]._type == 7 && _flagsTable[_locationSoundsTable[i]._flagNum] == _locationSoundsTable[i]._flagValueStartFx)) {
+			startSound(_locationSoundsTable[i]._offset, i, _locationSoundsTable[i]._volume);
 		}
 	}
 	for (int i = 0; i < _locationMusicsCount; ++i) {
-		if (_locationMusicsTable[i].flag > 0) {
-			startMusic(_locationMusicsTable[i].offset, i, _locationMusicsTable[i].volume);
+		if (_locationMusicsTable[i]._flag > 0) {
+			startMusic(_locationMusicsTable[i]._offset, i, _locationMusicsTable[i]._volume);
 		}
 	}
 }
 
 void TuckerEngine::updateCharactersPath() {
-	if (_panelLockedFlag == 0) {
+	if (!_panelLockedFlag) {
 		return;
 	}
-	if (_backgroundSpriteCurrentAnimation != -1 && _locationNum != 25) {
-		if (_xPosCurrent == _selectedObject.xPos && _yPosCurrent == _selectedObject.yPos) {
+	if (_backgroundSpriteCurrentAnimation != -1 && _location != kLocationVentSystem) {
+		if (_xPosCurrent == _selectedObject._xPos && _yPosCurrent == _selectedObject._yPos) {
 			_locationMaskCounter = 1;
-			_panelLockedFlag = 0;
+			_panelLockedFlag = false;
 		}
 		return;
 	}
@@ -1120,68 +1216,68 @@ void TuckerEngine::updateCharactersPath() {
 	if (_characterFacingDirection == 5) {
 		_characterPrevFacingDirection = 5;
 	}
-	int flag = 0;
-	if (_yPosCurrent > _selectedObject.yPos) {
-		if (testLocationMask(_xPosCurrent, _yPosCurrent - 1) == 1) {
+	bool flag = false;
+	if (_yPosCurrent > _selectedObject._yPos) {
+		if (testLocationMask(_xPosCurrent, _yPosCurrent - 1)) {
 			--_yPosCurrent;
 			_characterFacingDirection = 4;
-			flag = 1;
+			flag = true;
 		}
-	} else if (_yPosCurrent < _selectedObject.yPos) {
-		if (testLocationMask(_xPosCurrent, _yPosCurrent + 1) == 1) {
+	} else if (_yPosCurrent < _selectedObject._yPos) {
+		if (testLocationMask(_xPosCurrent, _yPosCurrent + 1)) {
 			++_yPosCurrent;
 			_characterFacingDirection = 2;
-			flag = 1;
+			flag = true;
 		}
 	}
-	if (_xPosCurrent > _selectedObject.xPos) {
-		if (testLocationMask(_xPosCurrent - 1, _yPosCurrent) == 1) {
+	if (_xPosCurrent > _selectedObject._xPos) {
+		if (testLocationMask(_xPosCurrent - 1, _yPosCurrent)) {
 			--_xPosCurrent;
 			_characterFacingDirection = 3;
-			_characterBackFrontFacing = 0;
-			flag = 1;
+			_characterBackFrontFacing = false;
+			flag = true;
 		}
-	} else if (_xPosCurrent < _selectedObject.xPos) {
-		if (testLocationMask(_xPosCurrent + 1, _yPosCurrent) == 1) {
+	} else if (_xPosCurrent < _selectedObject._xPos) {
+		if (testLocationMask(_xPosCurrent + 1, _yPosCurrent)) {
 			++_xPosCurrent;
 			_characterFacingDirection = 1;
-			_characterBackFrontFacing = 1;
-			flag = 1;
+			_characterBackFrontFacing = true;
+			flag = true;
 		}
 	}
-	if (flag == 0) {
-		if (_selectedObjectLocationMask == 1) {
-			_selectedObjectLocationMask = 0;
-			_selectedObject.xPos = _selectedObject.xDefaultPos;
-			_selectedObject.yPos = _selectedObject.yDefaultPos;
+	if (!flag) {
+		if (_selectedObjectLocationMask) {
+			_selectedObjectLocationMask = false;
+			_selectedObject._xPos = _selectedObject._xDefaultPos;
+			_selectedObject._yPos = _selectedObject._yDefaultPos;
 		} else {
-			_panelLockedFlag = 0;
+			_panelLockedFlag = false;
 			_characterFacingDirection = 0;
-			if (_xPosCurrent == _selectedObject.xPos && _yPosCurrent == _selectedObject.yPos) {
+			if (_xPosCurrent == _selectedObject._xPos && _yPosCurrent == _selectedObject._yPos) {
 				_locationMaskCounter = 1;
 			}
 		}
 	}
-	if (_locationNum == 25) {
-		if ((_backgroundSpriteCurrentAnimation != 3 || _characterBackFrontFacing != 0) && (_backgroundSpriteCurrentAnimation != 6 || _characterBackFrontFacing != 1)) {
+	if (_location == kLocationVentSystem) {
+		if ((_backgroundSpriteCurrentAnimation != 3 || _characterBackFrontFacing) && (_backgroundSpriteCurrentAnimation != 6 || !_characterBackFrontFacing)) {
 			_xPosCurrent = xPos;
 			_yPosCurrent = yPos;
 			return;
 		}
 	}
-	if (_xPosCurrent != _selectedObject.xPos || _yPosCurrent != _selectedObject.yPos) {
+	if (_xPosCurrent != _selectedObject._xPos || _yPosCurrent != _selectedObject._yPos) {
 		return;
 	}
-	if (_selectedObjectLocationMask != 0) {
+	if (_selectedObjectLocationMask) {
 		return;
 	}
 	_locationMaskCounter = 1;
-	_panelLockedFlag = 0;
-	_locationMaskIgnore = 0;
+	_panelLockedFlag = false;
+	_locationMaskIgnore = false;
 	if (_characterPrevFacingDirection <= 0 || _characterPrevFacingDirection >= 5) {
 		return;
 	}
-	if (_selectedObject.locationObject_locationNum == 0) {
+	if (_selectedObject._locationObjectLocation == kLocationNone) {
 		_characterFacingDirection = 5;
 		while (_spriteAnimationFramesTable[_spriteAnimationFrameIndex] != 999) {
 			++_spriteAnimationFrameIndex;
@@ -1200,12 +1296,12 @@ void TuckerEngine::setSoundVolumeDistance() {
 void TuckerEngine::updateData3DrawFlag() {
 	for (int i = 0; i < _locationAnimationsCount; ++i) {
 		LocationAnimation *a = &_locationAnimationsTable[i];
-		if (a->flagNum > 0 && a->flagValue != _flagsTable[a->flagNum]) {
-			a->drawFlag = 0;
-		} else if (a->getFlag == 0) {
-			a->drawFlag = 1;
+		if (a->_flagNum > 0 && a->_flagValue != _flagsTable[a->_flagNum]) {
+			a->_drawFlag = false;
+		} else if (a->_getFlag == 0) {
+			a->_drawFlag = true;
 		} else {
-			a->drawFlag = (_inventoryItemsState[a->inventoryNum] == 0) ? 1 : 0;
+			a->_drawFlag = (_inventoryItemsState[a->_inventoryNum] == 0);
 		}
 	}
 }
@@ -1214,26 +1310,26 @@ void TuckerEngine::updateData3() {
 	updateData3DrawFlag();
 	for (int i = 0; i < _locationAnimationsCount; ++i) {
 		LocationAnimation *a = &_locationAnimationsTable[i];
-		if (a->animLastCounter != 0 && a->drawFlag != 0) {
-			if (a->animLastCounter == a->animCurrentCounter) {
-				a->animCurrentCounter = a->animInitCounter;
+		if (a->_animLastCounter != 0 && a->_drawFlag) {
+			if (a->_animLastCounter == a->_animCurrentCounter) {
+				a->_animCurrentCounter = a->_animInitCounter;
 			} else {
-				++a->animCurrentCounter;
+				++a->_animCurrentCounter;
 			}
-			const int index = a->animCurrentCounter;
+			const int index = a->_animCurrentCounter;
 			if (_staticData3Table[index] == 998) {
 				_flagsTable[_staticData3Table[index + 1]] = _staticData3Table[index + 2];
-				a->animCurrentCounter = a->animInitCounter;
-				a->drawFlag = 0;
+				a->_animCurrentCounter = a->_animInitCounter;
+				a->_drawFlag = false;
 			}
-			if (_locationNum == 24 && i == 0) {
+			if (_location == kLocationStoreRoom && i == 0) {
 				// workaround bug #2872385: update fish animation sequence for correct
 				// position in aquarium.
-				if (a->animInitCounter == 505 && a->animCurrentCounter == 513) {
-					a->animCurrentCounter = 525;
+				if (a->_animInitCounter == 505 && a->_animCurrentCounter == 513) {
+					a->_animCurrentCounter = 525;
 				}
 			}
-			a->graphicNum = _staticData3Table[a->animCurrentCounter];
+			a->_graphicNum = _staticData3Table[a->_animCurrentCounter];
 		}
 	}
 	updateData3DrawFlag();
@@ -1242,16 +1338,16 @@ void TuckerEngine::updateData3() {
 void TuckerEngine::updateSfxData3_1() {
 	for (int i = 0; i < _locationSoundsCount; ++i) {
 		LocationSound *s = &_locationSoundsTable[i];
-		if ((s->type == 6 || s->type == 7) && s->updateType == 1) {
+		if ((s->_type == 6 || s->_type == 7) && s->_updateType == 1) {
 			for (int j = 0; j < _spritesCount; ++j) {
-				if (_spritesTable[j].animationFrame == s->startFxSpriteNum && _spritesTable[j].state == s->startFxSpriteState) {
-					if (s->type == 7) {
-						_flagsTable[s->flagNum] = s->flagValueStartFx;
+				if (_spritesTable[j]._animationFrame == s->_startFxSpriteNum && _spritesTable[j]._state == s->_startFxSpriteState) {
+					if (s->_type == 7) {
+						_flagsTable[s->_flagNum] = s->_flagValueStartFx;
 					}
-					startSound(s->offset, i, s->volume);
-				} else if (s->type == 7) {
-					if (_spritesTable[j].animationFrame == s->stopFxSpriteNum && _spritesTable[j].state == s->stopFxSpriteState) {
-						_flagsTable[s->flagNum] = s->flagValueStopFx;
+					startSound(s->_offset, i, s->_volume);
+				} else if (s->_type == 7) {
+					if (_spritesTable[j]._animationFrame == s->_stopFxSpriteNum && _spritesTable[j]._state == s->_stopFxSpriteState) {
+						_flagsTable[s->_flagNum] = s->_flagValueStopFx;
 						stopSound(i);
 					}
 				}
@@ -1263,15 +1359,15 @@ void TuckerEngine::updateSfxData3_1() {
 void TuckerEngine::updateSfxData3_2() {
 	for (int i = 0; i < _locationSoundsCount; ++i) {
 		LocationSound *s = &_locationSoundsTable[i];
-		if ((s->type == 6 || s->type == 7) && s->updateType == 0) {
-			if (s->startFxSpriteNum == _backgroundSpriteCurrentFrame && s->startFxSpriteState == _backgroundSpriteCurrentAnimation) {
-				if (s->type == 7) {
-					_flagsTable[s->flagNum] = s->flagValueStartFx;
+		if ((s->_type == 6 || s->_type == 7) && s->_updateType == 0) {
+			if (s->_startFxSpriteNum == _backgroundSpriteCurrentFrame && s->_startFxSpriteState == _backgroundSpriteCurrentAnimation) {
+				if (s->_type == 7) {
+					_flagsTable[s->_flagNum] = s->_flagValueStartFx;
 				}
-				startSound(s->offset, i, s->volume);
-			} else if (s->type == 7) {
-				if (s->stopFxSpriteNum == _backgroundSpriteCurrentFrame && s->stopFxSpriteState == _backgroundSpriteCurrentAnimation) {
-					_flagsTable[s->flagNum] = s->flagValueStopFx;
+				startSound(s->_offset, i, s->_volume);
+			} else if (s->_type == 7) {
+				if (s->_stopFxSpriteNum == _backgroundSpriteCurrentFrame && s->_stopFxSpriteState == _backgroundSpriteCurrentAnimation) {
+					_flagsTable[s->_flagNum] = s->_flagValueStopFx;
 					stopSound(i);
 				}
 			}
@@ -1280,20 +1376,37 @@ void TuckerEngine::updateSfxData3_2() {
 }
 
 void TuckerEngine::saveOrLoad() {
+	bool hasSavegame = existsSavegame();
+
 	if (!_leftMouseButtonPressed) {
 		_mouseClick = 0;
 	}
 	if (_currentSaveLoadGameState > 0) {
-		drawSpeechText(_scrollOffset + 120, 170, _infoBarBuf, _saveOrLoadGamePanel + 19, 102);
-		int len = getStringWidth(_saveOrLoadGamePanel + 19, _infoBarBuf);
-		drawStringInteger(_currentSaveLoadGameState, len / 2 + 128, 160, 2);
+		if (_saveOrLoadGamePanel == 0 && !hasSavegame) {
+			drawSpeechText(_scrollOffset + 120, 170, _infoBarBuf, _saveOrLoadGamePanel + 21, 102);
+		} else {
+			drawSpeechText(_scrollOffset + 120, 170, _infoBarBuf, _saveOrLoadGamePanel + 19, 102);
+			int len = getStringWidth(_saveOrLoadGamePanel + 19, _infoBarBuf);
+			drawStringInteger(_currentSaveLoadGameState, len / 2 + 128, 160, 2);
+		}
 	} else {
 		drawSpeechText(_scrollOffset + 120, 170, _infoBarBuf, 21, 102);
+	}
+	if (_mousePosY > 140) {
+		if (_mouseWheelUp && _currentSaveLoadGameState < kLastSaveSlot) {
+			++_currentSaveLoadGameState;
+			_forceRedrawPanelItems = true;
+			return;
+		} else if (_mouseWheelDown && _currentSaveLoadGameState > 1) {
+			--_currentSaveLoadGameState;
+			_forceRedrawPanelItems = true;
+			return;
+		}
 	}
 	if (_leftMouseButtonPressed && _mouseClick == 0) {
 		_mouseClick = 1;
 		if (_mousePosX > 228 && _mousePosX < 240 && _mousePosY > 154 && _mousePosY < 170) {
-			if (_currentSaveLoadGameState < 99) {
+			if (_currentSaveLoadGameState < kLastSaveSlot) {
 				++_currentSaveLoadGameState;
 				_forceRedrawPanelItems = true;
 			}
@@ -1308,18 +1421,18 @@ void TuckerEngine::saveOrLoad() {
 		}
 		if (_mousePosX > 244 && _mousePosX < 310 && _mousePosY > 170 && _mousePosY < 188) {
 			_forceRedrawPanelItems = true;
-			_panelState = 2;
+			_panelType = kPanelTypeLoadSavePlayQuit;
 			return;
 		}
 		if (_mousePosX > 260 && _mousePosX < 290 && _mousePosY > 152 && _mousePosY < 168) {
 			if (_saveOrLoadGamePanel == 1) {
 				saveGameState(_currentSaveLoadGameState, "");
-			} else if (_currentSaveLoadGameState > 0) {
+			} else if (hasSavegame && _currentSaveLoadGameState > 0) {
 				loadGameState(_currentSaveLoadGameState);
 			}
 			_forceRedrawPanelItems = true;
-			_panelState = 0;
-			setCursorType(0);
+			_panelType = kPanelTypeNormal;
+			setCursorState(kCursorStateNormal);
 			return;
 		}
 	}
@@ -1340,51 +1453,40 @@ void TuckerEngine::handleMouseOnPanel() {
 		if (_mousePosX < 96) {
 			_saveOrLoadGamePanel = 0;
 			_forceRedrawPanelItems = true;
-			_panelState = 3;
+			_panelType = kPanelTypeLoadSaveSavegame;
 		} else if (_mousePosX < 158) {
 			_saveOrLoadGamePanel = 1;
 			_forceRedrawPanelItems = true;
-			_panelState = 3;
+			_panelType = kPanelTypeLoadSaveSavegame;
 		} else if (_mousePosX < 218) {
 			_forceRedrawPanelItems = true;
-			_panelState = 0;
-			setCursorType(0);
+			_panelType = kPanelTypeNormal;
+			setCursorState(kCursorStateNormal);
 		} else {
 			_quitGame = true;
 		}
 	}
 }
 
-void TuckerEngine::switchPanelType() {
-	if (_inputKeys[kInputKeyToggleInventory]) {
-		_inputKeys[kInputKeyToggleInventory] = false;
-		if (_panelState == 0 && _switchPanelFlag == 0) {
-			_switchPanelFlag = 1;
-			_switchPanelCounter = 1;
-			return;
-		}
-	}
-	if (_switchPanelFlag == 0) {
-		return;
-	}
-	if (_switchPanelFlag == 1) {
-		if (_switchPanelCounter == 25) {
-			if (_panelNum == 0) {
-				_panelNum = 1;
-			} else {
-				_panelNum = 0;
-			}
-			_switchPanelFlag = 2;
+void TuckerEngine::togglePanelStyle() {
+	switch (_panelState) {
+	case kPanelStateShrinking:
+		if (++_switchPanelCounter == 25) {
+			_panelStyle = (_panelStyle == kPanelStyleVerbs) ? kPanelStyleIcons : kPanelStyleVerbs;
 			loadPanel();
 			_forceRedrawPanelItems = true;
-		} else {
-			++_switchPanelCounter;
+			_panelState = kPanelStateExpanding;
 		}
-	} else {
-		--_switchPanelCounter;
-		if (_switchPanelCounter == 0) {
-			_switchPanelFlag = 0;
+		break;
+
+	case kPanelStateExpanding:
+		if (--_switchPanelCounter == 0) {
+			_panelState = kPanelStateNormal;
 		}
+		break;
+
+	default:
+		break;
 	}
 }
 
@@ -1422,7 +1524,7 @@ void TuckerEngine::redrawPanelOverBackground() {
 
 void TuckerEngine::drawConversationTexts() {
 	int y = 141;
-	int flag = 0;
+	bool flag = false;
 	for (int i = 0; i <  _conversationOptionsCount; ++i) {
 		int color = 108;
 		if ((_mousePosY > y && _mousePosY < y + 11) || _nextTableToLoadIndex == i) {
@@ -1431,22 +1533,22 @@ void TuckerEngine::drawConversationTexts() {
 		drawSpeechText(0, y, _characterSpeechDataPtr, _instructionsActionsTable[i], color);
 		if (_mousePosY > y && _mousePosY < _conversationOptionLinesCount * 10 + y + 1) {
 			_nextTableToLoadIndex = i;
-			flag = 1;
+			flag = true;
 		}
 		y += _conversationOptionLinesCount * 10;
 	}
-	if (flag == 0) {
+	if (!flag) {
 		_nextTableToLoadIndex = -1;
 	}
 }
 
 void TuckerEngine::updateScreenScrolling() {
 	int scrollPrevOffset = _scrollOffset;
-	if (_locationWidthTable[_locationNum] != 2) {
+	if (_locationWidthTable[_location] != 2) {
 		_scrollOffset = 0;
 	} else if (_validInstructionId) {
 		_scrollOffset = _xPosCurrent - 200;
-	} else if (_locationNum == 16 && _backgroundSpriteCurrentAnimation == 6 && _scrollOffset + 200 < _xPosCurrent) {
+	} else if (_location == kLocationPark && _backgroundSpriteCurrentAnimation == 6 && _scrollOffset + 200 < _xPosCurrent) {
 		++_scrollOffset;
 		if (_scrollOffset > 320) {
 			_scrollOffset = 320;
@@ -1471,31 +1573,31 @@ void TuckerEngine::updateGameHints() {
 	if (_gameHintsIndex == 0 && _flagsTable[3] > 0) {
 		_gameHintsIndex = 1;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	} else if (_gameHintsIndex == 1 && _flagsTable[12] > 0) {
 		_gameHintsIndex = 2;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	} else if (_gameHintsIndex == 2 && _flagsTable[20] > 0) {
 		_gameHintsIndex = 3;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	} else if (_gameHintsIndex == 3 && _flagsTable[9] > 0) {
 		_gameHintsIndex = 4;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	} else if (_gameHintsIndex == 4 && _flagsTable[23] > 0) {
 		_gameHintsIndex = 5;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	} else if (_flagsTable[19] > 0) {
 		_gameHintsIndex = 6;
 		_gameHintsCounter = 0;
-		_gameHintsDisplayText = 0;
+		_displayHintsText = false;
 	}
 	++_gameHintsCounter;
 	if (_gameHintsCounter > 1500) {
-		_gameHintsDisplayText = 1;
+		_displayHintsText = true;
 	}
 }
 
@@ -1503,7 +1605,7 @@ void TuckerEngine::startCharacterSounds() {
 	if (_characterSoundFxDelayCounter != 0) {
 		--_characterSoundFxDelayCounter;
 		if (_characterSoundFxDelayCounter <= 0) {
-			startSound(_locationSoundsTable[_characterSoundFxNum].offset, _characterSoundFxNum, _locationSoundsTable[_characterSoundFxNum].volume);
+			startSound(_locationSoundsTable[_characterSoundFxNum]._offset, _characterSoundFxNum, _locationSoundsTable[_characterSoundFxNum]._volume);
 		}
 	}
 }
@@ -1513,16 +1615,16 @@ void TuckerEngine::updateSoundsTypes3_4() {
 		return;
 	}
 	for (int i = 0; i < _locationSoundsCount; ++i) {
-		switch (_locationSoundsTable[i].type) {
+		switch (_locationSoundsTable[i]._type) {
 		case 3:
 			if (getRandomNumber() >= 32300) {
-				startSound(_locationSoundsTable[i].offset, 0, _locationSoundsTable[i].volume);
+				startSound(_locationSoundsTable[i]._offset, 0, _locationSoundsTable[i]._volume);
 				return;
 			}
 			break;
 		case 4:
 			if (getRandomNumber() >= 32763) {
-				startSound(_locationSoundsTable[i].offset, 0, _locationSoundsTable[i].volume);
+				startSound(_locationSoundsTable[i]._offset, 0, _locationSoundsTable[i]._volume);
 				return;
 			}
 			break;
@@ -1532,17 +1634,17 @@ void TuckerEngine::updateSoundsTypes3_4() {
 
 void TuckerEngine::drawData3() {
 	for (int i = 0; i < _locationAnimationsCount; ++i) {
-		if (_locationAnimationsTable[i].drawFlag != 0) {
-			int num = _locationAnimationsTable[i].graphicNum;
+		if (_locationAnimationsTable[i]._drawFlag) {
+			int num = _locationAnimationsTable[i]._graphicNum;
 			const Data *d = &_dataTable[num];
-			Graphics::decodeRLE(_locationBackgroundGfxBuf + d->yDest * 640 + d->xDest, _data3GfxBuf + d->sourceOffset, d->xSize, d->ySize);
-			addDirtyRect(d->xDest, d->yDest, d->xSize, d->ySize);
+			Graphics::decodeRLE(_locationBackgroundGfxBuf + d->_yDest * 640 + d->_xDest, _data3GfxBuf + d->_sourceOffset, d->_xSize, d->_ySize);
+			addDirtyRect(d->_xDest, d->_yDest, d->_xSize, d->_ySize);
 		}
 	}
 }
 
 void TuckerEngine::execData3PreUpdate() {
-	switch (_locationNum) {
+	switch (_location) {
 	case 1:
 		execData3PreUpdate_locationNum1();
 		break;
@@ -1675,11 +1777,13 @@ void TuckerEngine::execData3PreUpdate() {
 	case 70:
 		execData3PreUpdate_locationNum70();
 		break;
+	default:
+		break;
 	}
 }
 
 void TuckerEngine::execData3PostUpdate() {
-	switch (_locationNum) {
+	switch (_location) {
 	case 1:
 		execData3PostUpdate_locationNum1();
 		break;
@@ -1716,6 +1820,8 @@ void TuckerEngine::execData3PostUpdate() {
 	case 66:
 		execData3PostUpdate_locationNum66();
 		break;
+	default:
+		break;
 	}
 }
 
@@ -1726,52 +1832,72 @@ void TuckerEngine::drawBackgroundSprites() {
 		int srcH = READ_LE_UINT16(_backgroundSpriteDataPtr + frameOffset + 2);
 		int srcX = READ_LE_UINT16(_backgroundSpriteDataPtr + frameOffset + 8);
 		int srcY = READ_LE_UINT16(_backgroundSpriteDataPtr + frameOffset + 10);
-		if (_locationNum == 22 && _backgroundSpriteCurrentAnimation > 1) {
+		if (_location == kLocationFishingTrawler && _backgroundSpriteCurrentAnimation > 1) {
 			srcY += _mainSpritesBaseOffset;
 		}
-		if (_locationNum == 29 && _backgroundSpriteCurrentAnimation == 3) {
+		if (_location == kLocationSubmarineHangar && _backgroundSpriteCurrentAnimation == 3) {
 			srcX += 228;
-		} else if (_locationNum == 58 && _backgroundSpriteCurrentAnimation == 1) {
+		} else if (_location == kLocationInsideMuseumPartThree && _backgroundSpriteCurrentAnimation == 1) {
 			srcX += 100;
 		} else if (_xPosCurrent > 320 && _xPosCurrent < 640) {
 			srcX += 320;
 		}
 		srcX += _backgroundSprOffset;
-		Graphics::decodeRLE_248(_locationBackgroundGfxBuf + srcY * 640 + srcX, _backgroundSpriteDataPtr + frameOffset + 12, srcW, srcH, 0, _locationHeightTable[_locationNum], false);
+		Graphics::decodeRLE_248(_locationBackgroundGfxBuf + srcY * 640 + srcX, _backgroundSpriteDataPtr + frameOffset + 12, srcW, srcH, 0, _locationHeightTable[_location], false);
 		addDirtyRect(srcX, srcY, srcW, srcH);
 	}
 }
 
 void TuckerEngine::drawCurrentSprite() {
-	// Workaround original game glitch: skip first bud frame drawing when entering location (tracker item #2597763)
-	if ((_locationNum == 17 || _locationNum == 18) && _currentSpriteAnimationFrame == 16) {
-		return;
+	// WORKAROUND: original game glitch
+	// Locations 48 and 61 contain reserved colors from [0xE0-0xF8] in a walkable area which
+	// results in a number of pixels being falsely drawn in the foreground (on top of Bud).
+	// Even worse, location 61 uses some of the same colors in places which actually _should_
+	// be drawn in the foreground.
+	// We whitelist these colors based on location number and, in case of location 61, also
+	// based on Bud's location (pun not intended).
+	// This fixes Trac#10423.
+	const int *whitelistReservedColors = nullptr;
+	//                                                      [0xE0, ...                            ..., 0xEF]
+	static const int whitelistReservedColorsLocation48[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+	static const int whitelistReservedColorsLocation61[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 };
+	switch (_location) {
+	case kLocationCorridor:
+		whitelistReservedColors = (const int *)&whitelistReservedColorsLocation48;
+		break;
+
+	case kLocationParkPartThree:
+		if (_xPosCurrent <= 565)
+			whitelistReservedColors = (const int *)&whitelistReservedColorsLocation61;
+		break;
+
+	default:
+		break;
 	}
-	// Workaround original game glitch: location 14 contains some colors from [0xE0-0xF8] in a walkable area (tracker item #3106542)
-	const bool color248Only = (_locationNum == 14);
+
 	SpriteFrame *chr = &_spriteFramesTable[_currentSpriteAnimationFrame];
-	int yPos = _yPosCurrent + _mainSpritesBaseOffset - 54 + chr->yOffset;
+	int yPos = _yPosCurrent + _mainSpritesBaseOffset - 54 + chr->_yOffset;
 	int xPos = _xPosCurrent;
-	if (_mirroredDrawing == 0) {
-		xPos += chr->xOffset - 14;
+	if (!_mirroredDrawing) {
+		xPos += chr->_xOffset - 14;
 	} else {
-		xPos -= chr->xSize + chr->xOffset - 14;
+		xPos -= chr->_xSize + chr->_xOffset - 14;
 	}
-	Graphics::decodeRLE_248(_locationBackgroundGfxBuf + yPos * 640 + xPos, _spritesGfxBuf + chr->sourceOffset, chr->xSize, chr->ySize,
-		chr->yOffset, _locationHeightTable[_locationNum], _mirroredDrawing != 0, color248Only);
-	addDirtyRect(xPos, yPos, chr->xSize, chr->ySize);
+	Graphics::decodeRLE_248(_locationBackgroundGfxBuf + yPos * 640 + xPos, _spritesGfxBuf + chr->_sourceOffset, chr->_xSize, chr->_ySize,
+		chr->_yOffset, _locationHeightTable[_location], _mirroredDrawing, whitelistReservedColors);
+	addDirtyRect(xPos, yPos, chr->_xSize, chr->_ySize);
 	if (_currentSpriteAnimationLength > 1) {
 		SpriteFrame *chr2 = &_spriteFramesTable[_currentSpriteAnimationFrame2];
-		yPos = _yPosCurrent + _mainSpritesBaseOffset - 54 + chr2->yOffset;
+		yPos = _yPosCurrent + _mainSpritesBaseOffset - 54 + chr2->_yOffset;
 		xPos = _xPosCurrent;
-		if (_mirroredDrawing == 0) {
-			xPos += chr2->xOffset - 14;
+		if (!_mirroredDrawing) {
+			xPos += chr2->_xOffset - 14;
 		} else {
-			xPos -= chr2->xSize + chr2->xOffset - 14;
+			xPos -= chr2->_xSize + chr2->_xOffset - 14;
 		}
-		Graphics::decodeRLE_248(_locationBackgroundGfxBuf + yPos * 640 + xPos, _spritesGfxBuf + chr2->sourceOffset, chr2->xSize, chr2->ySize,
-			chr2->yOffset, _locationHeightTable[_locationNum], _mirroredDrawing != 0, color248Only);
-		addDirtyRect(xPos, yPos, chr2->xSize, chr2->ySize);
+		Graphics::decodeRLE_248(_locationBackgroundGfxBuf + yPos * 640 + xPos, _spritesGfxBuf + chr2->_sourceOffset, chr2->_xSize, chr2->_ySize,
+			chr2->_yOffset, _locationHeightTable[_location], _mirroredDrawing, whitelistReservedColors);
+		addDirtyRect(xPos, yPos, chr2->_xSize, chr2->_ySize);
 	}
 }
 
@@ -1790,8 +1916,8 @@ void TuckerEngine::setVolumeMusic(int index, int volume) {
 }
 
 void TuckerEngine::startSound(int offset, int index, int volume) {
-	bool loop = (_locationSoundsTable[index].type == 2 || _locationSoundsTable[index].type == 5 || _locationSoundsTable[index].type == 7);
-	loadSound(Audio::Mixer::kSFXSoundType, _locationSoundsTable[index].num, volume, loop, &_sfxHandles[index]);
+	bool loop = (_locationSoundsTable[index]._type == 2 || _locationSoundsTable[index]._type == 5 || _locationSoundsTable[index]._type == 7);
+	loadSound(Audio::Mixer::kSFXSoundType, _locationSoundsTable[index]._num, volume, loop, &_sfxHandles[index]);
 }
 
 void TuckerEngine::stopSound(int index) {
@@ -1803,8 +1929,8 @@ bool TuckerEngine::isSoundPlaying(int index) {
 }
 
 void TuckerEngine::startMusic(int offset, int index, int volume) {
-	bool loop = (_locationMusicsTable[index].flag == 2);
-	loadSound(Audio::Mixer::kMusicSoundType, _locationMusicsTable[index].num, volume, loop, &_musicHandles[index]);
+	bool loop = (_locationMusicsTable[index]._flag == 2);
+	loadSound(Audio::Mixer::kMusicSoundType, _locationMusicsTable[index]._num, volume, loop, &_musicHandles[index]);
 }
 
 void TuckerEngine::stopMusic(int index) {
@@ -1827,31 +1953,38 @@ void TuckerEngine::rememberSpeechSound() {
 	for (int i = 4; i > 0; --i) {
 		_speechHistoryTable[i] = _speechHistoryTable[i - 1];
 	}
-	_speechHistoryTable[0] = _partNum * 3000 + _ptTextOffset + _speechSoundNum - 3000;
+	_speechHistoryTable[0] = _part * 3000 + _ptTextOffset + _speechSoundNum - 3000;
 }
 
 void TuckerEngine::redrawPanelItems() {
-	const uint8 *src = 0;
-	uint8 *dst = 0;
-	int sz = 0;
-	if (_forceRedrawPanelItems || (_redrawPanelItemsCounter != 0 && _panelState == 0)) {
+	if (_forceRedrawPanelItems || (_redrawPanelItemsCounter != 0 && _panelType == kPanelTypeNormal)) {
 		_forceRedrawPanelItems = false;
 		if (_redrawPanelItemsCounter > 0) {
 			--_redrawPanelItemsCounter;
 		}
-		switch (_panelState) {
-		case 0:
+
+		const uint8 *src = nullptr;
+		uint8 *dst = nullptr;
+		int sz = 0;
+
+		switch (_panelType) {
+		case kPanelTypeNormal:
 			src = _panelGfxBuf;
 			dst = _itemsGfxBuf + 3200;
 			sz = 16000;
 			break;
-		case 1:
+		case kPanelTypeEmpty:
 			src = _panelGfxBuf + 16320;
 			dst = _itemsGfxBuf;
 			sz = 19200;
 			break;
-		case 2:
-			src = _panelGfxBuf + 16320;
+		case kPanelTypeLoadSavePlayQuit:
+			// The following offset does not match disassembly on purpose to fix a
+			// "glitch" in the original game.
+			// This ensures that the background image ends up in the same place as
+			// in the case of kPanelTypeLoadSaveSavegame.
+			// This fixes Trac#10496.
+			src = _panelGfxBuf + 16000;
 			dst = _itemsGfxBuf;
 			sz = 19200;
 			memcpy(dst, src, sz);
@@ -1859,14 +1992,16 @@ void TuckerEngine::redrawPanelItems() {
 			dst = _itemsGfxBuf + 6400;
 			sz = 5120;
 			break;
-		case 3:
+		case kPanelTypeLoadSaveSavegame:
 			src = _panelGfxBuf + 35200;
 			dst = _itemsGfxBuf;
 			sz = 19200;
 			break;
+		default:
+			break;
 		}
 		memcpy(dst, src, sz);
-		if (_panelState == 0) {
+		if (_panelType == kPanelTypeNormal) {
 			redrawPanelItemsHelper();
 		}
 	}
@@ -1892,25 +2027,25 @@ void TuckerEngine::redrawPanelItemsHelper() {
 
 void TuckerEngine::drawSprite(int num) {
 	Sprite *s = &_spritesTable[num];
-	if (s->animationFrame <= s->firstFrame && s->animationFrame > 0 && s->state != -1) {
-		const uint8 *p = s->animationData;
+	if (s->_animationFrame <= s->_firstFrame && s->_animationFrame > 0 && s->_state != -1) {
+		const uint8 *p = s->_animationData;
 		if (!p) {
 			return;
 		}
-		int frameOffset = READ_LE_UINT24(p + s->animationFrame * 4);
+		int frameOffset = READ_LE_UINT24(p + s->_animationFrame * 4);
 		int srcW = READ_LE_UINT16(p + frameOffset);
 		int srcH = READ_LE_UINT16(p + frameOffset + 2);
 		int srcX = READ_LE_UINT16(p + frameOffset + 8);
 		int srcY = READ_LE_UINT16(p + frameOffset + 10);
-		int xPos = s->gfxBackgroundOffset + srcX;
+		s->_gfxBackgroundOffset += s->_backgroundOffset;
+		int xPos = s->_gfxBackgroundOffset + srcX;
 		if (xPos < 600 && (_scrollOffset + 320 < xPos || _scrollOffset - srcW > xPos)) {
 			return;
 		}
-		s->xSource = srcX;
-		s->gfxBackgroundOffset += s->backgroundOffset;
+		s->_xSource = srcX;
 		uint8 *dstPtr = _locationBackgroundGfxBuf + srcY * 640 + xPos;
 		const uint8 *srcPtr = p + frameOffset + 12;
-		switch (s->colorType) {
+		switch (s->_colorType) {
 		case 0:
 			Graphics::decodeRLE(dstPtr, srcPtr, srcW, srcH);
 			break;
@@ -1918,11 +2053,11 @@ void TuckerEngine::drawSprite(int num) {
 			Graphics::decodeRLE_224(dstPtr, srcPtr, srcW, srcH);
 			break;
 		default:
-			Graphics::decodeRLE_248(dstPtr, srcPtr, srcW, srcH, 0, s->yMaxBackground, s->flipX != 0);
+			Graphics::decodeRLE_248(dstPtr, srcPtr, srcW, srcH, 0, s->_yMaxBackground, s->_flipX);
 			break;
 		}
-		const int xR = srcX + (s->gfxBackgroundOffset % 640);
-		const int yR = srcY + (s->gfxBackgroundOffset / 640);
+		const int xR = (srcX +  s->_gfxBackgroundOffset) % 640;
+		const int yR =  srcY + (s->_gfxBackgroundOffset  / 640);
 		addDirtyRect(xR, yR, srcW, srcH);
 	}
 }
@@ -1932,13 +2067,13 @@ void TuckerEngine::clearItemsGfx() {
 }
 
 void TuckerEngine::drawPausedInfoBar() {
-	int len = getStringWidth(36, _infoBarBuf);
-	int x = 159 - len / 2;
-	drawItemString(326 + x, 36, _infoBarBuf);
+	const int len = getStringWidth(36, _infoBarBuf);
+	const int x = (kScreenWidth / 2) - 1 - (len / 2);
+	drawItemString(x, 36, _infoBarBuf);
 }
 
 const uint8 *TuckerEngine::getStringBuf(int type) const {
-	const uint8 *p = 0;
+	const uint8 *p = nullptr;
 	switch (type) {
 	case 0:
 		p = _data5Buf;
@@ -1957,24 +2092,23 @@ const uint8 *TuckerEngine::getStringBuf(int type) const {
 }
 
 void TuckerEngine::drawInfoString() {
-	const uint8 *infoStrBuf = _infoBarBuf;
 	const uint8 *obj1StrBuf = getStringBuf(_actionObj1Type);
 	const uint8 *obj2StrBuf = getStringBuf(_actionObj2Type);
 	int infoStringWidth = 0;
 	int object1NameWidth = 0;
-	int verbWidth = getStringWidth(_actionVerb + 1, infoStrBuf);
+	int verbWidth = getStringWidth(_actionVerb + 1, _infoBarBuf);
 	if (_actionObj1Num > 0 || _actionObj1Type > 0) {
 		object1NameWidth = getStringWidth(_actionObj1Num + 1, obj1StrBuf) + 4;
 		infoStringWidth = verbWidth + object1NameWidth;
 	} else {
 		infoStringWidth = verbWidth;
 	}
-	int verbPreposition = 0;
+	VerbPreposition verbPreposition = kVerbPrepositionNone;
 	int verbPrepositionWidth = 0;
 	if (_actionRequiresTwoObjects) {
-		verbPreposition = (_actionVerb == 5) ? 12 : 11;
-		verbPrepositionWidth = getStringWidth(verbPreposition, infoStrBuf) + 4;
-		if (_gameLang != Common::EN_ANY && (_actionObj2Num > 0 || _actionObj2Type > 0) && verbPreposition > 0) {
+		verbPreposition = (_actionVerb == kVerbGive) ? kVerbPrepositionTo : kVerbPrepositionWith;
+		verbPrepositionWidth = getStringWidth(verbPreposition, _infoBarBuf) + 4;
+		if (_gameLang != Common::EN_ANY && (_actionObj2Num > 0 || _actionObj2Type > 0) && verbPreposition != kVerbPrepositionNone) {
 			infoStringWidth = 0;
 			verbWidth = 0;
 			object1NameWidth = 0;
@@ -1984,15 +2118,15 @@ void TuckerEngine::drawInfoString() {
 			infoStringWidth += getStringWidth(_actionObj2Num + 1, obj2StrBuf);
 		}
 	}
-	const int xPos = 159 - infoStringWidth / 2;
-	if (_gameLang == Common::EN_ANY || (_actionObj2Num == 0 && _actionObj2Type == 0) || verbPreposition == 0) {
-		drawItemString(xPos, _actionVerb + 1, infoStrBuf);
+	const int xPos = (kScreenWidth / 2) - 1 - (infoStringWidth / 2);
+	if (_gameLang == Common::EN_ANY || (_actionObj2Num == 0 && _actionObj2Type == 0) || verbPreposition == kVerbPrepositionNone) {
+		drawItemString(xPos, _actionVerb + 1, _infoBarBuf);
 		if (_actionObj1Num > 0 || _actionObj1Type > 0) {
 			drawItemString(xPos + 4 + verbWidth, _actionObj1Num + 1, obj1StrBuf);
 		}
 	}
 	if (verbPreposition > 0) {
-		drawItemString(xPos + 4 + verbWidth + object1NameWidth, verbPreposition, infoStrBuf);
+		drawItemString(xPos + 4 + verbWidth + object1NameWidth, verbPreposition, _infoBarBuf);
 		if (_actionObj2Num > 0 || _actionObj2Type > 0) {
 			drawItemString(xPos + 4 + verbWidth + object1NameWidth + verbPrepositionWidth, _actionObj2Num + 1, obj2StrBuf);
 		}
@@ -2001,8 +2135,8 @@ void TuckerEngine::drawInfoString() {
 
 void TuckerEngine::drawGameHintString() {
 	const int len = getStringWidth(_gameHintsStringNum + 29, _infoBarBuf);
-	const int x = 159 - len / 2;
-	drawItemString(326 + x, _gameHintsStringNum + 29, _infoBarBuf);
+	const int x = (kScreenWidth / 2) - 1 - (len / 2);
+	drawItemString(x, _gameHintsStringNum + 29, _infoBarBuf);
 }
 
 void TuckerEngine::updateCharacterAnimation() {
@@ -2018,7 +2152,7 @@ void TuckerEngine::updateCharacterAnimation() {
 			_characterAnimationIndex = -1;
 			_backgroundSpriteCurrentAnimation = -1;
 			if (_nextAction == 0) {
-				setCursorType(0);
+				setCursorState(kCursorStateNormal);
 			}
 		} else {
 			_backgroundSpriteCurrentFrame = _characterAnimationsTable[_characterAnimationIndex];
@@ -2031,7 +2165,7 @@ void TuckerEngine::updateCharacterAnimation() {
 			++_spriteAnimationFrameIndex;
 		}
 		_characterFacingDirection = 0;
-		if (_changeBackgroundSprite == 1) {
+		if (_changeBackgroundSprite) {
 			if (_backgroundSpriteCurrentFrame == 0) {
 				_backgroundSpriteDataPtr = _sprA02Table[_backgroundSpriteCurrentAnimation];
 				_backgroundSpriteCurrentFrame = _backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
@@ -2040,9 +2174,9 @@ void TuckerEngine::updateCharacterAnimation() {
 				if (_backgroundSpriteCurrentFrame < 1) {
 					_backgroundSpriteCurrentAnimation = -1;
 					_backgroundSpriteCurrentFrame = 0;
-					_changeBackgroundSprite = 0;
+					_changeBackgroundSprite = false;
 					if (_nextAction == 0) {
-						setCursorType(0);
+						setCursorState(kCursorStateNormal);
 					}
 				}
 			}
@@ -2052,7 +2186,7 @@ void TuckerEngine::updateCharacterAnimation() {
 				assert(_backgroundSpriteCurrentAnimation >= 0 && _backgroundSpriteCurrentAnimation < kSprA02TableSize);
 				_backgroundSpriteDataPtr = _sprA02Table[_backgroundSpriteCurrentAnimation];
 				_backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
-			} else if (_locationNum == 25 && _panelLockedFlag != 1 && (_backgroundSpriteCurrentAnimation == 3 || _backgroundSpriteCurrentAnimation == 6)) {
+			} else if (_location == kLocationVentSystem && !_panelLockedFlag && (_backgroundSpriteCurrentAnimation == 3 || _backgroundSpriteCurrentAnimation == 6)) {
 				_backgroundSpriteCurrentFrame = 0;
 				_backgroundSpriteCurrentAnimation = -1;
 			} else {
@@ -2060,18 +2194,18 @@ void TuckerEngine::updateCharacterAnimation() {
 				if (_backgroundSpriteCurrentFrame > _backgroundSpriteLastFrame) {
 					_backgroundSpriteCurrentAnimation = -1;
 					_backgroundSpriteCurrentFrame = 0;
-					if (_nextAction == 0 && _panelState == 0) {
-						setCursorType(0);
+					if (_nextAction == 0 && _panelType == kPanelTypeNormal) {
+						setCursorState(kCursorStateNormal);
 					}
 				}
 			}
 		}
 	}
-	if (_locationNum == 24 && _flagsTable[103] == 0) {
-		if (_panelLockedFlag == 1) {
-			_panelLockedFlag = 0;
-			_selectedObject.locationObject_locationNum = 0;
-			if (_actionVerb != 2) {
+	if (_location == kLocationStoreRoom && _flagsTable[103] == 0) {
+		if (_panelLockedFlag) {
+			_panelLockedFlag = false;
+			_selectedObject._locationObjectLocation = kLocationNone;
+			if (_actionVerb != kVerbTalk) {
 				_speechSoundNum = 2236;
 				startSpeechSound(_speechSoundNum, _speechVolume);
 				_characterSpeechDataPtr = _ptTextBuf + getPositionForLine(_speechSoundNum, _ptTextBuf);
@@ -2080,7 +2214,7 @@ void TuckerEngine::updateCharacterAnimation() {
 				_actionPosY = _yPosCurrent - 64;
 				_actionTextColor = 1;
 				_actionCharacterNum = 99;
-				setCursorType(2);
+				setCursorState(kCursorStateDisabledHidden);
 				_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
 			}
 		}
@@ -2103,12 +2237,12 @@ void TuckerEngine::updateCharacterAnimation() {
 			_backgroundSpriteDataPtr = _sprA02Table[_backgroundSpriteCurrentAnimation];
 			_backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
 		}
-	} else if (_locationNum == 25) {
+	} else if (_location == kLocationVentSystem) {
 		if (_backgroundSpriteCurrentFrame == 0) {
-			if (_characterBackFrontFacing == 0) {
+			if (!_characterBackFrontFacing) {
 				if (_characterBackFrontFacing != _characterPrevBackFrontFacing) {
 					_backgroundSpriteCurrentAnimation = 10;
-				} else if (_panelLockedFlag == 1) {
+				} else if (_panelLockedFlag) {
 					_backgroundSpriteCurrentAnimation = 3;
 				} else if (_charSpeechSoundCounter > 0 && _actionCharacterNum == 99) {
 					_backgroundSpriteCurrentAnimation = 8;
@@ -2118,7 +2252,7 @@ void TuckerEngine::updateCharacterAnimation() {
 			} else {
 				if (_characterBackFrontFacing != _characterPrevBackFrontFacing) {
 					_backgroundSpriteCurrentAnimation = 2;
-				} else if (_panelLockedFlag == 1) {
+				} else if (_panelLockedFlag) {
 					_backgroundSpriteCurrentAnimation = 6;
 				} else if (_charSpeechSoundCounter > 0 && _actionCharacterNum == 99) {
 					_backgroundSpriteCurrentAnimation = 9;
@@ -2132,7 +2266,7 @@ void TuckerEngine::updateCharacterAnimation() {
 			_backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
 		}
 		_backgroundSprOffset = _xPosCurrent - 160;
-	} else if (_locationNum == 63 && _backgroundSpriteCurrentFrame == 0) {
+	} else if (_location == kLocationTV && _backgroundSpriteCurrentFrame == 0) {
 		if (_charSpeechSoundCounter > 0 && _actionCharacterNum == 99) {
 			_backgroundSpriteCurrentAnimation = 1;
 		} else {
@@ -2143,7 +2277,7 @@ void TuckerEngine::updateCharacterAnimation() {
 		_backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
 	}
 	int frame = _spriteAnimationFramesTable[_spriteAnimationFrameIndex];
-	if (_panelLockedFlag == 0 && _characterFacingDirection < 5 && _selectedObject.locationObject_locationNum == 0) {
+	if (!_panelLockedFlag && _characterFacingDirection < 5 && _selectedObject._locationObjectLocation == kLocationNone) {
 		_characterFacingDirection = 0;
 	}
 	if (_charSpeechSoundCounter > 0 && _characterFacingDirection != 6 && _actionCharacterNum == 99) {
@@ -2155,7 +2289,7 @@ void TuckerEngine::updateCharacterAnimation() {
 	}
 	int num = 0;
 	if (frame == 999 || (_characterFacingDirection != _characterPrevFacingDirection && _characterFacingDirection < 5)) {
-		_mirroredDrawing = 0;
+		_mirroredDrawing = false;
 		if (_characterFacingDirection == 6) {
 			if (_csDataHandled) {
 				switch (_selectedCharacterDirection) {
@@ -2170,7 +2304,7 @@ void TuckerEngine::updateCharacterAnimation() {
 					break;
 				default:
 					num = 16;
-					_mirroredDrawing = 1;
+					_mirroredDrawing = true;
 					break;
 				}
 			} else {
@@ -2182,7 +2316,7 @@ void TuckerEngine::updateCharacterAnimation() {
 		}
 		if (_characterFacingDirection == 0) {
 			if (_csDataHandled) {
-				_mirroredDrawing = 0;
+				_mirroredDrawing = false;
 				switch (_selectedCharacterDirection) {
 				case 1:
 					num = 3;
@@ -2192,7 +2326,7 @@ void TuckerEngine::updateCharacterAnimation() {
 					break;
 				case 3:
 					num = 1;
-					_mirroredDrawing = 1;
+					_mirroredDrawing = true;
 					break;
 				default:
 					num = 5;
@@ -2202,7 +2336,7 @@ void TuckerEngine::updateCharacterAnimation() {
 				num = 13;
 			} else if (getRandomNumber() < 3000) {
 				num = 14;
-				if (_locationNum == 57) {
+				if (_location == kLocationFishShopPartThree) {
 					num = 18;
 				}
 			} else {
@@ -2218,21 +2352,21 @@ void TuckerEngine::updateCharacterAnimation() {
 				break;
 			case 3:
 				num = 0;
-				_mirroredDrawing = 1;
+				_mirroredDrawing = true;
 				break;
 			case 4:
 				num = 2;
 				break;
 			}
 		}
-		_currentSpriteAnimationLength = _spriteAnimationsTable[num].numParts;
-		_spriteAnimationFrameIndex = _spriteAnimationsTable[num].firstFrameIndex;
+		_currentSpriteAnimationLength = _spriteAnimationsTable[num]._numParts;
+		_spriteAnimationFrameIndex = _spriteAnimationsTable[num]._firstFrameIndex;
 		frame = _spriteAnimationFramesTable[_spriteAnimationFrameIndex];
 	}
 	if (_characterAnimationNum > 0) {
 		num = _characterAnimationNum;
-		_currentSpriteAnimationLength = _spriteAnimationsTable[num].numParts;
-		_spriteAnimationFrameIndex = _spriteAnimationsTable[num].firstFrameIndex;
+		_currentSpriteAnimationLength = _spriteAnimationsTable[num]._numParts;
+		_spriteAnimationFrameIndex = _spriteAnimationsTable[num]._firstFrameIndex;
 		frame = _spriteAnimationFramesTable[_spriteAnimationFrameIndex];
 		_characterAnimationNum = 0;
 	}
@@ -2287,51 +2421,53 @@ void TuckerEngine::handleMap() {
 		if (_handleMapCounter > 19) {
 			_handleMapCounter = 0;
 			_locationMaskCounter = 1;
-			_panelLockedFlag = 0;
+			_panelLockedFlag = false;
 		}
 	}
-	if (_panelLockedFlag == 0 && (_backgroundSpriteCurrentAnimation == -1 || _locationNum == 25) && _locationMaskType == 3) {
-		setCursorType(0);
+	if (!_panelLockedFlag && (_backgroundSpriteCurrentAnimation == -1 || _location == kLocationVentSystem) && _locationMaskType == 3) {
+		setCursorState(kCursorStateNormal);
 		if (_locationMaskCounter == 1) {
 			_characterFacingDirection = 0;
 			_locationMaskType = 0;
 		}
 		return;
 	}
-	if (_selectedObject.locationObject_locationNum != 0 && _locationMaskCounter != 0 && (_backgroundSpriteCurrentAnimation <= -1 || _locationNum == 25)) {
-		if (_locationNum == 25 || _backgroundSpriteCurrentAnimation != 4) {
+	if (_selectedObject._locationObjectLocation != kLocationNone && _locationMaskCounter != 0 && (_backgroundSpriteCurrentAnimation <= -1 || _location == kLocationVentSystem)) {
+		// TODO
+		// This is actually "_locationNum != 25" in disassembly. Is this a typo?
+		if (_location == kLocationVentSystem || _backgroundSpriteCurrentAnimation != 4) {
 			if (_locationMaskType == 0) {
 				_locationMaskType = 1;
-				setCursorType(2);
-				if (_selectedObject.locationObject_toWalkX2 > 800) {
-					_backgroundSpriteCurrentAnimation = _selectedObject.locationObject_toWalkX2 - 900;
-					if (_selectedObject.locationObject_toWalkY2 > 499) {
-						_changeBackgroundSprite = 1;
-						_backgroundSprOffset = _selectedObject.locationObject_toWalkY2 - 500;
+				setCursorState(kCursorStateDisabledHidden);
+				if (_selectedObject._locationObjectToWalkX2 > 800) {
+					_backgroundSpriteCurrentAnimation = _selectedObject._locationObjectToWalkX2 - 900;
+					if (_selectedObject._locationObjectToWalkY2 > 499) {
+						_changeBackgroundSprite = true;
+						_backgroundSprOffset = _selectedObject._locationObjectToWalkY2 - 500;
 					} else {
-						_backgroundSprOffset = _selectedObject.locationObject_toWalkY2;
-						_changeBackgroundSprite = 0;
+						_backgroundSprOffset = _selectedObject._locationObjectToWalkY2;
+						_changeBackgroundSprite = false;
 					}
 					_backgroundSpriteCurrentFrame = 0;
-					_mirroredDrawing = 0;
-					if (_locationNum == 25) {
+					_mirroredDrawing = false;
+					if (_location == kLocationVentSystem) {
 						_backgroundSpriteDataPtr = _sprA02Table[_backgroundSpriteCurrentAnimation];
 						_backgroundSpriteLastFrame = READ_LE_UINT16(_backgroundSpriteDataPtr);
 						_backgroundSpriteCurrentFrame = 1;
 					}
 				} else {
 					_locationMaskCounter = 0;
-					_selectedObject.xPos = _selectedObject.locationObject_toWalkX2;
-					_selectedObject.yPos = _selectedObject.locationObject_toWalkY2;
+					_selectedObject._xPos = _selectedObject._locationObjectToWalkX2;
+					_selectedObject._yPos = _selectedObject._locationObjectToWalkY2;
 					_handleMapCounter = 1;
-					_panelLockedFlag = 1;
+					_panelLockedFlag = true;
 				}
 				return;
 			}
 			_locationMaskType = 2;
-			_panelState = 0;
-			setCursorType(0);
-			if (_selectedObject.locationObject_locationNum == 99) {
+			_panelType = kPanelTypeNormal;
+			setCursorState(kCursorStateNormal);
+			if (_selectedObject._locationObjectLocation == kLocationMap) {
 				_noPositionChangeAfterMap = true;
 				handleMapSequence();
 				return;
@@ -2341,28 +2477,28 @@ void TuckerEngine::handleMap() {
 				redrawScreen(_scrollOffset);
 				_fadePaletteCounter = 34;
 			}
-			_nextLocationNum = _selectedObject.locationObject_locationNum;
-			_xPosCurrent = _selectedObject.locationObject_toX;
-			_yPosCurrent = _selectedObject.locationObject_toY;
-			if (_selectedObject.locationObject_toX2 > 800) {
-				_backgroundSpriteCurrentAnimation = _selectedObject.locationObject_toX2 - 900;
-				if (_selectedObject.locationObject_toY2 > 499) {
-					_changeBackgroundSprite = 1;
-					_backgroundSprOffset = _selectedObject.locationObject_toY2 - 500;
+			_nextLocation = _selectedObject._locationObjectLocation;
+			_xPosCurrent = _selectedObject._locationObjectToX;
+			_yPosCurrent = _selectedObject._locationObjectToY;
+			if (_selectedObject._locationObjectToX2 > 800) {
+				_backgroundSpriteCurrentAnimation = _selectedObject._locationObjectToX2 - 900;
+				if (_selectedObject._locationObjectToY2 > 499) {
+					_changeBackgroundSprite = true;
+					_backgroundSprOffset = _selectedObject._locationObjectToY2 - 500;
 				} else {
-					_changeBackgroundSprite = 0;
-					_backgroundSprOffset = _selectedObject.locationObject_toY2;
+					_changeBackgroundSprite = false;
+					_backgroundSprOffset = _selectedObject._locationObjectToY2;
 				}
 				_backgroundSpriteCurrentFrame = 0;
 			} else {
-				_selectedObject.xPos = _selectedObject.locationObject_toX2;
-				_selectedObject.yPos = _selectedObject.locationObject_toY2;
-				_panelLockedFlag = 1;
+				_selectedObject._xPos = _selectedObject._locationObjectToX2;
+				_selectedObject._yPos = _selectedObject._locationObjectToY2;
+				_panelLockedFlag = true;
 			}
 			_scrollOffset = 0;
 			_handleMapCounter = 0;
 			_locationMaskCounter = 0;
-			_selectedObject.locationObject_locationNum = 0;
+			_selectedObject._locationObjectLocation = kLocationNone;
 		}
 	}
 }
@@ -2370,80 +2506,80 @@ void TuckerEngine::handleMap() {
 void TuckerEngine::clearSprites() {
 	memset(_spritesTable, 0, sizeof(_spritesTable));
 	for (int i = 0; i < kMaxCharacters; ++i) {
-		_spritesTable[i].state = -1;
-		_spritesTable[i].stateIndex = -1;
+		_spritesTable[i]._state = -1;
+		_spritesTable[i]._stateIndex = -1;
 	}
 }
 
 void TuckerEngine::updateSprites() {
-	const int count = (_locationNum == 9) ? 3 : _spritesCount;
+	const int count = (_location == kLocationMall) ? 3 : _spritesCount;
 	for (int i = 0; i < count; ++i) {
-		if (_spritesTable[i].stateIndex > -1) {
-			++_spritesTable[i].stateIndex;
-			if (_characterStateTable[_spritesTable[i].stateIndex] == 99) {
-				_spritesTable[i].stateIndex = -1;
-				_spritesTable[i].state = -1;
+		if (_spritesTable[i]._stateIndex > -1) {
+			++_spritesTable[i]._stateIndex;
+			if (_characterStateTable[_spritesTable[i]._stateIndex] == 99) {
+				_spritesTable[i]._stateIndex = -1;
+				_spritesTable[i]._state = -1;
 				updateSprite(i);
 			} else {
-				_spritesTable[i].animationFrame = _characterStateTable[_spritesTable[i].stateIndex];
+				_spritesTable[i]._animationFrame = _characterStateTable[_spritesTable[i]._stateIndex];
 			}
 			continue;
 		}
-		if (_spritesTable[i].state == -1) {
+		if (_spritesTable[i]._state == -1) {
 			updateSprite(i);
 			continue;
 		}
-		if (_charSpeechSoundCounter > 0 && i == _actionCharacterNum && _spritesTable[i].needUpdate == 0) {
+		if (_charSpeechSoundCounter > 0 && i == _actionCharacterNum && !_spritesTable[i]._needUpdate) {
 			updateSprite(i);
 			continue;
 		}
-		if (_charSpeechSoundCounter == 0 && _spritesTable[i].needUpdate > 0) {
+		if (_charSpeechSoundCounter == 0 && _spritesTable[i]._needUpdate) {
 			updateSprite(i);
 			continue;
 		}
-		if (_spritesTable[i].updateDelay > 0) {
-			--_spritesTable[i].updateDelay;
-			if (_spritesTable[i].updateDelay == 0) {
+		if (_spritesTable[i]._updateDelay > 0) {
+			--_spritesTable[i]._updateDelay;
+			if (_spritesTable[i]._updateDelay == 0) {
 				updateSprite(i);
 			}
 			continue;
 		}
-		if (_spritesTable[i].defaultUpdateDelay > 0) {
-			_spritesTable[i].updateDelay = _spritesTable[i].defaultUpdateDelay - 1;
-			++_spritesTable[i].animationFrame;
-			if (_spritesTable[i].animationFrame == _spritesTable[i].firstFrame) {
+		if (_spritesTable[i]._defaultUpdateDelay > 0) {
+			_spritesTable[i]._updateDelay = _spritesTable[i]._defaultUpdateDelay - 1;
+			++_spritesTable[i]._animationFrame;
+			if (_spritesTable[i]._animationFrame == _spritesTable[i]._firstFrame) {
 				updateSprite(i);
 			}
 			continue;
 		}
-		if (_spritesTable[i].nextAnimationFrame == 0) {
-			++_spritesTable[i].animationFrame;
-			if (_spritesTable[i].firstFrame - 1 < _spritesTable[i].animationFrame) {
-				if (_spritesTable[i].prevAnimationFrame == 1) {
-					--_spritesTable[i].animationFrame;
-					_spritesTable[i].nextAnimationFrame = 1;
+		if (!_spritesTable[i]._nextAnimationFrame) {
+			++_spritesTable[i]._animationFrame;
+			if (_spritesTable[i]._firstFrame - 1 < _spritesTable[i]._animationFrame) {
+				if (_spritesTable[i]._prevAnimationFrame) {
+					--_spritesTable[i]._animationFrame;
+					_spritesTable[i]._nextAnimationFrame = true;
 				} else {
 					updateSprite(i);
 				}
 			}
 			continue;
 		}
-		--_spritesTable[i].animationFrame;
-		if (_spritesTable[i].animationFrame == 0) {
+		--_spritesTable[i]._animationFrame;
+		if (_spritesTable[i]._animationFrame == 0) {
 			updateSprite(i);
 		}
 	}
 }
 
 void TuckerEngine::updateSprite(int i) {
-	_spritesTable[i].prevState = _spritesTable[i].state;
-	_spritesTable[i].prevAnimationFrame = 0;
-	_spritesTable[i].nextAnimationFrame = 0;
-	_updateSpriteFlag1 = 0;
-	_updateSpriteFlag2 = 0;
-	_spritesTable[i].defaultUpdateDelay = 0;
-	_spritesTable[i].updateDelay = 0;
-	switch (_locationNum) {
+	_spritesTable[i]._prevState = _spritesTable[i]._state;
+	_spritesTable[i]._prevAnimationFrame = false;
+	_spritesTable[i]._nextAnimationFrame = false;
+	_updateSpriteFlag1 = false;
+	_updateSpriteFlag2 = false;
+	_spritesTable[i]._defaultUpdateDelay = 0;
+	_spritesTable[i]._updateDelay = 0;
+	switch (_location) {
 	case 2:
 		updateSprite_locationNum2();
 		break;
@@ -2632,7 +2768,7 @@ void TuckerEngine::updateSprite(int i) {
 		if (i == 0) {
 			updateSprite_locationNum32_0(0);
 		} else {
-			_spritesTable[i].state = -1;
+			_spritesTable[i]._state = -1;
 		}
 		break;
 	case 33:
@@ -2643,7 +2779,7 @@ void TuckerEngine::updateSprite(int i) {
 		} else if (i == 2) {
 			updateSprite_locationNum33_2(2);
 		} else {
-			_spritesTable[i].state = 12;
+			_spritesTable[i]._state = 12;
 		}
 		break;
 	case 34:
@@ -2654,7 +2790,7 @@ void TuckerEngine::updateSprite(int i) {
 		break;
 	case 37:
 		if (i == 0) {
-			_spritesTable[0].state = -1;
+			_spritesTable[0]._state = -1;
 		} else {
 			updateSprite_locationNum37(i);
 		}
@@ -2670,9 +2806,9 @@ void TuckerEngine::updateSprite(int i) {
 			updateSprite_locationNum43_2(i);
 		} else if (i < 2) {
 			if (_flagsTable[236] < 4) {
-				_spritesTable[i].state = i + 1;
+				_spritesTable[i]._state = i + 1;
 			} else {
-				_spritesTable[i].state = -1;
+				_spritesTable[i]._state = -1;
 			}
 		} else if (i == 3) {
 			updateSprite_locationNum43_3(3);
@@ -2685,10 +2821,10 @@ void TuckerEngine::updateSprite(int i) {
 		}
 		break;
 	case 45:
-		_spritesTable[0].state = 1;
+		_spritesTable[0]._state = 1;
 		break;
 	case 47:
-		_spritesTable[i].state = i + 1;
+		_spritesTable[i]._state = i + 1;
 		break;
 	case 48:
 		updateSprite_locationNum48(0);
@@ -2700,7 +2836,7 @@ void TuckerEngine::updateSprite(int i) {
 		if (i < 6) {
 			updateSprite_locationNum50(i);
 		} else {
-			_spritesTable[i].state = i + 1;
+			_spritesTable[i]._state = i + 1;
 		}
 		break;
 	case 51:
@@ -2782,7 +2918,7 @@ void TuckerEngine::updateSprite(int i) {
 		break;
 	case 69:
 		if (i == 0) {
-			_spritesTable[0].state = 1;
+			_spritesTable[0]._state = 1;
 		} else if (i == 1) {
 			updateSprite_locationNum69_1(1);
 		} else if (i == 2) {
@@ -2814,28 +2950,39 @@ void TuckerEngine::updateSprite(int i) {
 		updateSprite_locationNum82(0);
 		break;
 	case 98:
-		_spritesTable[0].state = 1;
+		_spritesTable[0]._state = 1;
+		break;
+	default:
 		break;
 	}
-	if (_spritesTable[i].stateIndex <= -1) {
-		if (_updateSpriteFlag1 == 0) {
-			_spritesTable[i].animationFrame = 1;
+	if (_spritesTable[i]._stateIndex <= -1) {
+		if (!_updateSpriteFlag1) {
+			_spritesTable[i]._animationFrame = 1;
 		}
-		if (_spritesTable[i].state < 0 || !_sprC02Table[_spritesTable[i].state]) {
-//			warning("Invalid state %d for sprite %d location %d", _spritesTable[i].state, i, _locationNum);
+		if (_spritesTable[i]._state < 0 || !_sprC02Table[_spritesTable[i]._state]) {
+			// WORKAROUND
+			// The original game unconditionally reads into _sprC02Table[] below which
+			// results in out-of-bounds reads when _spritesTable[i]._state == -1.
+			// We reset the sprite's animation data in this case so sprite updates
+			// are triggered correctly. This most prominently fixes a bug where Lola's
+			// transition from dancing -> sitting happens too late.
+			// This fixes Trac#6644.
+			_spritesTable[i]._animationData = nullptr;
+			_spritesTable[i]._firstFrame = 0;
 			return;
 		}
-		_spritesTable[i].animationData = _sprC02Table[_spritesTable[i].state];
-		_spritesTable[i].firstFrame = READ_LE_UINT16(_spritesTable[i].animationData);
-		if (_updateSpriteFlag2 == 1) {
-			_spritesTable[i].state = _spritesTable[i].firstFrame;
-			_spritesTable[i].nextAnimationFrame = 1;
-			_spritesTable[i].prevAnimationFrame = 1;
+		_spritesTable[i]._animationData = _sprC02Table[_spritesTable[i]._state];
+		_spritesTable[i]._firstFrame = READ_LE_UINT16(_spritesTable[i]._animationData);
+		if (_updateSpriteFlag2) {
+			_spritesTable[i]._state = _spritesTable[i]._firstFrame;
+			_spritesTable[i]._nextAnimationFrame = true;
+			_spritesTable[i]._prevAnimationFrame = true;
 		}
 	}
 }
 
 void TuckerEngine::drawStringInteger(int num, int x, int y, int digits) {
+	const int xStart = x;
 	char numStr[4];
 	assert(num < 1000);
 	sprintf(numStr, "%03d", num);
@@ -2844,7 +2991,7 @@ void TuckerEngine::drawStringInteger(int num, int x, int y, int digits) {
 		Graphics::drawStringChar(_locationBackgroundGfxBuf, _scrollOffset + x, y, 640, numStr[i], 102, _charsetGfxBuf);
 		x += 8;
 	}
-	addDirtyRect(_scrollOffset + x, y, Graphics::_charset.charW * 3, Graphics::_charset.charH);
+	addDirtyRect(_scrollOffset + xStart, y, Graphics::_charset._charW * 3, Graphics::_charset._charH);
 }
 
 void TuckerEngine::drawStringAlt(int x, int y, int color, const uint8 *str, int strLen) {
@@ -2856,14 +3003,18 @@ void TuckerEngine::drawStringAlt(int x, int y, int color, const uint8 *str, int 
 		x += _charWidthTable[chr];
 		++pos;
 	}
-	addDirtyRect(xStart, y, x - xStart, Graphics::_charset.charH);
+	addDirtyRect(xStart, y, x - xStart, Graphics::_charset._charH);
 }
 
 void TuckerEngine::drawItemString(int x, int num, const uint8 *str) {
 	int pos = getPositionForLine(num, str);
 	while (str[pos] != '\n') {
 		const uint8 chr = str[pos];
-		Graphics::drawStringChar(_itemsGfxBuf, x, 0, 320, chr, 1, _charsetGfxBuf);
+		// Different versions of the game use different character set dimensions (charset.pcx).
+		// The default (English) set uses a height of 8 pixels whereas others use 10 pixels.
+		// This needs to be taken into consideration when drawing the language bar so text
+		// gets vertically centered in all languages.
+		Graphics::drawStringChar(_itemsGfxBuf, x, (10 - (Graphics::_charset._charH)) / 2, 320, chr, 1, _charsetGfxBuf);
 		x += _charWidthTable[chr];
 		++pos;
 	}
@@ -2895,7 +3046,7 @@ void TuckerEngine::updateCharSpeechSound(bool displayText) {
 		}
 	}
 	if (_charSpeechSoundCounter == 0 && !_csDataHandled) {
-		setCursorType(0);
+		setCursorState(kCursorStateNormal);
 	} else if (displayText) {
 		drawSpeechText(_actionPosX, _actionPosY, _characterSpeechDataPtr, _speechSoundNum, _actionTextColor);
 	}
@@ -2911,15 +3062,15 @@ void TuckerEngine::updateItemsGfxColors(int color1, int color128) {
 	}
 }
 
-int TuckerEngine::testLocationMask(int x, int y) {
-	if (_locationMaskType > 0 || _locationMaskIgnore > 0) {
-		return 1;
+bool TuckerEngine::testLocationMask(int x, int y) {
+	if (_locationMaskType > 0 || _locationMaskIgnore) {
+		return true;
 	}
-	if (_locationNum == 26 || _locationNum == 32) {
+	if (_location == kLocationSubwayTunnel || _location == kLocationKitchen) {
 		y -= 3;
 	}
 	const int offset = y * 640 + x;
-	return _locationBackgroundMaskBuf[offset] > 0 ? 1 : 0;
+	return (_locationBackgroundMaskBuf[offset] > 0);
 }
 
 int TuckerEngine::getStringWidth(int num, const uint8 *ptr) {
@@ -3007,7 +3158,8 @@ enum TableInstructionCode {
 	kCode_was,
 	kCode_wfx,
 	kCode_xhr,
-	kCode_xhm
+	kCode_xhm,
+	kCode_no3 // NOOP, throw away 3-byte parameter
 };
 
 static const struct {
@@ -3027,12 +3179,14 @@ static const struct {
 	{ "bso", kCode_bso },
 	{ "bus", kCode_bus },
 	{ "b0s", kCode_bus }, // only ref 65.25
+	{ "buv", kCode_no3 },
 	{ "buw", kCode_buw },
 	{ "bdx", kCode_bux },
 	{ "bux", kCode_bux },
 	{ "c0a", kCode_c0a },
 	{ "c0c", kCode_c0c },
 	{ "c0s", kCode_c0s },
+	{ "c0v", kCode_no3 },
 	{ "end", kCode_end },
 	{ "fad", kCode_fad },
 	{ "fw",  kCode_fw  },
@@ -3059,7 +3213,7 @@ static const struct {
 	{ "wfx", kCode_wfx },
 	{ "xhr", kCode_xhr },
 	{ "xhm", kCode_xhm },
-	{ 0, 0 }
+	{ nullptr, 0 }
 };
 
 int TuckerEngine::readTableInstructionCode(int *index) {
@@ -3096,7 +3250,7 @@ int TuckerEngine::readTableInstructionParam(int len) {
 		++_tableInstructionsPtr;
 		--len;
 	}
-	char *end = 0;
+	char *end = nullptr;
 	const int param = strtol((const char *)_tableInstructionsPtr, &end, 10);
 	if (end != (const char *)_tableInstructionsPtr + len) {
 		warning("Unexpected instruction parameter length %d (%d)", (int)(end - (const char *)_tableInstructionsPtr), len);
@@ -3112,7 +3266,7 @@ int TuckerEngine::executeTableInstruction() {
 	const int code = readTableInstructionCode(&index);
 	switch (code) {
 	case kCode_pan:
-		_panelState = readTableInstructionParam(2);
+		_panelType = (PanelType)readTableInstructionParam(2);
 		_forceRedrawPanelItems = true;
 		return 0;
 	case kCode_bua:
@@ -3123,7 +3277,7 @@ int TuckerEngine::executeTableInstruction() {
 		return 0;
 	case kCode_bub:
 		i = readTableInstructionParam(3);
-		_spriteAnimationFrameIndex = _spriteAnimationsTable[i].firstFrameIndex;
+		_spriteAnimationFrameIndex = _spriteAnimationsTable[i]._firstFrameIndex;
 		_characterFacingDirection = 5;
 		_mainLoopCounter2 = 0;
 		return 0;
@@ -3137,13 +3291,13 @@ int TuckerEngine::executeTableInstruction() {
 		_selectedCharacterDirection = readTableInstructionParam(2);
 		return 0;
 	case kCode_bof:
-		_skipCurrentCharacterDraw = 1;
+		_skipCurrentCharacterDraw = true;
 		return 0;
 	case kCode_buh:
 		_noCharacterAnimationChange = readTableInstructionParam(2);
 		return 0;
 	case kCode_bon:
-		_skipCurrentCharacterDraw = 0;
+		_skipCurrentCharacterDraw = false;
 		return 0;
 	case kCode_bso:
 		_backgroundSprOffset = readTableInstructionParam(3);
@@ -3151,7 +3305,7 @@ int TuckerEngine::executeTableInstruction() {
 	case kCode_bus:
 		_speechSoundNum = readTableInstructionParam(3) - 1;
 		rememberSpeechSound();
-		startSpeechSound(_partNum * 3000 + _ptTextOffset + _speechSoundNum - 3000, _speechVolume);
+		startSpeechSound(_part * 3000 + _ptTextOffset + _speechSoundNum - 3000, _speechVolume);
 		_actionPosX = _xPosCurrent;
 		_actionPosY = _yPosCurrent - 64;
 		_actionTextColor = 1;
@@ -3159,24 +3313,36 @@ int TuckerEngine::executeTableInstruction() {
 		_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
 		return 0;
 	case kCode_buw:
-		_selectedObject.xPos = readTableInstructionParam(3);
-		_selectedObject.yPos = readTableInstructionParam(3);
-		_locationMaskIgnore = 1;
-		_panelLockedFlag = 1;
+		_selectedObject._xPos = readTableInstructionParam(3);
+		_selectedObject._yPos = readTableInstructionParam(3);
+
+		// WORKAROUND: original game bug
+		// When Bud is walked to specific coordinates using the 'buw' opcode the
+		// walkable area is not enforced (_locationMaskIgnore == true).
+		// This is usually not a problem because the player is not allowed to click,
+		// however, when entering the club, this allows the player to move Bud to
+		// coordinates from which he can never return, leaving him stuck there.
+		// As a workaround, do not ignore the location mask during this specific
+		// action when entering the club.
+		// This fixes Trac#5838.
+		if (!(_location == kLocationStripJoint && _nextAction == 59)) {
+			_locationMaskIgnore = true;
+		}
+		_panelLockedFlag = true;
 		return 0;
 	case kCode_bux:
 		_xPosCurrent = readTableInstructionParam(3);
 		_yPosCurrent = readTableInstructionParam(3);
 		return 0;
 	case kCode_c0a:
-		_spritesTable[index].state = readTableInstructionParam(3);
-		if (_spritesTable[index].state == 999) {
-			_spritesTable[index].state = -1;
+		_spritesTable[index]._state = readTableInstructionParam(3);
+		if (_spritesTable[index]._state == 999) {
+			_spritesTable[index]._state = -1;
 		}
 		_mainLoopCounter1 = 0;
-		_spritesTable[index].updateDelay = 0;
-		_spritesTable[index].nextAnimationFrame = 0;
-		_spritesTable[index].prevAnimationFrame = 0;
+		_spritesTable[index]._updateDelay = 0;
+		_spritesTable[index]._nextAnimationFrame = false;
+		_spritesTable[index]._prevAnimationFrame = false;
 		return 0;
 	case kCode_c0c:
 		setCharacterAnimation(readTableInstructionParam(3), index);
@@ -3184,10 +3350,10 @@ int TuckerEngine::executeTableInstruction() {
 	case kCode_c0s:
 		_speechSoundNum = readTableInstructionParam(3) - 1;
 		rememberSpeechSound();
-		startSpeechSound(_partNum * 3000 + _ptTextOffset + _speechSoundNum - 3000, kMaxSoundVolume);
+		startSpeechSound(_part * 3000 + _ptTextOffset + _speechSoundNum - 3000, kMaxSoundVolume);
 		_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
 		_actionTextColor = 181 + index;
-		if (_tableInstructionFlag == 0) {
+		if (!_tableInstructionFlag) {
 			_actionPosX = _tableInstructionItemNum1;
 			_actionPosY = _tableInstructionItemNum2;
 		} else {
@@ -3203,15 +3369,15 @@ int TuckerEngine::executeTableInstruction() {
 		return 0;
 	case kCode_fw:
 		_selectedCharacterNum = readTableInstructionParam(2);
-		_actionVerb = 0;
+		_actionVerb = kVerbWalk;
 		_selectedObjectType = 0;
 		_selectedObjectNum = 1;
 		setSelectedObjectKey();
 		return 0;
 	case kCode_flx:
 		i = readTableInstructionParam(2);
-		_locationSoundsTable[i].type = 2;
-		startSound(_locationSoundsTable[i].offset, i, _locationSoundsTable[i].volume);
+		_locationSoundsTable[i]._type = 2;
+		startSound(_locationSoundsTable[i]._offset, i, _locationSoundsTable[i]._volume);
 		return 0;
 	case kCode_fxx:
 		i = readTableInstructionParam(2);
@@ -3221,7 +3387,7 @@ int TuckerEngine::executeTableInstruction() {
 		return 0;
 	case kCode_fx:
 		i = readTableInstructionParam(2);
-		startSound(_locationSoundsTable[i].offset, i, _locationSoundsTable[i].volume);
+		startSound(_locationSoundsTable[i]._offset, i, _locationSoundsTable[i]._volume);
 		_soundInstructionIndex = i;
 		return 0;
 	case kCode_gfg:
@@ -3234,10 +3400,10 @@ int TuckerEngine::executeTableInstruction() {
 		_characterAnimationNum = readTableInstructionParam(2);
 		return 0;
 	case kCode_loc:
-		_nextLocationNum = readTableInstructionParam(2);
+		_nextLocation = (Location)readTableInstructionParam(2);
 		return 1;
 	case kCode_mof:
-		// TODO: Unknown opcode in Spanish version. Identify if this has any function.
+		setCursorState(kCursorStateDisabledHidden);
 		return 0;
 	case kCode_opt:
 		_conversationOptionsCount = readTableInstructionParam(2);
@@ -3246,7 +3412,7 @@ int TuckerEngine::executeTableInstruction() {
 			_nextTableToLoadTable[i] = readTableInstructionParam(3);
 		}
 		_nextTableToLoadIndex = -1;
-		setCursorType(1);
+		setCursorState(kCursorStateDialog);
 		return 1;
 	case kCode_opf:
 		_conversationOptionsCount = 0;
@@ -3266,7 +3432,7 @@ int TuckerEngine::executeTableInstruction() {
 			}
 		}
 		_nextTableToLoadIndex = -1;
-		setCursorType(1);
+		setCursorState(kCursorStateDialog);
 		return 1;
 	case kCode_ofg:
 		i = readTableInstructionParam(3);
@@ -3284,12 +3450,12 @@ int TuckerEngine::executeTableInstruction() {
 		_csDataLoaded = false;
 		return 3;
 	case kCode_ssp:
-		_tableInstructionFlag = 0;
+		_tableInstructionFlag = false;
 		_tableInstructionItemNum1 = readTableInstructionParam(3);
 		_tableInstructionItemNum2 = readTableInstructionParam(3);
 		return 0;
 	case kCode_s0p:
-		_tableInstructionFlag = 1;
+		_tableInstructionFlag = true;
 		_tableInstructionObj1Table[index] = readTableInstructionParam(3);
 		_tableInstructionObj2Table[index] = readTableInstructionParam(3);
 		return 0;
@@ -3306,6 +3472,27 @@ int TuckerEngine::executeTableInstruction() {
 		return 1;
 	case kCode_wsm:
 		_stopActionOnPanelLock = true;
+
+		// WORKAROUND
+		// Some versions have a script bug which allows you to freely click around
+		// during the sequence of Bud freeing the professor in part two which even
+		// allows Bud to leave the room while talking to the professor resulting in
+		// general glitchiness. The Spanish and Polish versions (and possibly others)
+		// fixed this by introducing the 'mof' opcode to disable the mouse during the
+		// sequence.
+		//
+		// The difference is as follows:
+		//   Buggy: 61dw buw,148,125,wsm,buw,148,132,wsm,wat,050[...]
+		//   Fixed: 61dw buw,148,125,wsm,buw,148,132,wsm,mof,pan,01,wat,050[...]
+		//                                               ^^^^^^^^^^
+		// To work around the issue in the problematic versions we inject these two
+		// instructions after the first occurence of the 'wsm' instruction (which
+		// proves good enough).
+		if (_location == kLocationStoreRoom && _nextAction == 61) {
+			setCursorState(kCursorStateDisabledHidden);
+			_panelType = kPanelTypeEmpty;
+		}
+
 		return 1;
 	case kCode_wat:
 		_stopActionCounter = readTableInstructionParam(3);
@@ -3321,6 +3508,10 @@ int TuckerEngine::executeTableInstruction() {
 		return 0;
 	case kCode_xhm:
 		_validInstructionId = false;
+		return 0;
+	case kCode_no3:
+		// opcodes mapped here are treated as NOOPs
+		readTableInstructionParam(3);
 		return 0;
 	}
 	return 2;
@@ -3342,33 +3533,33 @@ void TuckerEngine::moveDownInventoryObjects() {
 
 void TuckerEngine::setActionVerbUnderCursor() {
 	if (_mousePosY < 150) {
-		_actionVerb = 0;
+		_actionVerb = kVerbWalk;
 	} else if (_mousePosX > 195) {
-		_actionVerb = 1;
-	} else if (_panelNum == 0) {
-		_actionVerb = ((_mousePosY - 150) / 17) * 3 + (_mousePosX / 67);
+		_actionVerb = kVerbLook;
+	} else if (_panelStyle == kPanelStyleVerbs) {
+		_actionVerb = (Verb)(((_mousePosY - 150) / 17) * 3 + (_mousePosX / 67));
 	} else {
-		_actionVerb = 0;
+		_actionVerb = kVerbWalk;
 		if (_mousePosX < 30) {
-			_actionVerb = 7;
+			_actionVerb = kVerbMove;
 		} else if (_mousePosX > 130 && _mousePosX < 165) {
-			_actionVerb = 5;
+			_actionVerb = kVerbGive;
 		} else {
 			if (_mousePosY < 175) {
 				if (_mousePosX < 67) {
-					_actionVerb = 3;
+					_actionVerb = kVerbOpen;
 				} else if (_mousePosX > 164) {
-					_actionVerb = 6;
+					_actionVerb = kVerbTake;
 				} else if (_mousePosX > 99) {
-					_actionVerb = 4;
+					_actionVerb = kVerbClose;
 				}
 			} else {
 				if (_mousePosX < 85) {
-					_actionVerb = 1;
+					_actionVerb = kVerbLook;
 				} else if (_mousePosX > 165) {
-					_actionVerb = 2;
+					_actionVerb = kVerbTalk;
 				} else {
-					_actionVerb = 8;
+					_actionVerb = kVerbUse;
 				}
 			}
 		}
@@ -3380,21 +3571,21 @@ int TuckerEngine::getObjectUnderCursor() {
 		return -1;
 	}
 	for (int i = 0; i < _locationObjectsCount; ++i) {
-		if (_mousePosX + _scrollOffset + 1 <= _locationObjectsTable[i].xPos) {
+		if (_mousePosX + _scrollOffset + 1 <= _locationObjectsTable[i]._xPos) {
 			continue;
 		}
-		if (_mousePosX + _scrollOffset >= _locationObjectsTable[i].xPos + _locationObjectsTable[i].xSize) {
+		if (_mousePosX + _scrollOffset >= _locationObjectsTable[i]._xPos + _locationObjectsTable[i]._xSize) {
 			continue;
 		}
-		if (_mousePosY <= _locationObjectsTable[i].yPos) {
+		if (_mousePosY <= _locationObjectsTable[i]._yPos) {
 			continue;
 		}
-		if (_mousePosY >= _locationObjectsTable[i].yPos + _locationObjectsTable[i].ySize) {
+		if (_mousePosY >= _locationObjectsTable[i]._yPos + _locationObjectsTable[i]._ySize) {
 			continue;
 		}
 		_selectedObjectType = 0;
 		_selectedCharacterNum = i;
-		setCursorNum(_locationObjectsTable[i].cursorNum);
+		setCursorStyle(_locationObjectsTable[i]._cursorStyle);
 		return i;
 	}
 	return -1;
@@ -3405,131 +3596,131 @@ void TuckerEngine::setSelectedObjectKey() {
 	if (_mousePosY > 139 && _nextAction == 0) {
 		return;
 	}
-	_panelLockedFlag = 1;
+	_panelLockedFlag = true;
 	_locationMaskCounter = 0;
 	_actionRequiresTwoObjects = false;
-	_selectedObject.yPos = 0;
-	_selectedObject.locationObject_locationNum = 0;
+	_selectedObject._yPos = 0;
+	_selectedObject._locationObjectLocation = kLocationNone;
 	_pendingActionIndex = 0;
 	if (_selectedObjectType == 0) {
 		if (_selectedObjectNum == 0) {
-			_selectedObject.xPos = x;
-			_selectedObject.yPos = _mousePosY;
+			_selectedObject._xPos = x;
+			_selectedObject._yPos = _mousePosY;
 		} else {
-			_selectedObject.xPos = _locationObjectsTable[_selectedCharacterNum].standX;
-			_selectedObject.yPos = _locationObjectsTable[_selectedCharacterNum].standY;
-			if (_actionVerb == 0 || _actionVerb == 8) {
-				_selectedObject.locationObject_locationNum = _locationObjectsTable[_selectedCharacterNum].locationNum;
-				_selectedObject.locationObject_toX = _locationObjectsTable[_selectedCharacterNum].toX;
-				_selectedObject.locationObject_toY = _locationObjectsTable[_selectedCharacterNum].toY;
-				_selectedObject.locationObject_toX2 = _locationObjectsTable[_selectedCharacterNum].toX2;
-				_selectedObject.locationObject_toY2 = _locationObjectsTable[_selectedCharacterNum].toY2;
-				_selectedObject.locationObject_toWalkX2 = _locationObjectsTable[_selectedCharacterNum].toWalkX2;
-				_selectedObject.locationObject_toWalkY2 = _locationObjectsTable[_selectedCharacterNum].toWalkY2;
+			_selectedObject._xPos = _locationObjectsTable[_selectedCharacterNum]._standX;
+			_selectedObject._yPos = _locationObjectsTable[_selectedCharacterNum]._standY;
+			if (_actionVerb == kVerbWalk || _actionVerb == kVerbUse) {
+				_selectedObject._locationObjectLocation = _locationObjectsTable[_selectedCharacterNum]._location;
+				_selectedObject._locationObjectToX = _locationObjectsTable[_selectedCharacterNum]._toX;
+				_selectedObject._locationObjectToY = _locationObjectsTable[_selectedCharacterNum]._toY;
+				_selectedObject._locationObjectToX2 = _locationObjectsTable[_selectedCharacterNum]._toX2;
+				_selectedObject._locationObjectToY2 = _locationObjectsTable[_selectedCharacterNum]._toY2;
+				_selectedObject._locationObjectToWalkX2 = _locationObjectsTable[_selectedCharacterNum]._toWalkX2;
+				_selectedObject._locationObjectToWalkY2 = _locationObjectsTable[_selectedCharacterNum]._toWalkY2;
 			}
 		}
 	} else {
 		switch (_selectedObjectType) {
 		case 1:
-			_selectedObject.xPos = _locationAnimationsTable[_selectedCharacterNum].standX;
-			_selectedObject.yPos = _locationAnimationsTable[_selectedCharacterNum].standY;
+			_selectedObject._xPos = _locationAnimationsTable[_selectedCharacterNum]._standX;
+			_selectedObject._yPos = _locationAnimationsTable[_selectedCharacterNum]._standY;
 			break;
 		case 2:
-			_selectedObject.xPos = _charPosTable[_selectedCharacterNum].xWalkTo;
-			_selectedObject.yPos = _charPosTable[_selectedCharacterNum].yWalkTo;
+			_selectedObject._xPos = _charPosTable[_selectedCharacterNum]._xWalkTo;
+			_selectedObject._yPos = _charPosTable[_selectedCharacterNum]._yWalkTo;
 			break;
 		case 3:
-			_selectedObject.xPos = _xPosCurrent;
-			_selectedObject.yPos = _yPosCurrent;
+			_selectedObject._xPos = _xPosCurrent;
+			_selectedObject._yPos = _yPosCurrent;
 			break;
 		}
 	}
-	if (_selectedObject.yPos == 0) {
-		_selectedObject.xPos = x;
-		_selectedObject.yPos = _mousePosY;
+	if (_selectedObject._yPos == 0) {
+		_selectedObject._xPos = x;
+		_selectedObject._yPos = _mousePosY;
 	}
-	_selectedObjectLocationMask = testLocationMask(_selectedObject.xPos, _selectedObject.yPos);
-	if (_selectedObjectLocationMask == 0 && _objectKeysLocationTable[_locationNum] == 1) {
-		if (_selectedObject.yPos < _objectKeysPosYTable[_locationNum]) {
-			while (_selectedObjectLocationMask == 0 && _selectedObject.yPos < _objectKeysPosYTable[_locationNum]) {
-				++_selectedObject.yPos;
-				_selectedObjectLocationMask = testLocationMask(_selectedObject.xPos, _selectedObject.yPos);
+	_selectedObjectLocationMask = testLocationMask(_selectedObject._xPos, _selectedObject._yPos);
+	if (!_selectedObjectLocationMask && _objectKeysLocationTable[_location] == 1) {
+		if (_selectedObject._yPos < _objectKeysPosYTable[_location]) {
+			while (!_selectedObjectLocationMask && _selectedObject._yPos < _objectKeysPosYTable[_location]) {
+				++_selectedObject._yPos;
+				_selectedObjectLocationMask = testLocationMask(_selectedObject._xPos, _selectedObject._yPos);
 			}
 		} else {
-			while (_selectedObjectLocationMask == 0 && _selectedObject.yPos < _objectKeysPosYTable[_locationNum]) {
-				--_selectedObject.yPos;
-				_selectedObjectLocationMask = testLocationMask(_selectedObject.xPos, _selectedObject.yPos);
+			while (!_selectedObjectLocationMask && _selectedObject._yPos < _objectKeysPosYTable[_location]) {
+				--_selectedObject._yPos;
+				_selectedObjectLocationMask = testLocationMask(_selectedObject._xPos, _selectedObject._yPos);
 			}
 		}
 	}
-	if (_selectedObjectLocationMask == 1) {
-		_selectedObjectLocationMask = testLocationMaskArea(_xPosCurrent, _yPosCurrent, _selectedObject.xPos, _selectedObject.yPos);
-		if (_selectedObjectLocationMask == 1 && _objectKeysPosXTable[_locationNum] > 0) {
-			_selectedObject.xDefaultPos = _selectedObject.xPos;
-			_selectedObject.yDefaultPos = _selectedObject.yPos;
-			_selectedObject.xPos = _objectKeysPosXTable[_locationNum];
-			_selectedObject.yPos = _objectKeysPosYTable[_locationNum];
-			if (_objectKeysLocationTable[_locationNum] == 1) {
-				_selectedObject.xPos = _selectedObject.xDefaultPos;
+	if (_selectedObjectLocationMask) {
+		_selectedObjectLocationMask = testLocationMaskArea(_xPosCurrent, _yPosCurrent, _selectedObject._xPos, _selectedObject._yPos);
+		if (_selectedObjectLocationMask && _objectKeysPosXTable[_location] > 0) {
+			_selectedObject._xDefaultPos = _selectedObject._xPos;
+			_selectedObject._yDefaultPos = _selectedObject._yPos;
+			_selectedObject._xPos = _objectKeysPosXTable[_location];
+			_selectedObject._yPos = _objectKeysPosYTable[_location];
+			if (_objectKeysLocationTable[_location] == 1) {
+				_selectedObject._xPos = _selectedObject._xDefaultPos;
 			}
 		}
 	}
 }
 
 void TuckerEngine::setCharacterAnimation(int count, int spr) {
-	_spritesTable[spr].animationFrame = 0;
-	_spritesTable[spr].stateIndex = 0;
+	_spritesTable[spr]._animationFrame = 0;
+	_spritesTable[spr]._stateIndex = 0;
 	for (int i = 0; i < count; ++i) {
-		while (_characterStateTable[_spritesTable[spr].stateIndex] != 99) {
-			++_spritesTable[spr].stateIndex;
+		while (_characterStateTable[_spritesTable[spr]._stateIndex] != 99) {
+			++_spritesTable[spr]._stateIndex;
 		}
-		++_spritesTable[spr].stateIndex;
+		++_spritesTable[spr]._stateIndex;
 	}
-	_spritesTable[spr].state = _characterStateTable[_spritesTable[spr].stateIndex];
-	++_spritesTable[spr].stateIndex;
-	_spritesTable[spr].animationFrame = _characterStateTable[_spritesTable[spr].stateIndex];
-	++_spritesTable[spr].stateIndex;
-	_spritesTable[spr].animationData = _sprC02Table[_spritesTable[spr].state];
-	_spritesTable[spr].firstFrame = READ_LE_UINT16(_spritesTable[spr].animationData);
+	_spritesTable[spr]._state = _characterStateTable[_spritesTable[spr]._stateIndex];
+	++_spritesTable[spr]._stateIndex;
+	_spritesTable[spr]._animationFrame = _characterStateTable[_spritesTable[spr]._stateIndex];
+	++_spritesTable[spr]._stateIndex;
+	_spritesTable[spr]._animationData = _sprC02Table[_spritesTable[spr]._state];
+	_spritesTable[spr]._firstFrame = READ_LE_UINT16(_spritesTable[spr]._animationData);
 }
 
-int TuckerEngine::testLocationMaskArea(int xBase, int yBase, int xPos, int yPos) {
+bool TuckerEngine::testLocationMaskArea(int xBase, int yBase, int xPos, int yPos) {
 	while (true) {
 		bool loop = false;
 		if (yBase > yPos) {
-			if (testLocationMask(xBase, yBase - 1) == 1) {
+			if (testLocationMask(xBase, yBase - 1)) {
 				--yBase;
 				loop = true;
 			}
 		} else if (yBase < yPos) {
-			if (testLocationMask(xBase, yBase + 1) == 1) {
+			if (testLocationMask(xBase, yBase + 1)) {
 				++yBase;
 				loop = true;
 			}
 		}
 		if (xBase > xPos) {
-			if (testLocationMask(xBase - 1, yBase) == 1) {
+			if (testLocationMask(xBase - 1, yBase)) {
 				--xBase;
 				loop = true;
 			}
 		} else if (xBase < xPos) {
-			if (testLocationMask(xBase + 1, yBase) == 1) {
+			if (testLocationMask(xBase + 1, yBase)) {
 				++xBase;
 				loop = true;
 			}
 		}
 		if (xBase == xPos && yBase == yPos) {
-			return 0;
+			return false;
 		}
 		if (!loop) {
 			break;
 		}
 	}
-	return 1;
+	return true;
 }
 
 void TuckerEngine::handleMouseClickOnInventoryObject() {
-	if (_panelState != 0) {
+	if (_panelType != kPanelTypeNormal) {
 		return;
 	}
 	if (_mousePosY < 150 || _mousePosX < 212) {
@@ -3547,33 +3738,33 @@ void TuckerEngine::handleMouseClickOnInventoryObject() {
 		if (_leftMouseButtonPressed) {
 			_selectedObjectType = 0;
 			_selectedObjectNum = 0;
-			_actionVerb = 0;
-			_actionVerbLocked = 0;
+			_actionVerb = kVerbWalk;
+			_actionVerbLocked = false;
 			_forceRedrawPanelItems = true;
-			_panelState = 2;
-			setCursorType(1);
+			_panelType = kPanelTypeLoadSavePlayQuit;
+			setCursorState(kCursorStateDialog);
 		}
 		break;
 	case 1:
-		if (_actionVerb == 8 && _leftMouseButtonPressed) {
-			if (_mapSequenceFlagsLocationTable[_locationNum - 1] == 1) {
+		if (_actionVerb == kVerbUse && _leftMouseButtonPressed) {
+			if (_mapSequenceFlagsLocationTable[_location - 1] == 1) {
 				handleMapSequence();
 			} else {
 				_actionPosX = _xPosCurrent;
 				_actionPosY = _yPosCurrent - 64;
 				_actionTextColor = 1;
 				_actionCharacterNum = 99;
-				setCursorType(2);
+				setCursorState(kCursorStateDisabledHidden);
 				_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
-				_currentActionVerb = 0;
+				_currentActionVerb = kVerbWalk;
 				_speechSoundNum = 2235;
 				startSpeechSound(_speechSoundNum, _speechVolume);
 				_characterSpeechDataPtr = _ptTextBuf + getPositionForLine(_speechSoundNum, _ptTextBuf);
 				_speechSoundNum = 0;
-				_actionVerb = 0;
+				_actionVerb = kVerbWalk;
 				_selectedObjectType = 0;
 				_selectedObjectNum = 0;
-				_actionVerbLocked = 0;
+				_actionVerbLocked = false;
 			}
 		}
 		break;
@@ -3585,23 +3776,23 @@ int TuckerEngine::setCharacterUnderCursor() {
 		return -1;
 	}
 	for (int i = 0; i < _charPosCount; ++i) {
-		if (_mousePosX + _scrollOffset <= _charPosTable[i].xPos) {
+		if (_mousePosX + _scrollOffset <= _charPosTable[i]._xPos) {
 			continue;
 		}
-		if (_mousePosX + _scrollOffset >= _charPosTable[i].xPos + _charPosTable[i].xSize) {
+		if (_mousePosX + _scrollOffset >= _charPosTable[i]._xPos + _charPosTable[i]._xSize) {
 			continue;
 		}
-		if (_mousePosY <= _charPosTable[i].yPos) {
+		if (_mousePosY <= _charPosTable[i]._yPos) {
 			continue;
 		}
-		if (_mousePosY >= _charPosTable[i].yPos + _charPosTable[i].ySize) {
+		if (_mousePosY >= _charPosTable[i]._yPos + _charPosTable[i]._ySize) {
 			continue;
 		}
-		if (_charPosTable[i].flagNum == 0 || _flagsTable[_charPosTable[i].flagNum] == _charPosTable[i].flagValue) {
+		if (_charPosTable[i]._flagNum == 0 || _flagsTable[_charPosTable[i]._flagNum] == _charPosTable[i]._flagValue) {
 			_selectedObjectType = 2;
-			_selectedCharacterDirection = _charPosTable[i].direction;
+			_selectedCharacterDirection = _charPosTable[i]._direction;
 			_selectedCharacterNum = i;
-			return _charPosTable[i].name;
+			return _charPosTable[i]._name;
 		}
 	}
 	return -1;
@@ -3612,44 +3803,49 @@ int TuckerEngine::setLocationAnimationUnderCursor() {
 		return -1;
 	}
 	for (int i = _locationAnimationsCount - 1; i >= 0; --i) {
-		if (_locationAnimationsTable[i].drawFlag == 0) {
+		if (!_locationAnimationsTable[i]._drawFlag)
+			continue;
+
+		int num = _locationAnimationsTable[i]._graphicNum;
+		if (_mousePosX + _scrollOffset + 1 <= _dataTable[num]._xDest) {
 			continue;
 		}
-		int num = _locationAnimationsTable[i].graphicNum;
-		if (_mousePosX + _scrollOffset + 1 <= _dataTable[num].xDest) {
+		if (_mousePosX + _scrollOffset >= _dataTable[num]._xDest + _dataTable[num]._xSize) {
 			continue;
 		}
-		if (_mousePosX + _scrollOffset >= _dataTable[num].xDest + _dataTable[num].xSize) {
+		if (_mousePosY <= _dataTable[num]._yDest) {
 			continue;
 		}
-		if (_mousePosY <= _dataTable[num].yDest) {
+		if (_mousePosY >= _dataTable[num]._yDest + _dataTable[num]._ySize) {
 			continue;
 		}
-		if (_mousePosY >= _dataTable[num].yDest + _dataTable[num].ySize) {
+		if (_locationAnimationsTable[i]._selectable == 0) {
+			// WORKAROUND
+			// The original game does a "return -1" here which is not correct in
+			// case of overlapping hotspots.
+			// This most prominently fixes Trac#6645, a bug where the cellar in part three
+			// could be entered without having done the cellar door puzzle first.
 			continue;
-		}
-		if (_locationAnimationsTable[i].selectable == 0) {
-			return -1;
 		}
 		_selectedObjectType = 1;
 		_selectedCharacterNum = i;
 		_selectedCharacter2Num = i;
-		return _locationAnimationsTable[i].selectable;
+		return _locationAnimationsTable[i]._selectable;
 	}
 	return -1;
 }
 
 void TuckerEngine::setActionForInventoryObject() {
-	if (_actionVerb == 0 || _actionVerb == 2 || _actionVerb == 6 || _actionVerb == 7) {
+	if (_actionVerb == kVerbWalk || _actionVerb == kVerbTalk || _actionVerb == kVerbTake || _actionVerb == kVerbMove) {
 		playSpeechForAction(_actionVerb);
-		_actionVerbLocked = 0;
+		_actionVerbLocked = false;
 		_actionRequiresTwoObjects = false;
 		return;
 	}
-	if (_actionVerb == 3 || _actionVerb == 4) {
-		if (!(_partNum == 2 && _selectedObjectNum == 19) && !(_partNum == 3 && _selectedObjectNum == 42)) {
+	if (_actionVerb == kVerbOpen || _actionVerb == kVerbClose) {
+		if (!(_part == kPartTwo && _selectedObjectNum == 19) && !(_part == kPartThree && _selectedObjectNum == 42)) {
 			playSpeechForAction(_actionVerb);
-			_actionVerbLocked = 0;
+			_actionVerbLocked = false;
 			_actionRequiresTwoObjects = false;
 			return;
 		}
@@ -3658,14 +3854,14 @@ void TuckerEngine::setActionForInventoryObject() {
 	_currentInfoString1SourceType = _actionObj1Type;
 	_currentActionObj2Num = _actionObj2Num;
 	_currentInfoString2SourceType = _actionObj2Type;
-	if (_actionVerb == 1 && _selectedObjectType == 3) {
-		if (_panelLockedFlag == 1) {
+	if (_actionVerb == kVerbLook && _selectedObjectType == 3) {
+		if (_panelLockedFlag) {
 			if (_locationMaskType != 0) {
 				return;
 			}
-			_panelLockedFlag = 0;
+			_panelLockedFlag = false;
 		}
-		if (handleSpecialObjectSelectionSequence() == 1) {
+		if (handleSpecialObjectSelectionSequence()) {
 			return;
 		}
 		_speechSoundNum = _actionObj1Num + _speechSoundBaseNum;
@@ -3676,16 +3872,25 @@ void TuckerEngine::setActionForInventoryObject() {
 		_actionPosY = _yPosCurrent - 64;
 		_actionTextColor = 1;
 		_actionCharacterNum = 99;
-		setCursorType(2);
+		setCursorState(kCursorStateDisabledHidden);
 		_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
-		_actionVerbLocked = 0;
+		_actionVerbLocked = false;
 		_actionRequiresTwoObjects = false;
 		return;
 	}
-	if ((_partNum == 3 && (_actionObj1Num == 6 || _actionObj1Num == 3 || _actionObj1Num == 17)) ||
-		(_partNum == 2 && _actionObj1Num == 19) ||
-		(_partNum == 3 && (_actionObj1Num == 42 && _selectedObjectNum == 18)) ) {
-		_actionVerbLocked = 0;
+	// Items with unary usage i.e. "Use X", rather than "Use X on Y"
+	if (
+		(_part == kPartTwo && _actionObj1Num == 19) || // radio
+		(_part == kPartThree && (
+			 _actionObj1Num ==  3 || // pizza
+			 _actionObj1Num ==  6 || // raincoat
+			 _actionObj1Num == 17 || // ear plugs
+			 _actionObj1Num == 18 || // glue
+			 _actionObj1Num == 33 || // peg
+			(_actionObj1Num == 42 && _selectedObjectNum == 18) // skate + cue
+		))
+	) {
+		_actionVerbLocked = false;
 		_actionRequiresTwoObjects = false;
 		_locationMaskCounter = 1;
 		setActionState();
@@ -3694,7 +3899,7 @@ void TuckerEngine::setActionForInventoryObject() {
 	if (!_actionRequiresTwoObjects) {
 		_actionRequiresTwoObjects = true;
 	} else {
-		_actionVerbLocked = 0;
+		_actionVerbLocked = false;
 		_actionRequiresTwoObjects = false;
 		_locationMaskCounter = 1;
 		setActionState();
@@ -3702,7 +3907,7 @@ void TuckerEngine::setActionForInventoryObject() {
 }
 
 void TuckerEngine::setActionState() {
-	_currentActionVerb = (_actionVerb == 0) ? 8 : _actionVerb;
+	_currentActionVerb = (_actionVerb == kVerbWalk) ? kVerbUse : _actionVerb;
 	_currentActionObj1Num = _actionObj1Num;
 	_currentInfoString1SourceType = _actionObj1Type;
 	_currentActionObj2Num = _actionObj2Num;
@@ -3721,7 +3926,7 @@ void TuckerEngine::playSpeechForAction(int i) {
 		_speechActionCounterTable[i] = 0;
 	}
 	if (speechActionTable[i] >= 2000) {
-		if (_currentActionVerb == 8 && _currentActionObj1Num == 6 && _currentInfoString1SourceType == 3) {
+		if (_currentActionVerb == kVerbUse && _currentActionObj1Num == 6 && _currentInfoString1SourceType == 3) {
 			_speechSoundNum = 2395;
 		} else {
 			_speechSoundNum = _speechActionCounterTable[i] + speechActionTable[i];
@@ -3733,7 +3938,7 @@ void TuckerEngine::playSpeechForAction(int i) {
 		_actionPosY = _yPosCurrent - 64;
 		_actionTextColor = 1;
 		_actionCharacterNum = 99;
-		setCursorType(2);
+		setCursorState(kCursorStateDisabledHidden);
 		_charSpeechSoundCounter = kDefaultCharSpeechSoundCounter;
 	}
 }
@@ -3754,12 +3959,12 @@ void TuckerEngine::drawSpeechText(int xStart, int y, const uint8 *dataPtr, int n
 		}
 	}
 	int count = 0;
-	int flag = 0;
+	bool flag = false;
 	struct {
 		int w, count, offset;
 	} lines[5];
 	lines[0].offset = getPositionForLine(num, dataPtr);
-	while (flag == 0 && count < 4) {
+	while (!flag && count < 4) {
 		int lineCharsCount, lineWidth;
 		flag = splitSpeechTextLines(dataPtr, lines[count].offset, x, lineCharsCount, lineWidth);
 		lines[count].w = lineWidth;
@@ -3788,7 +3993,7 @@ void TuckerEngine::drawSpeechText(int xStart, int y, const uint8 *dataPtr, int n
 	}
 }
 
-int TuckerEngine::splitSpeechTextLines(const uint8 *dataPtr, int pos, int x, int &lineCharsCount, int &lineWidth) {
+bool TuckerEngine::splitSpeechTextLines(const uint8 *dataPtr, int pos, int x, int &lineCharsCount, int &lineWidth) {
 	int count = 0;
 	int w = 0;
 	lineCharsCount = 0;
@@ -3802,11 +4007,11 @@ int TuckerEngine::splitSpeechTextLines(const uint8 *dataPtr, int pos, int x, int
 		++count;
 		++pos;
 	}
-	int ret = 0;
+	bool ret = false;
 	if (x + 1 > w) {
 		lineCharsCount = count;
 		lineWidth = w;
-		ret = 1;
+		ret = true;
 	}
 	return ret;
 }
@@ -3818,7 +4023,15 @@ void TuckerEngine::drawSpeechTextLine(const uint8 *dataPtr, int pos, int count, 
 		x += _charWidthTable[dataPtr[pos]];
 		++pos;
 	}
-	addDirtyRect(xStart, y, x - xStart, Graphics::_charset.charH);
+	// At least in the English version of the game many glyphs in the character set are one pixel
+	// wider than specified in the character width table. This ensures that, when rendering text,
+	// characters are overlapping one pixel (i.e. their outlines overlap).
+	// This has the negative side effect that when a text line ends with a glyph whose specified
+	// size is narrower than its actual size, the calculated width for the dirty rect is wrong.
+	// To compensate for this we add the current character set's maximum glyph width to make sure
+	// that the dirty rect always covers the whole line.
+	// This fixes Bug #6370.
+	addDirtyRect(xStart, y, x - xStart + Graphics::_charset._charW, Graphics::_charset._charH);
 }
 
 void TuckerEngine::redrawScreen(int offset) {

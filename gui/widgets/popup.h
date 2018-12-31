@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef GUI_WIDGETS_POPUP_H
@@ -57,6 +58,7 @@ protected:
 
 public:
 	PopUpWidget(GuiObject *boss, const String &name, const char *tooltip = 0);
+	PopUpWidget(GuiObject *boss, int x, int y, int w, int h, const char *tooltip = 0);
 
 	void handleMouseDown(int x, int y, int button, int clickCount);
 	void handleMouseWheel(int x, int y, int direction);
@@ -75,8 +77,8 @@ public:
 	uint32 getSelectedTag() const				{ return (_selectedItem >= 0) ? _entries[_selectedItem].tag : (uint32)-1; }
 //	const String& getSelectedString() const		{ return (_selectedItem >= 0) ? _entries[_selectedItem].name : String::emptyString; }
 
-	void handleMouseEntered(int button)	{ setFlags(WIDGET_HILITED); draw(); }
-	void handleMouseLeft(int button)	{ clearFlags(WIDGET_HILITED); draw(); }
+	void handleMouseEntered(int button)	{ setFlags(WIDGET_HILITED); markAsDirty(); }
+	void handleMouseLeft(int button)	{ clearFlags(WIDGET_HILITED); markAsDirty(); }
 
 	virtual void reflowLayout();
 protected:

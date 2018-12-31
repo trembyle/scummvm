@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -420,7 +420,7 @@ void Logic::resetState() {
  */
 void Logic::gameOver(SavegameType type, uint32 value, SceneIndex sceneIndex, bool showScene) const {
 
-	getSoundQueue()->processEntries();
+	getSoundQueue()->endAmbient();
 	getEntities()->reset();
 	getFlags()->isGameRunning = false;
 	getSavePoints()->reset();
@@ -428,7 +428,7 @@ void Logic::gameOver(SavegameType type, uint32 value, SceneIndex sceneIndex, boo
 
 	if (showScene) {
 
-		getSoundQueue()->processEntry(kSoundType11);
+		getSoundQueue()->fade(kSoundTagIntro);
 
 		if (sceneIndex && !getFlags()->mouseRightClick) {
 			getScenes()->loadScene(sceneIndex);
@@ -447,7 +447,7 @@ void Logic::gameOver(SavegameType type, uint32 value, SceneIndex sceneIndex, boo
 }
 
 void Logic::switchChapter() const {
-	getSoundQueue()->clearStatus();
+	getSoundQueue()->stopAll();
 
 	switch(getState()->progress.chapter) {
 	default:
@@ -468,7 +468,7 @@ void Logic::switchChapter() const {
 
 	case kChapter3:
 		getInventory()->get(kItemFirebird)->location = kObjectLocation4;
-		getInventory()->get(kItemFirebird)->isPresent = false;
+		getInventory()->get(kItemFirebird)->inPocket = false;
 		getInventory()->get(kItem11)->location = kObjectLocation1;
 		getInventory()->addItem(kItemWhistle);
 		getInventory()->addItem(kItemKey);
@@ -487,7 +487,7 @@ void Logic::switchChapter() const {
 }
 
 void Logic::playFinalSequence() const {
-	getSoundQueue()->processEntries();
+	getSoundQueue()->endAmbient();
 
 	_action->playAnimation(kEventFinalSequence);
 	showCredits();

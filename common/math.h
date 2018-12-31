@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -98,7 +98,7 @@ static const char LogTable256[256] = {
 };
 
 inline int intLog2(uint32 v) {
-	register uint32 t, tt;
+	uint32 t, tt;
 
 	if ((tt = v >> 16))
 		return (t = tt >> 8) ? 24 + LogTable256[t] : 16 + LogTable256[tt];
@@ -107,12 +107,46 @@ inline int intLog2(uint32 v) {
 }
 #endif
 
-inline float rad2deg(float rad) {
-	return rad * 180.0 / M_PI;
+// Convert radians to degrees
+// Input and Output type can be different
+// Upconvert everything to floats
+template<class InputT, class OutputT> 
+inline OutputT rad2deg(InputT rad) {
+	return (OutputT)( (float)rad * (float)57.2957795130823); // 180.0/M_PI = 57.2957795130823
 }
 
-inline float deg2rad(float deg) {
-	return deg * M_PI / 180.0;
+// Handle the case differently when the input type is double
+template<class OutputT> 
+inline OutputT rad2deg(double rad) {
+	return (OutputT)( rad * 57.2957795130823);
+}
+
+// Convert radians to degrees
+// Input and Output type are the same
+template<class T> 
+inline T rad2deg(T rad) {
+	return rad2deg<T,T>(rad);
+}
+
+// Convert degrees to radians
+// Input and Output type can be different
+// Upconvert everything to floats
+template<class InputT, class OutputT> 
+inline OutputT deg2rad(InputT deg) {
+	return (OutputT)( (float)deg * (float)0.0174532925199433); // M_PI/180.0 = 0.0174532925199433
+}
+
+// Handle the case differently when the input type is double
+template<class OutputT> 
+inline OutputT deg2rad(double deg) {
+	return (OutputT)( deg * 0.0174532925199433);
+}
+
+// Convert degrees to radians
+// Input and Output type are the same
+template<class T> 
+inline T deg2rad(T deg) {
+	return deg2rad<T,T>(deg);
 }
 
 } // End of namespace Common

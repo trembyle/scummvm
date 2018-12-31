@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -35,8 +35,8 @@ class MohawkEngine_Myst;
 
 class MystConsole : public GUI::Debugger {
 public:
-	MystConsole(MohawkEngine_Myst *vm);
-	virtual ~MystConsole(void);
+	explicit MystConsole(MohawkEngine_Myst *vm);
+	~MystConsole() override;
 
 private:
 	MohawkEngine_Myst *_vm;
@@ -55,6 +55,7 @@ private:
 	bool Cmd_DisableInitOpcodes(int argc, const char **argv);
 	bool Cmd_Cache(int argc, const char **argv);
 	bool Cmd_Resources(int argc, const char **argv);
+	bool Cmd_QuickTest(int argc, const char **argv);
 };
 
 #endif
@@ -65,8 +66,8 @@ class MohawkEngine_Riven;
 
 class RivenConsole : public GUI::Debugger {
 public:
-	RivenConsole(MohawkEngine_Riven *vm);
-	virtual ~RivenConsole(void);
+	explicit RivenConsole(MohawkEngine_Riven *vm);
+	~RivenConsole() override;
 
 private:
 	MohawkEngine_Riven *_vm;
@@ -81,7 +82,8 @@ private:
 	bool Cmd_ChangeStack(int argc, const char **argv);
 	bool Cmd_Hotspots(int argc, const char **argv);
 	bool Cmd_ZipMode(int argc, const char **argv);
-	bool Cmd_RunAllBlocks(int argc, const char **argv);
+	bool Cmd_DumpCard(int argc, const char **argv);
+	bool Cmd_DumpStack(int argc, const char **argv);
 	bool Cmd_DumpScript(int argc, const char **argv);
 	bool Cmd_ListZipCards(int argc, const char **argv);
 	bool Cmd_GetRMAP(int argc, const char **argv);
@@ -93,8 +95,8 @@ private:
 
 class LivingBooksConsole : public GUI::Debugger {
 public:
-	LivingBooksConsole(MohawkEngine_LivingBooks *vm);
-	virtual ~LivingBooksConsole(void);
+	explicit LivingBooksConsole(MohawkEngine_LivingBooks *vm);
+	~LivingBooksConsole() override;
 
 private:
 	MohawkEngine_LivingBooks *_vm;

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -22,6 +22,7 @@
 
 #include "neverhood/diskplayerscene.h"
 #include "neverhood/mouse.h"
+#include "neverhood/smackerplayer.h"
 
 namespace Neverhood {
 
@@ -169,7 +170,7 @@ AsDiskplayerSceneKey::AsDiskplayerSceneKey(NeverhoodEngine *vm)
 uint32 AsDiskplayerSceneKey::handleMessage(int messageNum, const MessageParam &param, Entity *sender) {
 	uint32 messageResult = Sprite::handleMessage(messageNum, param, sender);
 	switch (messageNum) {
-	case 0x3002:
+	case NM_ANIMATION_STOP:
 		gotoNextState();
 		break;
 	}
@@ -442,7 +443,7 @@ uint32 DiskplayerScene::handleMessage(int messageNum, const MessageParam &param,
 	Scene::handleMessage(messageNum, param, sender);
 	if (!_inputDisabled) {
 		switch (messageNum) {
-		case 0x0001:
+		case NM_MOUSE_CLICK:
 			if (param.asPoint().x <= 20 || param.asPoint().x >= 620) {
 				sendMessage(_parentModule, 0x1009, 0);
 			} else if (!_dropKey &&
@@ -460,7 +461,7 @@ uint32 DiskplayerScene::handleMessage(int messageNum, const MessageParam &param,
 				}
 			}
 			break;
-		case 0x2000:
+		case NM_ANIMATION_UPDATE:
 			tuneIn();
 			break;
 		case 0x2001:

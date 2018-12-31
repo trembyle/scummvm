@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -104,7 +104,7 @@ void FighterPlayerVesna::update() {
 			_opponent->handleAction(kFightAction3);
 
 		if (_opponent->getCountdown() <= 0) {
-			getSoundQueue()->removeFromQueue(kEntityTables0);
+			getSoundQueue()->stop(kEntityTables0);
 			_fight->bailout(Fight::kFightEndWin);
 			return;
 		}
@@ -151,7 +151,7 @@ FighterOpponentVesna::FighterOpponentVesna(LastExpressEngine *engine) : Opponent
 	_sequences.push_back(loadSequence("2005csbm.seq"));
 	_sequences.push_back(loadSequence("2005oam4.seq"));
 
-	getSound()->playSound(kEntityTables0, "MUS038", kFlagDefault);
+	getSound()->playSound(kEntityTables0, "MUS038", kVolumeFull);
 
 	_countdown = 4;
 	_field_38 = 30;
@@ -252,7 +252,7 @@ void FighterOpponentVesna::update() {
 			_opponent->update();
 			Fighter::update();
 
-			getSoundQueue()->removeFromQueue(kEntityTables0);
+			getSoundQueue()->stop(kEntityTables0);
 
 			// Stop processing
 			return;

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -38,13 +38,15 @@ void StripProxy::process(Event &event) {
 
 void UIElement::synchronize(Serializer &s) {
 	BackgroundSceneObject::synchronize(s);
-	s.syncAsSint16LE(_field88);
+	if (s.getVersion() < 15) {
+		int useless = 0;
+		s.syncAsSint16LE(useless);
+	}
 	s.syncAsSint16LE(_enabled);
 	s.syncAsSint16LE(_frameNum);
 }
 
 void UIElement::setup(int visage, int stripNum, int frameNum, int posX, int posY, int priority) {
-	_field88 = 0;
 	_frameNum = frameNum;
 	_enabled = true;
 
@@ -203,7 +205,7 @@ void UIInventoryScroll::process(Event &event) {
 		toggle(true);
 
 		// Wait for the mouse to be released
-		BF_GLOBALS._events.waitForPress(EVENT_BUTTON_UP);
+		g_globals->_events.waitForPress(EVENT_BUTTON_UP);
 
 		// Restore unselected version
 		toggle(false);
@@ -251,7 +253,7 @@ void UICollection::show() {
 void UICollection::erase() {
 	if (_clearScreen) {
 		Rect tempRect(0, UI_INTERFACE_Y, SCREEN_WIDTH, SCREEN_HEIGHT);
-		GLOBALS._screenSurface.fillRect(tempRect, 0);
+		GLOBALS._screen.fillRect(tempRect, 0);
 		GLOBALS._sceneManager._scene->_backSurface.fillRect(tempRect, 0);
 		_clearScreen = false;
 	}
@@ -272,7 +274,7 @@ void UICollection::draw() {
 			_objList[idx]->draw();
 
 		// Draw the resulting UI onto the screen
-		GLOBALS._screenSurface.copyFrom(GLOBALS._sceneManager._scene->_backSurface,
+		GLOBALS._screen.copyFrom(GLOBALS._sceneManager._scene->_backSurface,
 			Rect(0, UI_INTERFACE_Y, SCREEN_WIDTH, SCREEN_HEIGHT),
 			Rect(0, UI_INTERFACE_Y, SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -287,16 +289,17 @@ void UICollection::draw() {
 void UICollection::r2rDrawFrame() {
 	Visage visage;
 	visage.setVisage(2, 1);
-	GfxSurface vertLine = visage.getFrame(1);
+	GfxSurface vertLineLeft = visage.getFrame(1);
+	GfxSurface vertLineRight = visage.getFrame(3);
 	GfxSurface horizLine = visage.getFrame(2);
 
-	GLOBALS._screenSurface.copyFrom(horizLine, 0, 0);
-	GLOBALS._screenSurface.copyFrom(vertLine, 0, 3);
-	GLOBALS._screenSurface.copyFrom(vertLine, SCREEN_WIDTH - 4, 3);
+	GLOBALS._screen.copyFrom(horizLine, 0, 0);
+	GLOBALS._screen.copyFrom(vertLineLeft, 0, 3);
+	GLOBALS._screen.copyFrom(vertLineRight, SCREEN_WIDTH - 4, 3);
 
 	// Restrict drawing area to exclude the borders at the edge of the screen
-	R2_GLOBALS._screenSurface._clipRect = Rect(4, 4, SCREEN_WIDTH - 4,
-		SCREEN_HEIGHT - 4);
+	R2_GLOBALS._screen._clipRect = Rect(4, 3, SCREEN_WIDTH - 4,
+		SCREEN_HEIGHT - 3);
 }
 
 /*--------------------------------------------------------------------------*/

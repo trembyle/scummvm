@@ -1,27 +1,27 @@
 /* ScummVM - Graphic Adventure Engine
-*
-* ScummVM is the legal property of its developers, whose names
-* are too numerous to list here. Please refer to the COPYRIGHT
-* file distributed with this source distribution.
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
+ *
+ * ScummVM is the legal property of its developers, whose names
+ * are too numerous to list here. Please refer to the COPYRIGHT
+ * file distributed with this source distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-*
-*/
-
-#ifndef CGE_H
-#define CGE_H
+#ifndef CGE_CGE_H
+#define CGE_CGE_H
 
 #include "common/random.h"
 #include "common/savefile.h"
@@ -56,7 +56,7 @@ class Walk;
 class Text;
 class Talk;
 
-#define kSavegameVersion 2
+#define kSavegameVersion 3
 #define kSavegameStrSize 11
 #define kPocketX    174
 #define kPocketY    176
@@ -80,12 +80,6 @@ class Talk;
 
 #define kSayTheEnd  41
 
-enum GameType {
-	kGameTypeNone = 0,
-	kGameTypeSoltys,
-	kGameTypeSfinx
-};
-
 // our engine debug channels
 enum {
 	kCGEDebugBitmap = 1 << 0,
@@ -105,9 +99,9 @@ struct SavegameHeader {
 	uint8 version;
 	Common::String saveName;
 	Graphics::Surface *thumbnail;
-	int saveYear, saveMonth, saveDay;
-	int saveHour, saveMinutes;
-	int totalFrames;
+	int16 saveYear, saveMonth, saveDay;
+	int16 saveHour, saveMinutes;
+	uint32 playTime;
 };
 
 extern const char *savegameStr;
@@ -168,7 +162,6 @@ public:
 	int    _now;
 	int    _lev;
 	int    _mode;
-	int    _soundOk;
 	int    _gameCase2Cpt;
 	int    _offUseCount;
 	Dac   *_bitmapPalette;
@@ -254,7 +247,7 @@ public:
 	void mainLoop();
 	void handleFrame();
 	void saveGame(int slotNumber, const Common::String &desc);
-	static bool readSavegameHeader(Common::InSaveFile *in, SavegameHeader &header);
+	WARN_UNUSED_RESULT static bool readSavegameHeader(Common::InSaveFile *in, SavegameHeader &header, bool skipThumbnail = true);
 	void switchMusic();
 	void selectPocket(int n);
 	void expandSprite(Sprite *spr);

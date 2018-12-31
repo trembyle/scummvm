@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -385,7 +385,7 @@ SeqPlayer_HOF::SeqPlayer_HOF(KyraEngine_v1 *vm, Screen_v2 *screen, OSystem *syst
 	_sequenceStrings = _vm->staticres()->loadStrings(k2SeqplayStrings, tempSize);
 	uint8 multiplier = (_vm->gameFlags().platform == Common::kPlatformFMTowns || _vm->gameFlags().platform == Common::kPlatformPC98) ? 12 : 8;
 	for (int i = 0; i < MIN(33, tempSize); i++)
-		_textDuration[i] = (int) strlen(_sequenceStrings[i]) * multiplier;
+		_textDuration[i] = (int)strlen(_sequenceStrings[i]) * multiplier;
 
 	if (_sequenceSoundList) {
 		for (int i = 0; i < _sequenceSoundListSize; i++) {
@@ -1651,7 +1651,7 @@ void SeqPlayer_HOF::displayHoFTalkieScrollText(uint8 *data, const ScreenDim *d, 
 			textData[1].text += strlen((char *)textData[1].text);
 			textData[1].text[0] = textData[1].unk1;
 			cnt--;
-			memcpy(&textData[1], &textData[2], cnt * sizeof(ScrollTextData));
+			memmove(&textData[1], &textData[2], cnt * sizeof(ScrollTextData));
 		}
 
 		if (palCycle) {
@@ -3378,7 +3378,7 @@ void KyraEngine_HoF::seq_showStarcraftLogo() {
 
 int KyraEngine_HoF::seq_playIntro() {
 	bool startupSaveLoadable = saveFileLoadable(0);
-	return SeqPlayer_HOF(this, _screen, _system, startupSaveLoadable).play(kSequenceVirgin, startupSaveLoadable? kSequenceTitle : kSequenceNoLooping);
+	return SeqPlayer_HOF(this, _screen, _system, startupSaveLoadable).play(kSequenceVirgin, startupSaveLoadable ? kSequenceTitle : kSequenceNoLooping);
 }
 
 int KyraEngine_HoF::seq_playOutro() {

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -46,6 +46,7 @@ protected:
 	};
 
 protected:
+	bool _drawDemo;
 	byte _currentMode;
 	byte _currentLights;
 
@@ -67,6 +68,12 @@ public:
 
 	virtual void resetScumm();
 
+	byte walkboxFindTarget(Actor *a, int destbox, Common::Point walkdest);
+
+	/* Delay calculation */
+	void DelayReset();
+	int DelayCalculateDelta();
+
 protected:
 	virtual void resetRoomObject(ObjectData *od, const byte *room, const byte *searchptr = NULL);
 
@@ -79,7 +86,7 @@ protected:
 
 	virtual void processInput();
 
-	virtual void saveOrLoad(Serializer *s);
+	virtual void saveLoadWithSerializer(Common::Serializer &s);
 
 	virtual bool objIsActor(int obj);
 	virtual int objToActor(int obj);
@@ -99,6 +106,8 @@ protected:
 	virtual void handleMouseOver(bool updateInventory);
 	int verbPrepIdType(int verbid);
 	void resetVerbs();
+	void verbDemoMode();
+	void verbDrawDemoString(int VerbDemoNumber);
 
 	void clearSentenceLine();
 	void flushSentenceLine();
@@ -116,7 +125,7 @@ protected:
 
 	void resetSentence();
 
-	virtual bool areBoxesNeighbors(int box1nr, int box2nr);
+	bool areBoxesNeighbors(int box1nr, int box2nr);
 
 	bool ifEqualActiveObject2Common(bool checkType);
 
@@ -161,6 +170,7 @@ protected:
 	void o_cutscene();
 	void o_endCutscene();
 	void o_setOwnerOf();
+	void o_screenPrepare();
 
 	byte VAR_ACTIVE_OBJECT2;
 	byte VAR_IS_SOUND_RUNNING;

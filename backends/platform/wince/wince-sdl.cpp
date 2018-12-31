@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -237,7 +237,7 @@ int SDL_main(int argc, char **argv) {
 		res = scummvm_main(argc, argv);
 
 		// Free OSystem
-		delete(OSystem_WINCE3 *)g_system;
+		g_system->destroy();
 #if !defined(DEBUG) && !defined(__GNUC__)
 	}
 	__except(handleException(GetExceptionInformation())) {
@@ -420,9 +420,9 @@ void OSystem_WINCE3::initBackend() {
 	}
 
 	if (_graphicsManager == 0)
-		_graphicsManager = new WINCESdlGraphicsManager(_eventSource);
+		_graphicsManager = new WINCESdlGraphicsManager(_eventSource, _window);
 
-	((WINCESdlEventSource *)_eventSource)->init((WINCESdlGraphicsManager *)_graphicsManager);
+	((WINCESdlEventSource *)_eventSource)->init(dynamic_cast<WINCESdlGraphicsManager *>(_graphicsManager));
 
 	// Call parent implementation of this method
 	OSystem_SDL::initBackend();
@@ -486,15 +486,16 @@ void OSystem_WINCE3::swap_sound_master() {
 
 	//WINCESdlGraphicsManager _graphicsManager
 
-	if (((WINCESdlGraphicsManager *)_graphicsManager)->_toolbarHandler.activeName() == NAME_MAIN_PANEL)
-		((WINCESdlGraphicsManager *)_graphicsManager)->_toolbarHandler.forceRedraw(); // redraw sound icon
+	WINCESdlGraphicsManager *graphicsManager = dynamic_cast<WINCESdlGraphicsManager *>(_graphicsManager);
+	if (graphicsManager->_toolbarHandler.activeName() == NAME_MAIN_PANEL)
+		graphicsManager->_toolbarHandler.forceRedraw(); // redraw sound icon
 }
 
 
 void OSystem_WINCE3::engineInit() {
 	check_mappings(); // called here to initialize virtual keys handling
 
-	((WINCESdlGraphicsManager *)_graphicsManager)->update_game_settings();
+	dynamic_cast<WINCESdlGraphicsManager *>(_graphicsManager)->update_game_settings();
 	// finalize mixer init
 	_mixerManager->init();
 }
@@ -622,6 +623,25 @@ void OSystem_WINCE3::getTimeAndDate(TimeDate &t) const {
 	t.tm_wday   = systime.wDayOfWeek;
 }
 
+void OSystem_WINCE3::logMessage(LogMessageType::Type type, const char *message) {
+	OSystem_SDL::logMessage(type, message);
+
+#if defined( USE_WINDBG )
+	TCHAR buf_unicode[1024];
+	MultiByteToWideChar(CP_ACP, 0, message, strlen(message) + 1, buf_unicode, sizeof(buf_unicode));
+	OutputDebugString(buf_unicode);
+
+	if (type == LogMessageType::kError) {
+#ifndef DEBUG
+		drawError(message);
+#else
+		int cmon_break_into_the_debugger_if_you_please = *(int *)(message + 1);	// bus error
+		printf("%d", cmon_break_into_the_debugger_if_you_please);			// don't optimize the int out
+#endif
+	}
+#endif
+}
+
 Common::String OSystem_WINCE3::getSystemLanguage() const {
 #ifdef USE_DETECTLANG
 	// We can not use "setlocale" (at least not for MSVC builds), since it
@@ -644,7 +664,7 @@ Common::String OSystem_WINCE3::getSystemLanguage() const {
 	const char *posixMappingTable[][3] = {
 		{"CAT", "ESP", "ca_ES"},
 		{"CSY", "CZE", "cs_CZ"},
-		{"DAN", "DNK", "da_DA"},
+		{"DAN", "DNK", "da_DK"},
 		{"DEU", "DEU", "de_DE"},
 		{"ESN", "ESP", "es_ES"},
 		{"ESP", "ESP", "es_ES"},
@@ -656,7 +676,7 @@ Common::String OSystem_WINCE3::getSystemLanguage() const {
 		{"PLK", "POL", "pl_PL"},
 		{"PTB", "BRA", "pt_BR"},
 		{"RUS", "RUS", "ru_RU"},
-		{"SVE", "SWE", "se_SE"},
+		{"SVE", "SWE", "sv_SE"},
 		{"UKR", "UKR", "uk_UA"},
 		{NULL, NULL, NULL}
 	};

@@ -8,26 +8,27 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef TUCKER_ENGINE_H
-#define TUCKER_ENGINE_H
+#ifndef TUCKER_TUCKER_H
+#define TUCKER_TUCKER_H
 
 #include "common/file.h"
 #include "common/util.h"
 #include "common/endian.h"
 #include "common/events.h"
 #include "common/random.h"
+#include "common/savefile.h"
 #include "common/stream.h"
 
 #include "video/flic_decoder.h"
@@ -52,146 +53,38 @@ class RewindableAudioStream;
  */
 namespace Tucker {
 
-struct Action {
-	int key;
-	int testFlag1Num;
-	int testFlag1Value;
-	int testFlag2Num;
-	int testFlag2Value;
-	int speech;
-	int flipX;
-	int index;
-	int delay;
-	int setFlagNum;
-	int setFlagValue;
-	int fxNum;
-	int fxDelay;
+enum CursorStyle {
+	kCursorNormal     = 0,
+	kCursorTalk       = 1,
+	kCursorArrowRight = 2,
+	kCursorArrowUp    = 3,
+	kCursorArrowLeft  = 4,
+	kCursorArrowDown  = 5,
+	kCursorMap        = 6
 };
 
-struct Sprite {
-	int state;
-	int gfxBackgroundOffset;
-	int updateDelay;
-	int backgroundOffset;
-	int needUpdate;
-	int stateIndex;
-	int counter;
-	int disabled;
-	int colorType;
-	int animationFrame;
-	int firstFrame;
-	uint8 *animationData;
-	int prevState;
-	int nextAnimationFrame;
-	int prevAnimationFrame;
-	int defaultUpdateDelay;
-	int xSource;
-	int yMaxBackground;
-	int flipX;
+enum CursorState {
+	kCursorStateNormal         = 0,
+	kCursorStateDialog         = 1,
+	kCursorStateDisabledHidden = 2
 };
 
-struct CharPos {
-	int xPos;
-	int yPos;
-	int xSize;
-	int ySize;
-	int xWalkTo;
-	int yWalkTo;
-	int flagNum;
-	int flagValue;
-	int direction;
-	int name;
-	int description;
+enum PanelState {
+	kPanelStateNormal    = 0,
+	kPanelStateShrinking = 1,
+	kPanelStateExpanding = 2
 };
 
-struct SpriteFrame {
-	int sourceOffset;
-	int xOffset;
-	int yOffset;
-	int xSize;
-	int ySize;
+enum PanelStyle {
+	kPanelStyleVerbs = 0,
+	kPanelStyleIcons = 1
 };
 
-struct SpriteAnimation {
-	int numParts;
-	int rotateFlag;
-	int firstFrameIndex;
-};
-
-struct Data {
-	int sourceOffset;
-	int xSize;
-	int ySize;
-	int xDest;
-	int yDest;
-	int index;
-};
-
-struct LocationAnimation {
-	int graphicNum;
-	int animInitCounter;
-	int animCurrentCounter;
-	int animLastCounter;
-	int getFlag;
-	int inventoryNum;
-	int flagNum;
-	int flagValue;
-	int selectable;
-	int standX;
-	int standY;
-	int drawFlag;
-};
-
-struct LocationObject {
-	int xPos;
-	int yPos;
-	int xSize;
-	int ySize;
-	int textNum;
-	int locationNum;
-	int toX;
-	int toY;
-	int toX2;
-	int toY2;
-	int toWalkX2;
-	int toWalkY2;
-	int standX;
-	int standY;
-	int cursorNum;
-};
-
-struct LocationSound {
-	int startFxSpriteState;
-	int startFxSpriteNum;
-	int updateType;
-	int stopFxSpriteState;
-	int stopFxSpriteNum;
-	int offset;
-	int type;
-	int volume;
-	int flagValueStartFx;
-	int flagValueStopFx;
-	int flagNum;
-	int num;
-};
-
-struct LocationMusic {
-	int flag;
-	int offset;
-	int volume;
-	int num;
-};
-
-enum {
-	kScreenWidth = 320,
-	kScreenHeight = 200,
-	kScreenPitch = 640,
-	kFadePaletteStep = 5,
-	kStartupLocationDemo = 9,
-	kStartupLocationGame = 1,
-	kDefaultCharSpeechSoundCounter = 1,
-	kMaxSoundVolume = 127,
-	kLastSaveSlot = 99
+enum PanelType {
+	kPanelTypeNormal           = 0,
+	kPanelTypeEmpty            = 1,
+	kPanelTypeLoadSavePlayQuit = 2,
+	kPanelTypeLoadSaveSavegame = 3
 };
 
 enum Verb {
@@ -203,15 +96,268 @@ enum Verb {
 	kVerbGive  = 5,
 	kVerbTake  = 6,
 	kVerbMove  = 7,
-	kVerbUse   = 8
+	kVerbUse   = 8,
+
+	kVerbFirst = kVerbWalk,
+	kVerbLast  = kVerbUse
+};
+
+enum VerbPreposition {
+	kVerbPrepositionNone = 0,
+
+	kVerbPrepositionWith = 11,
+	kVerbPrepositionTo   = 12
+};
+
+enum Part {
+	kPartInit  = 0,
+	kPartOne   = 1,
+	kPartTwo   = 2,
+	kPartThree = 3
+};
+
+enum Location {
+	kLocationNone                      =  0,
+
+	kLocationHotelRoom                 =  1,
+	kLocationBackAlley                 =  2,
+	kLocationSeedyStreet               =  3,
+	kLocationBakersShop                =  4,
+	kLocationBakersKitchen             =  5,
+	kLocationStripJoint                =  6,
+	kLocationPoliceHQ                  =  7,
+	kLocationPoliceCell                =  8,
+	kLocationMall                      =  9,
+	kLocationFishShop                  = 10,
+	kLocationBurgerJoint               = 11,
+	kLocationRecordShop                = 12,
+	kLocationDentist                   = 13,
+	kLocationPlugShop                  = 14,
+	kLocationTouristInfo               = 15,
+	kLocationPark                      = 16,
+	kLocationRoystonsHomeHallway       = 17,
+	kLocationRoystonsHomeBoxroom       = 18,
+	kLocationDocks                     = 19,
+	kLocationOutsideMuseum             = 20,
+	kLocationInsideMuseum              = 21,
+	kLocationFishingTrawler            = 22,
+	kLocationWarehouseCutscene         = 23,
+	kLocationStoreRoom                 = 24,
+	kLocationVentSystem                = 25,
+	kLocationSubwayTunnel              = 26,
+	kLocationStrangeRoom               = 27,
+	kLocationTopCorridor               = 28,
+	kLocationSubmarineHangar           = 29,
+	kLocationBunkRoom                  = 30,
+	kLocationBottomCorridor            = 31,
+	kLocationKitchen                   = 32,
+	kLocationCommandCentre             = 33,
+	kLocationSubmarineHatch            = 34,
+	kLocationSubmarineWalkway          = 35,
+	kLocationSubmarineBridge           = 36,
+	kLocationSubmarineOffice           = 37,
+	kLocationSubmarineEngineRoom       = 38,
+	kLocationLuxuryApartment           = 39,
+	kLocationFarDocks                  = 40,
+	kLocationAlleyway                  = 41,
+	kLocationBasement                  = 42,
+	kLocationTateTowerEntrance         = 43,
+	kLocationRooftop                   = 44,
+	kLocationConferenceRoom            = 45,
+	kLocationAnteChamber               = 46,
+	kLocationHelipad                   = 47,
+	kLocationCorridor                  = 48,
+	kLocationWaitingRoom               = 49,
+	kLocationkLocationCorridorCutscene = 50,
+	kLocationCells                     = 51,
+	kLocationMachineRoom               = 52,
+	kLocationRecordShopPartThree       = 53,
+	kLocationPlugShopPartThree         = 54,
+	kLocationTouristInfoPartThree      = 55,
+	kLocationDentistPartThree          = 56,
+	kLocationFishShopPartThree         = 57,
+	kLocationInsideMuseumPartThree     = 58,
+	kLocationBakersShopPartThree       = 59,
+	kLocationStripJointPartThree       = 60,
+	kLocationParkPartThree             = 61,
+	kLocationDocksPartThree            = 62,
+	kLocationTV                        = 63,
+	kLocationSewer                     = 64,
+	kLocationSeedyStreetPartThree      = 65,
+	kLocationMallPartThree             = 66,
+	kLocationBurgerJointPartThree      = 67,
+	kLocationOutsideMuseumPartThree    = 68,
+	kLocation69Cutscene                = 69,
+	kLocationComputerScreen            = 70,
+	kLocationParkCutscene              = 71,
+	kLocationSeedyStreetCutscene       = 72,
+	kLocationJesusCutscene1            = 73,
+	kLocationCredits                   = 74,
+	kLocation75Cutscene                = 75,
+	kLocationBeachCutscene             = 76,
+	kLocationHospitalCutscene          = 77,
+	kLocation78Cutscene                = 78,
+	kLocationElvisCutscene             = 79,
+	kLocationPyramidCutscene           = 80,
+	kLocationCleopatraCutscene         = 81,
+	kLocationJesusCutscene2            = 82,
+
+	kLocationNewPart                   = 98,
+	kLocationMap                       = 99,
+
+	kLocationInit                      =  1,
+	kLocationInitDemo                  =  9
+};
+
+struct Action {
+	int _key;
+	int _testFlag1Num;
+	int _testFlag1Value;
+	int _testFlag2Num;
+	int _testFlag2Value;
+	int _speech;
+	int _flipX;
+	int _index;
+	int _delay;
+	int _setFlagNum;
+	int _setFlagValue;
+	int _fxNum;
+	int _fxDelay;
+};
+
+struct Sprite {
+	int _state;
+	int _gfxBackgroundOffset;
+	int _updateDelay;
+	int _backgroundOffset;
+	int _stateIndex;
+	int _counter;
+	int _colorType;
+	int _animationFrame;
+	int _firstFrame;
+	uint8 *_animationData;
+	int _prevState;
+	int _defaultUpdateDelay;
+	int _xSource;
+	int _yMaxBackground;
+	bool _disabled;
+	bool _flipX;
+	bool _needUpdate;
+	bool _nextAnimationFrame;
+	bool _prevAnimationFrame;
+};
+
+struct CharPos {
+	int _xPos;
+	int _yPos;
+	int _xSize;
+	int _ySize;
+	int _xWalkTo;
+	int _yWalkTo;
+	int _flagNum;
+	int _flagValue;
+	int _direction;
+	int _name;
+	int _description;
+};
+
+struct SpriteFrame {
+	int _sourceOffset;
+	int _xOffset;
+	int _yOffset;
+	int _xSize;
+	int _ySize;
+};
+
+struct SpriteAnimation {
+	int _numParts;
+	int _rotateFlag;  // Useless variable
+	int _firstFrameIndex;
+};
+
+struct Data {
+	int _sourceOffset;
+	int _xSize;
+	int _ySize;
+	int _xDest;
+	int _yDest;
+	int _index;
+};
+
+struct LocationAnimation {
+	int _graphicNum;
+	int _animInitCounter;
+	int _animCurrentCounter;
+	int _animLastCounter;
+	int _getFlag;
+	int _inventoryNum;
+	int _flagNum;
+	int _flagValue;
+	int _selectable;
+	int _standX;
+	int _standY;
+	bool _drawFlag;
+};
+
+struct LocationObject {
+	int _xPos;
+	int _yPos;
+	int _xSize;
+	int _ySize;
+	int _textNum;
+	Location _location;
+	int _toX;
+	int _toY;
+	int _toX2;
+	int _toY2;
+	int _toWalkX2;
+	int _toWalkY2;
+	int _standX;
+	int _standY;
+	CursorStyle _cursorStyle;
+};
+
+struct LocationSound {
+	int _startFxSpriteState;
+	int _startFxSpriteNum;
+	int _updateType;
+	int _stopFxSpriteState;
+	int _stopFxSpriteNum;
+	int _offset;
+	int _type;
+	int _volume;
+	int _flagValueStartFx;
+	int _flagValueStopFx;
+	int _flagNum;
+	int _num;
+};
+
+struct LocationMusic {
+	int _flag;
+	int _offset;
+	int _volume;
+	int _num;
+};
+
+enum {
+	kScreenWidth = 320,
+	kScreenHeight = 200,
+	kScreenPitch = 640,
+	kFadePaletteStep = 5,
+	kDefaultCharSpeechSoundCounter = 1,
+	kMaxSoundVolume = 127,
+	kLastSaveSlot = 99,
+	kAutoSaveSlot = kLastSaveSlot
 };
 
 enum InputKey {
 	kInputKeyPause = 0,
 	kInputKeyEscape,
-	kInputKeyToggleInventory,
+	kInputKeyTogglePanelStyle,
 	kInputKeyToggleTextSpeech,
 	kInputKeyHelp,
+	kInputKeySkipSpeech,
+
 	kInputKeyCount
 };
 
@@ -232,7 +378,7 @@ enum CompressedSoundType {
 class CompressedSound {
 public:
 
-	CompressedSound() : _compressedSoundType(-1) {}
+	CompressedSound() : _compressedSoundType(-1), _compressedSoundFlags(0) {}
 
 	void openFile();
 	void closeFile();
@@ -241,11 +387,20 @@ public:
 private:
 
 	int _compressedSoundType;
-	int _compressedSoundFlags;
+	uint16 _compressedSoundFlags;
 	Common::File _fCompressedSound;
 };
 
 inline int scaleMixerVolume(int volume, int max = 100) {
+	if (volume > max) {
+		// This happens for instance for Bud's line, "Is that the
+		// great mystery invention you had hidden away?" in the intro,
+		// which is played at volume 110 out of 100. This made it very
+		// hard to hear. I'm not sure if this was a bug in the original
+		// game, or if it had the ability to amplify sounds.
+		warning("scaleMixerVolume: Adjusting volume %d to %d", volume, max);
+		volume = max;
+	}
 	return volume * Audio::Mixer::kMaxChannelVolume / max;
 }
 
@@ -272,6 +427,24 @@ public:
 		kMaxDirtyRects = 32
 	};
 
+	struct SavegameHeader {
+		uint16 version;
+		uint32 flags;
+		Common::String description;
+		uint32 saveDate;
+		uint32 saveTime;
+		uint32 playTime;
+		Graphics::Surface *thumbnail;
+	};
+
+	enum SavegameError {
+		kSavegameNoError = 0,
+		kSavegameInvalidTypeError,
+		kSavegameInvalidVersionError,
+		kSavegameNotFoundError,
+		kSavegameIoError
+	};
+
 	TuckerEngine(OSystem *system, Common::Language language, uint32 flags);
 	virtual ~TuckerEngine();
 
@@ -279,18 +452,23 @@ public:
 	virtual bool hasFeature(EngineFeature f) const;
 	GUI::Debugger *getDebugger() { return _console; }
 
+	WARN_UNUSED_RESULT static SavegameError readSavegameHeader(Common::InSaveFile *file, SavegameHeader &header, bool skipThumbnail = true);
+	WARN_UNUSED_RESULT static SavegameError readSavegameHeader(const char *target, int slot, SavegameHeader &header);
+	bool isAutosaveAllowed();
+	static bool isAutosaveAllowed(const char *target);
 protected:
 
 	int getRandomNumber();
 	void allocateBuffers();
 	void freeBuffers();
-	void restart();
+	void resetVariables();
 	void mainLoop();
 	void waitForTimer(int ticksCount);
 	void parseEvents();
 	void updateCursorPos(int x, int y);
-	void setCursorNum(int num);
-	void setCursorType(int type);
+	void setCursorStyle(CursorStyle style);
+	void setCursorState(CursorState state);
+	void showCursor(bool visible);
 	void setupNewLocation();
 	void copyLocBitmap(const char *filename, int offset, bool isMask);
 	void updateMouseState();
@@ -312,7 +490,7 @@ protected:
 	void updateSfxData3_2();
 	void saveOrLoad();
 	void handleMouseOnPanel();
-	void switchPanelType();
+	void togglePanelStyle();
 	void redrawPanelOverBackground();
 	void drawConversationTexts();
 	void updateScreenScrolling();
@@ -356,7 +534,7 @@ protected:
 	void drawCreditsString(int x, int y, int num);
 	void updateCharSpeechSound(bool displayText);
 	void updateItemsGfxColors(int bit0, int bit7);
-	int testLocationMask(int x, int y);
+	bool testLocationMask(int x, int y);
 	int getStringWidth(int num, const uint8 *ptr);
 	int getPositionForLine(int num, const uint8 *ptr);
 	void resetCharacterAnimationIndex(int count);
@@ -369,7 +547,7 @@ protected:
 	int getObjectUnderCursor();
 	void setSelectedObjectKey();
 	void setCharacterAnimation(int count, int spr);
-	int testLocationMaskArea(int xBase, int yBase, int xPos, int yPos);
+	bool testLocationMaskArea(int xBase, int yBase, int xPos, int yPos);
 	void handleMouseClickOnInventoryObject();
 	int setCharacterUnderCursor();
 	int setLocationAnimationUnderCursor();
@@ -377,7 +555,7 @@ protected:
 	void setActionState();
 	void playSpeechForAction(int i);
 	void drawSpeechText(int xStart, int y, const uint8 *dataPtr, int num, int color);
-	int splitSpeechTextLines(const uint8 *dataPtr, int pos, int x, int &lineCharsCount, int &lineWidth);
+	bool splitSpeechTextLines(const uint8 *dataPtr, int pos, int x, int &lineCharsCount, int &lineWidth);
 	void drawSpeechTextLine(const uint8 *dataPtr, int pos, int count, int x, int y, uint8 color);
 	void redrawScreen(int offset);
 	void redrawScreenRect(const Common::Rect &clip, const Common::Rect &dirty);
@@ -430,6 +608,7 @@ protected:
 	void updateSprite_locationNum13(int i);
 	void execData3PreUpdate_locationNum13();
 	void updateSprite_locationNum14(int i);
+	void execData3Update_locationNum14();
 	void execData3PreUpdate_locationNum14();
 	void execData3PreUpdate_locationNum14Helper1(int i);
 	void execData3PreUpdate_locationNum14Helper2(int i);
@@ -563,11 +742,16 @@ protected:
 	void updateSprite_locationNum81_1(int i);
 	void updateSprite_locationNum82(int i);
 
-	template<class S> void saveOrLoadGameStateData(S &s);
-	virtual Common::Error loadGameState(int num);
-	virtual Common::Error saveGameState(int num, const Common::String &description);
+	template<class S> SavegameError saveOrLoadGameStateData(S &s);
+	virtual Common::Error loadGameState(int slot);
+	virtual Common::Error saveGameState(int slot, const Common::String &description);
+	Common::Error writeSavegame(int slot, const Common::String &description, bool autosave = false);
+	SavegameError writeSavegameHeader(Common::OutSaveFile *file, SavegameHeader &header);
+	void writeAutosave();
+	bool canLoadOrSave() const;
 	virtual bool canLoadGameStateCurrently();
 	virtual bool canSaveGameStateCurrently();
+	virtual bool existsSavegame();
 
 	TuckerConsole *_console;
 
@@ -578,7 +762,7 @@ protected:
 	void handleMeanwhileSequence();
 	void handleMapSequence();
 	void copyMapRect(int x, int y, int w, int h);
-	int handleSpecialObjectSelectionSequence();
+	bool handleSpecialObjectSelectionSequence();
 
 	uint8 *loadFile(const char *filename, uint8 *p);
 	void loadImage(const char *filename, uint8 *dst, int a);
@@ -588,13 +772,13 @@ protected:
 	void loadCharsetHelper();
 	void loadCharSizeDta();
 	void loadPanel();
-	void loadBudSpr(int startOffset);
-	int loadCTable01(int index, int firstSpriteNum, int *framesCount);
-	void loadCTable02(int fl);
+	void loadBudSpr();
+	int  loadCTable01(int *framesCount);
+	void loadCTable02();
 	void loadLoc();
 	void loadObj();
 	void loadData();
-	int loadDataHelper(int offset, int index);
+	int  loadDataHelper(int offset, int index);
 	void loadPanObj();
 	void loadData3();
 	void loadData4();
@@ -613,6 +797,8 @@ protected:
 	CompressedSound _compressedSound;
 	Common::Language _gameLang;
 	uint32 _gameFlags;
+	int _startSlot;
+	uint32 _lastSaveTime;
 
 	bool _quitGame;
 	bool _fastMode;
@@ -622,21 +808,21 @@ protected:
 	int _mainLoopCounter2;
 	int _timerCounter2;
 	int _flagsTable[kFlagsTableSize];
-	int _partNum;
-	int _currentPartNum;
-	int _locationNum;
-	int _nextLocationNum;
+	Part _part;
+	Part _currentPart;
+	Location _location;
+	Location _nextLocation;
 	bool _gamePaused;
 	bool _gameDebug;
 	bool _displayGameHints;
 	int _execData3Counter;
-	bool _displaySpeechText;
 	int _currentSaveLoadGameState;
-
 	int _gameHintsIndex;
 	int _gameHintsCounter;
-	int _gameHintsDisplayText;
 	int _gameHintsStringNum;
+
+	bool _displaySpeechText;
+	bool _displayHintsText;
 
 	int _fileLoadSize;
 	uint8 *_loadTempBuf;
@@ -670,22 +856,24 @@ protected:
 	int _mouseIdleCounter;
 	bool _leftMouseButtonPressed;
 	bool _rightMouseButtonPressed;
+	bool _mouseWheelUp;
+	bool _mouseWheelDown;
 	int _lastKeyPressed;
 	bool _inputKeys[kInputKeyCount];
-	int _cursorNum;
-	int _cursorType;
+	CursorStyle _cursorStyle;
+	CursorState _cursorState;
 	bool _updateCursorFlag;
 
-	int _panelNum;
-	int _panelState;
+	PanelStyle _panelStyle;
+	PanelState _panelState;
+	PanelType  _panelType;
 	bool _forceRedrawPanelItems;
 	int _redrawPanelItemsCounter;
-	int _switchPanelFlag;
 	int _panelObjectsOffsetTable[50];
 	int _switchPanelCounter;
 	int _conversationOptionsCount;
 	bool _fadedPanel;
-	int _panelLockedFlag;
+	bool _panelLockedFlag;
 	int _conversationOptionLinesCount;
 	int _inventoryItemsState[50];
 	int _inventoryObjectsList[40];
@@ -734,7 +922,9 @@ protected:
 	int _pendingActionDelay;
 	int _charPositionFlagNum;
 	int _charPositionFlagValue;
-	int _actionVerb;
+	Verb _actionVerb;
+	Verb _currentActionVerb;
+	Verb _previousActionVerb;
 	int _nextAction;
 	int _selectedObjectNum;
 	int _selectedObjectType;
@@ -742,22 +932,22 @@ protected:
 	int _actionObj1Type, _actionObj2Type;
 	int _actionObj1Num, _actionObj2Num;
 	bool _actionRequiresTwoObjects;
-	int _actionVerbLocked;
+	bool _actionVerbLocked;
 	int _actionPosX;
 	int _actionPosY;
-	int _selectedObjectLocationMask;
+	bool _selectedObjectLocationMask;
 	struct {
-		int xDefaultPos;
-		int yDefaultPos;
-		int xPos;
-		int yPos;
-		int locationObject_locationNum;
-		int locationObject_toX;
-		int locationObject_toY;
-		int locationObject_toX2;
-		int locationObject_toY2;
-		int locationObject_toWalkX2;
-		int locationObject_toWalkY2;
+		int _xDefaultPos;
+		int _yDefaultPos;
+		int _xPos;
+		int _yPos;
+		Location _locationObjectLocation;
+		int _locationObjectToX;
+		int _locationObjectToY;
+		int _locationObjectToX2;
+		int _locationObjectToY2;
+		int _locationObjectToWalkX2;
+		int _locationObjectToWalkY2;
 	} _selectedObject;
 	int _selectedCharacterDirection;
 	int _selectedCharacter2Num;
@@ -780,7 +970,7 @@ protected:
 	const uint8 *_tableInstructionsPtr;
 	int _tableInstructionObj1Table[6];
 	int _tableInstructionObj2Table[6];
-	int _tableInstructionFlag;
+	bool _tableInstructionFlag;
 	int _tableInstructionItemNum1, _tableInstructionItemNum2;
 	int _instructionsActionsTable[6];
 	bool _validInstructionId;
@@ -801,8 +991,6 @@ protected:
 	int _characterAnimationsTable[200];
 	int _characterStateTable[200];
 	int _backgroundSprOffset;
-	int _currentActionVerb;
-	int _previousActionVerb;
 	int _mainSpritesBaseOffset;
 	int _currentSpriteAnimationLength;
 	int _currentSpriteAnimationFrame;
@@ -810,21 +998,21 @@ protected:
 	int _characterAnimationIndex;
 	int _characterFacingDirection;
 	int _characterPrevFacingDirection;
-	int _characterBackFrontFacing;
-	int _characterPrevBackFrontFacing;
+	bool _characterBackFrontFacing;
+	bool _characterPrevBackFrontFacing;
 	int _characterAnimationNum;
 	int _noCharacterAnimationChange;
-	int _changeBackgroundSprite;
 	int _characterSpriteAnimationFrameCounter;
-	int _locationMaskIgnore;
+	bool _locationMaskIgnore;
 	int _locationMaskType;
 	int _locationMaskCounter;
-	int _updateSpriteFlag1;
-	int _updateSpriteFlag2;
 	int _handleMapCounter;
 	bool _noPositionChangeAfterMap;
+	bool _changeBackgroundSprite;
+	bool _updateSpriteFlag1;
+	bool _updateSpriteFlag2;
 
-	int _mirroredDrawing;
+	bool _mirroredDrawing;
 	uint8 *_loadLocBufPtr;
 	uint8 *_backgroundSpriteDataPtr;
 	int _locationHeight;
@@ -848,7 +1036,7 @@ protected:
 	int _updateLocation14ObjNum[10];
 	int _updateLocation14Delay[10];
 	int _updateLocationCounter2;
-	int _updateLocationFlag;
+	bool _updateLocationFlag;
 	int _updateLocation70StringLen;
 	uint8 _updateLocation70String[20];
 
@@ -977,7 +1165,7 @@ private:
 	const SoundSequenceData *_soundSeqData;
 	uint8 *_offscreenBuffer;
 	int _updateScreenWidth;
-	int _updateScreenPicture;
+	bool _updateScreenPicture;
 	int _updateScreenCounter;
 	int _updateScreenIndex;
 	int _frameCounter;

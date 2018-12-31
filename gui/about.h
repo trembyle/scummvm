@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef ABOUT_DIALOG_H
@@ -45,15 +46,15 @@ protected:
 public:
 	AboutDialog();
 
-	void open();
-	void close();
-	void drawDialog();
-	void handleTickle();
-	void handleMouseUp(int x, int y, int button, int clickCount);
-	void handleKeyDown(Common::KeyState state);
-	void handleKeyUp(Common::KeyState state);
+	void open() override;
+	void close() override;
+	void drawDialog(DrawLayer layerToDraw) override;
+	void handleTickle() override;
+	void handleMouseUp(int x, int y, int button, int clickCount) override;
+	void handleKeyDown(Common::KeyState state) override;
+	void handleKeyUp(Common::KeyState state) override;
 
-	void reflowLayout();
+	void reflowLayout() override;
 };
 
 } // End of namespace GUI

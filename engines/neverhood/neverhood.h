@@ -8,20 +8,20 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef NEVERHOOD_H
-#define NEVERHOOD_H
+#ifndef NEVERHOOD_NEVERHOOD_H
+#define NEVERHOOD_NEVERHOOD_H
 
 #include "common/scummsys.h"
 #include "common/events.h"
@@ -30,8 +30,9 @@
 #include "common/savefile.h"
 #include "common/str-array.h"
 #include "common/system.h"
-#include "audio/mixer.h"
 #include "engines/engine.h"
+#include "gui/debugger.h"
+#include "neverhood/console.h"
 #include "neverhood/messages.h"
 
 namespace Neverhood {
@@ -48,7 +49,6 @@ class Screen;
 class SoundMan;
 class AudioResourceMan;
 class StaticData;
-class Console;
 struct NPoint;
 
 struct GameState {
@@ -90,6 +90,7 @@ public:
 	GameModule *_gameModule;
 	StaticData *_staticData;
 	Console *_console;
+	GUI::Debugger *getDebugger() { return _console; }
 
 	SoundMan *_soundMan;
 	AudioResourceMan *_audioResourceMan;
@@ -128,7 +129,7 @@ public:
 	bool loadgame(const char *filename);
 	const char *getSavegameFilename(int num);
 	static Common::String getSavegameFilename(const Common::String &target, int num);
-	static kReadSaveHeaderError readSaveHeader(Common::SeekableReadStream *in, bool loadThumbnail, SaveHeader &header);
+	WARN_UNUSED_RESULT static kReadSaveHeaderError readSaveHeader(Common::SeekableReadStream *in, SaveHeader &header, bool skipThumbnail = true);
 
 	GameState& gameState() { return _gameState; }
 	GameModule *gameModule() { return _gameModule; }
@@ -148,4 +149,4 @@ private:
 
 } // End of namespace Neverhood
 
-#endif /* NEVERHOOD_H */
+#endif /* NEVERHOOD_NEVERHOOD_H */

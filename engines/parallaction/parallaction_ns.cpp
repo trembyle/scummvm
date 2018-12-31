@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -46,17 +46,12 @@ class LocationName {
 
 	bool _hasCharacter;
 	bool _hasSlide;
-	char *_buf;
+	Common::String _buf;
 
 public:
 	LocationName() {
-		_buf = 0;
 		_hasSlide = false;
 		_hasCharacter = false;
-	}
-
-	~LocationName() {
-		free(_buf);
 	}
 
 	void bind(const char*);
@@ -82,7 +77,7 @@ public:
 	}
 
 	const char *c_str() const {
-		return _buf;
+		return _buf.c_str();
 	}
 };
 
@@ -106,15 +101,12 @@ public:
 	is commented out, and would definitely crash the current implementation.
 */
 void LocationName::bind(const char *s) {
-
-	free(_buf);
-
-	_buf = strdup(s);
+	_buf = s;
 	_hasSlide = false;
 	_hasCharacter = false;
 
 	Common::StringArray list;
-	char *tok = strtok(_buf, ".");
+	char *tok = strtok(_buf.begin(), ".");
 	while (tok) {
 		list.push_back(tok);
 		tok = strtok(NULL, ".");
@@ -139,8 +131,7 @@ void LocationName::bind(const char *s) {
 	}
 
 	_location = list[0];
-
-	strcpy(_buf, s);		// kept as reference
+	_buf = s;		// kept as reference
 }
 
 Parallaction_ns::Parallaction_ns(OSystem* syst, const PARALLACTIONGameDescription *gameDesc) : Parallaction(syst, gameDesc),
@@ -352,8 +343,8 @@ void Parallaction_ns::changeLocation() {
 	}
 
 	char location[200];
-	strcpy(location, _newLocationName.c_str());
-	strcpy(_location._name, _newLocationName.c_str());
+	Common::strlcpy(location, _newLocationName.c_str(), 200);
+	Common::strlcpy(_location._name, _newLocationName.c_str(), 100);
 
 	debugC(1, kDebugExec, "changeLocation(%s)", location);
 
@@ -395,7 +386,7 @@ void Parallaction_ns::changeLocation() {
 		changeCharacter(locname.character());
 	}
 
-	strcpy(g_saveData1, locname.location());
+	Common::strlcpy(g_saveData1, locname.location(), 30);
 	parseLocation(g_saveData1);
 
 	if (_location._startPosition.x != -1000) {
@@ -454,8 +445,8 @@ void Parallaction_ns::parseLocation(const char *filename) {
 	// this loads animation scripts
 	AnimationList::iterator it = _location._animations.begin();
 	for ( ; it != _location._animations.end(); ++it) {
-		if ((*it)->_scriptName) {
-			loadProgram(*it, (*it)->_scriptName);
+		if (!(*it)->_scriptName.empty()) {
+			loadProgram(*it, (*it)->_scriptName.c_str());
 		}
 	}
 

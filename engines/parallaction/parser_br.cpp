@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -519,7 +519,7 @@ DECLARE_COMMAND_PARSER(location)  {
 
 	createCommand(_parser->_lookup);
 
-	ctxt.cmd->_string = strdup(_tokens[1]);
+	ctxt.cmd->_string = _tokens[1];
 	ctxt.nextToken++;
 
 	ctxt.cmd->_startPos.x = -1000;
@@ -550,7 +550,7 @@ DECLARE_COMMAND_PARSER(string)  {
 
 	createCommand(_parser->_lookup);
 
-	ctxt.cmd->_string = strdup(_tokens[1]);
+	ctxt.cmd->_string = _tokens[1];
 	ctxt.nextToken++;
 
 	parseCommandFlags();
@@ -685,11 +685,11 @@ DECLARE_COMMAND_PARSER(text)  {
 		ctxt.cmd->_zeta0 = -1;
 	}
 
-	ctxt.cmd->_string = strdup(_tokens[ctxt.nextToken]);
+	ctxt.cmd->_string = _tokens[ctxt.nextToken];
 	ctxt.nextToken++;
 
 	if (_tokens[ctxt.nextToken][0] != '\0' && scumm_stricmp("flags", _tokens[ctxt.nextToken])) {
-		ctxt.cmd->_string2 = strdup(_tokens[ctxt.nextToken]);
+		ctxt.cmd->_string2 = _tokens[ctxt.nextToken];
 		ctxt.nextToken++;
 	}
 
@@ -1011,11 +1011,11 @@ DECLARE_INSTRUCTION_PARSER(text)  {
 		ctxt.inst->_y = -1;
 	}
 
-	ctxt.inst->_text = strdup(_tokens[_si]);
+	ctxt.inst->_text = _tokens[_si];
 	_si++;
 
 	if (_tokens[_si][0] != '\0' && scumm_stricmp("flags", _tokens[_si])) {
-		ctxt.inst->_text2 = strdup(_tokens[_si]);
+		ctxt.inst->_text2 = _tokens[_si];
 	}
 	ctxt.inst->_index = _parser->_lookup;
 

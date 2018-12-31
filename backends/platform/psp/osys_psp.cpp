@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -64,6 +64,11 @@ OSystem_PSP::~OSystem_PSP() {}
 void OSystem_PSP::initBackend() {
 	DEBUG_ENTER_FUNC();
 
+	ConfMan.registerDefault("aspect_ratio", false);
+	ConfMan.registerDefault("gfx_mode", "Fit to Screen");
+	ConfMan.registerDefault("kbdmouse_speed", 3);
+	ConfMan.registerDefault("joystick_deadzone", 3);
+
 	// Instantiate real time clock
 	PspRtc::instance();
 
@@ -109,7 +114,8 @@ void OSystem_PSP::engineDone() {
 }
 
 bool OSystem_PSP::hasFeature(Feature f) {
-	return (f == kFeatureOverlaySupportsAlpha || f == kFeatureCursorPalette);
+	return (f == kFeatureOverlaySupportsAlpha || f == kFeatureCursorPalette || 
+			f == kFeatureKbdMouseSpeed || f == kFeatureJoystickDeadzone);
 }
 
 void OSystem_PSP::setFeatureState(Feature f, bool enable) {
@@ -280,7 +286,7 @@ int16 OSystem_PSP::getOverlayHeight() {
 	return (int16)_overlay.getHeight();
 }
 
-void OSystem_PSP::grabPalette(byte *colors, uint start, uint num) {
+void OSystem_PSP::grabPalette(byte *colors, uint start, uint num) const {
 	DEBUG_ENTER_FUNC();
 	_screen.getPartialPalette(colors, start, num);
 }
@@ -308,7 +314,7 @@ void OSystem_PSP::setMouseCursor(const void *buf, uint w, uint h, int hotspotX, 
 	_displayManager.waitUntilRenderFinished();
 	_pendingUpdate = false;
 
-	PSP_DEBUG_PRINT("pbuf[%p], w[%u], h[%u], hotspot:X[%d], Y[%d], keycolor[%d], scale[%d], pformat[%p]\n", buf, w, h, hotspotX, hotspotY, keycolor, cursorTargetScale, format);
+	PSP_DEBUG_PRINT("pbuf[%p], w[%u], h[%u], hotspot:X[%d], Y[%d], keycolor[%d], scale[%d], pformat[%p]\n", buf, w, h, hotspotX, hotspotY, keycolor, !dontScale, format);
 	if (format) {
 		PSP_DEBUG_PRINT("format: bpp[%d], rLoss[%d], gLoss[%d], bLoss[%d], aLoss[%d], rShift[%d], gShift[%d], bShift[%d], aShift[%d]\n", format->bytesPerPixel, format->rLoss, format->gLoss, format->bLoss, format->aLoss, format->rShift, format->gShift, format->bShift, format->aShift);
 	}

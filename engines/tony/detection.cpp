@@ -8,16 +8,15 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  *
  */
 
@@ -73,11 +72,11 @@ public:
 	}
 
 	virtual const char *getName() const {
-		return "Tony Engine";
+		return "Tony Tough and the Night of Roasted Moths";
 	}
 
 	virtual const char *getOriginalCopyright() const {
-		return "Tony Engine (C) Protonic Interactive";
+		return "Tony Tough and the Night of Roasted Moths (C) Protonic Interactive";
 	}
 
 	virtual bool hasFeature(MetaEngineFeature f) const;
@@ -116,10 +115,9 @@ SaveStateList TonyMetaEngine::listSaves(const char *target) const {
 	Common::SaveFileManager *saveFileMan = g_system->getSavefileManager();
 	Common::StringArray filenames;
 	Common::String saveDesc;
-	Common::String pattern = "tony.0??";
+	Common::String pattern = "tony.0##";
 
 	filenames = saveFileMan->listSavefiles(pattern);
-	sort(filenames.begin(), filenames.end());   // Sort (hopefully ensuring we are sorted numerically..)
 
 	SaveStateList saveList;
 	for (Common::StringArray::const_iterator file = filenames.begin(); file != filenames.end(); ++file) {
@@ -138,6 +136,8 @@ SaveStateList TonyMetaEngine::listSaves(const char *target) const {
 		}
 	}
 
+	// Sort saves based on slot number.
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -178,7 +178,7 @@ SaveStateDescriptor TonyMetaEngine::querySaveMetaInfos(const char *target, int s
 }
 
 #if PLUGIN_ENABLED_DYNAMIC(TONY)
-REGISTER_PLUGIN_DYNAMIC(TONY, PLUGIN_TYPE_ENGINE, TonyMetaEngine);
+	REGISTER_PLUGIN_DYNAMIC(TONY, PLUGIN_TYPE_ENGINE, TonyMetaEngine);
 #else
-REGISTER_PLUGIN_STATIC(TONY, PLUGIN_TYPE_ENGINE, TonyMetaEngine);
+	REGISTER_PLUGIN_STATIC(TONY, PLUGIN_TYPE_ENGINE, TonyMetaEngine);
 #endif

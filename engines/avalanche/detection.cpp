@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -35,12 +35,20 @@
 
 namespace Avalanche {
 
+struct AvalancheGameDescription {
+	ADGameDescription desc;
+};
+
 uint32 AvalancheEngine::getFeatures() const {
 	return _gameDescription->desc.flags;
 }
 
 const char *AvalancheEngine::getGameId() const {
-	return _gameDescription->desc.gameid;
+	return _gameDescription->desc.gameId;
+}
+
+Common::Platform AvalancheEngine::getPlatform() const {
+	return _gameDescription->desc.platform;
 }
 
 static const PlainGameDescriptor avalancheGames[] = {
@@ -75,7 +83,7 @@ public:
 	}
 
 	const char *getOriginalCopyright() const {
-		return "Avalanche Engine Copyright (c) 1994-1995 Mike, Mark and Thomas Thurman.";
+		return "Avalanche (C) 1994-1995 Mike, Mark and Thomas Thurman.";
 	}
 
 	bool createInstance(OSystem *syst, Engine **engine, const ADGameDescription *gd) const;
@@ -99,7 +107,8 @@ bool AvalancheMetaEngine::hasFeature(MetaEngineFeature f) const {
 		(f == kSupportsDeleteSave) ||
 		(f == kSupportsLoadingDuringStartup) ||
 		(f == kSavesSupportMetaInfo) ||
-		(f == kSavesSupportThumbnail);
+		(f == kSavesSupportThumbnail) ||
+		(f == kSimpleSavesNames);
 }
 
 SaveStateList AvalancheMetaEngine::listSaves(const char *target) const {
@@ -107,10 +116,9 @@ SaveStateList AvalancheMetaEngine::listSaves(const char *target) const {
 	Common::StringArray filenames;
 	Common::String pattern = target;
 	pattern.toUppercase();
-	pattern += ".???";
+	pattern += ".###";
 
 	filenames = saveFileMan->listSavefiles(pattern);
-	sort(filenames.begin(), filenames.end());   // Sort (hopefully ensuring we are sorted numerically..)
 
 	SaveStateList saveList;
 	for (Common::StringArray::const_iterator filename = filenames.begin(); filename != filenames.end(); ++filename) {
@@ -152,6 +160,8 @@ SaveStateList AvalancheMetaEngine::listSaves(const char *target) const {
 		}
 	}
 
+	// Sort saves based on slot number.
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -191,7 +201,12 @@ SaveStateDescriptor AvalancheMetaEngine::querySaveMetaInfos(const char *target, 
 
 		SaveStateDescriptor desc(slot, description);
 
-		Graphics::Surface *const thumbnail = Graphics::loadThumbnail(*f);
+		Graphics::Surface *thumbnail;
+		if (!Graphics::loadThumbnail(*f, thumbnail)) {
+			warning("Cannot read thumbnail data, possibly broken savegame");
+			delete f;
+			return SaveStateDescriptor();
+		}
 		desc.setThumbnail(thumbnail);
 
 		delete f;

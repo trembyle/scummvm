@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -37,6 +37,7 @@ FFT::FFT(int bits, int inverse) : _bits(bits), _inverse(inverse) {
 	assert((_bits >= 2) && (_bits <= 16));
 
 	int n = 1 << bits;
+	int nPoints;
 
 	_tmpBuf = new Complex[n];
 	_expTab = new Complex[n / 2];
@@ -48,17 +49,27 @@ FFT::FFT(int bits, int inverse) : _bits(bits), _inverse(inverse) {
 		_revTab[-splitRadixPermutation(i, n, _inverse) & (n - 1)] = i;
 
 	for (int i = 0; i < ARRAYSIZE(_cosTables); i++) {
-		if (i+4 <= _bits)
-			_cosTables[i] = new Common::CosineTable(i+4);
+		if (i + 4 <= _bits) {
+			nPoints = 1 << (i + 4);
+			_cosTables[i] = new Common::CosineTable(nPoints);
+		}
 		else
-			_cosTables[i] = 0;
+			_cosTables[i] = nullptr;
 	}
 }
 
 FFT::~FFT() {
+	for (int i = 0; i < ARRAYSIZE(_cosTables); i++) {
+		delete _cosTables[i];
+	}
+
 	delete[] _revTab;
 	delete[] _expTab;
 	delete[] _tmpBuf;
+}
+
+const uint16 *FFT::getRevTab() const {
+	return _revTab;
 }
 
 void FFT::permute(Complex *z) {

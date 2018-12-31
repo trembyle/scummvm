@@ -8,24 +8,23 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
 
-#ifndef LURE_H
-#define LURE_H
+#ifndef LURE_LURE_H
+#define LURE_LURE_H
 
 #include "engines/engine.h"
 #include "common/rect.h"
-#include "audio/mixer.h"
 #include "common/file.h"
 #include "common/savefile.h"
 #include "common/util.h"
@@ -58,6 +57,7 @@ enum LureLanguage {
 	LANG_DE_DEU = 7,
 	LANG_ES_ESP = 17,
 	LANG_EN_ANY = 3,
+	LANG_RU_RUS = 3,	// English data has been overridden
 	LANG_UNKNOWN = -1
 };
 
@@ -111,7 +111,6 @@ public:
 	bool saveGame(uint8 slotNumber, Common::String &caption);
 	Common::String *detectSave(int slotNumber);
 	uint8 saveVersion() { return _saveVersion; }
-	void GUIError(const char *msg, ...) GCC_PRINTF(2, 3);
 
 	uint32 getFeatures() const;
 	LureLanguage getLureLanguage() const;
@@ -121,11 +120,11 @@ public:
 	bool isEGA() const { return (getFeatures() & GF_EGA) != 0; }
 
 	virtual Common::Error loadGameState(int slot) {
-		return loadGame(slot) ? Common::kReadingFailed : Common::kNoError;
+		return loadGame(slot) ? Common::kNoError : Common::kReadingFailed;
 	}
 	virtual Common::Error saveGameState(int slot, const Common::String &desc) {
 		Common::String s(desc);
-		return saveGame(slot, s) ? Common::kReadingFailed : Common::kNoError;
+		return saveGame(slot, s) ? Common::kNoError : Common::kReadingFailed;
 	}
 	virtual bool canLoadGameStateCurrently() {
 		return _saveLoadAllowed && !Fights.isFighting();

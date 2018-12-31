@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -521,7 +521,7 @@ static MadeGameDescription g_fallbackDesc = {
 class MadeMetaEngine : public AdvancedMetaEngine {
 public:
 	MadeMetaEngine() : AdvancedMetaEngine(Made::gameDescriptions, sizeof(Made::MadeGameDescription), madeGames) {
-		_singleid = "made";
+		_singleId = "made";
 	}
 
 	virtual const char *getName() const {
@@ -535,7 +535,7 @@ public:
 	virtual bool hasFeature(MetaEngineFeature f) const;
 	virtual bool createInstance(OSystem *syst, Engine **engine, const ADGameDescription *desc) const;
 
-	const ADGameDescription *fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const;
+	ADDetectedGame fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const override;
 
 };
 
@@ -557,7 +557,7 @@ bool MadeMetaEngine::createInstance(OSystem *syst, Engine **engine, const ADGame
 	return gd != 0;
 }
 
-const ADGameDescription *MadeMetaEngine::fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const {
+ADDetectedGame MadeMetaEngine::fallbackDetect(const FileMap &allFiles, const Common::FSList &fslist) const {
 	// Set the default values for the fallback descriptor's ADGameDescription part.
 	Made::g_fallbackDesc.desc.language = Common::UNK_LANG;
 	Made::g_fallbackDesc.desc.platform = Common::kPlatformDOS;
@@ -569,7 +569,7 @@ const ADGameDescription *MadeMetaEngine::fallbackDetect(const FileMap &allFiles,
 	Made::g_fallbackDesc.version = 3;
 
 	//return (const ADGameDescription *)&Made::g_fallbackDesc;
-	return NULL;
+	return ADDetectedGame();
 }
 
 #if PLUGIN_ENABLED_DYNAMIC(MADE)

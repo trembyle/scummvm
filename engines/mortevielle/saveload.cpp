@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -37,7 +37,7 @@ namespace Mortevielle {
 
 static const char SAVEGAME_ID[4] = { 'M', 'O', 'R', 'T' };
 
-void SavegameManager::setParent(MortevielleEngine *vm) {
+SavegameManager::SavegameManager(MortevielleEngine *vm) {
 	_vm = vm;
 }
 
@@ -92,8 +92,10 @@ bool SavegameManager::loadSavegame(const Common::String &filename) {
 	if (!strncmp(&buffer[0], &SAVEGAME_ID[0], 4)) {
 		// Yes, it is, so skip over the savegame header
 		SavegameHeader header;
-		readSavegameHeader(stream, header);
-		delete header.thumbnail;
+		if (!readSavegameHeader(stream, header)) {
+			delete stream;
+			return false;
+		}
 	} else {
 		stream->seek(0);
 	}
@@ -116,16 +118,16 @@ bool SavegameManager::loadSavegame(const Common::String &filename) {
  * Load a saved game
  */
 Common::Error SavegameManager::loadGame(const Common::String &filename) {
-	g_vm->_mouse.hideMouse();
+	g_vm->_mouse->hideMouse();
 	g_vm->displayEmptyHand();
 	if (loadSavegame(filename)) {
 		/* Initialization */
 		g_vm->charToHour();
 		g_vm->initGame();
 		g_vm->gameLoaded();
-		g_vm->_mouse.showMouse();
+		g_vm->_mouse->showMouse();
 		return Common::kNoError;
-	} else 
+	} else
 		return Common::kUnknownError;
 }
 
@@ -136,7 +138,7 @@ Common::Error SavegameManager::saveGame(int n, const Common::String &saveName) {
 	Common::OutSaveFile *f;
 	int i;
 
-	g_vm->_mouse.hideMouse();
+	g_vm->_mouse->hideMouse();
 	g_vm->hourToChar();
 
 	for (i = 0; i <= 389; ++i)
@@ -165,7 +167,7 @@ Common::Error SavegameManager::saveGame(int n, const Common::String &saveName) {
 
 	// Skipped: dialog asking to swap floppy
 
-	g_vm->_mouse.showMouse();
+	g_vm->_mouse->showMouse();
 	return Common::kNoError;
 }
 
@@ -191,7 +193,7 @@ void SavegameManager::writeSavegameHeader(Common::OutSaveFile *out, const Common
 
 	// Create a thumbnail and save it
 	Graphics::Surface *thumb = new Graphics::Surface();
-	Graphics::Surface s = g_vm->_screenSurface.lockArea(Common::Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	Graphics::Surface s = g_vm->_screenSurface->lockArea(Common::Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 
 	::createThumbnail(thumb, (const byte *)s.getPixels(), SCREEN_WIDTH, SCREEN_HEIGHT, thumbPalette);
 	Graphics::saveThumbnail(*out, *thumb);
@@ -208,9 +210,7 @@ void SavegameManager::writeSavegameHeader(Common::OutSaveFile *out, const Common
 	out->writeSint16LE(td.tm_min);
 }
 
-bool SavegameManager::readSavegameHeader(Common::InSaveFile *in, SavegameHeader &header) {
-	header.thumbnail = NULL;
-
+WARN_UNUSED_RESULT bool SavegameManager::readSavegameHeader(Common::InSaveFile *in, SavegameHeader &header, bool skipThumbnail) {
 	// Get the savegame version
 	header.version = in->readByte();
 
@@ -221,9 +221,9 @@ bool SavegameManager::readSavegameHeader(Common::InSaveFile *in, SavegameHeader 
 		header.saveName += ch;
 
 	// Get the thumbnail
-	header.thumbnail = Graphics::loadThumbnail(*in);
-	if (!header.thumbnail)
+	if (!Graphics::loadThumbnail(*in, header.thumbnail, skipThumbnail)) {
 		return false;
+	}
 
 	// Read in save date/time
 	header.saveYear = in->readSint16LE();
@@ -237,10 +237,9 @@ bool SavegameManager::readSavegameHeader(Common::InSaveFile *in, SavegameHeader 
 
 SaveStateList SavegameManager::listSaves(const Common::String &target) {
 	Common::String pattern = target;
-	pattern += ".???";
+	pattern += ".###";
 
 	Common::StringArray files = g_system->getSavefileManager()->listSavefiles(pattern);
-	sort(files.begin(), files.end());	// Sort (hopefully ensuring we are sorted numerically..)
 
 	SaveStateList saveList;
 	for (Common::StringArray::const_iterator file = files.begin(); file != files.end(); ++file) {
@@ -264,7 +263,6 @@ SaveStateList SavegameManager::listSaves(const Common::String &target) {
 				validFlag = readSavegameHeader(in, header);
 
 				if (validFlag) {
-					delete header.thumbnail;
 					saveDescription = header.saveName;
 				}
 			} else if (file->size() == 497) {
@@ -282,6 +280,7 @@ SaveStateList SavegameManager::listSaves(const Common::String &target) {
 		}
 	}
 
+	Common::sort(saveList.begin(), saveList.end(), SaveStateDescriptorSlotComparator());
 	return saveList;
 }
 
@@ -311,7 +310,10 @@ SaveStateDescriptor SavegameManager::querySaveMetaInfos(const Common::String &fi
 		} else {
 			// Get the savegame header information
 			SavegameHeader header;
-			readSavegameHeader(f, header);
+			if (!readSavegameHeader(f, header, false)) {
+				delete f;
+				return SaveStateDescriptor();
+			}
 			delete f;
 
 			// Create the return descriptor

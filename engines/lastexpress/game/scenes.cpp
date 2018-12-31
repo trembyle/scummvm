@@ -344,43 +344,43 @@ LastExpress::SceneIndex SceneManager::processIndex(SceneIndex index) {
 			case 51:
 				if (!getEntities()->getPosition(car, 39))
 					return getSceneIndexFromPosition(car, 39);
-				// Fallback to next case
+				// fall through
 
 			case 42:
 			case 52:
 				if (!getEntities()->getPosition(car, 14))
 					return getSceneIndexFromPosition(car, 14);
-				// Fallback to next case
+				// fall through
 
 			case 43:
 			case 53:
 				if (!getEntities()->getPosition(car, 35))
 					return getSceneIndexFromPosition(car, 35);
-				// Fallback to next case
+				// fall through
 
 			case 44:
 			case 54:
 				if (!getEntities()->getPosition(car, 10))
 					return getSceneIndexFromPosition(car, 10);
-				// Fallback to next case
+				// fall through
 
 			case 45:
 			case 55:
 				if (!getEntities()->getPosition(car, 32))
 					return getSceneIndexFromPosition(car, 32);
-				// Fallback to next case
+				// fall through
 
 			case 46:
 			case 56:
 				if (!getEntities()->getPosition(car, 7))
 					return getSceneIndexFromPosition(car, 7);
-				// Fallback to next case
+				// fall through
 
 			case 47:
 			case 57:
 				if (!getEntities()->getPosition(car, 27))
 					return getSceneIndexFromPosition(car, 27);
-				// Fallback to next case
+				// fall through
 
 			case 48:
 			case 58:
@@ -401,7 +401,7 @@ LastExpress::SceneIndex SceneManager::processIndex(SceneIndex index) {
 		case 54:
 			if (!getEntities()->getPosition(car, 51))
 				return getSceneIndexFromPosition(car, 51);
-			// Fallback to next case
+			// fall through
 
 		case 50:
 		case 56:
@@ -409,31 +409,31 @@ LastExpress::SceneIndex SceneManager::processIndex(SceneIndex index) {
 		case 58:
 			if (!getEntities()->getPosition(car, 55))
 				return getSceneIndexFromPosition(car, 55);
-			// Fallback to next case
+			// fall through
 
 		case 59:
 			if (!getEntities()->getPosition(car, 60))
 				return getSceneIndexFromPosition(car, 60);
-			// Fallback to next case
+			// fall through
 
 		case 60:
 			if (!getEntities()->getPosition(car, 59))
 				return getSceneIndexFromPosition(car, 59);
-			// Fallback to next case
+			// fall through
 
 		case 62:
 		case 63:
 		case 64:
 			if (!getEntities()->getPosition(car, 61))
 				return getSceneIndexFromPosition(car, 61);
-			// Fallback to next case
+			// fall through
 
 		case 66:
 		case 67:
 		case 68:
 			if (!getEntities()->getPosition(car, 65))
 				return getSceneIndexFromPosition(car, 65);
-			// Fallback to next case
+			// fall through
 
 		case 69:
 		case 71:
@@ -579,7 +579,7 @@ void SceneManager::updateDoorsAndClock() {
 		for (ObjectIndex index = firstIndex; index < (ObjectIndex)(firstIndex + 8); index = (ObjectIndex)(index + 1)) {
 
 			// Doors is not open, nothing to do
-			if (getObjects()->get(index).location != kObjectLocation2)
+			if (getObjects()->get(index).status != kObjectLocation2)
 				continue;
 
 			// Load door sequence
@@ -842,11 +842,11 @@ void SceneManager::preProcessScene(SceneIndex *index) {
 		if (object >= kObjectMax)
 			break;
 
-		if (getObjects()->get(object).location == kObjectLocationNone)
+		if (getObjects()->get(object).status == kObjectLocationNone)
 			break;
 
 		for (Common::Array<SceneHotspot *>::iterator it = scene->getHotspots()->begin(); it != scene->getHotspots()->end(); ++it) {
-			if (getObjects()->get(object).location != (*it)->location)
+			if (getObjects()->get(object).status != (*it)->location)
 				continue;
 
 			PROCESS_HOTSPOT_SCENE(*it, index);
@@ -920,7 +920,7 @@ void SceneManager::preProcessScene(SceneIndex *index) {
 
 		int location = kObjectLocationNone;
 
-		if (getObjects()->get(object).location == kObjectLocation2)
+		if (getObjects()->get(object).status == kObjectLocation2)
 			location = kObjectLocation1;
 
 		if (getInventory()->get(item)->location != kObjectLocationNone)
@@ -933,7 +933,7 @@ void SceneManager::preProcessScene(SceneIndex *index) {
 			if (location != (*it)->location)
 				continue;
 
-			if (getObjects()->get(object).location != (*it)->param1)
+			if (getObjects()->get(object).status != (*it)->param1)
 				continue;
 
 			if (getInventory()->get(item)->location != (*it)->param2)
@@ -994,7 +994,7 @@ void SceneManager::preProcessScene(SceneIndex *index) {
 
 		bool found = false;
 		for (Common::Array<SceneHotspot *>::iterator it = scene->getHotspots()->begin(); it != scene->getHotspots()->end(); ++it) {
-			if (getObjects()->get(object).location2 != (*it)->location)
+			if (getObjects()->get(object).model != (*it)->location)
 				continue;
 
 			PROCESS_HOTSPOT_SCENE(*it, index);
@@ -1064,7 +1064,7 @@ void SceneManager::preProcessScene(SceneIndex *index) {
 	Scene *newScene = getScenes()->get(*index);
 	if (getSoundQueue()->isBuffered(kEntityTables4)) {
 		if (newScene->type != Scene::kTypeReadText || newScene->param1)
-			getSoundQueue()->processEntry(kEntityTables4);
+			getSoundQueue()->fade(kEntityTables4);
 	}
 
 	// Cleanup beetle sequences
@@ -1137,7 +1137,7 @@ void SceneManager::postProcessScene() {
 			}
 
 			if (progress)
-				getSound()->excuseMe((progress == 1) ? entities[0] : entities[rnd(progress)], kEntityPlayer, kFlagDefault);
+				getSound()->excuseMe((progress == 1) ? entities[0] : entities[rnd(progress)], kEntityPlayer, kVolumeFull);
 		}
 
 		if (hotspot->scene)
@@ -1162,8 +1162,8 @@ void SceneManager::postProcessScene() {
 		if (getState()->time >= kTimeCityGalanta || getProgress().field_18 == 4)
 			break;
 
-		getSoundQueue()->processEntry(kSoundType7);
-		getSound()->playSound(kEntityTrain, "LIB050", kFlagDefault);
+		getSoundQueue()->fade(kSoundTagLink);
+		getSound()->playSound(kEntityTrain, "LIB050", kVolumeFull);
 
 		switch (getProgress().chapter) {
 		default:

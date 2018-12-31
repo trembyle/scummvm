@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef COMMON_IFF_CONTAINER_H
@@ -171,7 +172,7 @@ class IFFParser {
 		IFF_ID id;
 		uint32 size;
 
-		IFFChunkNav() : _input(0) {
+		IFFChunkNav() : _input(nullptr) {
 		}
 		void setInputStream(ReadStream *input) {
 			_input = input;

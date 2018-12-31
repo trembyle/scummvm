@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -27,6 +27,7 @@
 #include "tsage/ringworld/ringworld_logic.h"
 #include "tsage/ringworld2/ringworld2_logic.h"
 #include "tsage/ringworld2/ringworld2_scenes0.h"
+#include "tsage/sherlock/sherlock_logo.h"
 #include "tsage/staticres.h"
 
 namespace TsAGE {
@@ -58,23 +59,46 @@ static SavedObject *classFactoryProc(const Common::String &className) {
 
 /*--------------------------------------------------------------------------*/
 
-Globals::Globals() : _dialogCenter(160, 140), _gfxManagerInstance(_screenSurface),
+Globals::Globals() : _dialogCenter(160, 140), _gfxManagerInstance(_screen),
 		_randomSource("tsage"), _color1(0), _color2(255), _color3(255) {
 	reset();
 	_stripNum = 0;
 	_gfxEdgeAdjust = 3;
+	_gfxFontNumber = 0;
 
-	if (g_vm->getFeatures() & GF_DEMO) {
-		_gfxFontNumber = 0;
-		_gfxColors.background = 6;
-		_gfxColors.foreground = 0;
-		_fontColors.background = 255;
-		_fontColors.foreground = 6;
-		_dialogCenter.y = 80;
-		// Workaround in order to use later version of the engine
-		_color1 = _gfxColors.foreground;
-		_color2 = _gfxColors.foreground;
-		_color3 = _gfxColors.foreground;
+	if (g_vm->getGameID() == GType_Ringworld) {
+		if (g_vm->getFeatures() & GF_DEMO) {
+			_gfxFontNumber = 0;
+			_gfxColors.background = 6;
+			_gfxColors.foreground = 0;
+			_fontColors.background = 255;
+			_fontColors.foreground = 6;
+			_dialogCenter.y = 80;
+			// Workaround in order to use later version of the engine
+			_color1 = _gfxColors.foreground;
+			_color2 = _gfxColors.foreground;
+			_color3 = _gfxColors.foreground;
+		} else if (g_vm->getFeatures() & GF_CD) {
+			_gfxFontNumber = 50;
+			_gfxColors.background = 53;
+			_gfxColors.foreground = 0;
+			_fontColors.background = 51;
+			_fontColors.foreground = 54;
+			_color1 = 18;
+			_color2 = 18;
+			_color3 = 18;
+		} else {
+		// Floppy version
+			_gfxFontNumber = 50;
+			_gfxColors.background = 53;
+			_gfxColors.foreground = 18;
+			_fontColors.background = 51;
+			_fontColors.foreground = 54;
+			// Workaround in order to use later version of the engine
+			_color1 = _gfxColors.foreground;
+			_color2 = _gfxColors.foreground;
+			_color3 = _gfxColors.foreground;
+		}
 	} else if (g_vm->getGameID() == GType_BlueForce) {
 		// Blue Force
 		_gfxFontNumber = 0;
@@ -94,28 +118,8 @@ Globals::Globals() : _dialogCenter(160, 140), _gfxManagerInstance(_screenSurface
 		_color2 = 15;
 		_color3 = 4;
 		_dialogCenter.y = 100;
-	} else if ((g_vm->getGameID() == GType_Ringworld) &&  (g_vm->getFeatures() & GF_CD)) {
-		_gfxFontNumber = 50;
-		_gfxColors.background = 53;
-		_gfxColors.foreground = 0;
-		_fontColors.background = 51;
-		_fontColors.foreground = 54;
-		_color1 = 18;
-		_color2 = 18;
-		_color3 = 18;
-	} else {
-		// Ringworld
-		_gfxFontNumber = 50;
-		_gfxColors.background = 53;
-		_gfxColors.foreground = 18;
-		_fontColors.background = 51;
-		_fontColors.foreground = 54;
-		// Workaround in order to use later version of the engine
-		_color1 = _gfxColors.foreground;
-		_color2 = _gfxColors.foreground;
-		_color3 = _gfxColors.foreground;
 	}
-	_screenSurface.setScreenSurface();
+
 	_gfxManagers.push_back(&_gfxManagerInstance);
 
 	_sceneObjects = &_sceneObjectsInstance;
@@ -152,6 +156,15 @@ Globals::Globals() : _dialogCenter(160, 140), _gfxManagerInstance(_screenSurface
 		_inventory = new Ringworld2::Ringworld2InvObjectList();
 		_game = new Ringworld2::Ringworld2Game();
 		_sceneHandler = new Ringworld2::SceneHandlerExt();
+		break;
+#ifdef TSAGE_SHERLOCK_ENABLED
+	case GType_Sherlock1:
+		_inventory = nullptr;
+		_sceneHandler = new Sherlock::SherlockSceneHandler();
+		_game = new Sherlock::SherlockLogo();
+		break;
+#endif
+	default:
 		break;
 	}
 
@@ -443,7 +456,7 @@ Ringworld2Globals::Ringworld2Globals() {
 	_scene180Mode = -1;
 	_v57709 = 0;
 	_v5780C = 0;
-	_v5780E = 0;
+	_mouseCursorId = 0;
 	_v57810 = 0;
 
 	_fadePaletteFlag = false;
@@ -457,6 +470,8 @@ Ringworld2Globals::Ringworld2Globals() {
 	_foodCount = 0;
 	_rimLocation = 0;
 	_rimTransportLocation = 0;
+
+	_debugCardGame = false;
 }
 
 Ringworld2Globals::~Ringworld2Globals() {
@@ -555,7 +570,7 @@ void Ringworld2Globals::reset() {
 	_scene180Mode = -1;
 	_v57709 = 0;
 	_v5780C = 0;
-	_v5780E = 0;
+	_mouseCursorId = 0;
 	_v57810 = 0;
 	_s1550PlayerArea[R2_QUINN] = Common::Point(27, 4);
 	_s1550PlayerArea[R2_SEEKER] = Common::Point(27, 4);
@@ -583,6 +598,8 @@ void Ringworld2Globals::reset() {
 	_player._characterScene[R2_QUINN] = 100;
 	_player._characterScene[R2_SEEKER] = 300;
 	_player._characterScene[R2_MIRANDA] = 300;
+
+	_debugCardGame = false;
 }
 
 void Ringworld2Globals::synchronize(Serializer &s) {
@@ -607,7 +624,7 @@ void Ringworld2Globals::synchronize(Serializer &s) {
 	s.syncAsSint16LE(_scene180Mode);
 	s.syncAsSint16LE(_v57709);
 	s.syncAsSint16LE(_v5780C);
-	s.syncAsSint16LE(_v5780E);
+	s.syncAsSint16LE(_mouseCursorId);
 	s.syncAsSint16LE(_v57810);
 
 	s.syncAsByte(_s1550PlayerArea[R2_QUINN].x);

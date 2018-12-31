@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 
@@ -405,6 +406,19 @@ int32 IMuseDigital::getCurMusicLipSyncHeight(int syncId) {
 	debug(6, "IMuseDigital::getCurVoiceLipSyncHeight(%d, %d)", soundId, msPos);
 	getLipSync(soundId, syncId, msPos, width, height);
 	return height;
+}
+
+int32 IMuseDigital::getSoundElapsedTimeInMs(int soundId) {
+	Common::StackLock lock(_mutex, "IMuseDigital::getPosInMs()");
+	for (int l = 0; l < MAX_DIGITAL_TRACKS; l++) {
+		Track *track = _track[l];
+		if (track->used && !track->toBeRemoved && (track->soundId == soundId)) {
+			int32 pos = (_mixer->getSoundElapsedTime(track->mixChanHandle));
+			return pos;
+		}
+	}
+
+	return 0;
 }
 
 void IMuseDigital::stopAllSounds() {

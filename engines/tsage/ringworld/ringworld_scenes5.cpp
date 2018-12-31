@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -462,7 +462,7 @@ void Scene4000::Action12::signal() {
 		break;
 	case 2:
 		g_globals->setFlag(32);
-		if (scene->_stripManager._field2E8 == 275) {
+		if (scene->_stripManager._currObj44Id == 275) {
 			g_globals->setFlag(82);
 			ADD_MOVER_NULL(scene->_guardRock, 292, 138);
 			ADD_PLAYER_MOVER(283, 147);
@@ -471,7 +471,7 @@ void Scene4000::Action12::signal() {
 		}
 		break;
 	case 3:
-		if (scene->_stripManager._field2E8 == 275) {
+		if (scene->_stripManager._currObj44Id == 275) {
 			g_globals->_sceneManager.changeScene(4100);
 		} else {
 			ADD_PLAYER_MOVER_THIS(scene->_guardRock, 300, 132);
@@ -1160,7 +1160,7 @@ void Scene4000::signal() {
 	case 4010:
 		g_globals->setFlag(38);
 		_olo.remove();
-		// Deliberate fall-through
+		// fall through
 	case 4001:
 		g_globals->_player.enableControl();
 		break;
@@ -1173,7 +1173,7 @@ void Scene4000::signal() {
 		break;
 	case 4004:
 		RING_INVENTORY._ladder._sceneNumber = 4000;
-		// Deliberate fall-through
+		// fall through
 	case 4007:
 		g_globals->_player._uiEnabled = true;
 		g_globals->_events.setCursor(CURSOR_USE);
@@ -2813,7 +2813,7 @@ void Scene4150::Action1::signal() {
 	case 4: {
 		for (int idx = 100; idx >= 0; idx -= 5) {
 			g_globals->_scenePalette.fade(adjustData, false, idx);
-			GLOBALS._screenSurface.updateScreen();
+			GLOBALS._screen.update();
 			g_system->delayMillis(10);
 		}
 
@@ -2841,7 +2841,7 @@ void Scene4150::Action1::signal() {
 	case 7:
 		for (int idx = 100; idx >= 0; idx -= 5) {
 			g_globals->_scenePalette.fade(adjustData, false, idx);
-			GLOBALS._screenSurface.updateScreen();
+			GLOBALS._screen.update();
 			g_system->delayMillis(10);
 		}
 
@@ -4222,7 +4222,12 @@ void Scene4300::process(Event &event) {
 
 void Scene4301::Action1::synchronize(Serializer &s) {
 	Action::synchronize(s);
-	s.syncAsSint16LE(_field34E);
+
+	if (s.getVersion() < 14) {
+		int useless = 0;
+		s.syncAsSint16LE(useless);
+	}
+
 	for (int idx = 0; idx < 6; ++idx)
 		s.syncAsSint16LE(_indexList[idx]);
 }
@@ -4268,7 +4273,6 @@ void Scene4301::Action1::signal() {
 		scene->_hotspot3.fixPriority(255);
 		scene->_hotspot3.hide();
 
-		_field34E = 0;
 		_state = 0;
 		_actionIndex = 2;
 		break;

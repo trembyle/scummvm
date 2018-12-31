@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -22,6 +22,8 @@
 
 #if !defined(SCUMM_HE_SPRITE_HE_H) && defined(ENABLE_HE)
 #define SCUMM_HE_SPRITE_HE_H
+
+#include "common/serializer.h"
 
 namespace Scumm {
 
@@ -72,14 +74,14 @@ struct SpriteInfo {
 	int32 curAngle;
 	int32 curScale;
 	int32 curImgFlags;
-	int32 field_74;
+	int32 animIndex;
 	int32 animSpeed;
 	int32 sourceImage;
 	int32 maskImage;
-	int32 field_84;
+	int32 zbufferImage;
 	int32 classFlags;
 	int32 imgFlags;
-	int32 field_90;
+	int32 conditionBits;
 };
 
 struct SpriteGroup {
@@ -98,7 +100,7 @@ struct SpriteGroup {
 
 class ScummEngine_v90he;
 
-class Sprite {
+class Sprite : public Common::Serializable {
 public:
 	Sprite(ScummEngine_v90he *vm);
 	virtual ~Sprite();
@@ -112,7 +114,7 @@ public:
 	int32 _varNumSprites;
 	int32 _varMaxSprites;
 
-	void saveOrLoadSpriteData(Serializer *s);
+	void saveLoadWithSerializer(Common::Serializer &s);
 	void resetBackground();
 	void setRedrawFlags(bool checkZOrder);
 	void sortActiveSprites();
@@ -182,7 +184,7 @@ public:
 	void setSpriteAnimSpeed(int spriteId, int value);
 	void setSpriteSetClass(int spriteId, int classId, int toggle);
 	void setSpriteResetClass(int spriteId);
-	void setSpriteField84(int spriteId, int value);
+	void setSpriteZBuffer(int spriteId, int value);
 	void setSpriteGeneralProperty(int spriteId, int type, int value);
 
 	void moveGroupMembers(int spriteGroupId, int value1, int value2);

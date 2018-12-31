@@ -17,6 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #include "audio/softsynth/cms.h"
@@ -346,7 +347,7 @@ void CMSEmulator::portWriteIntern(int chip, int offset, int data) {
 class CMSMusicPlugin : public NullMusicPlugin {
 public:
 	const char *getName() const {
-		return _s("Creative Music System Emulator");
+		return _s("Creative Music System emulator");
 	}
 
 	const char *getId() const {

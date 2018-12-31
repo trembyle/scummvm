@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -331,6 +331,8 @@ Player_V2Base::Player_V2Base(ScummEngine *scumm, Audio::Mixer *mixer, bool pcjr)
 	_current_nr = _next_nr = 0;
 	_current_data = _next_data = 0;
 
+	_retaddr = 0;
+
 	// Initialize channel code
 	for (int i = 0; i < 4; ++i)
 		clear_channel(i);
@@ -600,8 +602,8 @@ void Player_V2Base::next_freqs(ChannelInfo *channel) {
 		channel->d.freqmod_offset -= channel->d.freqmod_modulo;
 
 	channel->d.freq =
-		(int) (freqmod_table[channel->d.freqmod_table + (channel->d.freqmod_offset >> 4)])
-		* (int) channel->d.freqmod_multiplier / 256
+		(int)(freqmod_table[channel->d.freqmod_table + (channel->d.freqmod_offset >> 4)])
+		* (int)channel->d.freqmod_multiplier / 256
 		+ channel->d.base_freq;
 
 	debug(9, "Freq: %d/%d, %d/%d/%d*%d %d",

@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -40,15 +40,10 @@
 #define SWORD25_VERTEX_H
 
 // Includes
-#include <math.h>
 #include "common/rect.h"
 #include "sword25/kernel/common.h"
 
 struct lua_State;
-
-#if defined(MACOSX) || defined(SOLARIS) || defined(__MINGW32__)
-#define sqrtf(x)	((float)sqrt(x))
-#endif
 
 namespace Sword25 {
 
@@ -68,7 +63,7 @@ public:
 	 * @remark              If only distances should be compared, sqrDist() should be used, since it is faster.
 	 */
 	inline int distance(const Vertex &vertex) const {
-		return (int)(sqrtf(static_cast<float>(sqrDist(vertex))) + 0.5);
+		return (int)(sqrt(static_cast<float>(sqrDist(vertex))) + 0.5);
 	}
 
 	static Vertex &luaVertexToVertex(lua_State *L, int StackIndex, Vertex &vertex);

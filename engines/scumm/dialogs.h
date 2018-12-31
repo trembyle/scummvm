@@ -17,21 +17,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
  */
 
 #ifndef SCUMM_DIALOGS_H
 #define SCUMM_DIALOGS_H
 
 #include "common/str.h"
+#include "common/keyboard.h"
 #include "gui/dialog.h"
-#include "gui/widget.h"
 #include "engines/dialogs.h"
 
-#include "scumm/detection.h"
-
 namespace GUI {
-class ListWidget;
 class CommandSender;
+class StaticTextWidget;
 }
 
 
@@ -128,15 +127,15 @@ class ValueDisplayDialog : public GUI::Dialog {
 public:
 	ValueDisplayDialog(const Common::String& label, int minVal, int maxVal, int val, uint16 incKey, uint16 decKey);
 
-	virtual void open();
-	virtual void drawDialog();
-	virtual void handleTickle();
-	virtual void handleMouseDown(int x, int y, int button, int clickCount) {
+	virtual void open() override;
+	void drawDialog(GUI::DrawLayer layerToDraw) override;
+	virtual void handleTickle() override;
+	virtual void handleMouseDown(int x, int y, int button, int clickCount) override {
 		close();
 	}
-	virtual void handleKeyDown(Common::KeyState state);
+	virtual void handleKeyDown(Common::KeyState state) override;
 
-	virtual void reflowLayout();
+	virtual void reflowLayout() override;
 
 protected:
 	enum {

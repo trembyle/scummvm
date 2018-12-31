@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -796,7 +796,7 @@ int16 Game::checkKeys(int16 *pMouseX, int16 *pMouseY,
 
 	if (_vm->_mult->_multData && _vm->_inter->_variables &&
 			(VAR(58) != 0)) {
-		if (_vm->_mult->_multData->frameStart != (int) VAR(58) - 1)
+		if (_vm->_mult->_multData->frameStart != (int)VAR(58) - 1)
 			_vm->_mult->_multData->frameStart++;
 		else
 			_vm->_mult->_multData->frameStart = 0;

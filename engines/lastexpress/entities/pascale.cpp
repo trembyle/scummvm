@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -36,39 +36,39 @@
 namespace LastExpress {
 
 Pascale::Pascale(LastExpressEngine *engine) : Entity(engine, kEntityPascale) {
-	ADD_CALLBACK_FUNCTION(Pascale, draw);
+	ADD_CALLBACK_FUNCTION_S(Pascale, draw);
 	ADD_CALLBACK_FUNCTION(Pascale, callbackActionRestaurantOrSalon);
 	ADD_CALLBACK_FUNCTION(Pascale, callbackActionOnDirection);
-	ADD_CALLBACK_FUNCTION(Pascale, updateFromTime);
-	ADD_CALLBACK_FUNCTION(Pascale, updatePosition);
-	ADD_CALLBACK_FUNCTION(Pascale, playSound);
-	ADD_CALLBACK_FUNCTION(Pascale, draw2);
+	ADD_CALLBACK_FUNCTION_I(Pascale, updateFromTime);
+	ADD_CALLBACK_FUNCTION_SII(Pascale, updatePosition);
+	ADD_CALLBACK_FUNCTION_S(Pascale, playSound);
+	ADD_CALLBACK_FUNCTION_SSI(Pascale, draw2);
 	ADD_CALLBACK_FUNCTION(Pascale, welcomeSophieAndRebecca);
 	ADD_CALLBACK_FUNCTION(Pascale, sitSophieAndRebecca);
 	ADD_CALLBACK_FUNCTION(Pascale, welcomeCath);
-	ADD_CALLBACK_FUNCTION(Pascale, function11);
+	ADD_CALLBACK_FUNCTION(Pascale, seatCath);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter1);
-	ADD_CALLBACK_FUNCTION(Pascale, getMessageFromAugustToTyler);
-	ADD_CALLBACK_FUNCTION(Pascale, sitAnna);
-	ADD_CALLBACK_FUNCTION(Pascale, welcomeAnna);
-	ADD_CALLBACK_FUNCTION(Pascale, serveTatianaVassili);
-	ADD_CALLBACK_FUNCTION(Pascale, chapter1Handler);
+	ADD_CALLBACK_FUNCTION(Pascale, greetAugust);
+	ADD_CALLBACK_FUNCTION(Pascale, seatAnna);
+	ADD_CALLBACK_FUNCTION(Pascale, greetAnna);
+	ADD_CALLBACK_FUNCTION(Pascale, greetTatiana);
+	ADD_CALLBACK_FUNCTION(Pascale, servingDinner);
 	ADD_CALLBACK_FUNCTION(Pascale, function18);
 	ADD_CALLBACK_FUNCTION(Pascale, function19);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter2);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter3);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter3Handler);
-	ADD_CALLBACK_FUNCTION(Pascale, function23);
+	ADD_CALLBACK_FUNCTION(Pascale, abbotSeatMe3);
 	ADD_CALLBACK_FUNCTION(Pascale, welcomeAbbot);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter4);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter4Handler);
-	ADD_CALLBACK_FUNCTION(Pascale, function27);
-	ADD_CALLBACK_FUNCTION(Pascale, messageFromAnna);
-	ADD_CALLBACK_FUNCTION(Pascale, function29);
-	ADD_CALLBACK_FUNCTION(Pascale, function30);
+	ADD_CALLBACK_FUNCTION(Pascale, meetCoudert);
+	ADD_CALLBACK_FUNCTION(Pascale, tellAugust);
+	ADD_CALLBACK_FUNCTION(Pascale, walkDownTrain);
+	ADD_CALLBACK_FUNCTION(Pascale, walkUpTrain);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter5);
 	ADD_CALLBACK_FUNCTION(Pascale, chapter5Handler);
-	ADD_CALLBACK_FUNCTION(Pascale, function33);
+	ADD_CALLBACK_FUNCTION(Pascale, hiding);
 	ADD_NULL_FUNCTION();
 }
 
@@ -118,6 +118,7 @@ IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
 IMPLEMENT_FUNCTION(8, Pascale, welcomeSophieAndRebecca)
+	// Welcomes Sophie And Rebecca
 	switch (savepoint.action) {
 	default:
 		break;
@@ -141,15 +142,15 @@ IMPLEMENT_FUNCTION(8, Pascale, welcomeSophieAndRebecca)
 				break;
 
 			case kChapter1:
-				getSound()->playSound(kEntityPascale, "REB1198", kFlagInvalid, 30);
+				getSound()->playSound(kEntityPascale, "REB1198", kSoundVolumeEntityDefault, 30);
 				break;
 
 			case kChapter3:
-				getSound()->playSound(kEntityPascale, "REB3001", kFlagInvalid, 30);
+				getSound()->playSound(kEntityPascale, "REB3001", kSoundVolumeEntityDefault, 30);
 				break;
 
 			case kChapter4:
-				getSound()->playSound(kEntityPascale, "REB4001", kFlagInvalid, 30);
+				getSound()->playSound(kEntityPascale, "REB4001", kSoundVolumeEntityDefault, 30);
 				break;
 			}
 
@@ -187,9 +188,9 @@ IMPLEMENT_FUNCTION(9, Pascale, sitSophieAndRebecca)
 		break;
 
 	case kActionDefault:
-		getEntities()->drawSequenceLeft(kEntityPascale, "012C1");
-		getEntities()->drawSequenceLeft(kEntityRebecca, "012C2");
-		getEntities()->drawSequenceLeft(kEntityTables3, "012C3");
+		getEntities()->drawSequenceRight(kEntityPascale, "012C1");
+		getEntities()->drawSequenceRight(kEntityRebecca, "012C2");
+		getEntities()->drawSequenceRight(kEntityTables3, "012C3");
 		break;
 	}
 IMPLEMENT_FUNCTION_END
@@ -244,7 +245,7 @@ IMPLEMENT_FUNCTION(10, Pascale, welcomeCath)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(11, Pascale, function11)
+IMPLEMENT_FUNCTION(11, Pascale, seatCath)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -295,7 +296,7 @@ IMPLEMENT_FUNCTION(12, Pascale, chapter1)
 		break;
 
 	case kActionNone:
-		setup_chapter1Handler();
+		setup_servingDinner();
 		break;
 
 	case kActionDefault:
@@ -319,7 +320,7 @@ IMPLEMENT_FUNCTION(12, Pascale, chapter1)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(13, Pascale, getMessageFromAugustToTyler)
+IMPLEMENT_FUNCTION(13, Pascale, greetAugust)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -352,7 +353,7 @@ IMPLEMENT_FUNCTION(13, Pascale, getMessageFromAugustToTyler)
 			break;
 
 		case 2:
-			getEntities()->drawSequenceLeft(kEntityPascale, "010B");
+			getEntities()->drawSequenceLeft(kEntityAugust, "010B");
 
 			setCallback(3);
 			setup_draw("905");
@@ -372,7 +373,7 @@ IMPLEMENT_FUNCTION(13, Pascale, getMessageFromAugustToTyler)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(14, Pascale, sitAnna)
+IMPLEMENT_FUNCTION(14, Pascale, seatAnna)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -394,7 +395,7 @@ IMPLEMENT_FUNCTION(14, Pascale, sitAnna)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(15, Pascale, welcomeAnna)
+IMPLEMENT_FUNCTION(15, Pascale, greetAnna)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -416,7 +417,7 @@ IMPLEMENT_FUNCTION(15, Pascale, welcomeAnna)
 			getSound()->playSound(kEntityPascale, "ANN1047");
 
 			setCallback(2);
-			setup_sitAnna();
+			setup_seatAnna();
 			break;
 
 		case 2:
@@ -439,7 +440,7 @@ IMPLEMENT_FUNCTION(15, Pascale, welcomeAnna)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(16, Pascale, serveTatianaVassili)
+IMPLEMENT_FUNCTION(16, Pascale, greetTatiana)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -463,9 +464,9 @@ IMPLEMENT_FUNCTION(16, Pascale, serveTatianaVassili)
 			getEntities()->updatePositionEnter(kEntityPascale, kCarRestaurant, 67);
 
 			if (getSoundQueue()->isBuffered("TAT1069A"))
-				getSoundQueue()->processEntry("TAT1069A");
+				getSoundQueue()->fade("TAT1069A");
 			else if (getSoundQueue()->isBuffered("TAT1069B"))
-				getSoundQueue()->processEntry("TAT1069B");
+				getSoundQueue()->fade("TAT1069B");
 
 			setCallback(2);
 			setup_playSound("TAT1066");
@@ -492,7 +493,7 @@ IMPLEMENT_FUNCTION(16, Pascale, serveTatianaVassili)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(17, Pascale, chapter1Handler)
+IMPLEMENT_FUNCTION(17, Pascale, servingDinner)
 switch (savepoint.action) {
 	default:
 		break;
@@ -521,28 +522,28 @@ switch (savepoint.action) {
 
 		if (params->param1 && !params->param2 && getEntities()->isPlayerPosition(kCarRestaurant, 61)) {
 			setCallback(1);
-			setup_function11();
+			setup_seatCath();
 			break;
 		}
 
 label_callback1:
 		if (ENTITY_PARAM(0, 1) && !ENTITY_PARAM(1, 3)) {
 			setCallback(2);
-			setup_getMessageFromAugustToTyler();
+			setup_greetAugust();
 			break;
 		}
 
 label_callback2:
 		if (ENTITY_PARAM(0, 3)) {
 			setCallback(3);
-			setup_serveTatianaVassili();
+			setup_greetTatiana();
 			break;
 		}
 
 label_callback3:
 		if (ENTITY_PARAM(0, 2)) {
 			setCallback(4);
-			setup_welcomeAnna();
+			setup_greetAnna();
 			break;
 		}
 
@@ -584,8 +585,8 @@ IMPLEMENT_FUNCTION(18, Pascale, function18)
 	if (getState()->time > kTime1242000 && !params->param1) {
 		params->param1 = 1;
 
-		getSavePoints()->push(kEntityPascale, kEntityServers0, kAction101632192);
-		getSavePoints()->push(kEntityPascale, kEntityServers1, kAction101632192);
+		getSavePoints()->push(kEntityPascale, kEntityWaiter1, kAction101632192);
+		getSavePoints()->push(kEntityPascale, kEntityWaiter2, kAction101632192);
 		getSavePoints()->push(kEntityPascale, kEntityCooks, kAction101632192);
 		getSavePoints()->push(kEntityPascale, kEntityVerges, kAction101632192);
 
@@ -674,7 +675,7 @@ IMPLEMENT_FUNCTION(22, Pascale, chapter3Handler)
 
 		if (ENTITY_PARAM(0, 7)) {
 			setCallback(1);
-			setup_function23();
+			setup_abbotSeatMe3();
 			break;
 		}
 
@@ -693,7 +694,7 @@ label_callback:
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(23, Pascale, function23)
+IMPLEMENT_FUNCTION(23, Pascale, abbotSeatMe3)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -738,7 +739,7 @@ IMPLEMENT_FUNCTION(24, Pascale, welcomeAbbot)
 	default:
 		break;
 
-	case kActionNone:
+	case kActionEndSound:
 		if (!params->param1) {
 			getSound()->playSound(kEntityPascale, "ABB3015A");
 			params->param1 = 1;
@@ -754,7 +755,7 @@ IMPLEMENT_FUNCTION(24, Pascale, welcomeAbbot)
 		break;
 
 	case kActionDefault:
-		getSound()->playSound(kEntityPascale, "ABB3015", kFlagInvalid, 105);
+		getSound()->playSound(kEntityPascale, "ABB3015", kSoundVolumeEntityDefault, 105);
 		getEntities()->drawSequenceRight(kEntityPascale, "029A1");
 		getEntities()->drawSequenceRight(kEntityAbbot, "029A2");
 		break;
@@ -806,7 +807,7 @@ IMPLEMENT_FUNCTION(26, Pascale, chapter4Handler)
 		if (getEntities()->isSomebodyInsideRestaurantOrSalon()) {
 			if (ENTITY_PARAM(0, 8)) {
 				setCallback(1);
-				setup_function27();
+				setup_meetCoudert();
 				break;
 			}
 
@@ -820,7 +821,7 @@ label_callback1:
 					if (params->param3 < getState()->time) {
 						params->param5 = kTimeInvalid;
 						setCallback(2);
-						setup_messageFromAnna();
+						setup_tellAugust();
 						break;
 					}
 
@@ -830,7 +831,7 @@ label_callback1:
 					if (params->param5 < getState()->time) {
 						params->param5 = kTimeInvalid;
 						setCallback(2);
-						setup_messageFromAnna();
+						setup_tellAugust();
 						break;
 					}
 				}
@@ -839,7 +840,7 @@ label_callback1:
 label_callback2:
 			if (params->param1 && !params->param2 && getEntities()->isPlayerPosition(kCarRestaurant, 61)) {
 				setCallback(3);
-				setup_function11();
+				setup_seatCath();
 				break;
 			}
 		}
@@ -906,7 +907,7 @@ label_callback3:
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(27, Pascale, function27)
+IMPLEMENT_FUNCTION(27, Pascale, meetCoudert)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -920,7 +921,7 @@ IMPLEMENT_FUNCTION(27, Pascale, function27)
 
 	case kActionDefault:
 		setCallback(1);
-		setup_function29();
+		setup_walkDownTrain();
 		break;
 
 	case kActionCallback:
@@ -941,7 +942,7 @@ IMPLEMENT_FUNCTION(27, Pascale, function27)
 
 		case 3:
 			setCallback(4);
-			setup_function30();
+			setup_walkUpTrain();
 			break;
 
 		case 4:
@@ -959,7 +960,8 @@ IMPLEMENT_FUNCTION(27, Pascale, function27)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(28, Pascale, messageFromAnna)
+IMPLEMENT_FUNCTION(28, Pascale, tellAugust)
+	// Tell August the message from Anna
 	switch (savepoint.action) {
 	default:
 		break;
@@ -1005,7 +1007,7 @@ IMPLEMENT_FUNCTION(28, Pascale, messageFromAnna)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(29, Pascale, function29)
+IMPLEMENT_FUNCTION(29, Pascale, walkDownTrain)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -1043,7 +1045,7 @@ IMPLEMENT_FUNCTION(29, Pascale, function29)
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(30, Pascale, function30)
+IMPLEMENT_FUNCTION(30, Pascale, walkUpTrain)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -1104,11 +1106,11 @@ IMPLEMENT_FUNCTION_END
 //////////////////////////////////////////////////////////////////////////
 IMPLEMENT_FUNCTION(32, Pascale, chapter5Handler)
 	if (savepoint.action == kActionProceedChapter5)
-		setup_function33();
+		setup_hiding();
 IMPLEMENT_FUNCTION_END
 
 //////////////////////////////////////////////////////////////////////////
-IMPLEMENT_FUNCTION(33, Pascale, function33)
+IMPLEMENT_FUNCTION(33, Pascale, hiding)
 	switch (savepoint.action) {
 	default:
 		break;
@@ -1130,7 +1132,7 @@ label_callback1:
 				break;
 
 			params->param1 = 0;
-			params->param2 = 2;
+			params->param2 = 1;
 
 			getObjects()->update(kObjectCompartmentG, kEntityPascale, kObjectLocation1, kCursorNormal, kCursorNormal);
 		}
@@ -1190,7 +1192,7 @@ label_callback1:
 			if (params->param3 == 1 || params->param3 == 2) {
 				getObjects()->update(kObjectCompartmentG, kEntityPascale, kObjectLocation1, kCursorNormal, kCursorNormal);
 				setCallback(params->param3 == 1 ? 5 : 6);
-				setup_playSound(params->param3 == 1 ? "Wat5001" : "Wat5002");
+				setup_playSound(params->param3 == 1 ? "Wat5001" : "Wat5001A");
 			}
 			break;
 

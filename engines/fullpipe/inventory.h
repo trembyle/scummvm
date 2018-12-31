@@ -8,12 +8,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
-
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -40,7 +40,7 @@ struct InventoryPoolItem {
 	int flags;
 };
 
-typedef Common::Array<InventoryPoolItem *> InventoryPoolItems;
+typedef Common::Array<InventoryPoolItem> InventoryPoolItems;
 
 class Inventory : public CObject {
  protected:
@@ -49,6 +49,7 @@ class Inventory : public CObject {
 
  public:
 	Inventory() { _sceneId = 0; }
+
 	virtual bool load(MfcArchive &file);
 
 	int getInventoryPoolItemIndexById(int itemId);
@@ -63,8 +64,6 @@ struct InventoryItem {
 	InventoryItem() { itemId = count = 0; }
 	InventoryItem(int id, int cnt) : itemId(id), count(cnt) {}
 };
-
-typedef Common::Array<InventoryItem *> InventoryItems;
 
 class PictureObject;
 
@@ -81,11 +80,9 @@ struct InventoryIcon {
 	bool isMouseHover;
 };
 
-typedef Common::Array<InventoryIcon *> InventoryIcons;
-
 class Inventory2 : public Inventory {
-	InventoryItems _inventoryItems;
-	InventoryIcons _inventoryIcons;
+	Common::Array<InventoryItem> _inventoryItems;
+	Common::Array<InventoryIcon> _inventoryIcons;
 	int _selectedId;
 	int _field_48;
 	bool _isInventoryOut;
@@ -96,7 +93,10 @@ class Inventory2 : public Inventory {
 
  public:
 	Inventory2();
+	virtual ~Inventory2();
+
 	bool loadPartial(MfcArchive &file);
+	bool savePartial(MfcArchive &file);
 	void addItem(int itemId, int count);
 	void addItem2(StaticANIObject *obj);
 	void removeItem(int itemId, int count);
@@ -125,6 +125,8 @@ class Inventory2 : public Inventory {
 	bool unselectItem(bool flag);
 
 	void draw();
+
+	void clear();
 };
 
 } // End of namespace Fullpipe
