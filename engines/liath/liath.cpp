@@ -64,7 +64,7 @@ LiathEngine::LiathEngine(OSystem *syst, const ADGameDescription *gd) :
 	SearchMan.addSubDirectoryMatching(gameDataDir, "heros");
 
 	// Initialize the custom debug levels
-	DebugMan.addDebugChannel(kLiathDebugAll, "All", "Debug everything");
+	DebugMan.addDebugChannel(kLiathDebugAll, "Everything", "Debug everything");
 	DebugMan.addDebugChannel(kLiathDebugGraphics, "Graphics", "Debug graphics & video playback");
 	DebugMan.addDebugChannel(kLiathDebugResource, "Resource", "Debug resource management");
 	DebugMan.addDebugChannel(kLiathDebugSound, "Sound", "Debug sound playback");
