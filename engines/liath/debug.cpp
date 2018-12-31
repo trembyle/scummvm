@@ -57,11 +57,11 @@ Debugger::Debugger(LiathEngine *engine) : _engine(engine), _command(NULL), _numP
 	// Register the debugger commands
 
 	// General
-	DCmd_Register("help",      WRAP_METHOD(Debugger, cmdHelp));
+	registerCmd("help",      WRAP_METHOD(Debugger, cmdHelp));
 
 	// Data
-	DCmd_Register("ls",        WRAP_METHOD(Debugger, cmdListFiles));
-	DCmd_Register("dump",      WRAP_METHOD(Debugger, cmdDumpArchive));
+	registerCmd("ls",        WRAP_METHOD(Debugger, cmdListFiles));
+	registerCmd("dump",      WRAP_METHOD(Debugger, cmdDumpArchive));
 
 	resetCommand();
 }
@@ -103,7 +103,7 @@ void Debugger::copyCommand(int argc, const char **argv) {
 	}
 
 	// Exit the debugger!
-	Cmd_Exit(0, 0);
+	cmdExit(0, 0);
 }
 
 void Debugger::callCommand() {
@@ -112,19 +112,19 @@ void Debugger::callCommand() {
 }
 
 bool Debugger::cmdHelp(int, const char **) {
-	DebugPrintf("Debug flags\n");
-	DebugPrintf("-----------\n");
-	DebugPrintf(" debugflag_list - Lists the available debug flags and their status\n");
-	DebugPrintf(" debugflag_enable - Enables a debug flag\n");
-	DebugPrintf(" debugflag_disable - Disables a debug flag\n");
-	DebugPrintf("\n");
-	DebugPrintf("Commands\n");
-	DebugPrintf("--------\n");
-	DebugPrintf(" ls   - list files in the archive\n");
-	DebugPrintf(" dump - dump the files from an archive\n");
-	DebugPrintf("\n");
-	DebugPrintf(" clear - clear the screen\n");
-	DebugPrintf("\n");
+	debugPrintf("Debug flags\n");
+	debugPrintf("-----------\n");
+	debugPrintf(" debugflag_list - Lists the available debug flags and their status\n");
+	debugPrintf(" debugflag_enable - Enables a debug flag\n");
+	debugPrintf(" debugflag_disable - Disables a debug flag\n");
+	debugPrintf("\n");
+	debugPrintf("Commands\n");
+	debugPrintf("--------\n");
+	debugPrintf(" ls   - list files in the archive\n");
+	debugPrintf(" dump - dump the files from an archive\n");
+	debugPrintf("\n");
+	debugPrintf(" clear - clear the screen\n");
+	debugPrintf("\n");
 	return true;
 }
 
@@ -135,11 +135,11 @@ bool Debugger::cmdListFiles(int argc, const char **argv) {
 		Common::ArchiveMemberList list;
 		int count = _engine->getResourceManager()->listMatchingMembers(list, filter);
 
-		DebugPrintf("Number of matches: %d\n", count);
+		debugPrintf("Number of matches: %d\n", count);
 		for (Common::ArchiveMemberList::iterator it = list.begin(); it != list.end(); ++it)
-			DebugPrintf(" %s\n", (*it)->getName().c_str());
+			debugPrintf(" %s\n", (*it)->getName().c_str());
 	} else {
-		DebugPrintf("Syntax: ls <filter> (use * for all)\n");
+		debugPrintf("Syntax: ls <filter> (use * for all)\n");
 	}
 
 	return true;
@@ -154,17 +154,17 @@ bool Debugger::cmdDumpArchive(int argc, const char **argv) {
 			Common::ArchiveMemberList list;
 			int count = _engine->getResourceManager()->listMatchingMembers(list, "*.mul");
 
-			DebugPrintf("Dumping %d archives\n", count);
+			debugPrintf("Dumping %d archives\n", count);
 			for (Common::ArchiveMemberList::iterator it = list.begin(); it != list.end(); ++it)
 				dumpFile((*it)->getName());
 		} else
 			dumpFile(filename);
 	} else {
-		DebugPrintf("Syntax: dump <filename>.mul (use * to dump all archives) \n");
+		debugPrintf("Syntax: dump <filename>.mul (use * to dump all archives) \n");
 	}
 
 #else
-	DebugPrintf("dump is not supported release mode!\n");
+	debugPrintf("dump is not supported release mode!\n");
 #endif
 
 	return true;
@@ -187,7 +187,7 @@ void Debugger::dumpFile(Common::String filename) {
 		filename += ".mul";
 
 	if (!_engine->getResourceManager()->hasFile(filename)) {
-		DebugPrintf("Cannot find file: %s\n", filename.c_str());
+		debugPrintf("Cannot find file: %s\n", filename.c_str());
 		return;
 	}
 
@@ -207,7 +207,7 @@ void Debugger::dumpFile(Common::String filename) {
 	CREATE_FOLDER(filename.c_str());
 
 	// Dump all members
-	DebugPrintf("Dumping %d files from archive %s\n", count, filename.c_str());
+	debugPrintf("Dumping %d files from archive %s\n", count, filename.c_str());
 	for (Common::ArchiveMemberList::iterator it = list.begin(); it != list.end(); ++it) {
 		Common::String name = (*it)->getName();
 		Common::SeekableReadStream *stream = archive->createReadStreamForMember(name);
@@ -225,10 +225,10 @@ void Debugger::dumpFile(Common::String filename) {
 
 		delete stream;
 
-		DebugPrintf("  - %s\n", name.c_str());
+		debugPrintf("  - %s\n", name.c_str());
 	}
 
-	DebugPrintf("\n");
+	debugPrintf("\n");
 
 	delete archive;
 
@@ -241,7 +241,7 @@ bool Debugger::cmdClear(int argc, const char **) {
 		/*askForRedraw();
 		redrawScreen();*/
 	} else {
-		DebugPrintf("Syntax: clear - clear the screen\n");
+		debugPrintf("Syntax: clear - clear the screen\n");
 	}
 
 	return true;
