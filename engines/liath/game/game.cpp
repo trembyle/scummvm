@@ -111,27 +111,24 @@ void GameManager::playAction() {
 		_currentWorkInfo = NULL;
 	}
 
-
 	Common::String actionFile = Common::String::format("act%04d.dat", getAction()->getCurrentAction());
 	CdNumber cd = getResource()->getCd(actionFile);
 
-	if (!cd || cd == _currentCd)
-		goto label_load;
-
 	Action *action;
-	for (;;) {
-		_currentAction = getAction()->getCurrentAction();
-		getAction()->setCurrentAction(kAction1);
+	do {
+		if (cd && cd != _currentCd) {
+			_currentAction = getAction()->getCurrentAction();
+			getAction()->setCurrentAction(kAction1);
 
-		_currentWorkInfo = getWork()->getWorkInfo();
-		getWork()->setWorkInfo(NULL);
+			_currentWorkInfo = getWork()->getWorkInfo();
+			getWork()->setWorkInfo(NULL);
 
-		setGlobal(999, SCR2CEL(cd));
+			setGlobal(999, SCR2CEL(cd));
 
-		actionFile = Common::String::format("act%04d.dat", getAction()->getCurrentAction());
-		cd = getResource()->getCd(actionFile);
+			actionFile = Common::String::format("act%04d.dat", getAction()->getCurrentAction());
+			cd = getResource()->getCd(actionFile);
+		}
 
-label_load:
 		getAction()->load();
 		action = (Action *) getSegment()->getData(kSegmentAction, 2);
 
@@ -153,7 +150,7 @@ label_load:
 					break;
 			}
 		}
-	}
+	} while (true);
 
 	// Compute action message
 	bool hasAction = false;
@@ -189,28 +186,39 @@ label_load:
 
 	// Re-initialize screen bpp
 	if (action->field_A8 == 1) {
-		error("GameManager::playAction: Screen re-init not implemented!");
+		warning("GameManager::playAction: Screen re-init not implemented!");
 	} else if (action->field_A8 == 2) {
-		error("GameManager::playAction: Screen re-init not implemented!");
+		warning("GameManager::playAction: Screen re-init not implemented!");
 	} else if (_engine->getBPP() != 1) {
-		error("GameManager::playAction: Screen re-init not implemented!");
+		warning("GameManager::playAction: Screen re-init not implemented!");
 	}
 
 	// Initialize text palette
-	error("GameManager::playAction: text palette initialization not implemented!");
+	warning("GameManager::playAction: text palette initialization not implemented!");
 
+	// Initialize boxes
+	warning("GameManager::playAction: boxes initialization not implemented!");
 
+	// Initialize paths
+	warning("GameManager::playAction: paths initialization not implemented!");
 
+	// Initialize box shadows
+	warning("GameManager::playAction: box shadows initialization not implemented!");
 
-	error("GameManager::playAction: Not implemented!");
+	// Initialize top
+	warning("GameManager::playAction: top initialization not implemented!");
 
-	error("GameManager::playAction: Not implemented!");
+	if (getWork()->getWorkInfo())
+	{
+		getGame()->loadGameStartHero();
+	} else
+	{
+		ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : NULL);
+		if (!_interpreter->interpret(pObjectIndex, getSegment()->get(kSegmentAction)))
+			return;
+	}
 
-	error("GameManager::playAction: Not implemented!");
-
-	ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : NULL);
-	if (_interpreter->interpret(pObjectIndex, getSegment()->get(kSegmentAction)))
-		processAction();
+	processAction();
 }
 
 void GameManager::processAction() {
