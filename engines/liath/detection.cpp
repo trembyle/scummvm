@@ -97,8 +97,8 @@ static const ADGameDescription gameDescriptions[] = {
 class LiathMetaEngine : public AdvancedMetaEngine {
 public:
 	LiathMetaEngine() : AdvancedMetaEngine(gameDescriptions, sizeof(ADGameDescription), liathGames) {
-		_singleid = "liath";
-		_guioptions = GUIO2(GUIO_NOSUBTITLES, GUIO_NOSFX);
+		_singleId = "liath";
+		_guiOptions = GUIO2(GUIO_NOSUBTITLES, GUIO_NOSFX);
 		_maxScanDepth = 2;
 		_directoryGlobs = directoryGlobs;
 	}
