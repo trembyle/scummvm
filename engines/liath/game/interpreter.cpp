@@ -289,7 +289,7 @@ Interpreter::Interpreter(LiathEngine *engine) : _engine(engine) {}
 
 Interpreter::~Interpreter() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -301,7 +301,7 @@ int Interpreter::interpret(ObjectIndex *pObjectIndex, Segment segment) const {
 	while (pObjectIndex) {
 
 		ObjectIndex objectIndex = *pObjectIndex;
-		OpcodeParameters *parameters = (objectIndex ? (OpcodeParameters *)getSegment()->getData(kSegmentExpression, objectIndex) : NULL);
+		OpcodeParameters *parameters = (objectIndex ? (OpcodeParameters *)getSegment()->getData(kSegmentExpression, objectIndex) : nullptr);
 
 		if (parameters) {
 
@@ -310,7 +310,7 @@ int Interpreter::interpret(ObjectIndex *pObjectIndex, Segment segment) const {
 				default:
 				case kOpcodeRetDefault:
 					objectIndex = parameters->objectIndex;
-					parameters = (objectIndex ? (OpcodeParameters *)getSegment()->getData(kSegmentExpression, objectIndex) : NULL);
+					parameters = (objectIndex ? (OpcodeParameters *)getSegment()->getData(kSegmentExpression, objectIndex) : nullptr);
 
 					if (!parameters)
 						goto update_index;
@@ -318,7 +318,7 @@ int Interpreter::interpret(ObjectIndex *pObjectIndex, Segment segment) const {
 
 				case kOpcodeRetNext:
 					if (pObjectIndex[2])
-						pObjectIndex = (pObjectIndex[2] ? (ObjectIndex *)getSegment()->getData(kSegmentExpression, pObjectIndex[2]) : NULL);
+						pObjectIndex = (pObjectIndex[2] ? (ObjectIndex *)getSegment()->getData(kSegmentExpression, pObjectIndex[2]) : nullptr);
 					else
 						goto update_index;
 					break;
@@ -338,7 +338,7 @@ update_index:
 			else if (pObjectIndex[1])
 				pObjectIndex = (ObjectIndex *)getSegment()->getData(kSegmentExpression, pObjectIndex[1]);
 			else
-				pObjectIndex = NULL;
+				pObjectIndex = nullptr;
 		}
 	}
 
@@ -353,10 +353,10 @@ OpcodeRet Interpreter::run(OpcodeParameters *parameters, ObjectIndex index) cons
 		return kOpcodeRetDefault;
 
 	case kOpcodeStartHero:
-		return getHero()->opcodeStart(parameters, NULL, NULL);
+		return getHero()->opcodeStart(parameters, nullptr, nullptr);
 
 	case kOpcodeResetHero:
-		return getHero()->opcodeReset(parameters, NULL);
+		return getHero()->opcodeReset(parameters, nullptr);
 
 	case kOpcodeStartHeroExt:
 		return getHero()->opcodeStartHeroExt(parameters);

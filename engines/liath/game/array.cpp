@@ -45,7 +45,7 @@ ArrayManager::ArrayManager(LiathEngine *engine) : _engine(engine) {
  */
 ArrayManager::~ArrayManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 /**
@@ -257,7 +257,7 @@ Array *ArrayManager::getFirstEmptyArray() {
 		return &_data[i];
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 } // End of namespace Liath

@@ -77,7 +77,7 @@ MessageManager::MessageManager(LiathEngine *engine) : _engine(engine) {}
 
 MessageManager::~MessageManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 bool MessageManager::readMessage(uint32 *pIndex, Message *pMessage) {

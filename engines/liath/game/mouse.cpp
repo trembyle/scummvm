@@ -37,7 +37,7 @@ MouseManager::MouseManager(LiathEngine *engine) : _engine(engine), _count(0), _p
 
 MouseManager::~MouseManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	unload();
 }

@@ -242,7 +242,7 @@ struct SegmentData {
 	size_t size;
 
 	SegmentData() {
-		data = NULL;
+		data = nullptr;
 		size = 0;
 	}
 
@@ -250,7 +250,7 @@ struct SegmentData {
 		if (data)
 			free(data);
 
-		data = NULL;
+		data = nullptr;
 	}
 };
 
@@ -286,7 +286,7 @@ struct OpcodeParameters {
 		objectIndex = 0;
 		opcode = 0;
 		test = 0;
-		params = NULL;
+		params = 0;
 	}
 
 	uint32 getDword(uint32 offset) {
@@ -428,7 +428,6 @@ struct Work {
 	uint16 field_B5;
 	uint16 field_B7;
 
-
 	uint32 field_DC;
 
 	uint16 field_EC;
@@ -447,7 +446,6 @@ struct Work {
 
 	byte field_578;
 	byte field_579;
-
 
 	WorkHeroData *workHeroData;
 	// uint32 *hGlobalWorkHeroData

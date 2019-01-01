@@ -43,8 +43,8 @@ namespace Liath {
 GameManager::GameManager(LiathEngine *engine) : _engine(engine) {
 	_interpreter = new Interpreter(_engine);
 
-	_gInt = NULL;
-	_gQuit = NULL;
+	_gInt = nullptr;
+	_gQuit = nullptr;
 	_param = 0;
 	_gParam = 0;
 	_timer = -1;
@@ -53,17 +53,17 @@ GameManager::GameManager(LiathEngine *engine) : _engine(engine) {
 	_countVar = 0;
 
 	// Global var area
-	_globalVar = NULL;
+	_globalVar = nullptr;
 
 	// Variables
 	_currentCd = kCdNone;
 	_currentAction = kActionNone;
-	_currentWorkInfo = NULL;
+	_currentWorkInfo = nullptr;
 }
 
 GameManager::~GameManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	delete _interpreter;
 
@@ -84,7 +84,7 @@ void GameManager::playGame(ActionIndex action) {
 	getGame()->load(action, gameData);
 
 	// Run the interpreter
-	ObjectIndex *pObjectIndex = gameData->objectIndexOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->objectIndexOffset) : NULL;
+	ObjectIndex *pObjectIndex = gameData->objectIndexOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->objectIndexOffset) : nullptr;
 	_interpreter->interpret(pObjectIndex, getSegment()->get(kSegmentGame));
 
 	while (getAction()->getCurrentAction())
@@ -108,7 +108,7 @@ void GameManager::playAction() {
 	if (_currentAction) {
 		getAction()->setCurrentAction(_currentAction);
 		getWork()->setWorkInfo(_currentWorkInfo);
-		_currentWorkInfo = NULL;
+		_currentWorkInfo = nullptr;
 	}
 
 	Common::String actionFile = Common::String::format("act%04d.dat", getAction()->getCurrentAction());
@@ -121,7 +121,7 @@ void GameManager::playAction() {
 			getAction()->setCurrentAction(kAction1);
 
 			_currentWorkInfo = getWork()->getWorkInfo();
-			getWork()->setWorkInfo(NULL);
+			getWork()->setWorkInfo(nullptr);
 
 			setGlobal(999, SCR2CEL(cd));
 
@@ -213,7 +213,7 @@ void GameManager::playAction() {
 		getGame()->loadGameStartHero();
 	} else
 	{
-		ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : NULL);
+		ObjectIndex *pObjectIndex = (action->objectIndex ? getSegment()->getData(kSegmentAction, action->objectIndex) : nullptr);
 		if (!_interpreter->interpret(pObjectIndex, getSegment()->get(kSegmentAction)))
 			return;
 	}
@@ -234,8 +234,8 @@ void GameManager::loadGameStartHero() {
 //////////////////////////////////////////////////////////////////////////
 void GameManager::load(ActionIndex action, GameData *gameData) {
 	// Setup interpreter data & param values
-	_gInt  = gameData->gIntOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->gIntOffset) : NULL;
-	_gQuit = gameData->gQuitOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->gQuitOffset) : NULL;
+	_gInt  = gameData->gIntOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->gIntOffset) : nullptr;
+	_gQuit = gameData->gQuitOffset ? (uint32 *)getSegment()->getData(kSegmentGame, gameData->gQuitOffset) : nullptr;
 	_param = gameData->gParam + 1;
 	_gParam = gameData->gParam;
 

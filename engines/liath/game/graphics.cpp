@@ -37,12 +37,12 @@
 namespace Liath {
 
 GraphicsManager::GraphicsManager(LiathEngine *engine) : _engine(engine),
-	_textPalette(NULL), _textPalette2(NULL), _colorTable(NULL),
-	_shadow(0), _hMemBackgroundExt(NULL), _nBg(0), _nBg2(0) {}
+	_textPalette(nullptr), _textPalette2(nullptr), _colorTable(nullptr),
+	_shadow(0), _hMemBackgroundExt(nullptr), _nBg(0), _nBg2(0) {}
 
 GraphicsManager::~GraphicsManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	unload();
 }

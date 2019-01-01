@@ -37,7 +37,6 @@
 #define EXPR(offset, count)    getExpression()->expression(offset, count)
 #define RET(val1, val2)        getGame()->getReturnValue(val1, val2)
 
-
 // Shared objects
 #define getAction()     _engine->getActionManager()
 #define getArray()      _engine->getArrayManager()
@@ -67,8 +66,8 @@
 // Cleanup
 //////////////////////////////////////////////////////////////////////////
 
-#define SAFE_DELETE(_p) do { delete (_p); (_p) = NULL; } while (false)
-#define SAFE_FREE(_p)   do { free (_p); (_p) = NULL; } while (false)
+#define SAFE_DELETE(_p) do { delete (_p); (_p) = nullptr; } while (false)
+#define SAFE_FREE(_p)   do { free (_p); (_p) = nullptr; } while (false)
 
 #define CLEAR_ARRAY(type, name) { \
 	for (Common::Array<type *>::iterator it = name.begin(); it != name.end(); it++) \

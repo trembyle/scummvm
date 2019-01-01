@@ -29,11 +29,11 @@
 namespace Liath {
 
 SegmentManager::SegmentManager(LiathEngine *engine) : _engine(engine) ,
-	_gameSegment(NULL), _actSegment(NULL), _heroSegment(NULL), _exprSegment(NULL) {}
+	_gameSegment(nullptr), _actSegment(nullptr), _heroSegment(nullptr), _exprSegment(nullptr) {}
 
 SegmentManager::~SegmentManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	unload(_gameSegment);
 }
@@ -119,7 +119,7 @@ uint32 *SegmentManager::getData(SegmentType type, uint32 offset) {
 	SegmentDef seg = **getSegmentByType(type);
 	SegmentData *data = seg[1];
 
-	if (data == NULL || data->data == NULL || data->size == 0)
+	if (data == nullptr || data->data == nullptr || data->size == 0)
 		error("SegmentManager::getData: Invalid segment data (type: %d, offset: %d)", type, offset);
 
 	if (offset >= data->size)

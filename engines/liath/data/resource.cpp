@@ -89,7 +89,7 @@ Common::SeekableReadStream *ResourceManager::createReadStreamForMember(const Com
 		Common::File *file = new Common::File();
 		if (!file->open(name)) {
 			delete file;
-			return NULL;
+			return nullptr;
 		}
 
 		return file;
@@ -103,7 +103,7 @@ Common::SeekableReadStream *ResourceManager::createReadStreamForMember(const Com
 	// Load the file from the archive
 	Common::Archive *archive = _archiveCache->getVal(archiveName);
 	if (!archive->hasFile(name))
-		return NULL;
+		return nullptr;
 
 	Common::SeekableReadStream *stream = archive->createReadStreamForMember(name);
 
@@ -163,7 +163,7 @@ void ResourceManager::readPathFile() {
 			filename.toLowercase();
 			filename.trim();
 
-			if (sep2 != NULL) {
+			if (sep2 != nullptr) {
 				path.folderName = Common::String(sep2 + 1);
 				path.folderName.trim();
 			}

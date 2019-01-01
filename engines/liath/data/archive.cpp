@@ -108,12 +108,12 @@ const Common::ArchiveMemberPtr MultiArchive::getMember(const Common::String &nam
 Common::SeekableReadStream *MultiArchive::createReadStreamForMember(const Common::String &name) const {
 	FileMap::const_iterator fDesc = _files.find(name);
 	if (fDesc == _files.end())
-		return NULL;
+		return nullptr;
 
 	Common::File *archive = new Common::File();
 	if (!archive->open(_filename)) {
 		delete archive;
-		return NULL;
+		return nullptr;
 	}
 
 	return new Common::SeekableSubReadStream(archive, fDesc->_value.offset, fDesc->_value.offset + fDesc->_value.size, DisposeAfterUse::YES);

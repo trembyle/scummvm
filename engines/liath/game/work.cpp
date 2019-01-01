@@ -33,7 +33,7 @@ WorkManager::WorkManager(LiathEngine *engine) : _engine(engine) {}
 
 WorkManager::~WorkManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -234,7 +234,7 @@ Work *WorkManager::get(HeroIndex index) {
 		if ((*it)->heroIndex == index)
 			return (*it);
 
-	return NULL;
+	return nullptr;
 }
 
 Work *WorkManager::getFromTextIndex(int32 index) {
@@ -242,7 +242,7 @@ Work *WorkManager::getFromTextIndex(int32 index) {
 		if ((*it)->workHeroData && (*it)->workHeroData->textIndex == index)
 			return (*it);
 
-	return NULL;
+	return nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -257,7 +257,7 @@ Work *WorkManager::seWork(Work* current) {
 	Common::Array<Work *>::iterator work = _works.begin();
 
 	// Get iterator starting at current work position
-	if (current != NULL) {
+	if (current != nullptr) {
 		for (Common::Array<Work *>::iterator it = _works.begin(); it != _works.end(); it++)
 			if (*it == current) {
 				work = it;
@@ -272,7 +272,7 @@ Work *WorkManager::seWork(Work* current) {
 		// TODO set variables
 		warning("[WorkManager::seWork] Missing variable set!");
 
-		return NULL;
+		return nullptr;
 	}
 
 	return *work;

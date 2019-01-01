@@ -29,7 +29,7 @@ SavegameManager::SavegameManager(LiathEngine *engine) : _engine(engine) {}
 
 SavegameManager::~SavegameManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////

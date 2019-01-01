@@ -38,7 +38,7 @@ PositionManager::PositionManager(LiathEngine *engine) : _engine(engine) {}
 
 PositionManager::~PositionManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////

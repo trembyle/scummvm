@@ -41,8 +41,8 @@ SoundManager::~SoundManager() {
 	CLEAR_ARRAY(WaveEntry, _waves);
 
 	// Zero-out passed pointers
-	_engine = NULL;
-	_mixer = NULL;
+	_engine = nullptr;
+	_mixer = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ OpcodeRet SoundManager::opcodeCash(OpcodeParameters *parameters) {
 OpcodeRet SoundManager::opcodePlayWave(OpcodeParameters *parameters) {
 	uint32 index = parameters->getDword(0);
 
-	if (index <= _waves.size() && _waves[index]->stream != NULL) {
+	if (index <= _waves.size() && _waves[index]->stream != nullptr) {
 		_waves[index]->stream->rewind();
 
 		int32 effectsVolume = _effectsLevel;
@@ -195,7 +195,7 @@ void SoundManager::setLevel(SoundType type, int32 level) {
  * @return null if it fails, else the music entry.
  */
 SoundManager::MusicEntry *SoundManager::getMusicEntry(const Common::String &filename) {
-	MusicEntry *entry = NULL;
+	MusicEntry *entry = nullptr;
 
 	for (uint i = 0; i < ARRAYSIZE(_musicEntries); i++) {
 
@@ -203,9 +203,10 @@ SoundManager::MusicEntry *SoundManager::getMusicEntry(const Common::String &file
 		if (!entry && (!_musicEntries[i].handle || !_mixer->isSoundHandleActive(*_musicEntries[i].handle)))
 			entry = &_musicEntries[i];
 
+		// TODO Check for null pointer
 		// Check the filename
 		if (entry->name == filename && (!_musicEntries[i].handle || !_mixer->isSoundHandleActive(*_musicEntries[i].handle)))
-			return NULL;
+			return nullptr;
 	}
 
 	if (entry)

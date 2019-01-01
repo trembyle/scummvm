@@ -39,7 +39,7 @@ ProgressManager::ProgressManager(LiathEngine *engine) : _engine(engine) {
 
 ProgressManager::~ProgressManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	CLEAR_ARRAY(Progress, _progress);
 }
@@ -90,7 +90,6 @@ OpcodeRet ProgressManager::opcodeSet(OpcodeParameters *parameters) {
 
 	return kOpcodeRetDefault;
 }
-
 
 OpcodeRet ProgressManager::opcodeGet(OpcodeParameters *parameters) {
 	if (_progress.size() == 0)

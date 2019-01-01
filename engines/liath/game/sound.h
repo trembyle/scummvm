@@ -69,7 +69,7 @@ private:
 		int32 attenuation;
 
 		MusicEntry() {
-			handle = NULL;
+			handle = nullptr;
 			reset();
 		}
 
@@ -101,7 +101,7 @@ private:
 
 		WaveEntry() {
 			field_100 = 0;
-			stream = NULL;
+			stream = nullptr;
 			field_108 = 0;
 			size = 0;
 			field_110 = 0;

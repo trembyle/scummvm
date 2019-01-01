@@ -34,13 +34,13 @@
 
 namespace Liath {
 
-HeroManager::HeroManager(LiathEngine *engine) : _engine(engine), _storage(NULL), _nHero(0) {
+HeroManager::HeroManager(LiathEngine *engine) : _engine(engine), _storage(nullptr), _nHero(0) {
 	memset(&_heroParams, 0, sizeof(_heroParams));
 }
 
 HeroManager::~HeroManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 
 	// Clear hero storage
 	CLEAR_ARRAY(Hero, _heros);
@@ -175,8 +175,8 @@ OpcodeRet HeroManager::opcodeStart(OpcodeParameters *parameters, Work **pWork, W
 		}
 	}
 
-	//work->hGlobalHeroData = NULL;
-	work->workHeroData = NULL;
+	// TODO work->hGlobalHeroData = nullptr;
+	work->workHeroData = nullptr;
 
 	if (work->field_34 & 8) {
 		*pWork = work;
@@ -213,7 +213,7 @@ OpcodeRet HeroManager::opcodeStartHeroExt(OpcodeParameters *parameters) {
 	parameters->setDword(parameters->getDword(0),
 	                     getGame()->getValue((ParamOrigin)parameters->getByte(25), parameters->getDword(26), parameters->getDword(30), false, false));
 
-	return opcodeStart(parameters, NULL, NULL);
+	return opcodeStart(parameters, nullptr, nullptr);
 }
 
 OpcodeRet HeroManager::opcodeReset(OpcodeParameters *parameters, void *unkown) {
@@ -248,9 +248,9 @@ OpcodeRet HeroManager::opcodeSave(OpcodeParameters *parameters) {
 
 OpcodeRet HeroManager::opcodeLoad() {
 	if (getWork()->get(_heroParams.getDword(4)))
-		opcodeReset((OpcodeParameters *)&_heroParams, NULL);
+		opcodeReset((OpcodeParameters *)&_heroParams, nullptr);
 	else
-		opcodeStart((OpcodeParameters *)&_heroParams, NULL, NULL);
+		opcodeStart((OpcodeParameters *)&_heroParams, nullptr, nullptr);
 
 	return kOpcodeRetDefault;
 }

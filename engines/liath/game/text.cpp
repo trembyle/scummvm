@@ -36,7 +36,7 @@ TextManager::TextManager(LiathEngine *engine) : _engine(engine) {
 
 TextManager::~TextManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ OpcodeRet TextManager::opcodeOut(OpcodeParameters *parameters) {
 	parameters->setDword(181, index);
 
 	Work *work;
-	getHero()->opcodeStart(parameters, &work, NULL);
+	getHero()->opcodeStart(parameters, &work, nullptr);
 	getGame()->letValue((ParamOrigin)parameters->getByte(164), parameters->getDword(165), parameters->getDword(169), index);
 
 	// TODO Store current values
@@ -113,7 +113,6 @@ OpcodeRet TextManager::opcodeChange(OpcodeParameters *parameters) {
 	return kOpcodeRetDefault;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 // Private functions
 //////////////////////////////////////////////////////////////////////////
@@ -121,7 +120,6 @@ OpcodeRet TextManager::opcodeChange(OpcodeParameters *parameters) {
 OpcodeRet TextManager::exitText(int32 index) {
 	error("[WorkManager::exit]: Not implemented!");
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 // Helper functions

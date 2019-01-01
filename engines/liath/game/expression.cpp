@@ -37,7 +37,7 @@ ExpressionManager::ExpressionManager(LiathEngine *engine) : _engine(engine) {}
 
 ExpressionManager::~ExpressionManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -343,6 +343,5 @@ int32 ExpressionManager::expression(uint32 offset, uint32 count) {
 
 	return _queue.pop();
 }
-
 
 } // End of namespace Liath

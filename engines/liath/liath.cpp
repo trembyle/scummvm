@@ -50,11 +50,11 @@
 namespace Liath {
 
 LiathEngine::LiathEngine(OSystem *syst, const ADGameDescription *gd) :
-	Engine(syst), _gameDescription(gd), _debugger(NULL), _random("liath"),
-	_actionMan(NULL), _arrayMan(NULL), _expressionMan(NULL), _gameMan(NULL),
-	_graphicsMan(NULL), _heroMan(NULL), _messageMan(NULL), _mouseMan(NULL),
-	_positionMan(NULL), _progressMan(NULL), _resMan(NULL), _saveMan(NULL),
-	_segmentMan(NULL), _soundMan(NULL), _textMan(NULL), _workMan(NULL) {
+	Engine(syst), _gameDescription(gd), _debugger(nullptr), _random("liath"),
+	_actionMan(nullptr), _arrayMan(nullptr), _expressionMan(nullptr), _gameMan(nullptr),
+	_graphicsMan(nullptr), _heroMan(nullptr), _messageMan(nullptr), _mouseMan(nullptr),
+	_positionMan(nullptr), _progressMan(nullptr), _resMan(nullptr), _saveMan(nullptr),
+	_segmentMan(nullptr), _soundMan(nullptr), _textMan(nullptr), _workMan(nullptr) {
 
 	// Adding the default directories
 	const Common::FSNode gameDataDir(ConfMan.get("path"));
@@ -95,7 +95,7 @@ LiathEngine::~LiathEngine() {
 	delete _workMan;
 
 	// Zero passed pointers
-	_gameDescription = NULL;
+	_gameDescription = nullptr;
 }
 
 // TODO: which error should we return when some game files are missing/corrupted?

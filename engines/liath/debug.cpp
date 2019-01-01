@@ -51,7 +51,7 @@
 
 namespace Liath {
 
-Debugger::Debugger(LiathEngine *engine) : _engine(engine), _command(NULL), _numParams(0), _commandParams(NULL) {
+Debugger::Debugger(LiathEngine *engine) : _engine(engine), _command(nullptr), _numParams(0), _commandParams(nullptr) {
 
 	//////////////////////////////////////////////////////////////////////////
 	// Register the debugger commands
@@ -70,9 +70,9 @@ Debugger::~Debugger() {
 	DebugMan.clearAllDebugChannels();
 
 	// Zero passed pointers
-	_engine = NULL;
-	_command = NULL;
-	_commandParams = NULL;
+	_engine = nullptr;
+	_command = nullptr;
+	_commandParams = nullptr;
 }
 
 bool Debugger::hasCommand() const {
@@ -80,13 +80,13 @@ bool Debugger::hasCommand() const {
 }
 
 void Debugger::resetCommand() {
-	_command = NULL;
-	_commandParams = NULL;
+	_command = nullptr;
+	_commandParams = nullptr;
 	_numParams = 0;
 }
 
 int Debugger::getNumber(const char *arg) const {
-	return strtol(arg, (char **)NULL, 0);
+	return strtol(arg, (char **)nullptr, 0);
 }
 
 void Debugger::copyCommand(int argc, const char **argv) {

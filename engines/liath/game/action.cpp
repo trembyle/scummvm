@@ -39,9 +39,8 @@ ActionManager::ActionManager(LiathEngine *engine) : _engine(engine),
 
 ActionManager::~ActionManager() {
 	// Zero-out passed pointers
-	_engine = NULL;
+	_engine = nullptr;
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 // Data
