@@ -50,7 +50,7 @@ static const ADGameDescription gameDescriptions[] = {
 		GUIO0()
 	},
 
-	// WordSpiral - Liath (Patched 1.0)
+	// WorldSpiral - Liath (Patched 1.0)
 	{
 		"liath",
 			"",
@@ -64,7 +64,7 @@ static const ADGameDescription gameDescriptions[] = {
 		GUIO0()
 	},
 
-	// WordSpiral - Liath (Patched 2.0)
+	// WorldSpiral - Liath (Patched 2.0)
 	{
 		"liath",
 			"",
@@ -78,7 +78,7 @@ static const ADGameDescription gameDescriptions[] = {
 		GUIO0()
 	},
 
-	// WordSpiral - Liath (Patched 3.0)
+	// WorldSpiral - Liath (Patched 3.0)
 	{
 		"liath",
 		"",
@@ -91,14 +91,29 @@ static const ADGameDescription gameDescriptions[] = {
 		ADGF_NO_FLAGS,
 		GUIO0()
 	},
+
+	// WorldSpiral - Liath - Russian (supplied by trembyle)
+	{
+		"liath",
+			"",
+		{
+			{"liath.exe", 0, "d376cb43dde70019ea01a4358198f085", 300731},
+			{"actions.mul", 0, "7e9d0e9145b62169968f68ab09bb1cb6", 1009546},
+		},
+		Common::RU_RUS,
+		Common::kPlatformWindows,
+		ADGF_NO_FLAGS,
+		GUIO0()
+	},
+
 	AD_TABLE_END_MARKER
 };
 
 class LiathMetaEngine : public AdvancedMetaEngine {
 public:
 	LiathMetaEngine() : AdvancedMetaEngine(gameDescriptions, sizeof(ADGameDescription), liathGames) {
-		_singleId = "liath";
-		_guiOptions = GUIO2(GUIO_NOSUBTITLES, GUIO_NOSFX);
+		_singleid = "liath";
+		_guioptions = GUIO2(GUIO_NOSUBTITLES, GUIO_NOSFX);
 		_maxScanDepth = 2;
 		_directoryGlobs = directoryGlobs;
 	}

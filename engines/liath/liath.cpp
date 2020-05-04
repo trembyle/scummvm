@@ -50,11 +50,11 @@
 namespace Liath {
 
 LiathEngine::LiathEngine(OSystem *syst, const ADGameDescription *gd) :
-	Engine(syst), _gameDescription(gd), _debugger(nullptr), _random("liath"),
-	_actionMan(nullptr), _arrayMan(nullptr), _expressionMan(nullptr), _gameMan(nullptr),
-	_graphicsMan(nullptr), _heroMan(nullptr), _messageMan(nullptr), _mouseMan(nullptr),
-	_positionMan(nullptr), _progressMan(nullptr), _resMan(nullptr), _saveMan(nullptr),
-	_segmentMan(nullptr), _soundMan(nullptr), _textMan(nullptr), _workMan(nullptr) {
+	Engine(syst), _gameDescription(gd), _debugger(NULL), _random("liath"),
+	_actionMan(NULL), _arrayMan(NULL), _expressionMan(NULL), _gameMan(NULL),
+	_graphicsMan(NULL), _heroMan(NULL), _messageMan(NULL), _mouseMan(NULL),
+	_positionMan(NULL), _progressMan(NULL), _resMan(NULL), _saveMan(NULL),
+	_segmentMan(NULL), _soundMan(NULL), _textMan(NULL), _workMan(NULL) {
 
 	// Adding the default directories
 	const Common::FSNode gameDataDir(ConfMan.get("path"));
@@ -95,14 +95,14 @@ LiathEngine::~LiathEngine() {
 	delete _workMan;
 
 	// Zero passed pointers
-	_gameDescription = nullptr;
+	_gameDescription = NULL;
 }
 
 // TODO: which error should we return when some game files are missing/corrupted?
 Common::Error LiathEngine::run() {
 	// Initialize the graphics
 	const Graphics::PixelFormat dataPixelFormat(2, 5, 5, 5, 0, 10, 5, 0, 0);
-	initGraphics(640, 480, &dataPixelFormat);
+	initGraphics(640, 480, true, &dataPixelFormat);
 
 	// We do not support color conversion
 	if (_system->getScreenFormat() != dataPixelFormat)
