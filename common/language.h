@@ -34,11 +34,11 @@ class String;
  */
 enum Language {
 	ZH_ANY,     // Generic Chinese (when only one game version exist)
-	ZH_CNA,
+	ZH_CHN,
 	ZH_TWN,
 	HR_HRV,
 	CZ_CZE,
-	DA_DAN,
+	DA_DNK,
 	NL_NLD,
 	EN_ANY,     // Generic English (when only one game version exist)
 	EN_GRB,
@@ -47,25 +47,25 @@ enum Language {
 	FI_FIN,
 	FR_FRA,
 	DE_DEU,
-	GR_GRE,
+	EL_GRC,
 	HE_ISR,
 	HU_HUN,
 	IT_ITA,
 	JA_JPN,
 	KO_KOR,
-	LV_LAT,
+	LV_LVA,
 	NB_NOR,
 	FA_IRN,
 	PL_POL,
 	PT_BRA,
-	PT_POR,
+	PT_PRT,
 	RU_RUS,
 	SK_SVK,
 	ES_ESP,
 	SE_SWE,
 	TR_TUR,
 	UA_UKR,
-	SR_SER,
+	SR_SRB,
 
 	UNK_LANG = -1	// Use default language (i.e. none specified)
 };
