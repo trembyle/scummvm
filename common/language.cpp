@@ -26,13 +26,35 @@
 
 namespace Common {
 
+/*
+	Entries should be sorted by English name of language
+
+	Explanation of language parameters:
+		1. two character macro language (use ISO-639 standard)
+		2. POSIX locale code
+		3. English name of language
+		4. two character language code followed by three character locale (use ISO-3166)
+
+	If more than one dialect or locale is needed:
+		1. two character locale (use ISO-3166 standard)
+		2. POSIX locale code
+		3. English name of language with locale/dialect name in parens
+		4. two character language code followed by three character locale (use ISO-3166)
+
+	If necessary, add entry for generic dialect
+		1. two character macro language (use ISO-639 standard)
+		2. repeat two character macro language
+		3. English name of language
+		4. two character language code followed by ANY
+*/
+
 const LanguageDescription g_languages[] = {
-	{    "nz",    "nz", "Chinese", ZH_ANY }, // Generic Chinese (when only one game version exist)
-	{ "zh-cn", "zh_CN", "Chinese (China)", ZH_CNA },
-	{    "zh", "zh_TW", "Chinese (Taiwan)", ZH_TWN },
+	{    "zh",    "zh", "Chinese", ZH_ANY }, // Generic Chinese (when only one game version exist)
+	{    "cn", "zh_CN", "Chinese (China)", ZH_CNA },
+	{    "tw", "zh_TW", "Chinese (Taiwan)", ZH_TWN },
 	{    "hr", "hr_HR", "Croatian", HR_HRV },
 	{    "cz", "cs_CZ", "Czech", CZ_CZE },
-	{    "da",    "da", "Danish", DA_DAN },
+	{    "da", "da_DK", "Danish", DA_DAN },
 	{    "nl", "nl_NL", "Dutch", NL_NLD },
 	{    "en",    "en", "English", EN_ANY }, // Generic English (when only one game version exist)
 	{    "gb", "en_GB", "English (GB)", EN_GRB },
@@ -41,26 +63,25 @@ const LanguageDescription g_languages[] = {
 	{    "fi", "fi_FI", "Finnish", FI_FIN },
 	{    "fr", "fr_FR", "French", FR_FRA },
 	{    "de", "de_DE", "German", DE_DEU },
-	{    "gr", "el_GR", "Greek", GR_GRE },
+	{    "el", "el_GR", "Greek", GR_GRE },
 	{    "he", "he_IL", "Hebrew", HE_ISR },
-	{    "hb", "he_IL", "Hebrew", HE_ISR }, // Deprecated
 	{    "hu", "hu_HU", "Hungarian", HU_HUN },
 	{    "it", "it_IT", "Italian", IT_ITA },
-	{    "jp", "ja_JP", "Japanese", JA_JPN },
+	{    "ja", "ja_JP", "Japanese", JA_JPN },
 	{    "kr", "ko_KR", "Korean", KO_KOR },
 	{    "lv", "lv_LV", "Latvian", LV_LAT },
 	{    "nb", "nb_NO", "Norwegian Bokm\xE5l", NB_NOR },
-	{    "fa", "fa_IR", "Persian (Iran)", FA_IRN },
+	{    "fa", "fa_IR", "Persian", FA_IRN },
 	{    "pl", "pl_PL", "Polish", PL_POL },
 	{    "br", "pt_BR", "Portuguese (Brazil)", PT_BRA },
 	{    "pt", "pt_PT", "Portuguese (Portugal)", PT_POR },
 	{    "ru", "ru_RU", "Russian", RU_RUS },
+	{    "sr", "sr_RS", "Serbian", SR_SER },
 	{    "sk", "sk_SK", "Slovak", SK_SVK },
 	{    "es", "es_ES", "Spanish", ES_ESP },
 	{    "se", "sv_SE", "Swedish", SE_SWE },
 	{    "tr", "tr_TR", "Turkish", TR_TUR },
 	{    "uk", "uk_UA", "Ukrainian", UA_UKR },
-	{    "sr", "sr_SP", "Serbian", SR_SER },
 	{ nullptr, nullptr, nullptr, UNK_LANG }
 };
 
