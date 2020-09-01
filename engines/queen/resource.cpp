@@ -169,8 +169,8 @@ bool Resource::detectVersion(DetectedGameVersion *ver, Common::File *f) {
 	case 'E':
 		if (Common::parseLanguage(ConfMan.get("language")) == Common::RU_RUS) {
 			ver->language = Common::RU_RUS;
-		} else if (Common::parseLanguage(ConfMan.get("language")) == Common::GR_GRE) {
-			ver->language = Common::GR_GRE;
+		} else if (Common::parseLanguage(ConfMan.get("language")) == Common::EL_GRC) {
+			ver->language = Common::EL_GRC;
 		} else {
 			ver->language = Common::EN_ANY;
 		}
@@ -191,7 +191,7 @@ bool Resource::detectVersion(DetectedGameVersion *ver, Common::File *f) {
 		ver->language = Common::ES_ESP;
 		break;
 	case 'g':
-		ver->language = Common::GR_GRE;
+		ver->language = Common::EL_GRC;
 		break;
 	case 'R':
 		ver->language = Common::RU_RUS;

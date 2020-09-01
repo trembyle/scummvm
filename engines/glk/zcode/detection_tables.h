@@ -1933,7 +1933,7 @@ const FrotzGameDescription FROTZ_GAMES[] = {
 	ENTRY0("apollo38", "120321", "a760169a6643d08ff3db22be84caed37", 353734),
 
 	// Danish games
-	ENTRY1("nissen", "171207", "c81784afb569b863098e8374dfdd4f32", 142848, Common::DA_DAN),
+	ENTRY1("nissen", "171207", "c81784afb569b863098e8374dfdd4f32", 142848, Common::DA_DNK),
 
 	// Dutch games
 	ENTRY1("adv", "020822", "dff45a0d89ed78a204d49d18341d15ce", 153600, Common::NL_NLD),

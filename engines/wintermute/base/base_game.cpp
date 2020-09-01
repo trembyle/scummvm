@@ -2614,7 +2614,7 @@ ScValue *BaseGame::scGetProperty(const Common::String &name) {
 		case Common::CZ_CZE:
 			_scValue->setString("czech");
 			break;
-		case Common::DA_DAN:
+		case Common::DA_DNK:
 			_scValue->setString("danish");
 			break;
 		case Common::DE_DEU:
@@ -2629,7 +2629,7 @@ ScValue *BaseGame::scGetProperty(const Common::String &name) {
 		case Common::FR_FRA:
 			_scValue->setString("french");
 			break;
-		case Common::GR_GRE:
+		case Common::EL_GRC:
 			_scValue->setString("greek");
 			break;
 		case Common::HU_HUN:
@@ -2653,7 +2653,7 @@ ScValue *BaseGame::scGetProperty(const Common::String &name) {
 		case Common::PT_BRA:
 			_scValue->setString("brazilian");
 			break;
-		case Common::PT_POR:
+		case Common::PT_PRT:
 			_scValue->setString("portuguese");
 			break;
 		case Common::PL_POL:
@@ -2668,7 +2668,7 @@ ScValue *BaseGame::scGetProperty(const Common::String &name) {
 		case Common::UA_UKR:
 			_scValue->setString("ukrainian");
 			break;
-		case Common::ZH_CNA:
+		case Common::ZH_CHN:
 			_scValue->setString("schinese");
 			break;
 		case Common::ZH_TWN:

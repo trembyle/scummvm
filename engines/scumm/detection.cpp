@@ -407,7 +407,7 @@ static Common::Language detectLanguage(const Common::FSList &fslist, byte id) {
 
 	if (searchFSNode(fslist, "chinese_gb16x12.fnt", fontFile)) {
 		debug(0, "Chinese detected");
-		return Common::ZH_CNA;
+		return Common::ZH_CHN;
 	}
 
 	// Now try to detect COMI and Dig by language files.

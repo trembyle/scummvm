@@ -918,7 +918,7 @@ void Display::initFont() {
 	case Common::RU_RUS:
 		_font = _fontRussian;
 		break;
-	case Common::GR_GRE:
+	case Common::EL_GRC:
 		_font = _fontGreek;
 		break;
 	default:
