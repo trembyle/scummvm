@@ -32,6 +32,7 @@ void upgradeTargetIfNecessary(const ObsoleteGameID *obsoleteList) {
 		return;
 
 	Common::String gameid = ConfMan.get("gameid");
+	Common::String versionInfo = ConfMan.get("versionInfo");
 
 	for (const ObsoleteGameID *o = obsoleteList; o->from; ++o) {
 		if (gameid.equalsIgnoreCase(o->from)) {
@@ -40,6 +41,11 @@ void upgradeTargetIfNecessary(const ObsoleteGameID *obsoleteList) {
 
 			if (o->platform != Common::kPlatformUnknown)
 				ConfMan.set("platform", Common::getPlatformCode(o->platform));
+
+			if (versionInfo.substr(1,3) <= "2.2") {
+				if (o->language != Common::UNK_LANG)
+					ConfMan.set("language", Common::getLanguageCode(o->language));
+			}
 
 			warning("Target upgraded from %s to %s", o->from, o->to);
 

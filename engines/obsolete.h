@@ -47,6 +47,7 @@ struct ObsoleteGameID {
 	 * "zakTowns" for FM-TOWNS) while the new gameid does not (e.g. "zak").
 	 */
 	Common::Platform platform;
+	Common::Language language;
 };
 
 /**
