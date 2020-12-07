@@ -57,7 +57,11 @@ static const MadeGameDescription gameDescriptions[] = {
 		{
 			"rtz",
 			"V1.0, 9/15/93, CD",
-			AD_ENTRY1("rtzcd.red", "cd8b62ece4677c438688c1de3f5379b9"),
+			{
+				{ "rtzcd.red", 0, "cd8b62ece4677c438688c1de3f5379b9", 285233 },
+				{ "rtzcd.prj", 0, "974d74410c3c29d50e857863e8bf40e2", 43016792 },
+				AD_LISTEND
+			},
 			Common::EN_ANY,
 			Common::kPlatformDOS,
 			ADGF_CD,
@@ -280,6 +284,30 @@ static const MadeGameDescription gameDescriptions[] = {
 				AD_LISTEND
 			},
 			Common::KO_KOR,
+			Common::kPlatformDOS,
+			ADGF_CD,
+			GUIO0()
+		},
+		GID_RTZ,
+		0,
+		GF_CD_COMPRESSED,
+		3,
+	},
+
+	{
+		// Return to Zork - Chinese CD version 1.2 10/17/94
+		// Dub only. No text was translated, even in menus, so there are no font issues.
+		// Also, with no text, we don't need to distinguish Traditional or Simplified script, hence ZH_ANY
+		// submitted by trembyle
+		{
+			"rtz",
+			"V1.2, 10/17/94, CD",
+			{
+				{ "rtzcd.red", 0, "cd8b62ece4677c438688c1de3f5379b9", 283663 },
+				{ "rtzcd.prj", 0, "df5669fb117bbaf8d3b289d4b1e8f14e", 72228821 },
+				AD_LISTEND
+			},
+			Common::ZH_ANY,
 			Common::kPlatformDOS,
 			ADGF_CD,
 			GUIO0()
