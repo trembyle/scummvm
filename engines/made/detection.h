@@ -38,7 +38,11 @@ enum MadeGameFeatures {
 	GF_DEMO				= 1 << 0,
 	GF_CD				= 1 << 1,
 	GF_CD_COMPRESSED	= 1 << 2,
-	GF_FLOPPY			= 1 << 3
+	GF_MPEG				= 1 << 3,
+	GF_MAC				= 1 << 4,
+	GF_FLOPPY			= 1 << 5,
+	GF_SATURN			= 1 << 6,
+	GF_PSX				= 1 << 7
 };
 
 struct MadeGameDescription {

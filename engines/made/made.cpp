@@ -272,9 +272,21 @@ Common::Error MadeEngine::run() {
 		} else if (getFeatures() & GF_CD_COMPRESSED) {
 			_dat->openFromRed("rtzcd.red", "rtzcd.dat");
 			_res->open("rtzcd.prj");
+		} else if (getFeatures() & GF_MPEG) {
+			_dat->openFromRed("rtzrm.red", "rtzrm.dat");
+			_res->open("rtzrm.prj");
+		} else if (getFeatures() & GF_MAC) {
+			_dat->open("rtz.dat");
+			_res->open("rtz.prj");
 		} else if (getFeatures() & GF_FLOPPY) {
 			_dat->open("rtz.dat");
 			_res->open("rtz.prj");
+		} else if (getFeatures() & GF_SATURN) {
+			_dat->open("rtz.dat");
+			_res->open("rtz.prj");
+		} else if (getFeatures() & GF_PSX) {
+			_dat->open("psj_rtz.dat");
+			_res->open("psj_rtz.prj");
 		} else {
 			error("Unknown RTZ game features");
 		}
@@ -296,7 +308,7 @@ Common::Error MadeEngine::run() {
 		error ("Unknown MADE game");
 	}
 
-	if ((getFeatures() & GF_CD) || (getFeatures() & GF_CD_COMPRESSED))
+	if (!((getFeatures() & GF_FLOPPY) || (getFeatures() & GF_DEMO)))
 		checkCD();
 
 	_autoStopSound = false;
