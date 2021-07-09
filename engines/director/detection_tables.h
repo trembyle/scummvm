@@ -46,6 +46,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "amandastories",		"AmandaStories" },
 	{ "amber",				"AMBER: Journeys Beyond" },
 	{ "amertailmb",			"An American Tail Interactive MovieBook" },
+	{ "arcadelander",		"Classic Arcade Lander" },
+	{ "arcadesubs",			"Classic Arcade Subs" },
 	{ "arcofdoom",			"Arc of Doom" },
 	{ "artrageous",			"ArtRageous!" },
 	{ "atvrally",			"ATV Rally" },
@@ -139,6 +141,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ggmdpics",			"The Great Green Mouse Disaster: Gallery" },
 	{ "ggmdsuper",			"The Great Green Mouse Disaster: Super Game" },
 	{ "giggletour",			"The Gigglebone Gang World Tour" },
+	{ "goldilocks",			"Goldilocks Gamebook" },
 	{ "grammarplaytime2",	"Grammar Playtime Vol.2: Asking Questions" },
 	{ "gundam0079",			"Gundam 0079: The War for Earth" },
 	{ "guscarn",			"Gus Goes to the Kooky Carnival" },
@@ -400,6 +403,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "msdinosaurs",		"Microsoft Dinosaurs" },
 	{ "mysteriousegypt",	"Mysterious Egypt" },
 	{ "newslinks",			"ABC NewsLinks" },
+	{ "nightsky",			"Night Sky Interactive" },
 	{ "nixon",				"Nixon: Watergate" },
 	{ "painters",			"Emile de Antonio's Painters Painting" },
 	{ "paris",				"Paris: History and Splendour" },
@@ -768,6 +772,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "garygadget4",		"Bygg hus med Mulle Meck" },
 	{ "garygadget5",		"Upptäck rymden med Mulle Meck" },
 	{ "jonssonligan1",		"Jönssonligan: Jakten på Mjölner" },
+	{ "jonssonligan2",		"Jönssonligan: Jakten på Mjölner" },
 	{ "pettson1",			"Pettson o Findus i snickarbon" },
 	{ "pettsonjk",			"Pettson o Findus julkalender" },
 	{ "pettson2",			"Pettson & Findus i trädgården" },
@@ -961,6 +966,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ssholidaymickey",	"Holiday Mickey Screen Saver" },
 	{ "ssleepipes",			"The Lee Pipes Desktop Animated Feature" },
 	{ "sslivepicture",		"Live Picture Screen Saver" },
+	{ "ssmorphclock",		"Morph Clock" },
 	{ "ssnatureasart",		"Nature as Art" },
 	{ "sspeekaboo",			"Winnie the Pooh Peek-a-Boo Screen Saver" },
 	{ "ssrevwar",			"Revolutionary War Screen Saver" },
@@ -1172,10 +1178,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("tri3dtrial", "", "Tri-3D-Trial", "cfa68a1bc49251497ebde18e5fc9c217", 271223, Common::JA_JPN, 200),
 
-	MACGAME1("warlock", "v1.0", "Spaceship Warlock", "cfa68a1bc49251497ebde18e5fc9c217", 271093, 200),
-	MACGAME1("warlock", "v1.1.1", "Spaceship Warlock", "cfa68a1bc49251497ebde18e5fc9c217", 271107, 200),
-	MACDEMO1("warlock", "v1.0 Demo", "Spaceship Warlock Demo", "cfa68a1bc49251497ebde18e5fc9c217", 271099, 200),
-	MACDEMO1("warlock", "v1.1.1 Demo", "SS Warlock Movie Trailer", "cfa68a1bc49251497ebde18e5fc9c217", 273377, 200),
+	MACGAME1("warlock", "v1.0",		 "Spaceship Warlock",		 "cfa68a1bc49251497ebde18e5fc9c217", 271093, 200),
+	MACGAME1("warlock", "v1.1.1",	 "Spaceship Warlock",		 "cfa68a1bc49251497ebde18e5fc9c217", 271107, 200),
+	MACDEMO1("warlock", "v1.0 Demo", "Spaceship Warlock Demo",   "cfa68a1bc49251497ebde18e5fc9c217", 271099, 200),
+	MACDEMO1("warlock", "Trailer",	 "SS Warlock Movie Trailer", "cfa68a1bc49251497ebde18e5fc9c217", 273377, 200),
 
 //////////////////////////////////////////////////
 //
@@ -1743,9 +1749,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("vvs", "", "VVS Theater-ExtraLarge", "f5277c53bacd27936158dd3867e587e2", 912907, Common::JA_JPN, 311),
 	MACDEMO1_l("vvs", "Demo", "VVS Theater", "f5277c53bacd27936158dd3867e587e2", 639768, Common::JA_JPN, 311),
 
-	WINGAME1("warlock", "", "SSWARLCK.EXE", "65d06b5fef155a2473434571aff5bc29", 370867, 300),
-	WINDEMO1("warlock", "Demo", "SSWDEMO.EXE", "65d06b5fef155a2473434571aff5bc29", 370934, 300),
-	MACDEMO1("warlock", "1994 Demo", "Spaceship Launch", "7f443f2e63fd497a9ad85b10dc880a91", 385872, 313),
+	// Original AV filename is Spaceship Warlock™ AV
+	WINGAME1("warlock", "",		"SSWARLCK.EXE", "65d06b5fef155a2473434571aff5bc29", 370867, 300),
+	WINDEMO1("warlock", "Demo", "SSWDEMO.EXE",	"65d06b5fef155a2473434571aff5bc29", 370934, 300),
+	MACGAME1("warlock", "v1.1.2 AV",  "Spaceship Warlock AV",		 "e043b322d17e0f2ca7f73520466a4311", 382206, 313),
+	MACDEMO1("warlock", "1994 Demo",  "Spaceship Launch",			 "7f443f2e63fd497a9ad85b10dc880a91", 385872, 313),
+	MACDEMO1("warlock", "AV Trailer", "SS Warlock Movie Trailer AV", "e043b322d17e0f2ca7f73520466a4311", 384477, 313),
 
 	WINDEMO1("wep", "Demo", "WEP.EXE", "2b3543a9131a49f665982d26513a84f8", 1796465, 310),
 
@@ -1937,7 +1946,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1("catseyeview", "Demo", "Cat's Eye View.DEMO", "33f733b2809b94c3301096902f642b6e", 289746, 402),
 
-	MACGAME1("cbible", "", "Children\'s Bible Stories", "d408f781d32337f8a5a9b3655c7d7803", 1727225, 404),
+	MACGAME1("cbible", "", "Children\'s Bible Stories", "17efee018a660458fae80de4364021ac", 483746, 404),
 	WINGAME1("cbible", "", "CBIBLE.EXE", "d408f781d32337f8a5a9b3655c7d7803", 1727225, 404),
 
 	// Original Mac filename is Paul Cézanne 8 Mb
@@ -2188,6 +2197,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("godigital", "Vol.1 No.1",	"GODIGIT.EXE", "8183e02291e69b19c9b1b149a8036ffd", 34247559, 404),
 	WINGAME1("godigital", "Vol.1 No.2", "GODIGIT.EXE", "7ce7407982b9c3abfab010432a0b9b96", 703515, 404),
 	WINGAME1("godigital", "Vol.2 No.1", "GODIG3.EXE",  "601b468f1e0e22319b7abd5c0d1787e7", 889427, 404),
+
+	MACDEMO1("goldilocks", "Sampler", "Goldilocks Gamebook Sampler", "cbce20666bfe47a9533331c6be1e6039", 285523, 403),
+	WINDEMO1("goldilocks", "Sampler", "GOLDILKS.EXE", "46b6ed6299db88ac1eab54aab4be91d7", 1894363, 403),
 
 	MACDEMO2_l("greetingstudio", "Demo", "Click Me",   "17efee018a660458fae80de4364021ac", 484351,
 								 		 "MAIN.DIR",   "f5f8e6c76bb0659fc80fa2c1c263afa9", 3016176, Common::JA_JPN, 404),
@@ -2504,6 +2516,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("necrobius", "Demo", "N_BIUS.EXE", "d17330706956c2fda3ee482b39b0609f", 705049, 400),
 
 	WINDEMO1("newslinks", "Demo", "NEWS.EXE", "22900fa6922d71b1f880aa3cc0bbad1a", 16526563, 404),
+
+	MACDEMO1("nightsky", "Sampler", "Night Sky Interactive Sampler", "cbce20666bfe47a9533331c6be1e6039", 285525, 400),
 
 	// Original filename is Visual日本地理DEMO
 	MACDEMO1_l("nihonchiri", "Demo", "Visual Nihon Chiri DEMO", "8b138db44d4421cc7294a9dc792ccf1b", 306940, Common::JA_JPN, 402),
@@ -2925,6 +2939,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("ankh3", "", "ANKH3", "f715a3036c1b54ab1121e90388948018", 720456, Common::JA_JPN, 501),
 
 	WINGAME1("arad", "", "arad95nt.exe", "3460ad87d2ba57104e2810a77b53c220", 2623135, 500),
+
+	// Each shareware title plays 1 of 2 arcade games until unlocked with registration code
+	// All games are also available and unlocked on the retail Arcade Classics CD
+	WINGAME2("arcadelander", "", "shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+								 "Moon.Dxr",	 "66102dd187a016df492c0657beeef3cc", 2008328, 501),
+	WINGAME2("arcadesubs", "",	 "shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+								 "Caverns.Dxr",	 "57bf22de8a2f1822e9259d4a3d8e3f5a", 3188250, 501),
 
 	MACGAME1("arcmedia", "", "MAC.EXE", 	"231d3041df162be4a0ddd36a74eb03b6", 716997, 501),
 	WINGAME2("arcmedia", "", "WIN95.EXE", 	"1a7acbba10a7246ba58c1d53fc7203f5", 1411325,
@@ -3913,6 +3934,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("solmahjong", "2001 version", "Mahjong",	  "0944b962ebb00f4b5d5149d220f8449b", 112758, 702),
 	WINGAME1("solmahjong", "1999 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2757472, 702),
 	WINGAME1("solmahjong", "2001 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2832712, 702),
+
+	WINGAME1("ssmorphclock", "", "Morph Clock.exe", "c1a2e8b7e41fa204009324a9c7db1030", 3800619, 700),
 
 	// Screen Saver found on Solitudes Natural Relaxation ECD
 	MACGAME1("ssnatureasart", "", "Nature As Art", "0944b962ebb00f4b5d5149d220f8449b", 199990, 702),
