@@ -134,6 +134,7 @@ const char *directoryGlobs[] = {
 	"anim",							// 1 vs 100 (Mindscape)
 	"previews",						// TeraMedia Previews
 	"parts",						// The People Multimedia CD-Plus
+	"toinstall",					// Jönssonligan series
 	0
 };
 
