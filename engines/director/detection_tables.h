@@ -46,6 +46,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "amandastories",		"AmandaStories" },
 	{ "amber",				"AMBER: Journeys Beyond" },
 	{ "amertailmb",			"An American Tail Interactive MovieBook" },
+	{ "arcadeairattack",	"Classic Arcade Air Attack" },
+	{ "arcadeboing",		"Classic Arcade Boing" },
+	{ "arcadehockey",		"Classic Arcade Air Hockey" },
 	{ "arcadelander",		"Classic Arcade Lander" },
 	{ "arcadesubs",			"Classic Arcade Subs" },
 	{ "arcofdoom",			"Arc of Doom" },
@@ -72,6 +75,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bodypark",			"Body Park" },
 	{ "brer",				"Brer Rabbit and the Wonderful Tar Baby" },
 	{ "buzz1",				"Buzz Lightyear 1st Grade" },
+	{ "casino",				"Casino!" },
+	{ "casinoblackjack",	"Casino Black Jack" },
+	{ "casinokeno",			"Casino Keno" },
+	{ "casinopoker",		"Casino Poker" },
+	{ "casinoslots",		"Casino Slots" },
 	{ "casperact",			"Casper Activity Center" },
 	{ "catshats",			"Black Cats and Pointed Hats" },
 	{ "cbible",				"Children's Bible Stories" },
@@ -236,6 +244,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "nile",				"Nile: Passage to Egypt" },
 	{ "nine",				"9: The Last Resort" },
 	{ "noir",				"Noir: A Shadowy Thriller" },
+	{ "nurseryrhymes",		"Multimedia Nursery Rhymes" },
 	{ "okay2000",			"O!Kay! Best of 2000" },
 	{ "okaydemo",			"O!Kay! Probier\' mal! Try out!" },
 	{ "okaydownunder",		"O!Kay! Down Under" },
@@ -275,6 +284,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "searchlearn",     	"Search & Learn Adventures" },
 	{ "secretkeys",     	"Search for the Secret Keys with Mickey" },
 	{ "secretpaths1",		"Secret Paths in the Forest" },
+	{ "shellwhirl",			"Shell Whirl" },
 	{ "shr1st2nd",			"Schoolhouse Rock!: 1st & 2nd Grade Essentials" },
 	{ "shr3rd4th",			"Schoolhouse Rock!: 3rd & 4th Grade Essentials" },
 	{ "shramerica",			"Schoolhouse Rock!: America Rock" },
@@ -1947,6 +1957,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Full game is not Director
 	WINDEMO1("c64pack", "Demo", "C64DEMO.EXE", "0458e44d9ad4ae0d3a583ac4141d21ae", 1007517, 400),
 
+	// Retail CD release from BeachWare, Inc.
+	// Windows version also has CASINO2.EXE (Casino! Basic) for low performance PCs
+	// Director-based AUTORUN.EXE launcher chooses between these options on Win9X
+	MACGAME1("casino", "", "Casino! for PowerPC", "5bb6f4e7f9f026e2b5cf758796db3cd2", 57984, 400),
+	WINGAME1("casino", "", "CASINO.EXE", "7bb58472256eb84983a7d86843c81042", 692873, 404),
+
 	MACDEMO1("catseyeview", "Demo", "Cat's Eye View.DEMO", "33f733b2809b94c3301096902f642b6e", 289746, 402),
 
 	MACGAME1("cbible", "", "Children\'s Bible Stories", "17efee018a660458fae80de4364021ac", 483746, 404),
@@ -2512,6 +2528,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("newslinks", "Demo", "NEWS.EXE", "22900fa6922d71b1f880aa3cc0bbad1a", 16526563, 404),
 
 	MACDEMO1("nightsky", "Sampler", "Night Sky Interactive Sampler", "cbce20666bfe47a9533331c6be1e6039", 285525, 400),
+	WINDEMO1("nightsky", "Sampler", "NIGHTSKY.EXE", "68f1fe67a5881fd47b08e905401d174c", 4300149, 404),
 
 	// Original filename is Visual日本地理DEMO
 	MACDEMO1_l("nihonchiri", "Demo", "Visual Nihon Chiri DEMO", "8b138db44d4421cc7294a9dc792ccf1b", 306940, Common::JA_JPN, 402),
@@ -2536,6 +2553,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Original filename is Nomis™ PPC
 	MACGAME1("nomis", "", "Nomis PPC", "6dd87d48277cf2cd886e5168266ce4bf", 58051, 403),
+
+	MACDEMO1("nurseryrhymes", "Sampler", "Nursery Rhymes Sampler", "cbce20666bfe47a9533331c6be1e6039", 285529, 400),
+	WINDEMO1("nurseryrhymes", "Sampler", "NURSERY.EXE", "c7cca77d8c1c88e8003db72abb05da0a", 4518423, 404),
 
 	WINGAME1("operafatal", "",	 "OPERA.EXE",   "2b9da5566698a1f4b453e1a27e00ad29", 697739, 400),
 	MACGAME2("operafatal", "",	 "OPERA FATAL", "f5033f237ad1b1639fc46d01a82ac380", 285566,
@@ -2926,12 +2946,20 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("arad", "", "arad95nt.exe", "3460ad87d2ba57104e2810a77b53c220", 2623135, 500),
 
+	// Available here: http://web.archive.org/web/20080412010505/http://www.beachware.com/download/
 	// Each shareware title plays 1 of 2 arcade games until unlocked with registration code
-	// All games are also available and unlocked on the retail Arcade Classics CD
-	WINGAME2("arcadelander", "", "shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
-								 "Moon.Dxr",	 "66102dd187a016df492c0657beeef3cc", 2008328, 501),
-	WINGAME2("arcadesubs", "",	 "shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
-								 "Caverns.Dxr",	 "57bf22de8a2f1822e9259d4a3d8e3f5a", 3188250, 501),
+	// All games are also available and unlocked on the retail BeachWare Arcade Classics CD
+	MACGAME1("arcadeboing", "",	"Classic Arcade Boing!", "231d3041df162be4a0ddd36a74eb03b6", 719261, 501),
+	WINGAME2("arcadeairattack", "", "shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Bomber.Dxr",	"e2409782f6bfa16862fba0437c9cdf3d", 3443518, 501),
+	WINGAME2("arcadeboing", "",		"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Astro.Dxr",	"4378f9b78697520087e603856f0f2246", 1379858, 501),
+	WINGAME2("arcadehockey", "",	"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Bumper.Dxr",	"696e88ec6cf6fd9a5c5422f91dd8608a", 681780, 501),
+	WINGAME2("arcadelander", "",	"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Moon.Dxr",		"66102dd187a016df492c0657beeef3cc", 2008328, 501),
+	WINGAME2("arcadesubs", "",		"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Caverns.Dxr",	"57bf22de8a2f1822e9259d4a3d8e3f5a", 3188250, 501),
 
 	MACGAME1("arcmedia", "", "MAC.EXE", 	"231d3041df162be4a0ddd36a74eb03b6", 716997, 501),
 	WINGAME2("arcmedia", "", "WIN95.EXE", 	"1a7acbba10a7246ba58c1d53fc7203f5", 1411325,
@@ -2967,6 +2995,18 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Bilingual English and French
 	MACGAME1("canelect", "", "Elect", "6e7e31d05709e1d38d63f4df6a59eec0", 719289, 501),
 	WINGAME1("canelect", "", "ELECT_95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1479345, 501),
+
+	// Available here: http://web.archive.org/web/20080412010505/http://www.beachware.com/download/
+	// Each shareware title plays one of several casino games until unlocked with registration code
+	// The games are also available and unlocked on various retail CDs from BeachWare
+	WINGAME2("casinoblackjack", "",	"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Black.Dxr",	"c934d66f73149927ce9842ac3b6a6219", 433022, 501),
+	WINGAME2("casinokeno", "",		"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Keno.Dxr",		"229860fdf77f1d92da7ca23535393597", 314064, 501),
+	WINGAME2("casinopoker", "",		"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Draw.Dxr",		"56f8b8fa6324b2abc16eafa8aa6ba403", 489404, 501),
+	WINGAME2("casinoslots", "", 	"shware32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410427,
+									"Quarters.Dxr",	"4b91f3fa860cd4de3b0aa167f3afdff3", 527618, 501),
 
 	MACGAME1("cezanne", "", "CEZANNE", "8e171256e4811dc976720da230634d87", 705689, 500),
 	WINGAME1("cezanne", "", "CEZWIN95.EXE", "3460ad87d2ba57104e2810a77b53c220", 2763107, 500),
@@ -3891,6 +3931,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("solmahjong", "1999 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2757472, 702),
 	WINGAME1("solmahjong", "2001 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2832712, 702),
 
+	// http://web.archive.org/web/20080412010505/http://www.beachware.com/download/
+	MACGAME1("ssmorphclock", "", "MorphClock", "fa52f0136cde568a46249ce74f01a324", 189234, 700),
 	WINGAME1("ssmorphclock", "", "Morph Clock.exe", "c1a2e8b7e41fa204009324a9c7db1030", 3800619, 700),
 
 	// Screen Saver found on Solitudes Natural Relaxation ECD
@@ -4368,6 +4410,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("miamath", "OS X", "MiaOSX", "666bfa2ee1ae12443ce06f5dd142502b", 53741, 1000),
 	WINGAME1("miamath", "", "MiaMath.exe", "0c25e89b5084b272f0eab7827b6e411a", 2671820, 1000),
+
+	// Time-limited shareware release from BeachWare Inc. Unlock full game with registration code.
+	// http://web.archive.org/web/20140629224457/http://www.beachware.com/download/ShellWhirl/ShellWhirl.dmg
+	// http://web.archive.org/web/20070207233900/http://www.beachware.com/download/ShellWhirl/ShellWhirlSetup.exe
+	MACGAME1("shellwhirl", "", "Shell Whirl", "a171b7a952d1ac68ae3cd419d6dfc674", 313545, 1010),
+	WINGAME1("shellwhirl", "", "Shell Whirl.exe", "bcf64185ce848b7b70858d62945f48a8", 3779090, 1010),
 
 	WINDEMO1_l("tokimemotypegs", "Demo", "tkmkgstype.exe", "1d1646000633ab994404ac38fb350553", 2716404, Common::JA_JPN, 1000),
 
