@@ -76,6 +76,7 @@ enum Language {
 	TR_TUR,
 	UA_UKR,
 	SR_SER,
+	CA_ESP,
 
 	UNK_LANG = -1	// Use default language (i.e. none specified)
 };
