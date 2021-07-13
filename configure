@@ -1383,7 +1383,9 @@ for ac_option in $@; do
 		_builtin_resources=no
 		;;
 	--enable-windows-console)
-		_windows_console=yes
+		if test _text_console=no; then
+			_windows_console=yes
+		fi
 		;;
 	--disable-windows-console)
 		_windows_console=no
@@ -5984,6 +5986,10 @@ if test "$_windows_console" = yes ; then
 			echo_n ", Windows console"
 			;;
 	esac
+fi
+
+if test "$_windows_console" = yes ; then
+	echo_n ", Windows console"
 fi
 
 if test "$_vkeybd" = yes ; then
