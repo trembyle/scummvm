@@ -984,6 +984,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "legs",				"Legs" },
 	{ "macplaymate1",		"MacPlaymate" },
 	{ "macplaymate2",		"MacPlaymate II" },
+	{ "playmate1999",		"Playboy's 1999 Playmate Calendar" },
 	{ "sadowar",			"RSP" },
 	{ "thebody",			"The Body: Five doors plus" },
 	{ "thelegs",			"The Legs ～Get a LEG up～" },
@@ -3176,11 +3177,21 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("picasso", "Demo", "PICASS32.EXE", "3460ad87d2ba57104e2810a77b53c220", 1413437, 500),
 
-	// Multi3 disc contains Brazil/Catalan/Spanish
-	WINGAME1_l("pingu1", "", "PINGU.EXE", "12345", 12345, Common::ES_ESP, 500),
+	// Later releases are D6
+	// English language from Global Software Products catalogue # 1282A (1997)
+	// Multi3 disc from Zeta Multimedia (Barcelona) contains Brazil/Catalan/Spanish
+	MACGAME1("pingu1", "",		"Pingu CD-ROM", "35dbf55e70f69e00ca016e3663379970", 705701, 500),
+	WINGAME2("pingu1", "1282A", "PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "2e604dfd80ce4189dc0162dbe47ca7e2", 478854, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "e56af5ddd0750b8ec04cb4ea3d707066", 489234, Common::CA_ESP, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "2b0c09c2aab5064afd0006fc33579d52", 482580, Common::ES_ESP, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "3c4192601421a1eee08bb6b8f0c33b84", 481270, Common::PT_BRA, 500),
 
-	// Included with Pingu 1
-	WINGAME1_l("pinguss", "", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, Common::PT_BRA, 500),
+	// Included with Pingu 1. Contains no text or speech.
+	WINGAME1("pinguss", "", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
 
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
@@ -3598,9 +3609,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 1702396, Common::SE_SWE, 600),
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "518a98696fe1122e08410b0f157f21bf", 1738188, Common::FI_FIN, 602),
 
+	// Global Software Products catalogue # 1282B (1999) and 1282C (Favourites, 2006)
+	WINGAME2("pingu1", "1282B", "PINGU.EXE",	"d62438566e44826960fc16c5c23dbe43", 1570152,
+								"BBCLOGO.DXR",	"0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
+	WINGAME2("pingu1", "1282C", "Pingu.exe",	"d62438566e44826960fc16c5c23dbe43", 1999206,
+								"Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+
 	WINGAME1_l("plcd", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
 	WINGAME2_l("plcd", "Nº12 1998", "Start.exe",	 "d62438566e44826960fc16c5c23dbe43", 1919710,
-								  "Mainmenu.dxr",	 "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
+									"Mainmenu.dxr",	 "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
 
 	// DVD-ROM content from Planetary Traveler movie
 	WINGAME1("planetrav", "", "PCDVD.EXE", "a593079aecf5bd938ce75264cac24b2d", 2345815, 600),
@@ -4371,13 +4388,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO1_l("legs", "Demo",	   "LEGS Vol.1",				 "f5277c53bacd27936158dd3867e587e2", 548017, Common::JA_JPN, 311), 
 
 	// Touring Engine Ver 1.00. Original filename is MacPlaymate™
-	MACGAME1("macplaymate1", "",  "MacPlaymate",	"4bdad2173d739dcaca1241afe88c7aef", 33851, 0),
-	MACGAME1("macplaymate2", "",  "MacPlaymate II", "cfa68a1bc49251497ebde18e5fc9c217", 822229, 200),
-	WINGAME1("sadowar", "v1.1",	  "RSP.EXE",		"3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
-	MACDEMO2_l("thebody", "Demo", "DEMO", 			"bcd3c718db258701496b3c5bcb827ef2", 484323,
-								  "START.DIR",		"beeb32cacc5108838a8b5c6850275b86", 7342, Common::JA_JPN, 404),
-	WINDEMO2_l("thebody", "Demo", "DEMO.EXE",		"763f360a098cf3bec7cbdc5685b1e4a3", 1193483,
-								  "START.DIR",		"dd60f73a3c0590754b07e0cee4ec2921", 7206, Common::JA_JPN, 404),
+	MACGAME1("macplaymate1", "",  "MacPlaymate",	 "4bdad2173d739dcaca1241afe88c7aef", 33851, 0),
+	MACGAME1("macplaymate2", "",  "MacPlaymate II",	 "cfa68a1bc49251497ebde18e5fc9c217", 822229, 200),
+	MACGAME1("playmate1999", "",  "Playboy PowerPC", "cfa68a1bc49251497ebde18e5fc9c217", 822229, 650),
+	WINGAME1("playmate1999", "",  "PB95.exe",		 "cfa68a1bc49251497ebde18e5fc9c217", 822229, 650),
+	WINGAME1("sadowar", "v1.1",	  "RSP.EXE",		 "3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
+	MACDEMO2_l("thebody", "Demo", "DEMO", 			 "bcd3c718db258701496b3c5bcb827ef2", 484323,
+								  "START.DIR",		 "beeb32cacc5108838a8b5c6850275b86", 7342, Common::JA_JPN, 404),
+	WINDEMO2_l("thebody", "Demo", "DEMO.EXE",		 "763f360a098cf3bec7cbdc5685b1e4a3", 1193483,
+								  "START.DIR",		 "dd60f73a3c0590754b07e0cee4ec2921", 7206, Common::JA_JPN, 404),
 	WINDEMO2_l("thelegs", "8-bit Color Demo",  "S.EXE",		  "c3c38bd3907ca7e13220b74bd0317a6c", 1013279,
 											   "START8.DIR",  "ed4bfebf096a195ae68db0fe7ba999cc", 4812, Common::JA_JPN, 500),
 	WINDEMO2_l("thelegs", "16-bit Color Demo", "S.EXE",		  "1c654e09938e5a27f694e694aca13833", 1387193,
