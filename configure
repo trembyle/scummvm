@@ -1379,9 +1379,7 @@ for ac_option in $@; do
 		_builtin_resources=no
 		;;
 	--enable-windows-console)
-		if test _text_console=no; then
-			_windows_console=yes
-		fi
+		_windows_console=yes
 		;;
 	--disable-windows-console)
 		_windows_console=no
@@ -5994,22 +5992,6 @@ if test "$_windows_console" = yes ; then
 	esac
 fi
 
-if test "$_windows_console" = yes ; then
-	if test "$_release_build" = yes ; then
-		_windows_console=no
-	else
-		case "$_host_os" in
-			mingw*)
-				echo_n ", Windows console"
-				;;
-		esac
-	fi
-fi
-
-if test "$_windows_console" = yes ; then
-	echo_n ", Windows console"
-fi
-
 if test "$_vkeybd" = yes ; then
 	echo_n ", virtual keyboard"
 fi
@@ -6022,7 +6004,7 @@ if test "$_cloud" = yes ; then
 	echo ", cloud"
 else
 	echo
-fi		
+fi
 
 #
 # Some last-minute platform specific stuff, executed
@@ -6085,10 +6067,10 @@ case $_host_os in
 		if test "$_windows_unicode" = yes; then
 			append_var DEFINES "-DUNICODE -D_UNICODE"
 		fi
-		if test ("$_windows_console" = yes); then
-			if test ("$_release_build" = no); then
-				LIBS=`echo $LIBS | sed -e 's/-mconsole//g' -e 's/-mwindows//g'`
-			fi
+		# SDL2 sets -mwindows flag by default in sdl2.pc
+		# We need to directly replace this in the SDL pkg-config
+		if test "$_windows_console" = yes; then
+			LIBS=`echo $LIBS | sed -e 's/-mconsole//g' -e 's/-mwindows//g'`
 		fi
 		;;
 	riscos)

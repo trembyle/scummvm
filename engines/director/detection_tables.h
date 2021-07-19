@@ -507,6 +507,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "stressrelief2",		"Solitudes: Natural Stress Relief II" },
 	{ "tonetrakker",		"Tone Trakker" },
 
+	// Arabic titles
+	{ "abctrain",			"Alphabet Train" },
+	{ "alhisab",			"هيا نتعلم الحساب والمفاهيم" },		   // Let's learn arithmetic (al-hisab) and concepts
+	{ "anasheed",			"إسطوانة قطار القصص والأناشيد" },		// Train of Stories & Songs
+	{ "futsoft",			"برامج تعليمية من شركة فيوتشر سوفت" },// Future Soft educational demos
+	{ "ktaralarkam",		"قطاد الأرقام" },						  // Numbers Train
+	{ "sakhr",				"مجلة برامج صخر" },						 // Sakhr Software Catalogue
+
 	// Catalan titles
 	{ "3iadins",			"3 i a dins!" },
 	{ "limit0inici",		"Límit 0 Inici" },
@@ -971,7 +979,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "globiss",			"Globi's Bildschirmschoner" },
 	{ "lewisclarkss",		"Lewis and Clark Screen Saver" },
 	{ "photos4us",			"Photos4us" },
+	{ "pingufight",			"Pingu Snowball Fight" },
+	{ "pingufish",			"Pingu Fish Chase" },
 	{ "pinguss",			"Pingu Screen Savers" },
+	{ "pingustorm",			"Pingu Snow Storm" },
+	{ "pingustunt",			"Stunt Pingu" },
+	{ "pingutime",			"Time for Pingu" },
 	{ "ss102dalmations",	"102 Dalmations Screen Saver" },
 	{ "sscocacola",			"Coca-Cola Screen Saver" },
 	{ "ssdietcoke",			"Diet Coke Screen Saver" },
@@ -2678,6 +2691,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is ラインの黄金CD
 	MACDEMO1_l("rheingold", "Demo", "Das Rheingold CD", "b7e69c37b7355022d400c14aa97c5d54", 484351, Common::JA_JPN, 404),
 
+	// Found on Sakhr Arabic Grammar v1.1
+	// Product catalogue for Sakhr Software Co., Heliopolis, Egypt
+	WINGAME1_l("sakhr", "", "MMDEMO.EXE", "12345", 12345, Common::AR_SAU, 404),
+
 	MACGAME1_l("sakin2", "", "STARTCD", "67f572196550aedb1f9523d782022be0", 484351, Common::JA_JPN, 404),
 	WINGAME1_l("sakin2", "", "STARTCD.EXE", "0c8a44b04aa6e8f1483b05f6b567fa3c", 749233, Common::JA_JPN, 404),
 
@@ -3258,8 +3275,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 								"PINTITLE.DXR", "3c4192601421a1eee08bb6b8f0c33b84", 481270, Common::PT_BRA, 500),
 
 	// Included with Pingu 1. Contains no text or speech.
-	WINGAME1("pinguss", "GSP",	"PINGU_SS.EXE", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
+	// Mac version uses a different projector for each screen saver
+	WINGAME1("pinguss", "GSP",	"PINGU_SS.EXE", "2e62abdad839e42068afdcd0644d7dcf", 918527, 500),
 	WINGAME1("pinguss", "Zeta", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
+	MACGAME1("pingufish",  "Screen Saver", " PINGU - Fish Chase",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingufight", "Screen Saver", " PINGU - Snowball Fight", "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingustorm", "Screen Saver", " PINGU - Snow Storm",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingustunt", "Screen Saver", " PINGU - Stunt Pingu",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingutime",  "Screen Saver", " PINGU - Time for Pingu", "35dbf55e70f69e00ca016e3663379970", 799282, 500),
 
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
@@ -3450,6 +3473,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1_l("3iadins", "", "TVC.EXE", "d62438566e44826960fc16c5c23dbe43", 1777420, Common::CA_ESP, 650),
 
+	// Published by Future Soft of Nasr City, Cairo
+	WINGAME1_l("abctrain", "", "abc.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+
 	// Mini-game from X-Fools can also be launched separately
 	WINGAME1("abductthis", "", "ABDUCT32.EXE", "a593079aecf5bd938ce75264cac24b2d", 3644633, 600),
 
@@ -3565,6 +3591,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("fusion", "", "Start FUSION Mac", "3849d7cd0cdbe4f46333879cbed56492", 1029165, 600),
 	WINGAME1("fusion", "", "FUSION.exe", "518a98696fe1122e08410b0f157f21bf", 1513751, 602),
 
+	// Contains previews for educational and religious products for children and adults
+	// Miscellaneous section contains an art package and an encyclopedia on pregnancy and birth
+	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+
 	MACGAME1_l("garage", "", "Garage",	   "e5ed4533b25be47b708bb1245550cb2c", 118818, Common::JA_JPN, 650),
 	WINGAME2("garage", "",	 "Garage.exe", "0e43a5130e1964231fa25472108ca522", 1516264,
 							 "open.swf",   "9c6eb1fb21dfcd3ddff4c153c88a53b7", 96640, 650),
@@ -3623,6 +3653,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME2_l("kontyngent99", "", "START.EXE", "d62438566e44826960fc16c5c23dbe43", 1513041,
 								   "MAIN.DXR",	"98b4f7339e1f8f6628035e6317f78912", 21043440, Common::PL_POL, 650),
+
+	// Published by Future Soft of Nasr City, Cairo
+	WINGAME1_l("ktaralarkam", "", "123.exe", "a593079aecf5bd938ce75264cac24b2d", 2748951, Common::AR_SAU, 600),
 
 	WINGAME1_l("kultapossu", "", "POSSU_95.EXE", "518a98696fe1122e08410b0f157f21bf", 1531081, Common::FI_FIN, 602),
 
@@ -3702,10 +3735,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "518a98696fe1122e08410b0f157f21bf", 1738188, Common::FI_FIN, 602),
 
 	// Global Software Products catalogue # 1282B (1999) and 1282C (Favourites, 2006)
-	WINGAME2("pingu1", "1282B", "PINGU.EXE",	"d62438566e44826960fc16c5c23dbe43", 1570152,
-								"BBCLOGO.DXR",	"0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
-	WINGAME2("pingu1", "1282C", "Pingu.exe",	"d62438566e44826960fc16c5c23dbe43", 1999206,
-								"Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+	WINGAME2("pingu1",	"1282B", "PINGU.EXE",	 "d62438566e44826960fc16c5c23dbe43", 1570152,
+								 "BBCLOGO.DXR",	 "0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
+	WINGAME2("pingu1",	"1282C", "Pingu.exe",	 "d62438566e44826960fc16c5c23dbe43", 1999206,
+								 "Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+	WINGAME1("pinguss", "1282C", "Pingu_ss.exe", "d62438566e44826960fc16c5c23dbe43", 1513419, 650),
 
 	WINGAME1_l("plcd", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
 	WINGAME2_l("plcd", "Nº12 1998", "Start.exe",	 "d62438566e44826960fc16c5c23dbe43", 1919710,
@@ -4071,6 +4105,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("alfons", "", "Alfons", "08c9ea94f6469e71ae0c71987bbf6323", 199733, Common::SE_SWE, 851),
 	WINGAME1_l("alfons", "", "Alfons.exe", "02913e7deeab4ece4ae44ad521082d4e", 2166668, Common::SE_SWE, 851),
+
+	// Developed by Almajarra المجرة
+	WINGAME2_l("alhisab", "", "Start.exe",	  "c163f36141579ee374f7b4b2bddee95a", 2117096,
+							  "Preintro.dxr", "5fb6543cc57d53fac26d975922c18e48", 11170, Common::AR_SAU, 850),
+
+	// Published by Future Soft of Nasr City, Cairo
+	WINGAME1_l("anasheed", "", "Anasheed.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3595486, Common::AR_SAU, 800),
 
 	MACGAME2("avrilletgo", "ECD", "Projector",	   "4ea5fc09f79eee6dded94dc40f303779", 194863,
 								  "movie.dxr",	   "6d0c0712fdd32cf1de489b4c152b2460", 50908119, 800),
