@@ -512,7 +512,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "alhisab",			"هيا نتعلم الحساب والمفاهيم" },		   // Let's learn arithmetic (al-hisab) and concepts
 	{ "anasheed",			"إسطوانة قطار القصص والأناشيد" },		// Train of Stories & Songs
 	{ "futsoft",			"برامج تعليمية من شركة فيوتشر سوفت" },// Future Soft educational demos
+	{ "hamamalachkal",		"تعلم مع همام الأشكال" },				 // Learn Shapes with Hamam
+	{ "hamamalalwan",		"تعلم مع همام الألوان" },				 // Learn Colors with Hamam
+	{ "hamamalhuruf",		"تعلم مع همام الحروف" },				// Learn Letters with Hamam
 	{ "ktaralarkam",		"قطاد الأرقام" },						  // Numbers Train
+	{ "mesoftware",			"شركة الشرق الأوسط للبرمجيات" },		// Middle East Software Company
 	{ "sakhr",				"مجلة برامج صخر" },						 // Sakhr Software Catalogue
 
 	// Catalan titles
@@ -780,7 +784,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "eso",				"ESO Essentials: Student's Interactive CD-ROM" },
 	{ "inventos",			"Grandes Inventos" },
 	{ "pcplus64",			"PC Plus Super CD 64" },
-	{ "supermente",			"Super Mente" }, // Published only in Mexico
+	{ "supermente",			"Super Mente" },							// Published only in Mexico
 	{ "unlimitedcl",		"Unlimited CD-ROMs Educativos" },
 
 	// Swedish titles
@@ -792,7 +796,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "garygadget4",		"Bygg hus med Mulle Meck" },
 	{ "garygadget5",		"Upptäck rymden med Mulle Meck" },
 	{ "jonssonligan1",		"Jönssonligan: Jakten på Mjölner" },
-	{ "jonssonligan2",		"Jönssonligan: Jakten på Mjölner" },
+	{ "jonssonligan2",		"Jönssonligan går på djupet" },
 	{ "pettson1",			"Pettson o Findus i snickarbon" },
 	{ "pettsonjk",			"Pettson o Findus julkalender" },
 	{ "pettson2",			"Pettson & Findus i trädgården" },
@@ -1228,7 +1232,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1_l("adobedimensions", "Demo", "PD.Demo", "f5277c53bacd27936158dd3867e587e2", 1439492, Common::JA_JPN, 311),
 
-	// Original filename is アラン・ケイ
+	// Original filename is アラン・ケイ 
 	MACDEMO1_l("alankay", "Demo", "Alan Kay", "276bee761e48a6fd709df77d5c2f60dd", 6188389, Common::JA_JPN, 311),
 
 	MACGAME1_l("alexworld", "", "AlexWorld", "f5277c53bacd27936158dd3867e587e2", 391576, Common::JA_JPN, 300),
@@ -2693,7 +2697,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Found on Sakhr Arabic Grammar v1.1
 	// Product catalogue for Sakhr Software Co., Heliopolis, Egypt
-	WINGAME1_l("sakhr", "", "MMDEMO.EXE", "12345", 12345, Common::AR_SAU, 404),
+	WINGAME1_l("sakhr", "", "MMDEMO.EXE", "0e5436b4daa9e787abb2692bb5ca5454", 740524, Common::AR_ARB, 404),
 
 	MACGAME1_l("sakin2", "", "STARTCD", "67f572196550aedb1f9523d782022be0", 484351, Common::JA_JPN, 404),
 	WINGAME1_l("sakin2", "", "STARTCD.EXE", "0c8a44b04aa6e8f1483b05f6b567fa3c", 749233, Common::JA_JPN, 404),
@@ -3474,7 +3478,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("3iadins", "", "TVC.EXE", "d62438566e44826960fc16c5c23dbe43", 1777420, Common::CA_ESP, 650),
 
 	// Published by Future Soft of Nasr City, Cairo
-	WINGAME1_l("abctrain", "", "abc.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+	WINGAME1_l("abctrain", "", "abc.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_ARB, 600),
 
 	// Mini-game from X-Fools can also be launched separately
 	WINGAME1("abductthis", "", "ABDUCT32.EXE", "a593079aecf5bd938ce75264cac24b2d", 3644633, 600),
@@ -3593,7 +3597,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Contains previews for educational and religious products for children and adults
 	// Miscellaneous section contains an art package and an encyclopedia on pregnancy and birth
-	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_ARB, 600),
 
 	MACGAME1_l("garage", "", "Garage",	   "e5ed4533b25be47b708bb1245550cb2c", 118818, Common::JA_JPN, 650),
 	WINGAME2("garage", "",	 "Garage.exe", "0e43a5130e1964231fa25472108ca522", 1516264,
@@ -3655,7 +3659,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 								   "MAIN.DXR",	"98b4f7339e1f8f6628035e6317f78912", 21043440, Common::PL_POL, 650),
 
 	// Published by Future Soft of Nasr City, Cairo
-	WINGAME1_l("ktaralarkam", "", "123.exe", "a593079aecf5bd938ce75264cac24b2d", 2748951, Common::AR_SAU, 600),
+	WINGAME1_l("ktaralarkam", "", "123.exe", "a593079aecf5bd938ce75264cac24b2d", 2748951, Common::AR_ARB, 600),
 
 	WINGAME1_l("kultapossu", "", "POSSU_95.EXE", "518a98696fe1122e08410b0f157f21bf", 1531081, Common::FI_FIN, 602),
 
@@ -3954,6 +3958,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Windows filename is Jönssonligan.exe
 	MACGAME1_l("jonssonligan1", "", "Starta Jonssonligan", "0944b962ebb00f4b5d5149d220f8449b", 113750, Common::SE_SWE, 702),
 	WINGAME1_l("jonssonligan1", "", "Jonssonligan.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2432602, Common::SE_SWE, 702),
+	WINGAME1_l("jonssonligan2", "", "")
 
 	// Plays QuickTime movie then opens webpage (still works in 2021)
 	WINGAME2("jsa", "Demo", "Projector.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2289485,
@@ -4108,10 +4113,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Developed by Almajarra المجرة
 	WINGAME2_l("alhisab", "", "Start.exe",	  "c163f36141579ee374f7b4b2bddee95a", 2117096,
-							  "Preintro.dxr", "5fb6543cc57d53fac26d975922c18e48", 11170, Common::AR_SAU, 850),
+							  "Preintro.dxr", "5fb6543cc57d53fac26d975922c18e48", 11170, Common::AR_ARB, 850),
 
 	// Published by Future Soft of Nasr City, Cairo
-	WINGAME1_l("anasheed", "", "Anasheed.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3595486, Common::AR_SAU, 800),
+	WINGAME1_l("anasheed", "", "Anasheed.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3595486, Common::AR_ARB, 800),
 
 	MACGAME2("avrilletgo", "ECD", "Projector",	   "4ea5fc09f79eee6dded94dc40f303779", 194863,
 								  "movie.dxr",	   "6d0c0712fdd32cf1de489b4c152b2460", 50908119, 800),
@@ -4205,6 +4210,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("girlspack", "", "Das Girl's Pack", "4ea5fc09f79eee6dded94dc40f303779", 214488, Common::DE_DEU, 800),
 	WINGAME2_l("girlspack", "", "Projector.exe",   "e24d4bab978b1a5c2326d2c56cf4d781", 2251176,
 								"picture.cxt",	   "e69c284d644c4f446b2ec4d876f94f17", 568440, Common::DE_DEU, 800),
+
+	// Early Education Series from Ariss Computer Inc. of Beirut
+	WINGAME1_l("hamamalachkal", "", "SHAPE.EXE",  "c163f36141579ee374f7b4b2bddee95a", 3784670, Common::AR_ARB, 850),
+	WINGAME1_l("hamamalalwan", "",  "COLOR.EXE",  "c163f36141579ee374f7b4b2bddee95a", 3786748, Common::AR_ARB, 850),
+	WINGAME1_l("hamamalhuruf", "",	"LETTER.EXE", "c163f36141579ee374f7b4b2bddee95a", 3797680, Common::AR_ARB, 850),
 
 	// Mac OS X executable is D9
 	MACGAME1("heuther", "Classic OS", "HuetherOS9", "789536da81694518f494945bb161ace9", 178551, 851),
@@ -4523,7 +4533,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is Límit 0.exe
 	// Requires installation from D8 app limit0inici
 	// Selection of Spanish, Catalan, English at start
-	WINGAME1("limit0", "", "Limit 0.exe", "12345", 12345, 1000),
+	WINGAME1("limit0", "", "Limit 0.exe", "827e5af88f4c096652a1523dc28c9bf4", 4664824, 1000),
+
+	// Found on Bonjour تعليم الفرنسية
+	// Software catalogue for Middle East Software Company of Giza, Egypt
+	WINGAME1_l("mesoftware", "", "MES.exe", "bcf64185ce848b7b70858d62945f48a8", 3560318, Common::AR_ARB, 1010),
 
 	MACGAME1("miamath", "OS X", "MiaOSX", "666bfa2ee1ae12443ce06f5dd142502b", 53741, 1000),
 	WINGAME1("miamath", "", "MiaMath.exe", "0c25e89b5084b272f0eab7827b6e411a", 2671820, 1000),
