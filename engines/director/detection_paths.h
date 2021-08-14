@@ -138,6 +138,7 @@ const char *directoryGlobs[] = {
 	"main",							// Meet MediaBand
 	"previews",						// TeraMedia Previews
 	"parts",						// The People Multimedia CD-Plus
+	"toinstall",					// Jönssonligan series
 	0
 };
 

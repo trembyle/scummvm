@@ -745,7 +745,7 @@ static const PlainGameDescriptor directorGames[] = {
 
 	// Russian titles
 	{ "engl",				"English for Beginners" },
-	{ "pl",					"Подводная Лодка" },						   // Podvodnaya Lodka (Submarine) magazine
+	{ "plcd",				"Подводная Лодка" },						   // Podvodnaya Lodka (Submarine) magazine
 	{ "tchaik",				"Пётр Ильи́ч Чайко́вский: Жизнь и творчество" }, // Pyotr Ilyich Tchaikovsky: Life and Work
 	{ "tutti",				"Волшебные истории Тутти" },				   // Tutti's Magical Stories
 
@@ -767,6 +767,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "garygadget2",		"Bygg båtar med Mulle Meck" },
 	{ "garygadget4",		"Bygg hus med Mulle Meck" },
 	{ "garygadget5",		"Upptäck rymden med Mulle Meck" },
+	{ "jonssonligan1",		"Jönssonligan: Jakten på Mjölner" },
 	{ "pettson1",			"Pettson o Findus i snickarbon" },
 	{ "pettsonjk",			"Pettson o Findus julkalender" },
 	{ "pettson2",			"Pettson & Findus i trädgården" },
@@ -1914,12 +1915,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("blenderbest", "", "PPC LAUNCHER", "9d10bbbf1b8d527e203c6be2eac3518c", 58058, 404),
 	WINGAME1("blenderbest", "", "BLENDPC.EXE", "408fdb0f6806d93a9af0412f3704481e", 728849, 404),
 
-	WINGAME1("blinkybill1", "", "BLINKY.EXE", "0d374b4a559e505c0db63cabc2219380", 712501, 404),
-	//Blinky Bill 1 en het verhaal van de Griezel-Grot
-	WINGAME2_l("blinkybill1", "", "start.exe", "be1e65196a1d1c810d84c0084a5c1033", 717299,
-			"ghost0.dxr", "5d79d1d50d7abc7bc7b6d72b3b4b831d", 112048, Common::NL_NLD, 404),
-	//A Caverna do Fantasma de Blinky Bill
-	WINGAME1_l("blinkybill1", "", "BLINKY95.EXE", "3ee51e3c9f0f7f069580ef5361fd4e3d", 717025, Common::PT_BRA, 404),
+	// Dutch title is Blinky Bill 1 en het verhaal van de Griezel-Grot
+	// Portuguese title is A Caverna do Fantasma de Blinky Bill
+	WINGAME1("blinkybill1", "",		   "BLINKY.EXE",   "0d374b4a559e505c0db63cabc2219380", 712501, 404),
+	WINGAME1("blinkybill1", "Softkey", "BLINKY95.EXE", "f236295291fe54b8ca13534442ee1a8c", 713061, 404),
+	WINGAME2_l("blinkybill1", "",	   "start.exe",	   "be1e65196a1d1c810d84c0084a5c1033", 717299,
+									   "ghost0.dxr",   "5d79d1d50d7abc7bc7b6d72b3b4b831d", 112048, Common::NL_NLD, 404),
+	WINGAME1_l("blinkybill1", "",	   "BLINKY95.EXE", "3ee51e3c9f0f7f069580ef5361fd4e3d", 717025, Common::PT_BRA, 404),
 
 	WINDEMO1("blockbuster2", "Demo", "BB2.EXE", "132e49c93beae46c2803db11584e6315", 8447185, 404),
 
@@ -1935,6 +1937,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1("catseyeview", "Demo", "Cat's Eye View.DEMO", "33f733b2809b94c3301096902f642b6e", 289746, 402),
 
+	MACGAME1("cbible", "", "Children\'s Bible Stories", "d408f781d32337f8a5a9b3655c7d7803", 1727225, 404),
 	WINGAME1("cbible", "", "CBIBLE.EXE", "d408f781d32337f8a5a9b3655c7d7803", 1727225, 404),
 
 	// Original Mac filename is Paul Cézanne 8 Mb
@@ -3609,9 +3612,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 1702396, Common::SE_SWE, 600),
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "518a98696fe1122e08410b0f157f21bf", 1738188, Common::FI_FIN, 602),
 
-	WINGAME1_l("pl", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
-	WINGAME2_l("pl", "Nº12 1998", "Start.exe",	   "d62438566e44826960fc16c5c23dbe43", 1919710,
-								  "Mainmenu.dxr",  "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
+	WINGAME1_l("plcd", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
+	WINGAME2_l("plcd", "Nº12 1998", "Start.exe",	 "d62438566e44826960fc16c5c23dbe43", 1919710,
+								  "Mainmenu.dxr",	 "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
 
 	// DVD-ROM content from Planetary Traveler movie
 	WINGAME1("planetrav", "", "PCDVD.EXE", "a593079aecf5bd938ce75264cac24b2d", 2345815, 600),
@@ -3814,6 +3817,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("jewels", "", "Jewels of the Oracle", "fa52f0136cde568a46249ce74f01a324", -1, 700),
 	WINGAME1("jewels", "", "Jewels.exe", "c1a2e8b7e41fa204009324a9c7db1030", -1, 700),
 
+	// Both installers also use Director
+	// Mac filename is Starta Jönssonligan
+	// Windows filename is Jönssonligan.exe
+	MACGAME1_l("jonssonligan1", "", "Starta Jonssonligan", "0944b962ebb00f4b5d5149d220f8449b", 113750, Common::SE_SWE, 702),
+	WINGAME1_l("jonssonligan1", "", "Jonssonligan.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2432602, Common::SE_SWE, 702),
+
 	// Plays QuickTime movie then opens webpage (still works in 2021)
 	WINGAME2("jsa", "Demo", "Projector.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2289485,
 							"jslogo.jpg",    "fd78f0ab06eb3894d38c11a75e13d008", 25016, 702),
@@ -3865,6 +3874,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("planetstrass", "Demo", "Planet.exe", "88d4c24f6d4b78a73ce5b07693eddbc8", 15434606, 702),
 
+	WINGAME2_l("plcd", "Nº2 2000", "Start.exe",		  "7c18c9a6af2694156bf09ed195c1ab09", 2595928,
+								   "PL_2000_#02.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2921202, Common::RU_RUS, 702),
+
 	MACGAME1_l("polis2", "", "POLIS 2", "fa52f0136cde568a46249ce74f01a324", 110730, Common::SE_SWE, 700),
 	MACGAME1_l("polis2", "", "Kripos 2", "fa52f0136cde568a46249ce74f01a324", 111690, Common::NB_NOR, 700),
 	WINGAME1_l("polis2", "", "Polis 2.exe", "c1a2e8b7e41fa204009324a9c7db1030", 2678147, Common::SE_SWE, 700),
@@ -3889,6 +3901,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("relaxation", "ECD", "Solitude",	  "0944b962ebb00f4b5d5149d220f8449b", 112738, 702),
 	WINGAME1("relaxation", "ECD", "solitude.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 1807680, 702),
 	MACGAME1("relaxplayer", "",	  "Relax",		  "0944b962ebb00f4b5d5149d220f8449b", 112738, 702),
+	WINGAME1("relaxplayer", "",	  "relax.exe",	  "7a4164849d026c0f2aa8ea4c7d5447ba", 1808584, 702),
 
 	MACGAME1("smartsteps3rd", "", "Smart Steps 3rd Grade", "0944b962ebb00f4b5d5149d220f8449b", 116042, 702),
 	WINGAME1("smartsteps3rd", "", "Smart Steps 3rd Grade.exe", "7c18c9a6af2694156bf09ed195c1ab09", 1820192, 702),
@@ -4118,8 +4131,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("phonicsquest", "Demo", "Phonics Quest Demo.exe", "0c81c84ca4966313ad27d47daba44537", 2202074, 851),
 
-	WINGAME2_l("pl", "Nº4 2001", "Start.exe",		"e24d4bab978b1a5c2326d2c56cf4d781", 2247370,
-								 "PL_2001_#04.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3842928, Common::RU_RUS, 800),
+	WINGAME2_l("plcd", "Nº4 2001", "Start.exe",		"e24d4bab978b1a5c2326d2c56cf4d781", 2247370,
+								   "PL_2001_#04.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3842928, Common::RU_RUS, 800),
 
 	WINGAME2_l("polis3", "", "launcher.exe", "0c81c84ca4966313ad27d47daba44537", 2860282,
 							 "polis3.dxr",	 "1a391250c502a1f55da5a4d0438b493d", 3533782, Common::ES_ESP, 851),
