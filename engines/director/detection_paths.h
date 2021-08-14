@@ -134,7 +134,7 @@ const char *directoryGlobs[] = {
 	"dicfiles",						// Time Blazers series
 	"docs",							// Enhanced CDs
 	"anim",							// 1 vs 100 (Mindscape)
-	"Lingo Expo",					// D4 sample movies
+	"lingo expo",					// D4 sample movies
 	"main",							// Meet MediaBand
 	"previews",						// TeraMedia Previews
 	"parts",						// The People Multimedia CD-Plus
@@ -145,6 +145,13 @@ const char *directoryGlobs[] = {
 	"put me on your desktop",		// Betty Page
 	"abc",							// Alphabet Train
 	"123",							// Ktar Alarkam
+	"vlaams",
+	"ned",							// I Spy School Days (Dutch)
+	"fl1",
+	"flipper",						// Flipper games (Yoram Gross)
+	"gems",							// Gems of Darkness / Jewels II
+	"corel cd home",
+	"the cassandra galleries",		// Cassandra Galleries
 	0
 };
 
