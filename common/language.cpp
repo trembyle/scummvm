@@ -61,6 +61,7 @@ const LanguageDescription g_languages[] = {
 	{    "tr", "tr_TR", "Turkish", TR_TUR },
 	{    "uk", "uk_UA", "Ukrainian", UA_UKR },
 	{    "sr", "sr_SP", "Serbian", SR_SER },
+	{    "ca", "ca_ES", "Catalan", CA_ESP },
 	{ nullptr, nullptr, nullptr, UNK_LANG }
 };
 

@@ -37,6 +37,7 @@ static const PlainGameDescriptor directorGames[] = {
 	// Commercially released games
 	{ "10plus2",			"10+2" },
 	{ "1stcdtoddler",		"My First CD-ROM: Toddler School" },
+	{ "3bessones",			"Les Tres Bessones: Jugar i Aprendre" }, // Catalan title, English selectable in game
 	{ "abductthis",			"Abduct This!" },
 	{ "afiles",				"The A-Files" },
 	{ "agapito",			"Agapito's Crazy Adventure" },
@@ -59,6 +60,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "basilbaker",			"Venice Under Glass: A Basil Baker Mystery Adventure"},
 	{ "bbbighelpers",		"Little Bears Make Big Helpers: Life's Little Lessons with the Berenstain Bears"},
 	{ "bearfamily",			"A Bear Family Adventure" },
+	{ "beautyorbeast",		"Beauty or the Beast" },
+	{ "bellini1",			"The Mad Magician and the Mystery of the Missing Boy" },
+	{ "bellini3",			"Bellini's Bikini" },
 	{ "betterd",			"The Better Dead Ratification" },
 	{ "beyondthewall",		"Beyond the Wall of Stars" },
 	{ "blinkybill1",		"Blinky Bill's Ghost Cave" },
@@ -247,6 +251,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "peterrabbit",		"The Adventures of Peter Rabbit and Benjamin Bunny" },
 	{ "physicus",			"Physicus: Save the World with Science!" },
 	{ "phonicsquest",		"Disney Phonics Quest" },
+	{ "pingu1",				"Pingu: A Barrel of Fun!" },
 	{ "planetarizona",		"Escape from Planet Arizona" },
 	{ "playroom",			"The Playroom" },
 	{ "poohac",				"Winnie the Pooh Activity Center" },
@@ -379,6 +384,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "learnworks2",		"Video Professor: Learn Works for Windows 95, Level 2" },
 	{ "leonardo",			"Leonardo the Inventor" },
 	{ "lewisclark",			"Lewis & Clark Interactive Picture CD" },
+	{ "lifeinuniverse",		"Life in the Universe with Stephen Hawking" },
 	{ "louvre",				"Le Louvre: The palace & its paintings" },
 	{ "makers",				"Makers of the 20th Century" },
 	{ "mediabook",			"The MediaBook CD for Director" },
@@ -445,6 +451,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "dreidel",			"DreidelLand: An Electronic Hanukah Treat" },
 	{ "emigre",				"Emigre Signs of Type: Big Cheese" },
 	{ "kfk",				"Kung Fu Kim" },
+	{ "lever",				"Lever Brothers Interactive CD-ROM" },
+	{ "limit0",				"Límit 0" },
 	{ "makeamug",			"Make-A-Mug" },
 	{ "mathtest",			"Math Test" },
 	{ "nomis",				"Nomis" },
@@ -474,11 +482,16 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "stressrelief2",		"Solitudes: Natural Stress Relief II" },
 	{ "tonetrakker",		"Tone Trakker" },
 
+	// Catalan titles
+	{ "3iadins",			"3 i a dins!" },
+	{ "limit0inici",		"Límit 0 Inici" },
+
 	// Danish titles
 	{ "bamse1",				"Bamses allerskoreste spille-rom" },
 	{ "bamse2",				"Bamse: Min egen spille-rom" },
 	{ "billetrille1",		"Bille & Trille: Da fantasien slap løs" },
 	{ "billetrille2",		"Bille & Trille: Helt ude i skoven" },
+	{ "savannahideen",		"Savannah ideen" },
 
 	// Dutch titles
 	{ "beestenboel",		"Beestenboel Zoölogic" },
@@ -526,6 +539,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "zwergnase",			"Zwerg Nase: Ein interaktives Märchen" },
 
 	// Italian titles
+	{ "galleriadartecez",	"Galleria d'arte: Cézanne" },
+	{ "galleriadartegau",	"Galleria d'arte: Gauguin" },
+	{ "galleriadarteman",	"Galleria d'arte: Manet" },
+	{ "galleriadartetou",	"Galleria d'arte: Toulouse-Lautrec" },
 	{ "ironmask",			"The Iron Mask" },
 	{ "lunes",				"I Lunes e la sfera di Lasifer" },					// Lunes & the sphere of Lasifer
 	{ "magicanti",			"I Magicanti e i 3 elementi" },						// The Magicanti & the 3 elements
@@ -918,6 +935,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "cinemac",			"CineMac Screen Saver Factory" },
 	{ "lewisclarkss",		"Lewis and Clark Screen Saver" },
 	{ "photos4us",			"Photos4us" },
+	{ "pinguss",			"Pingu Screen Savers" },
 	{ "ss102dalmations",	"102 Dalmations Screen Saver" },
 	{ "sscocacola",			"Coca-Cola Screen Saver" },
 	{ "ssdietcoke",			"Diet Coke Screen Saver" },
@@ -1773,6 +1791,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 //
 //////////////////////////////////////////////////
 
+	// Plays in Catalan, Spanish, English with selection at start
+	// English title screen says "Playing with the Triplets"
+	// Catalan title screen says "Jugant amb les tres bessones", which is not the title on the box
+	WINGAME1("3bessones", "", "INICI.EXE", "416d6dfe51ccc29fd52f4627602b9221", 895895, 404),
+
 	WINDEMO1("3datlas97", "Demo", "ATLAS97.EXE", "b5da314bdfd9344530a24093f2e0b566", 8300357, 404),
 
 	MACGAME1_l("4sight", "", "four-sight", "0c7bbb4b24823e5ab871cb4c1d6f3710", 508347, Common::JA_JPN, 404),
@@ -1983,7 +2006,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("dcanyon", "", "DCANYON.EXE",		   "f5033a9fd54d41d348fa97bd13f8f088", 1050728,
 							  "00intro.Dir",		   "f6ca66b328f7fbcdd2e911273d74677c", 3777126, Common::IT_ITA, 404),
 	WINGAME2_l("dcanyon", "", "DCANYON.EXE",		   "85e7939a0c3041660defb80e0d530230", 744381,
-							  "00INTRO.DIR",		   "3621850ac727f9cf116c41143482c16c", 4044830, Common::JA_JPN, 404),
+							  "00INTRO.DIR",		   "3621850ac727f9cf116c41143482c16c", 4044830, Common::ZH_CNA, 404),
 	WINGAME1("dcanyoncd", "", "DINO_CD.EXE",		   "5fe054ed623541a92c04f1572ecb6c5d", 3160272, 404),
 
 	// Mac executable is Derrat Sorcerum™ v1.0.3
@@ -2227,6 +2250,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("id4p11", "iD4 Mission Disk 11 - Area 51", "AREA51.EXE", "78be40f9c7e8e1770c388cc16a522aaf", 1776077, 400),
 
 	MACDEMO1("imagineers", "Portfolio", "The Imagineers Demo", "f00c61f30719f8ed5f64ddff2e3c7268", 482302, 404),
+
+	MACGAME1("imesceneryfish", "ECD", "Scenery and Fish", "e60d4b832a771b0064a703938f82dfb3", 2804, 404),
+	WINGAME2("imesceneryfish", "ECD", "runme.exe",		  "47b17c219097afb877fd9bc15455e4d4", 738415,
+									  "main.dir",		  "0b20d6b771b4f5fd50e823c3773aecdd", 3526788, 404),
 
 	// Play as either Shirley (disc 1) or Dolan (disc 2)
 	MACGAME2("improv", "Shirley", "IMPROV (PowerPC)", "096e0aacbc1670c80a354c3c49b3fabe", 60324,
@@ -2873,6 +2900,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("battles", "", "BATTLES OF THE WORLD", "06ed90580400cd9e263525f84c8075fd", 705701, 500),
 	WINGAME1("battles", "", "BT_INT32.EXE", "3460ad87d2ba57104e2810a77b53c220", 1400693, 500),
 
+	WINGAME1_l("bellini1", "", "SPOGEW95.EXE", "3460ad87d2ba57104e2810a77b53c220", 1528919, Common::DA_DAN, 500),
+
 	WINGAME1_l("bigmax", "nº10", "BIG32.EXE", "3460ad87d2ba57104e2810a77b53c220", 4539109, Common::PT_BRA, 500),
 
 	MACGAME1("blender", "Volume 2.5", "Blender (PPC)", "f102e699371fd85eaf57606a1c0b1adc", 94329, 501),
@@ -3022,16 +3051,24 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("ibmcdextra", "", "SAMPLER.EXE", "2e62abdad839e42068afdcd0644d7dcf", 929109,
 							   "SAMPMM.DIR",  "0a17bfdfbd2413932af9d1578419b4e3", 4642820, 500),
 
-	MACGAME1("imesceneryfish", "ECD", "Scenery and Fish", "e60d4b832a771b0064a703938f82dfb3", 2804, 404),
-	WINGAME2("imesceneryfish", "ECD", "runme.exe",		  "47b17c219097afb877fd9bc15455e4d4", 738415,
-									  "main.dir",		  "0b20d6b771b4f5fd50e823c3773aecdd", 3526788, 404),
-
 	// Installers for both platforms also use Director
 	MACGAME1_l("incarnatia", "", "incarnatia_PowerMac", "2e7d373f75c014be20cfb04c5cd65dae", 108736, Common::JA_JPN, 501),
 	WINGAME1_l("incarnatia", "", "incarnatia_Win.exe", "38b75ecdedf662326fe4931a68ae60cd", 1414152, Common::JA_JPN, 501),
 
 	MACGAME1("jslearn", "1997 D5 Demo", "JumpStart Previews", "231d3041df162be4a0ddd36a74eb03b6", 718745, 501),
 	WINGAME1("jslearn", "1997 D5 Demo", "PREV32A.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1411155, 501),
+
+	WINDEMO1("leadgolf", "Demo", "LEAD95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1410347, 501),
+
+	// Informational advertisement for Lever Brothers Limited
+	// Designed and produced by IBM Global Services "The Interactive Media Centre"
+	// Includes interactive features such as the History of Washing in QuickTime VR
+	// Also launches a non-Director game called Max & Sparky as well as two non-Director screen savers
+	// Choice of language at start includes:
+	// Danish, German, Spanish, Greek, French, English, Dutch, Portuguese, Finnish, Swedish
+	WINGAME1("lever", "", "LEVER.EXE", "c3c38bd3907ca7e13220b74bd0317a6c", 1091169, 500),
+
+	WINGAME1("lifeinuniverse", "", "SWHLife.exe", "3460ad87d2ba57104e2810a77b53c220", 1394457, 500),
 
 	MACGAME1("maccubed7", "", "Let's Go! Internet & Utilities", "5b3a7fa45ec7655c5f9b7fe39ae37a11", 705613, 500),
 
@@ -3091,6 +3128,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettson1", "", "PETT32.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1430755, Common::SE_SWE, 501),
 
 	WINDEMO1("picasso", "Demo", "PICASS32.EXE", "3460ad87d2ba57104e2810a77b53c220", 1413437, 500),
+
+	// Multi3 disc contains Brazil/Catalan/Spanish
+	WINGAME1_l("pingu1", "", "PINGU.EXE", "12345", 12345, Common::ES_ESP, 500),
+
+	// Included with Pingu 1
+	WINGAME1_l("pinguss", "", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, Common::PT_BRA, 500),
 
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
@@ -3267,6 +3310,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 							"START.Dir",   "b9f7a692dce72c30e54325c4a957e582", 9290, 600),
 
 	WINGAME1("1stcdtoddler", "", "_dkilbbt.exe", "d62438566e44826960fc16c5c23dbe43", 2012554, 650),
+
+	WINGAME1_l("3iadins", "", "TVC.EXE", "d62438566e44826960fc16c5c23dbe43", 1777420, Common::CA_ESP, 650),
 
 	// Mini-game from X-Fools can also be launched separately
 	WINGAME1("abductthis", "", "ABDUCT32.EXE", "a593079aecf5bd938ce75264cac24b2d", 3644633, 600),
@@ -3548,6 +3593,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("samson", "", "start.exe", "a593079aecf5bd938ce75264cac24b2d", 1919963,
 								"GOSCHOT.DXR", "045e8b0091317831da84596f807779cd", 161404, Common::NL_NLD, 600),
 
+	// Background on the developer and design philosophy
+	WINGAME1_l("savannahideen", "", "IDEENW95.EXE", "a593079aecf5bd938ce75264cac24b2d", 1837060, Common::DA_DAN, 600),
+
 	MACGAME1("shrlucky", "", "Arcade", "dab7a517b0877454d1e16c40c9b5a9be", 1029193, 600),
 	WINGAME1("shrlucky", "", "ARCWIN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 7304861, 600),
 
@@ -3624,6 +3672,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("bbbighelpers", "", "BigHelpers.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2843894, 702),
 
+	// Later releases are D8
+	WINGAME1_l("beautyorbeast", "", "Beauty or the Beast.exe", "02b0d114c93b598c737b1c627178195c", 2190754, Common::RU_RUS, 702),
+
+	MACGAME1_l("bellini3", "", "Bellinin bikinit", "0944b962ebb00f4b5d5149d220f8449b", 114321, Common::FI_FIN, 702),
+
 	MACGAME1_l("bibi2", "", "Spielstart",  "0944b962ebb00f4b5d5149d220f8449b", 117347, Common::DE_DEU, 702),
 	WINGAME2_l("bibi2", "", "Start.exe",   "7c18c9a6af2694156bf09ed195c1ab09", 1820386,
 							"SPIELST.DXR", "24139a522420d2c6e3f4d0aa502f5936", 2250124, Common::DE_DEU, 702),
@@ -3681,6 +3734,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	//Miel Monteur - Miel Bouwt Auto's!
 	WINGAME2_l("garygadget1", "", "Start.exe", "c1a2e8b7e41fa204009324a9c7db1030", 2933829,
 			"Monteur.cnt", "7038be89eb5c49b51927bf76d8fd0b8a", 2490, Common::NL_NLD, 700),
+
+	// Published by De Agostini Multimedia of Novara, Italy
+	WINGAME1_l("galleriadartecez", "", "Galleria.exe", "15293d97f618a578a06b97b884e9227e", 2685289, Common::IT_ITA, 702),
+	WINGAME1_l("galleriadartegau", "", "Galleria.exe", "e71e1596fb1339ffc3bba0e36f966a7e", 2682285, Common::IT_ITA, 702),
+	WINGAME1_l("galleriadarteman", "", "Galleria.exe", "15293d97f618a578a06b97b884e9227e", 2658563, Common::IT_ITA, 702),
+	WINGAME1_l("galleriadartetou", "", "Galleria.exe", "15293d97f618a578a06b97b884e9227e", 2685317, Common::IT_ITA, 702),
 
 	MACGAME1_l("ironmask", "", "THE IRON MASK", "0944b962ebb00f4b5d5149d220f8449b", 112786, Common::IT_ITA, 702),
 	WINGAME1_l("ironmask", "", "TIM.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2916546, Common::IT_ITA, 702),
@@ -3852,6 +3911,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("boeboekshaboe", "", "Arcade.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2389026, Common::NL_NLD, 800),
 	WINDEMO1_l("boeboekstocht", "Demo", "Boeboeks.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 58054, Common::NL_NLD, 800),
 
+	WINGAME1_l("beautyorbeast", "", "Bella.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2874898, Common::ES_ESP, 800),
+
 	MACGAME1_l("bibifilm", "", "Filmstudio", "3ba983d2dd8c94d882c0de01ab920c43", 1249397, Common::DE_DEU, 850),
 	WINGAME1_l("bibifilm", "", "Filmstudio_start.exe", "c163f36141579ee374f7b4b2bddee95a", 148898, Common::DE_DEU, 850),
 
@@ -3943,6 +4004,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("lewisclarkss", "", "Lewis and Clark Screen Saver", "b1bf6ceb4afd79814f93ee1d866f9a29", 243455, 850),
 	WINGAME1("lewisclarkss", "", "Lewis and Clark Screen Saver.exe", "c163f36141579ee374f7b4b2bddee95a", 29172512, 850),
+
+	// Plays school instructional videos, loads PDF documents, installs D10 game
+	WINGAME1_l("limit0inici", "", "limit0_inici.exe", "0c81c84ca4966313ad27d47daba44537", 723194, Common::CA_ESP, 851),
 
 	WINGAME1_l("lunes", "", "Lunes.exe", "9482a4a5f6ae02470ce1863808120f6e", 2258509, Common::IT_ITA, 851),
 
@@ -4225,6 +4289,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 									 "LevelData.utd",		"5b504423963c8c6a09713f8ba96e100f", 976888, 1000),
 	WINGAME2("jsworld2t", "",	   	 "TeacherPanel.exe",	"bcf64185ce848b7b70858d62945f48a8", 3142911,
 									 "TeacherHub.dcr",		"95a9c2e05fac3181cafc22da932dae2a", 270371, 1000),
+
+	// Original filename is Límit 0.exe
+	// Requires installation from D8 app limit0inici
+	// Selection of Spanish, Catalan, English at start
+	WINGAME1("limit0", "", "Limit 0.exe", "12345", 12345, 1000),
 
 	MACGAME1("miamath", "OS X", "MiaOSX", "666bfa2ee1ae12443ce06f5dd142502b", 53741, 1000),
 	WINGAME1("miamath", "", "MiaMath.exe", "0c25e89b5084b272f0eab7827b6e411a", 2671820, 1000),
