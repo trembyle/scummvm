@@ -103,8 +103,9 @@ const char *directoryGlobs[] = {
 	"deutsch",
 	"francais",						// Rename from Français
 	"italiano",						// Virtual Tourism Paris
-	"please copy to hd. G2",		// Rename from HDにｺﾋﾟｰして下さい。G2
-	"please copy to hd. G3",		// Rename from HDにｺﾋﾟｰして下さい。G3
+	"Copy to HD",					// Rename from HDにｺﾋﾟｰして下さい
+	"Copy to HD. G2",				// Rename from HDにｺﾋﾟｰして下さい。G2
+	"Copy to HD. G3",				// Rename from HDにｺﾋﾟｰして下さい。G3
 	"_files_",						// The Gate
 	"popup",						// Pop Up Computer
 	"alpha",						// Interactive Alphabet
@@ -135,6 +136,8 @@ const char *directoryGlobs[] = {
 	"anim",							// 1 vs 100 (Mindscape)
 	"Lingo Expo",					// D4 sample movies
 	"main",							// Meet MediaBand
+	"previews",						// TeraMedia Previews
+	"parts",						// The People Multimedia CD-Plus
 	0
 };
 
