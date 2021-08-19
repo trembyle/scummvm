@@ -21,6 +21,8 @@
 
 #include "image/image_decoder.h"
 
+#include "graphics/wincursor.h"
+
 #include "director/director.h"
 #include "director/cursor.h"
 #include "director/movie.h"
@@ -181,6 +183,27 @@ void Cursor::readFromResource(int resourceId) {
 
 				resetCursor(Graphics::kMacCursorCustom, false, resourceId);
 				break;
+			}
+		}
+
+		// TODO: figure out where to read custom cursor in windows platform
+		// currently, let's just set arrow for default one.
+		if (g_director->getPlatform() == Common::kPlatformWindows) {
+			resetCursor(Graphics::kMacCursorArrow, true, resourceId);
+			break;
+		}
+
+		// for win platform, try the cursor from exe
+		if (!readSuccessful && g_director->getPlatform() == Common::kPlatformWindows) {
+			// i'm not sure, in jman we have cursor id 2, 3, 4. and custom cursor id 128 129 130
+			uint id = (resourceId & 0x7f) + 2;
+			for (uint i = 0; i < g_director->_winCursor.size(); i++) {
+				for (uint j = 0; j < g_director->_winCursor[i]->cursors.size(); j++) {
+					if (id == g_director->_winCursor[i]->cursors[j].id.getID()) {
+						resetCursor(Graphics::kMacCursorCustom, false, id);
+						readSuccessful = true;
+					}
+				}
 			}
 		}
 

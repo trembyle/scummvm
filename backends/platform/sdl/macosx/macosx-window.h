@@ -20,9 +20,20 @@
  *
  */
 
-#ifndef AGS_ENGINE_MAIN_MAIN_DEFINES_EX_H
-#define AGS_ENGINE_MAIN_MAIN_DEFINES_EX_H
+#ifndef BACKENDS_PLATFORM_SDL_MACOSX_MACOSX_WINDOW_H
+#define BACKENDS_PLATFORM_SDL_MACOSX_MACOSX_WINDOW_H
 
-#define RETURN_CONTINUE      1
+#ifdef MACOSX
+
+#include "backends/platform/sdl/sdl-window.h"
+
+class SdlWindow_MacOSX final : public SdlWindow {
+public:
+	// Use an iconless window on OS X, as we use a nicer external icon there.
+	virtual void setupIcon() override {}
+	virtual float getDpiScalingFactor() const override;
+};
+
+#endif
 
 #endif

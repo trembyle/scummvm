@@ -25,6 +25,8 @@ Programmcodes finden Sie auf Englisch unter:
    - Unterstützung für Nightlong: Union City Conspiracy hinzugefügt.
    - Unterstützung für The Journeyman Project 2: Buried in Time hinzugefügt.
    - Unterstützung für Crusader: No Remorse hinzugefügt.
+   - Unterstützung für L-ZONE hinzugefügt.
+   - Unterstützung für Spaceship Warlock hinzugefügt.
 
  Neue Portierungen:
    - Die Version für den Nintendo DS wurde zu großen Teilen neu geschrieben.
@@ -39,9 +41,21 @@ Programmcodes finden Sie auf Englisch unter:
    - Unterstützung für hochauflösende Bildschirme (HiDPI) hinzugefügt.
    - Kommandozeilen-Parameter --window-size hinzugefügt, mit dem die Größe des ScummVM-Fensters festgelegt werden kann.
      Diese Option kann nur bei der Nutzung des OpenGL-Renderers verwendet werden.
+   - Fehler beim Wechseln zu dem Standard-Grafikmodus korrigiert. In einigen
+     Fällen wurde die Änderung erst nach einem Neustart von ScummVM
+     oder beim Start eines Spiels übernommen.
+
+ AGI:
+   - Unterstützung für einige russische Versionen hinzugefügt. Die Eingabe funktioniert nun.
 
  AGOS:
    - Unterstützung für die japanische PC-98-Version von Elvira 1 hinzugefügt.
+
+ CGE:
+   - Unterstützung für Sprachausgabe in Soltys hinzugefügt.
+
+ CGE2:
+   - Unterstützung für Sprachausgabe in Sfinx hinzugefügt.
 
  Dreamweb:
    - Darstellungsfehler in der russischen Fan-Übersetzung behoben.
@@ -58,6 +72,7 @@ Programmcodes finden Sie auf Englisch unter:
 
  Griffon:
    - Fehler korrigiert, der die Rückkehr zur Spiele-Liste/zum Launcher in The Griffon Legend verhindert hat.
+   - Unterstützung für Sprachausgabe in The Griffon Legend hinzugefügt.
 
  Grim:
    - Unterstützung für die Version in brasilianischem Portugiesisch von Grim Fandango hinzugefügt.
@@ -65,6 +80,7 @@ Programmcodes finden Sie auf Englisch unter:
  Kyra:
    - Unterstützung für die japanische Sega-CD-Version von Eye of the Beholder hinzugefügt.
    - Unterstützung für die hebräische Fan-Übersetzung von Legend of Kyrandia hinzugefügt.
+   - Unterstützung für die hebräische Fan-Übersetzung von Legend of Kyrandia 2 hinzugefügt.
    - Unterstützung für die Version in vereinfachtem Chinesisch für Legend of Kyrandia 3 hinzugefügt.
    - Unterstützung für die spielbare Demo-Version von Lands of Lore hinzugefügt.
 
@@ -97,7 +113,7 @@ Programmcodes finden Sie auf Englisch unter:
    - Unterstützung für die französische Version von LSL1VGA hinzugefügt.
    - Unterstützung für die hebräische Version von QFG1VGA hinzugefügt.
    - Unterstützung für die hebräische Version von GK1 hinzugefügt.
-   - UNterstützung für die russische Version von Longbow hinzugefpgt.
+   - Unterstützung für die russische Version von Longbow hinzugefpgt.
    - Unterstützung für die russische Version von LSL6 hinzugefügt.
    - Unterstützung für eine alternative russische Version von LSL7 hinzugefügt.
    - Unterstützung für eine alternative polnische Version von LSL7, welche mit
@@ -151,6 +167,20 @@ Programmcodes finden Sie auf Englisch unter:
      z.B. für Ednas Telefon-Nummer, mehr akzeptieren. (Warum wird hier überhaupt eine
      gecrackte Versionen verkauft?!)
    - Unterstützung für Musik in niedriger Qualität der Macintosh-Version von Loom hinzugefügt.
+   - Genauigkeit von Digital iMUSE in Full Throttle und The Curse of Monkey Island verbessert.
+     Diese Verbesserungen beheben auch einige Audiofehler in beiden Spielen.
+   - Sehr alter Fehler in Full Throttle behoben, der dafür sorgt, dass das Spiel nicht beendet werden kann.
+   - Genauigkeit in der Wegfindung von The Dig und The Curse of Monkey Island verbessert.
+   - Fehler in The Curse of Monkey Island behoben, der dafür sorgt, dass während des Kanonen-Minispiels in Teil 1
+     einer der drei Türme nicht zerstört werden kann.
+   - Animierter Zigarrenrauch zu der Nahaufnahme von Captain Smirk in der CD-Version von
+     Monkey Island 1 hinzugefügt. Er war in früheren Versionen vorhanden.
+   - Einige in der englischen, italienischen und deutschen CD- sowie der englischen FM-Towns
+     und Sega-CD-Version von Monkey Island 1 fehlende Dialog-Zeilen von Lemonhead
+     wurden wiederhergestellt.
+   - Der Uhren-Turm in Monkey Island 1 verhält sich nun in der CD-Version identisch zu
+     früheren Versionen. So musst Du etwa - nachdem Du ihn einmal untersucht hast -
+     den Raum verlassen und später wieder betreten, um die veränderte Beschreibung zu sehen.
 
  Tinsel:
    - Unterstützung für die Rückkehr zur ScummVM-Benutzeroberfläche hinzugefügt.
@@ -184,14 +214,23 @@ Programmcodes finden Sie auf Englisch unter:
    - Unterstützung für native Dateisystem-Dialoge hinzugefügt.
    - Der nuked OPL Adlib-Treiber ist wieder aktiviert.
 
+ Big-Endian-Portierung:
+   - Abstürze oder Darstellungsfehler in Blazing Dragons, Duckman und Full Pipe behoben.
+
+ macOS-Portierung:
+   - Unterstützung für den Dunkelmodus hinzugefügt.
+
  MorphOS-Portierung:
    - Unterstützung für native Dateisystem-Dialoge hinzugefügt.
    - Unterstützung für die Cloud-Anbindung hinzugefügt.
    - Der nuked OPL Adlib-Treiber ist wieder aktiviert.
    - Unterstützung für den CAMD MIDI-Treiber hinzugefügt.
+   - Standardmäßig wird nun der OpenGL-Renderer verwendet,
+     der eine deutlich verbesserte Unterstützung für HiDPI-Displays bietet.
 
  Windows-Portierung:
-   - Standardmäßig wird nun der OpenGL-Renderer verwendet, der eine deutlich verbesserte Unterstützung für HiDPI-Displays bietet.
+   - Standardmäßig wird nun der OpenGL-Renderer verwendet,
+     der eine deutlich verbesserte Unterstützung für HiDPI-Displays bietet.
 
 
 #### 2.2.0 "Interactive Fantasy" (27.09.2020)

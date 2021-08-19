@@ -27,6 +27,7 @@
 #include "common/tokenizer.h"
 
 #include "graphics/macgui/macwindowmanager.h"
+#include "graphics/wincursor.h"
 
 #include "director/director.h"
 #include "director/archive.h"
@@ -128,6 +129,9 @@ DirectorEngine::~DirectorEngine() {
 	for (Common::HashMap<Common::String, Archive *, Common::IgnoreCase_Hash, Common::IgnoreCase_EqualTo>::iterator it = _openResFiles.begin(); it != _openResFiles.end(); ++it) {
 		delete it->_value;
 	}
+
+	for (uint i = 0; i < _winCursor.size(); i++)
+		delete _winCursor[i];
 
 	clearPalettes();
 }

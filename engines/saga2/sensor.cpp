@@ -157,7 +157,7 @@ void checkSensors(void) {
 			uint32      sFlags = nonActorSenseFlags;
 			if (isActor(senseobj)) {
 				Actor *a = (Actor *)senseobj;
-				sFlags = a->enchantmentFlags;
+				sFlags = a->_enchantmentFlags;
 			}
 
 			if (sensor->check(info, sFlags)) {
@@ -482,7 +482,7 @@ bool ObjectSensor::check(SenseInfo &info, uint32 senseFlags) {
 	    getObject()->world(),
 	    getObject()->getLocation(),
 	    getRange() != 0 ? getRange() : kTileUVSize * kPlatformWidth * 8);
-	GameObject              *objToTest;
+	GameObject              *objToTest = nullptr;
 	iter.first(&objToTest);
 
 	for (iter.first(&objToTest);
