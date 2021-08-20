@@ -760,7 +760,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "eso",				"ESO Essentials: Student's Interactive CD-ROM" },
 	{ "inventos",			"Grandes Inventos" },
 	{ "pcplus64",			"PC Plus Super CD 64" },
-	{ "supermente",			"Super Mente" }, // Published only in Mexico
+	{ "supermente",			"Super Mente" },							// Published only in Mexico
 	{ "unlimitedcl",		"Unlimited CD-ROMs Educativos" },
 
 	// Swedish titles
@@ -772,7 +772,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "garygadget4",		"Bygg hus med Mulle Meck" },
 	{ "garygadget5",		"Upptäck rymden med Mulle Meck" },
 	{ "jonssonligan1",		"Jönssonligan: Jakten på Mjölner" },
-	{ "jonssonligan2",		"Jönssonligan: Jakten på Mjölner" },
+	{ "jonssonligan2",		"Jönssonligan går på djupet" },
 	{ "pettson1",			"Pettson o Findus i snickarbon" },
 	{ "pettsonjk",			"Pettson o Findus julkalender" },
 	{ "pettson2",			"Pettson & Findus i trädgården" },
@@ -1215,7 +1215,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1_l("adobedimensions", "Demo", "PD.Demo", "f5277c53bacd27936158dd3867e587e2", 1439492, Common::JA_JPN, 311),
 
-	// Original filename is アラン・ケイ
+	// Original filename is アラン・ケイ 
 	MACDEMO1_l("alankay", "Demo", "Alan Kay", "276bee761e48a6fd709df77d5c2f60dd", 6188389, Common::JA_JPN, 311),
 
 	MACGAME1_l("alexworld", "", "AlexWorld", "f5277c53bacd27936158dd3867e587e2", 391576, Common::JA_JPN, 300),
@@ -3544,7 +3544,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Contains previews for educational and religious products for children and adults
 	// Miscellaneous section contains an art package and an encyclopedia on pregnancy and birth
-	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_ARB, 600),
 
 	MACGAME1_l("garage", "", "Garage",	   "e5ed4533b25be47b708bb1245550cb2c", 118818, Common::JA_JPN, 650),
 	WINGAME2("garage", "",	 "Garage.exe", "0e43a5130e1964231fa25472108ca522", 1516264,
@@ -3902,6 +3902,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Windows filename is Jönssonligan.exe
 	MACGAME1_l("jonssonligan1", "", "Starta Jonssonligan", "0944b962ebb00f4b5d5149d220f8449b", 113750, Common::SE_SWE, 702),
 	WINGAME1_l("jonssonligan1", "", "Jonssonligan.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2432602, Common::SE_SWE, 702),
+	WINGAME1_l("jonssonligan2", "", "")
 
 	// Plays QuickTime movie then opens webpage (still works in 2021)
 	WINGAME2("jsa", "Demo", "Projector.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2289485,
@@ -4466,6 +4467,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 									 "LevelData.utd",		"5b504423963c8c6a09713f8ba96e100f", 976888, 1000),
 	WINGAME2("jsworld2t", "",	   	 "TeacherPanel.exe",	"bcf64185ce848b7b70858d62945f48a8", 3142911,
 									 "TeacherHub.dcr",		"95a9c2e05fac3181cafc22da932dae2a", 270371, 1000),
+
+	// Original filename is Límit 0.exe
+	// Requires installation from D8 app limit0inici
+	// Selection of Spanish, Catalan, English at start
+	WINGAME1("limit0", "", "Limit 0.exe", "827e5af88f4c096652a1523dc28c9bf4", 4664824, 1000),
+
+	// Found on Bonjour تعليم الفرنسية
+	// Software catalogue for Middle East Software Company of Giza, Egypt
+	WINGAME1_l("mesoftware", "", "MES.exe", "bcf64185ce848b7b70858d62945f48a8", 3560318, Common::AR_ARB, 1010),
 
 	MACGAME1("miamath", "OS X", "MiaOSX", "666bfa2ee1ae12443ce06f5dd142502b", 53741, 1000),
 	WINGAME1("miamath", "", "MiaMath.exe", "0c25e89b5084b272f0eab7827b6e411a", 2671820, 1000),
