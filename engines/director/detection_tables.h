@@ -38,6 +38,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "10plus2",			"10+2" },
 	{ "1stcdtoddler",		"My First CD-ROM: Toddler School" },
 	{ "3bessones",			"Les Tres Bessones: Jugar i Aprendre" }, // Catalan title, English selectable in game
+	{ "abclunch",		    "My Alphabet Lunch" },
+	{ "abcpalsafety",		"Safety Scavenger Hunt" }, // Alphabet Pals
 	{ "abductthis",			"Abduct This!" },
 	{ "afiles",				"The A-Files" },
 	{ "agapito",			"Agapito's Crazy Adventure" },
@@ -46,6 +48,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "amandastories",		"AmandaStories" },
 	{ "amber",				"AMBER: Journeys Beyond" },
 	{ "amertailmb",			"An American Tail Interactive MovieBook" },
+	{ "aolstarwars",		"Star Wars: Episode III: Game, Videos & More!" },
 	{ "arcadeairattack",	"Classic Arcade Air Attack" },
 	{ "arcadeboing",		"Classic Arcade Boing" },
 	{ "arcadehockey",		"Classic Arcade Air Hockey" },
@@ -60,6 +63,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "badday",				"Bad Day on the Midway" },
 	{ "badmilk",			"Bad Milk" },
 	{ "bananasfun",			"Bananas in Pyjamas: It's Fun Time" },
+	{ "bananaspack",		"Bananas in Pyjamas: Fun Pack" },
+	{ "bananasparty",		"Bananas in Pyjamas: It's Party Time" },
 	{ "barbnail",			"Barbie Nail Designer" },
 	{ "barbpauper",			"Barbie as the Princess and the Pauper" },
 	{ "barbrapunzel",		"Barbie as Rapunzel: A Creative Adventure" },
@@ -85,6 +90,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "casinoslots",		"Casino Slots" },
 	{ "casperact",			"Casper Activity Center" },
 	{ "cassandra",			"The Cassandra Galleries" },
+	{ "catcameback",		"The Cat Came Back" },
 	{ "catshats",			"Black Cats and Pointed Hats" },
 	{ "cbible",				"Children's Bible Stories" },
 	{ "cclown",				"A Color Clown Comes to Town" },
@@ -119,8 +125,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "fff",				"Four Footed Friends" },
 	{ "fishwish",			"The Fish Who Could Wish" },
 	{ "flipper",			"Flipper" },
-	{ "flipper3worlds",		"The Three Worlds of Flipper & Lopaka" },
-	{ "flippersecrets",		"Flipper & Lopaka: Secrets of the Deep" },
+	{ "flipper1",           "The Three Worlds of Flipper & Lopaka" },
+	{ "flipper2",           "Flipper & Lopaka: Secrets of the Deep" },
 	{ "foocastle",			"Foo Castle" },
 	{ "forestia",			"Forestia: The Great Adventure" },
 	{ "fpairport",			"Fisher-Price Little People: Discovery Airport" },
@@ -147,7 +153,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "gadgetpaf",			"Gadget: Past as Future" },
 	{ "garage",				"Garage: Bad Dream Adventure" }, // English fan translation
 	{ "garfieldmadcats",	"Garfield: Mad about Cats" },
+	{ "garygadget1",		"Building Cars with Gary Gadget" }, // Sequels list under Swedish
 	{ "generations",		"Generations" },
+	{ "getaheadmathcr",		"Math Head Creator" },
+	{ "getaheadstrat",		"Strategy Heads" },
 	{ "ggmd",				"The Great Green Mouse Disaster" },
 	{ "ggmdmaze",			"The Great Green Mouse Disaster: Mouse Maze" },
 	{ "ggmdpics",			"The Great Green Mouse Disaster: Gallery" },
@@ -169,6 +178,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "hamsterland1",		"Busy People of Hamsterland" },
 	{ "hamsterland2",		"Hamsterland: The Time Machine" },
 	{ "heidi",				"Heidi: Your World is the Mountains" },
+	{ "hellcab",			"Hell Cab" },
 	{ "hhouse",				"Gahan Wilson's The Ultimate Haunted House" },
 	{ "hkbigfun",			"Hello Kitty Big Fun Deluxe" },
 	{ "horrortour1",		"Zeddas: Servant of Sheol" },
@@ -184,6 +194,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "id4p10",     		"iD4 Mission Disk 10 - Alien Bomber" },
 	{ "id4p11",     		"iD4 Mission Disk 11 - Area 51" },
 	{ "improv",     		"Don't Quit Your Day Job" },
+	{ "ingenious",     		"Ingenious!" },
+	{ "ingenioused",     	"Ingenious! Education Resources" },
 	{ "ironhelix",			"Iron Helix" },
 	{ "isis",				"Isis" },
 	{ "ispy",				"I Spy" },
@@ -254,10 +266,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "necrobius",			"Necrobius" },
 	{ "necromancer",		"Necromancer" },
 	{ "nightcafe",			"Night Café" },
+	{ "nikolaiknights",		"Nikolai in Time: In the Time of the Knights" },
 	{ "nikolaimystery",		"Nikolai\'s Mysteries: The Mystery of the Black Windows" },
+	{ "nikolaipirates",		"Nikolai\'s Pirates" },
 	{ "nikolaispace",		"Nikolai in Outer Space" },
 	{ "nikolaispaceedu",	"Nikolai Space Education" },
-	{ "nikolaitoy",			"NN\'nN Toy Makers" },
+	{ "nikolaitoys",		"NN\'nN Toy Makers" },
 	{ "nikolaitreats",		"Nikolai's Treats" },
 	{ "nile",				"Nile: Passage to Egypt" },
 	{ "nine",				"9: The Last Resort" },
@@ -302,6 +316,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "searchlearn",     	"Search & Learn Adventures" },
 	{ "secretkeys",     	"Search for the Secret Keys with Mickey" },
 	{ "secretpaths1",		"Secret Paths in the Forest" },
+	{ "sfpd",               "SFPD Homicide Case File: The Body in the Bay" },
 	{ "shellwhirl",			"Shell Whirl" },
 	{ "shr1st2nd",			"Schoolhouse Rock!: 1st & 2nd Grade Essentials" },
 	{ "shr3rd4th",			"Schoolhouse Rock!: 3rd & 4th Grade Essentials" },
@@ -312,7 +327,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "shrmess",			"Schoolhouse Rock!: 1st-4th Grade Math Essentials" },
 	{ "simpsonplayer",		"The Simpsons Cartoon Player"},
 	{ "simpsonstudio",		"The Simpsons Cartoon Studio"},
+	{ "sitfarm",	        "Sitting on the Farm"},
 	{ "skeeto10",			"Skipper & Skeeto: Fun in the Park" }, // Magnus & Myggen
+	{ "skippy",             "Skippy and the Curse of the Temple of Ock" },
 	{ "skyborg",			"SkyBorg: Into the Vortex" },
 	{ "slamdunktyping",		"Slam Dunk Typing" },
 	{ "smartsteps3rd",		"Smart Steps 3rd Grade" },
@@ -325,6 +342,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "starwarped",			"Star Warped" },
 	{ "staytooned",			"Stay Tooned!" },
 	{ "superspy",			"SuperSpy 1" },
+	{ "supertutorgram",		"Super Tutor Grammar" },
 	{ "takeru",				"Buichi Terasawa's Takeru: Letter of the Law" },
 	{ "teamxtreme1",		"Operation: Weather Disaster" },
 	{ "teamxtreme2",		"Operation: Eco-Nightmare" },
@@ -351,6 +369,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "vp2",				"Virtual Physics: The Eggs of Time" },
 	{ "vvvampire",			"Victor Vector & Yondo: The Vampire's Coffin" },
 	{ "warlock", 			"Spaceship Warlock" },
+	{ "wiggles1", 			"A Day with the Wiggles" },
 	{ "winnie", 			"Winnie the Witch" },
 	{ "wishbone", 			"Wishbone and the Amazing Odyssey" },
 	{ "wrath",				"Wrath of the Gods" },
@@ -369,6 +388,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "alice2ocean",		"From Alice to Ocean: Alone Across the Outback" },
 	{ "amnesty",			"Amnesty Interactive" },
 	{ "aruba",				"Aruba Interactive" },
+	{ "athletics",			"International Athletics" },
 	{ "babylon5int",		"Babylon 5 Interactive" },
 	{ "battles",			"Battles of the World" },
 	{ "beatexp",			"The Beat Experience" },
@@ -420,8 +440,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "lewisclark",			"Lewis & Clark Interactive Picture CD" },
 	{ "louvre",				"Le Louvre: The palace & its paintings" },
 	{ "makers",				"Makers of the 20th Century" },
-	{ "max2",				"Max and the Haunted Castle" },
+	{ "max1",				"Max and the Secret Formula" },
+	{ "max2",				"Max and Marie Go Shopping" },
+	{ "max3",				"Max and the Haunted Castle" },
 	{ "mediabook",			"The MediaBook CD for Director" },
+	{ "msa2001",		    "Middle School Advantage 2001" },
 	{ "moag",				"The Museum of Anything Goes" },
 	{ "ms500nations",		"Microsoft 500 Nations" },
 	{ "msdinosaurs",		"Microsoft Dinosaurs" },
@@ -429,6 +452,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "mswine",				"Microsoft Wine Guide" },
 	{ "mysteriousegypt",	"Mysterious Egypt" },
 	{ "newslinks",			"ABC NewsLinks" },
+	{ "nia4",			    "News in Action 4" },
 	{ "nightsky",			"Night Sky Interactive" },
 	{ "nixon",				"Nixon: Watergate" },
 	{ "painters",			"Emile de Antonio's Painters Painting" },
@@ -440,6 +464,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "planetstrass",		"Pl@net" },
 	{ "princetonsat98",		"The Princeton Review: Inside the SAT '98" },
 	{ "revwar",     		"Revolutionary War Picture CD" },
+	{ "saguaro",            "Saguaro & the City: Investigate the Sonoran Desert with an Interactive CD ROM" },
 	{ "saillusion",     	"Scientific American Library: Illusion" },
 	{ "sarahcatalog",     	"Sarah McLachlan Catalogue" },
 	{ "sauniverse",     	"Scientific American Library: The Universe" },
@@ -469,11 +494,13 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "whales", 			"World of Whales: An Interactive Voyage of Pure Wonder" },
 	{ "wildblueyonder1", 	"Wild Blue Yonder: Episode 1: 50 Years Of Gs And Jets" },
 	{ "wine", 				"The Wine CD" },
+	{ "woodstock25", 		"Woodstock: 25th Anniversary CD-ROM: 3 Days of Peace & Music" },
 	{ "womanengineer", 		"You Can Be a Woman Engineer" },
 	{ "wwanimals", 			"Wide World of Animals" },
 	{ "xfua",				"The X-Files Unrestricted Access" },
 
 	// Shareware and freeware
+	{ "alanna",             "The Lost Island of Alanna" },
 	{ "antsafire",			"Ants Afire!" },
 	{ "arad",				"Animaniacs River Adventure" },
 	{ "belcher",			"The Belcher" },
@@ -501,6 +528,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "timeline",			"TimeLine Animation" },
 	{ "troubleshoot101",	"Troubleshooting 101" },
 	{ "verttice",			"DreamLight Verttice" },
+	{ "worldnet",			"AT&T WorldNet Service E-Guide" },
 	{ "wriggle",			"Wriggle" },
 
 	// Music videos and enhanced music CDs
@@ -535,6 +563,9 @@ static const PlainGameDescriptor directorGames[] = {
 	// Catalan titles
 	{ "3iadins",			"3 i a dins!" },
 	{ "limit0inici",		"Límit 0 Inici" },
+
+    // Czech titles
+	{ "nemcina",            "Německá gramatika cvičebnice" },           // German grammar workbook
 
 	// Danish titles
 	{ "bamse1",				"Bamses allerskoreste spille-rom" },
@@ -601,11 +632,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "4sight",				"four-sight" },
 	{ "adam",				"A.D.A.M." },
 	{ "alexworld",			"ALeX-WORLD" },
+	{ "alius",			    "The Alius: Intaractive Adventure Movie" },         // Not a typo
 	{ "angelgate",			"Angel Gate" },
 	{ "animaltown",			"わくわくアニマルタウン" },			  				// Waku Waku Animal Town
 	{ "ankh1",				"アンク ピラミッドの謎" },
 	{ "ankh2",				"アンク 2 ツタンカーメンの謎" },
 	{ "ankh3",				"アンク 3" },
+	{ "bem",				"妖怪人間ベム 新たなる魂の迷宮" },                  // Yokai Ningen Bemu
+	{ "bemtoybox",			"妖怪人間ベム データToyBox" },                      // Bem Data Toy Box
 	{ "cellofania",			"セロファニア" },
 	{ "chinacrisis",		"China Crisis" },
 	{ "chisanaensoka",		"小さな演奏家" },									// Little Musician (Crickets)
@@ -613,6 +647,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "chuteng",   			"中天" },
 	{ "cutie10",   			"キューティ１０" },
 	{ "dan",				"ダン" },									   		// Dan
+	{ "djrom",				"The DJ-ROM: Da CD-Extra of Hip-Hop Music" },
 	{ "earthtia",			"アースティアサーガ ラーサーレジェンド" },		  	// Earthtia Saga: Larthur's Legend
 	{ "fantazion",			"World Engine Fantazion" },
 	{ "ffa",				"ファンキー ファニー エイリアンズ" },			 	// Funky Funny Aliens
@@ -700,9 +735,15 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ddoa2",				"アイドル探偵ＹＯＵ＆ＭＹ" },						// Idol Tantei (Doki Doki On-air Drama Series)
 	{ "eguchi",				"江口寿史 CG MUSEUM" },								// Hisashi Eguchi
 	{ "fototune",			"FotoTune Multimedia Show" },
+	{ "furbydentaku",		"ファービー電卓" },								    // Furby Calculator
 	{ "futarinoryori",		"ふたりの料理物語" },								// A Tale of Two Chefs
 	{ "goalrush1",			"Goal Rush!!" },
 	{ "goalrush2",			"Goal Rush!! 2 ～戦術分析編～" },
+	{ "heididentaku1",		"ハイジ電卓１" },
+	{ "heididentaku2",		"ハイジ電卓２" },
+	{ "heididentaku3",		"ハイジ電卓３" },                                   // Heidi Calculators
+	{ "heidimail",			"Heidi グリーティングメールカード" },               // グリーティングメールカード (Greeting Mail Card)
+	{ "heidislide",			"Heidi スライドショー" },                           // Slideshow
 	{ "ioshow",				"iós How To Game" },
 	{ "keiri",				"経理入門" },										// Introduction to Accounting
 	{ "mazebox",			"The Latest Works of MazeBox" },
@@ -710,11 +751,21 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "mominoki",			"もみの木の下で ～ The Day of St.Claus" },			// Under the Fir Tree
 	{ "moritaka",			"森高千里 CD-ROM 渡良瀬橋" },
 	{ "oceansbelow",		"Oceans Below" },
+	{ "pbdisplay",	        "PerfectBLUE DISPLAY" },
+	{ "pbflash",	        "PerfectBLUE FLASH" },
+	{ "pbmima",	            "PerfectBLUE MIMA" },
+	{ "pbosakana",	        "PerfectBLUE OSAKANA" },
+	{ "pbtoilet1",	        "PerfectBLUE TOILET1" },
+	{ "pbtoilet2",	        "PerfectBLUE TOILET2" },
+	{ "perfectblue",        "Perfect Blue そらいろ★ナイト" },
+	{ "sabotenman",			"The Saboten Man" },
 	{ "sakurascr",			"さくらのSCRセレクタ" },							// Sakura's SCR Selector
 	{ "satodesign",			"The Art of Computer Designing: A Black and White Approach" },
 	{ "satohomosexual",		"Homosexual" },
 	{ "sculpt4d",			"Sculpt 4D" },
 	{ "spawncollection",	"Spawn Figure Collection for Windows 95" },
+	{ "ssheidi1",			"Heidi スクリーンセーバー 1" },
+	{ "ssheidi2",			"Heidi スクリーンセーバー 2" },
 	{ "sskero",				"ケロ Screen Saver" },
 	{ "sssakura",			"さくら Screen Saver" },
 	{ "ssyamazaki",			"山崎君 Screen Saver" },							// Yamazaki-kun
@@ -724,6 +775,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tri3dtrial",			"Tri-3D-Trial" },
 	{ "ukiukibgv",			"ウキウキ釣り天国 BGV" },							// Background Video? (Screen Saver)
 	{ "vcb",				"Virtual Cocktail Bar 200種類のカクテルのデータベース" },
+	{ "yokai",		        "真・百物語: 妖怪紳士録" },                         // Ma hyakumonogatari: Yōkai shinshiroku
+	{ "yokai200",	        "水木しげるの妖怪図鑑 傑作200選 -日本編1" },        // Mizuki Shigeru no Yokai Zukan Kessaku 200-sen Nihon-hen 1
+	{ "yokai400",	        "水木しげるの妖怪図鑑 傑作400選 -日本編2" },        // Mizuki Shigeru no Yokai Zukan Kessaku 400-sen Nihon-hen 2
+	{ "yokaizukan",			"妖精妖怪図鑑" },                                   // Fairy Yōkai Encyclopedia
+	{ "yumemirukairo",		"「夢みる廻廊」所幸則フルカラーミュージアムCD-ROM" }, // Gallery of Dreams
+	{ "zuiyomail",			"ZUIYO グリーティングメールカード" },               // グリーティングメールカード (Greeting Mail Card)
 
 	// Japanese product demos
 	{ "backgrounds",		"Backgrounds for Multimedia Series" },
@@ -782,6 +839,7 @@ static const PlainGameDescriptor directorGames[] = {
 	// Russian titles
 	{ "engl",				"English for Beginners" },
 	{ "plcd",				"Подводная Лодка" },						   // Podvodnaya Lodka (Submarine) magazine
+	{ "max1max2",			"Макс демонстрация" },                          // Max (Tivola) demos of the first two games
 	{ "tchaik",				"Пётр Ильи́ч Чайко́вский: Жизнь и творчество" }, // Pyotr Ilyich Tchaikovsky: Life and Work
 	{ "tutti",				"Волшебные истории Тутти" },				   // Tutti's Magical Stories
 
@@ -789,6 +847,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "123habloingles",		"1·2·3 Hablo Inglés" },
 	{ "abrapalabra",		"Abrapalabra: La Magicia de Aprender a Leer" },
 	{ "clasplusbee2",		"Classical Plus: Ludwig van Beethoven" },	// Planeta DeAgostini, a Spanish-Italian company based in Barcelona
+	{ "deportes",			"Deporte y Musculación" },
 	{ "eso",				"ESO Essentials: Student's Interactive CD-ROM" },
 	{ "inventos",			"Grandes Inventos" },
 	{ "pcplus64",			"PC Plus Super CD 64" },
@@ -799,8 +858,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "alfons",				"Alfons Åberg ”Bara Överallt!”" },
 	{ "backpacker2",		"Backpacker 2" },
 	{ "ernie",				"Ernie" },
-	{ "garygadget1",		"Bygg bilar med Mulle Meck" },
-	{ "garygadget2",		"Bygg båtar med Mulle Meck" },
+	{ "garygadget2",		"Bygg båtar med Mulle Meck" },              // First game listed under English
 	{ "garygadget4",		"Bygg hus med Mulle Meck" },
 	{ "garygadget5",		"Upptäck rymden med Mulle Meck" },
 	{ "jonssonligan1",		"Jönssonligan: Jakten på Mjölner" },
@@ -831,9 +889,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "planetrav",			"Planetary Traveler" },
 
 	// Other products using VideoWorks or Director movies only
-	// Examples are HyperCard, Authorware, and Microsoft Reference
+	// Examples are HyperCard, Authorware, Shockwave, and Microsoft Reference
 	{ "encarta94",			"Microsoft Encarta '94" },
 	{ "encarta95",			"Microsoft Encarta '95" },
+	{ "encartaatlas2000",   "Microsoft Encarta Interactive World Atlas 2000" },
 	{ "macworldexpo92",		"Macworld Expo CD Boston 1992" },
 	{ "manhole",			"The Manhole" },
 	{ "mazewars",			"Maze Wars+" },
@@ -922,6 +981,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "d",   				"D" },
 	{ "dotsafe",   			"Dotsafe" },
 	{ "earthwormjim",		"Earthworm Jim" },
+	{ "earthwormjim",		"Earthworm Jim" },
 	{ "exos",				"Exos PowerStick" },
 	{ "explorapedia",		"Microsoft Explorapedia" },
 	{ "famalbum",			"Family Album Creator" },
@@ -981,12 +1041,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "orly",				"Orly's Draw-A-Story" },
 	{ "pagemaker",			"Aldus PageMaker" },
 	{ "pitfall",			"Pitfall: The Mayan Adventure" },
+	{ "powerchess",			"Power Chess" },
 	{ "princeint",			"Prince Interactive" },
 	{ "pspice",				"MicroSim PSpice" },
 	{ "raydream",			"Ray Dream Designer" },
 	{ "readblasterjr",		"Reading Blaster Jr." },
 	{ "redshift",			"RedShift: Multimedia Astronomy" },
-	{ "rodney",				"Rodney's Funscreen" },
+	{ "rodneyfs",			"Rodney's Funscreen" },
+	{ "rodneyww",			"Rodney's Wonder Window" },
 	{ "rosettastone",		"The Rosetta Stone" },
 	{ "santafe1",			"Santa Fe Mysteries: The Elk Moon Murder" },
 	{ "shanghai",			"Shanghai: Great Moments" },
@@ -1325,6 +1387,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1_l("calling", "Demo", "CallingPlayer", "276bee761e48a6fd709df77d5c2f60dd", 392676, Common::JA_JPN, 313),
 
+    // From Sanctuary Woods Multimedia. Projectors for English, French, Spanish are included on the disc.
+    WINGAME1("catcameback", "",   "TITLEE.EXE", "65d06b5fef155a2473434571aff5bc29", 369998, 310),
+    WINGAME1_l("catcameback", "", "TITLES.EXE", "65d06b5fef155a2473434571aff5bc29", 369998, Common::ES_ESP, 310),
+    WINGAME1_l("catcameback", "", "TITLEF.EXE", "65d06b5fef155a2473434571aff5bc29", 369998, Common::FR_FRA, 310),
+
 	// Each movie has its own projector
 	WINGAME1("cdphysics", "", "CDINTRO.EXE", "65d06b5fef155a2473434571aff5bc29", 370004, 313),
 
@@ -1412,6 +1479,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("fontfriends", "Catalog", "Try 256 colors", "f5277c53bacd27936158dd3867e587e2", 1577548, Common::JA_JPN, 311),
 
 	MACGAME1("foocastle", "", "Foo Castle", "7f443f2e63fd497a9ad85b10dc880a91", 385555, 313),
+	WINGAME1("foocastle", "", "FCASTLE.EXE", "65d06b5fef155a2473434571aff5bc29", 370481, 313),
 
 	MACGAME1_l("fototune", "", "FotoTune Multimedia show", "1ae45c23586b41997ba52e2e7c771c4c", 378993, Common::JA_JPN, 311),
 
@@ -1437,6 +1505,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("golfcd", "", "GOLF.EXE", "65d06b5fef155a2473434571aff5bc29", 370009, 313),
 
 	MACDEMO1_l("granmarmalade", "Demo", "GranMarmalade", "f5277c53bacd27936158dd3867e587e2", 1077206, Common::JA_JPN, 311),
+
+	MACGAME1("gustown", "", "GUS", "7f443f2e63fd497a9ad85b10dc880a91", 384462, 313),
+	WINGAME1("gustown", "", "GUS.EXE", "65d06b5fef155a2473434571aff5bc29", 369999, 310),
+
+    WINGAME1("hellcab", "",   "HELLCAB.EXE", "65d06b5fef155a2473434571aff5bc29", 370006, 310),
+    WINGAME1_l("hellcab", "", "HELLCAB.EXE", "01f98729644d862e15d67ee08ecc302c", 370094, Common::ES_ESP, 310),
+    WINGAME1_l("hellcab", "", "HELLCAB.EXE", "bacbb3b51e553de98f1db77f50450d88", 369982, Common::PT_BRA, 310),
 
 	MACDEMO1_l("henachoco", "Trial Version", "Hena Choco Derby Demo", "f5277c53bacd27936158dd3867e587e2", 1794267, Common::JA_JPN, 311),
 
@@ -1730,8 +1805,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("refixion2", "", "Museum or Hospital", "1ae45c23586b41997ba52e2e7c771c4c", 375841, Common::JA_JPN, 300),
 	MACGAME1_l("refixion3", "", "The Reindeer Story", "f5277c53bacd27936158dd3867e587e2", 392473, Common::JA_JPN, 300),
 
-	// Full game is supported in MADE engine
-	MACDEMO1("rodney", "Demo", "Rodney's Funscreen demo", "9f0bb7ec7720e4f680ee3aa3d22c1c9d", 356866, 300),
+	// Original Mac version is Director. Later DOS port uses MADE engine (also in ScummVM).
+	MACDEMO1("rodneyfs", "Demo", "Rodney's Funscreen demo", "9f0bb7ec7720e4f680ee3aa3d22c1c9d", 356866, 300),
+
+    MACGAME1("rodneyww", "", "xn--Wonder Window-8q9g", "1ae45c23586b41997ba52e2e7c771c4c", 375468, 310),
+    WINGAME1("rodneyww", "", "RWW.EXE", "dac3b117db9be024ff6747b1b6c49d9c", 408259, 310),
 
 	MACGAME1("satodesign", "Gift Disk", "Animation", "a03ae8a9bf211bcb26388b6b6da17c2b", 389109, 311),
 	MACGAME1("satohomosexual", "", "SATO&NAKAZAWA", "a03ae8a9bf211bcb26388b6b6da17c2b", 736532, 311),
@@ -1761,6 +1839,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("sfk", "", "More SFK Products!", "1ae45c23586b41997ba52e2e7c771c4c", 377923, 310),
 
+    // Found on The Cat Came Back
+    WINDEMO1("sitfarm", "Demo", "MOREFUN.EXE", "65d06b5fef155a2473434571aff5bc29", 4397800, 310),
+
 	// Original filename is 棋士道
 	MACDEMO1_l("kishido", "Demo", "Kishido", "f5277c53bacd27936158dd3867e587e2", 4026429, Common::JA_JPN, 311),
 
@@ -1769,9 +1850,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("sk8board", "Demo", "RIDE.EXE", "65d06b5fef155a2473434571aff5bc29", 370013, 310),
 
-	MACGAME1("snh", "", "A Silly Noisy House", "9f0bb7ec7720e4f680ee3aa3d22c1c9d", 357142, 300),
+	MACGAME1("snh", "",        "A Silly Noisy House",       "9f0bb7ec7720e4f680ee3aa3d22c1c9d", 357142, 300),
 	MACDEMO1("snh", "Sampler", "Silly Noisy House Sampler", "2064fd9b1871f02d216d20e92019a7ac", 1592334, 311),
-	WINGAME1("snh", "", "SNH.EXE", "5a6e241994f671a1ebe664fbae394217", 378901, 300),
+	WINGAME1("snh", "",   "SNH.EXE",   "5a6e241994f671a1ebe664fbae394217", 378901, 300),
+	WINGAME1_l("snh", "", "dbbbh.exe", "9e13813fd39da5e27627ee28894d6ec0", 738336, Common::DE_DEU, 300),
 
 	// Game is HyperCard based. Movies will play with --start-movie from console.
 	MACGAME1("spelunx", "v2.01 Color", "Spelunx", "8c4ac0488e92704a257698ee45affea5", 1208584, 313),
@@ -1868,6 +1950,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is WONDEROMPM4.5J Ver.2 ｻﾝﾌﾟﾙ
 	MACDEMO1_l("wonderompm", "Sample Version", "WONDEROMPM4.5J Ver.2 sample", "f5277c53bacd27936158dd3867e587e2", 392574, Common::JA_JPN, 311),
 
+    WINGAME1("woodstock25", "",     "FESTIVAL.EXE", "65d06b5fef155a2473434571aff5bc29", 370006, 310),
+    WINDEMO1("woodstock25", "Demo", "WDSTOCK.EXE",  "65d06b5fef155a2473434571aff5bc29", 2099951, 310),
+
 	MACGAME1("wrath", "", "Wrath of the Gods", "2ce360c9ea2da80a2c6d1040b0ad92dd", 413986, 300),
 	WINGAME2("wrath", "", 	  "000WRATH.EXE", "3162423a1d0885eb1eb94f557a86b258", 372970,
 						  	  "SHARDCST.MMM", "22af72fba773cc5313d99c91b2e5aea9", 3432948, 300),
@@ -1939,11 +2024,20 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("9worlds", "", "Neun Welten", "3930940b5b4b2ae2563cc29b812855a6", 483774, Common::DE_DEU, 400),
 	WINGAME1_l("9worlds", "", "9WORLDS.EXE", "054e5af279a05ab64627ef664631fe37", 742002, Common::DE_DEU, 400),
 
+    WINGAME1("abcpalsafety", "", "EWOLSFTY.EXE", "a998d49776a611940e872a97a5fe3d1d", 4586417, 400),
+
 	MACGAME1_l("abrapalabra", "", "ABRAPALABRA", "bcd3c718db258701496b3c5bcb827ef2", 483774, Common::ES_ESP, 404),
 	WINGAME1_l("abrapalabra", "", "PALABRA.EXE", "a24a52bdb12d61eae64b9088b25ea03b", 862425, Common::ES_ESP, 404),
 
 	MACGAME1("alice", "", "Alice", "3b61149c922f0fd815ca29686e4f554a", 304714, 400),
 	WINGAME1("alice", "", "ALICE.EXE", "c67ece9b657ee80355520ac37a25fe55", 684733, 400),
+
+    // Developed by Collabo Software and NOVUM, distributed by XING Inc.
+    // Mac projector does indeed end in .EXE
+    // Win has projectors for 8-bit and 16-bit color
+    MACGAME1_l("alius", "",             "ALIUS_FAT.EXE", "df355a56c186f3d6a64d99e96600f48c", 499193, Common::JA_JPN, 404),
+    WINGAME1_l("alius", "8-bit Color",  "ALIUS_8.EXE",   "9db857a65199db5251a33b2121ec5984", 2426433, Common::JA_JPN, 404),
+    WINGAME1_l("alius", "16-bit Color", "ALIUS_16.EXE",  "98ac4e872421263dbbde1636b1e9d0e1", 2635737, Common::JA_JPN, 404),
 
 	MACGAME1("alphabet", "", "Alpha.ppc", "71287376e445ab9c98f0d150bb0ed175", 59444, 404),
 	WINGAME1("alphabet", "", "ALPHA.EXE", "c89c8301db7ef0ebffedf435863b3ffc", 749092, 404),
@@ -1979,6 +2073,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	 // Full game is not Director
 	WINDEMO1("ataripack", "Demo", "ACTDEMO.EXE", "4a8fd0d74faef305bc935e1aac94d3e8", 712817, 400),
 
+    MACGAME1("athletics", "", "ATHLETICS", "17efee018a660458fae80de4364021ac", 482866, 404),
+    WINGAME1("athletics", "", "PROJECT.EXE", "b804f1e4bf84c31979502329ee0f8c28", 696839, 404),
+
 	// Both Mac and Win versions require installation to extract executable
 	// Russian version appears to be identical with only assets replaced
 	// Original Japanese Mac filename is バッドデイ(Power PC)
@@ -2005,6 +2102,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO1_l("bebox", "Demo", "Invitation to BeBox", "5e2eb92e059fd2aa880c537da1385aa1", 484323, Common::JA_JPN, 404),
 
 	WINGAME1_l("beestenboel", "", "ZOOLOGIC.EXE", "348bbc6d04f4ab2b9493c764cdbea8f4", 773051, Common::NL_NLD, 404),
+
+    // Developed and published by Vantan International, Shibuya, Tokyo
+    // Original filename for game is 新たなる魂の迷宮
+    // Filename for toy box is データToyBox
+    MACGAME1_l("bem", "", "xn--f9jwam9iq41vctmzz3e04s", "0c7bbb4b24823e5ab871cb4c1d6f3710", 484219, Common::JA_JPN, 404),
+    MACGAME1_l("bemtoybox", "", "xn--ToyBox-hu4e9b90a", "0c7bbb4b24823e5ab871cb4c1d6f3710", 484323, Common::JA_JPN, 404),
 
 	MACGAME1_l("betterd", "", "Better Dead 12 megs", "17efee018a660458fae80de4364021ac", 486973, Common::JA_JPN, 404),
 	WINGAME1_l("betterd", "", "BETTERD.EXE", "e484d23ce2b6750d9e7e4a7b32632f47", 696877, Common::JA_JPN, 404),
@@ -2116,8 +2219,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is CityNetLine デモ版
 	MACDEMO1_l("cnl", "Demo", "CityNetLine Demo Version", "f5033f237ad1b1639fc46d01a82ac380", 286396, Common::JA_JPN, 404),
 
-	WINGAME2("comusic", "", "START.EXE", "fba297f096949fe11676360457a1a52f", 731053,
-							"INIT.DIR",	 "349635e29a5e28f88a43f3cf48b13380", 57796, 404),
+	WINDEMO2("comusic", "Sampler", "START.EXE", "fba297f096949fe11676360457a1a52f", 731053,
+						           "INIT.DIR",  "349635e29a5e28f88a43f3cf48b13380", 57796, 404),
 
 	WINDEMO1("connections", "Demo", "CONNECT.EXE", "9ee064f5c862e75cf73ba567724dc8b9", 690023, 404),
 
@@ -2250,11 +2353,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("ffa", "", "FFA-8M", "411051c134236a9ead0d0d1837aafb5e", 290682, Common::JA_JPN, 402),
 	PIPGAME1_l("ffa", "", "FFA", "2618a85198d0180e3eae9162f81aafed", 60921, Common::JA_JPN, 404),
 
-
 	//Fred en de Flessenfiets (Demo)
 	WINDEMO1_l("flaschenfahrrad", "Demo", "FREDDEMO.EXE", "f5fa2d95970e8eb85761e95d755883d2", 812075, Common::NL_NLD, 400),
 
-	//De vis die kon wensen
+	// Willy, der Zauberfisch : ein Meer voll Überraschungen!
+    // Originally published by Tivola, Hamburg (1997)
+    // De vis die kon wensen localized by Bombilla, Amsterdam
+	MACGAME1_l("fishwish", "", "Willy, der Zauberfisch", "ab2bda961c62f9deb2c1ba297d0a1ea9", 501815, Common::DE_DEU, 404),
 	WINGAME1_l("fishwish", "", "WENSVIS.EXE", "50004a80942bafec52bbde5c09674bf9", 696993, Common::NL_NLD, 404),
 
 	MACGAME1("fpbaxter", "", "bigplayer", "07710cabdfcf6d9fba4205dce062399c", 642443, 404),
@@ -2374,9 +2479,14 @@ static const DirectorGameDescription gameDescriptions[] = {
     // Disc 1 is called Haight, Disc 2 is called Ashbury. You can start either one.
     // Mac partition contains three mini-games that can be launched directly from Finder
     // Original Mac game filenames are Tune ◊ In, Turn ◊ On, Drop ◊ Out
-    MACGAME1("haight", "Drop Out", "Drop Out",             "c9c25d0d249d529680302a81c30852d0", 539498, 404),
-    MACDEMO1("haight", "Demo",     "Haight-Ashbury Short", "c9c25d0d249d529680302a81c30852d0", 539498, 404),
-    WINGAME1("haight", "Haight",   "HAIGHT.EXE",           "f309096bd3eb9f45283d7218bb8f1c88", 821499, 404),
+    // Demos are found on CD-ROM La Revista Nº6 (Spain) from Zinco Multimedia
+    MACGAME1("haight", "Haight",   "Haight-Ashbury in the Sixties", "c9c25d0d249d529680302a81c30852d0", 493066, 404),
+    MACDEMO1("haight", "Demo",     "Haight-Ashbury Short",          "c9c25d0d249d529680302a81c30852d0", 539498, 404),
+    MACGAME1("haight", "Tune In",  "Tune In",                       "c9c25d0d249d529680302a81c30852d0", 493066, 404),
+    MACGAME1("haight", "Turn On",  "Turn On",                       "c9c25d0d249d529680302a81c30852d0", 493066, 404),
+    MACGAME1("haight", "Drop Out", "Drop Out",                      "c9c25d0d249d529680302a81c30852d0", 539498, 404),
+    WINGAME1("haight", "Haight",   "HAIGHT.EXE",                    "f309096bd3eb9f45283d7218bb8f1c88", 821499, 404),
+    WINDEMO1("haight", "Demo",     "HAROCK.EXE",                    "cd0ffd0e7612cd60aadaf42a7b4f480c", 821041, 404),
 
 	// Different releases of hamsterland1 allow choice of language on the opening screen
 	// English is always available, along with one alternate language
@@ -2495,14 +2605,20 @@ static const DirectorGameDescription gameDescriptions[] = {
     // French version was distributed by Ubi Soft
     // English versions 2.00 and 2.0.1 were distibuted by Discis and DreamCatcher, respectively
 	// Horses of Asva demo is found on Czech Super Hry III CD from Future Media International
-	MACGAME2("jewels1", "v2.00",       "Jewels 11 Meg",   "339c89a148c4ff2c5c815c62ac006325", 483922,
-                                       "NAVLOAD.Dxr",     "862688a820a7494f8a9edd196e04b5bf", 420, 404),
-	MACGAME2_l("jewels1", "",		   "Jewels 11 Meg",   "339c89a148c4ff2c5c815c62ac006325", 483922,
-                                       "NAVLOAD.Dxr",     "711211bf062c3cab48ce90870900bc3b", 471, Common::FR_FRA, 404),
-	MACDEMO1("jewels1", "Demo",		   "Two-Minute Demo", "01be45e7241194dad07938e7059b88e3", 483746, 404),
-	WINGAME1("jewels1", "",			   "JEWELS.EXE",	  "bb6d81471d166088260090472c6c3a87", -1, 400),
-	WINDEMO1("jewels1", "Demo",		   "JEWELS.EXE",	  "abcc448c035e88d4edb4a29034fd1e34", -1, 400),
-	WINDEMO1("jewels1", "Horses Demo", "HORSE.EXE",		  "03bbe56c80fcbca3939ba08407d99f76", 847689, 400),
+	MACGAME2("jewels1", "v2.00",         "Jewels 11 Meg",   "339c89a148c4ff2c5c815c62ac006325", 483922,
+                                         "NAVLOAD.Dxr",     "862688a820a7494f8a9edd196e04b5bf", 420, 404),
+	MACGAME2_l("jewels1", "",		     "Jewels 11 Meg",   "339c89a148c4ff2c5c815c62ac006325", 483922,
+                                         "NAVLOAD.Dxr",     "711211bf062c3cab48ce90870900bc3b", 471, Common::FR_FRA, 404),
+	MACDEMO1("jewels1", "Demo",		     "Two-Minute Demo", "01be45e7241194dad07938e7059b88e3", 483746, 404),
+	WINGAME2("jewels1", "v2.0.1",        "JEWELS.EXE",      "bb6d81471d166088260090472c6c3a87", 800395,
+                                         "NAVLOAD.DXR",     "ff8446121236a1cbfb1fe431fea5bc09", 405042, 404),
+	WINDEMO1("jewels1", "Horses Demo",   "HORSE.EXE",		"03bbe56c80fcbca3939ba08407d99f76", 847689, 400),
+	WINDEMO2("jewels1", "Demo",		     "JEWELS.EXE",      "abcc448c035e88d4edb4a29034fd1e34", 869983,
+                                         "PUZZ_01.DXR",     "ea75491b1be5352de158c310fcf7baf5", 267074, 400),
+	WINDEMO2("jewels1", "Nightsky Demo", "DEMO.EXE",        "ebee52d3c4280674c600177df5b09da0", 800403,
+                                         "NAVLOAD.DXR",     "1f4466ba91364dd7223264b86dd5402c", 403980, 404),
+	WINDEMO2_l("jewels1", "Demo",        "DEMO.EXE",		"ebee52d3c4280674c600177df5b09da0", 800403,
+                                         "NAVLOAD.DXR",     "1f4466ba91364dd7223264b86dd5402c", 403980, Common::FR_FRA, 404),
 
 	// Original filename is JMP Turbo™
 	MACGAME1("jman", "Turbo!", "JMP Turbo", "cc3321069072b90f091f220bba16e4d4", -1, 400),
@@ -2606,8 +2722,22 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("mathtest", "", "mathtest (mac)", "cdb27c916044ae4dceb4b7326063fa03", 301925, 400),
 
-	//Max en het Gele-Sokjes-Spook
-	WINGAME1_l("max2", "", "MAX1DMA.EXE", "b35d311e2982849c08379f2d74519d58", 752991, Common::NL_NLD, 400),
+    MACDEMO1_l("max1", "Demo", "Max en de geheime... DEMO", "a2f5930615493c2358b2ad07e731c475", 502790, Common::NL_NLD, 404),
+    MACDEMO1_l("max2", "Demo", "Max en Merel... DEMO", "a2f5930615493c2358b2ad07e731c475", 502790, Common::NL_NLD, 404),
+	WINDEMO1_l("max1", "Demo", "MAX1DMA.EXE", "b35d311e2982849c08379f2d74519d58", 752991, Common::NL_NLD, 404),
+
+    // Max und das Schloßgespenst (original) published by Tivola (1996)
+	// Max en het gele-sokjes-spook published by Uitgeverij Bombilla, Amsterdam (1996)
+	// Max et le château hanté published by E.M.M.E., Boulogne, Paris (2001)
+    // Макс и привидения из замка localized by New Media Generation (NMG), Yakimanka, Moscow (1997)
+    // English and usually German are always selectable languages during gameplay
+    // Original Mac German filename is Max und das Schloßgespenst
+    // Original Mac French filename is Max et le château hanté
+	MACGAME1_l("max3", "", "Max und das Schlossgespenst",  "dd5bb78cb7db5c8fa7b87ddf3136b337", 504078, Common::DE_DEU, 404),
+	MACGAME1_l("max3", "", "Max et le chateau hante",      "504e7e5b53a02dbebd3d19bf9a9b73d9", 504078, Common::FR_FRA, 404),
+	MACGAME1_l("max3", "", "Max en het gele-sokjes-spook", "a2f5930615493c2358b2ad07e731c475", 502790, Common::NL_NLD, 404),
+	WINGAME1_l("max3", "", "MAX3.EXE",     "aba98fa8042bb9f87dedf00be1d19de2", 702881, Common::DE_DEU, 404),
+	WINGAME1_l("max3", "", "M3_START.EXE", "99cc0c88814c402d8de01e8980582d65", 702863, Common::FR_FRA, 404),
 
 	WINDEMO1("mcmillennium", "Demo", "MILLDEMO.EXE", "b6027f900ae90ed59de3d22e68d2bfed", 3630918, 404),
 
@@ -2716,8 +2846,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Full game is D5
 	WINDEMO1("nine", "Demo", "NINEDEMO.EXE", "d7596e7f6e8bc7c95d4217ff431a2f02", 711181, 404),
 
+    // Published by Corel CD Home. Later released as Nikolai's Knights.
+    WINGAME1("nikolaiknights", "Corel", "KNIGHTS.EXE", "5ab667a256a0c334e9adca78564dbc5d", 740436, 404),
+
 	// Later released as Nikolai's Toys
-	WINGAME1("nikolaitoy", "", "NNN_TOYS.EXE", "22147e4c6311f670f72d43f8b793169e", 3206640, 404),
+    // Original Mac filename is NN’nN Toy Makers™
+	MACGAME1("nikolaitoys", "", "NN\'nN Toy Makers", "2c7d0c0d55cbe3f622c7d68cedb671e0", 487026, 404),
+	WINGAME1("nikolaitoys", "", "NNN_TOYS.EXE", "22147e4c6311f670f72d43f8b793169e", 3206640, 404),
 
 	// Demo executable name is ににんがしデモ
 	// Full version executable name is ににんがし
@@ -2786,6 +2921,24 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("pbbear", "Sampler", "PBBEAR.EXE", "dc58e6e06807f4a4a4cc278f8748659f", 696807, 404),
 
+    // Screen savers from Perfect Blue (requires installation)
+    MACGAME1("pbdisplay", "",   "Display",      "687fa112eefc7ff11ed97ab0dce67401", 806915, 501),
+    MACGAME1("pbflash", "",     "Flash",        "687fa112eefc7ff11ed97ab0dce67401", 806913, 501),
+    MACGAME1("pbmima", "",      "MIMA",         "687fa112eefc7ff11ed97ab0dce67401", 806912, 501),
+    MACGAME1("pbosakana", "",   "OSAKANA",      "687fa112eefc7ff11ed97ab0dce67401", 806915, 501),
+    MACGAME1_l("pbtoilet1", "", "Toilet1",      "687fa112eefc7ff11ed97ab0dce67401", 806915, Common::JA_JPN, 501),
+    MACGAME1_l("pbtoilet2", "", "Toilet2",      "687fa112eefc7ff11ed97ab0dce67401", 806915, Common::JA_JPN, 501),
+    WINGAME1("pbdisplay", "",   "INSTALL1.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 2339226, 501),
+    WINGAME1("pbflash", "",     "INSTALL2.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 2181972, 501),
+    WINGAME1("pbmima", "",      "INSTALL6.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 1517124, 501),
+    WINGAME1("pbosakana", "",   "INSTALL3.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 1665350, 501),
+    WINGAME1_l("pbtoilet1", "", "INSTALL4.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 2878548, Common::JA_JPN, 501),
+    WINGAME1_l("pbtoilet2", "", "INSTALL5.exe", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 2836264, Common::JA_JPN, 501),
+
+    // Original Mac filename is そらいろナイト
+    MACGAME1_l("perfectblue", "", "xn--n8j6b4gra9i6ima", "687fa112eefc7ff11ed97ab0dce67401", 718381, Common::JA_JPN, 501),
+    WINGAME1_l("perfectblue", "", "PERFECTB.EXE", "2535f11350bc1f2b7ca2dcc6c0cdddfd", 1420772, Common::JA_JPN, 501),
+
 	MACGAME1_l("petepilotti1", "",	   "Seikkailu Lapponiassa", "a8e65a2268226bd59f12ebdc58a221f3", 483746, Common::FI_FIN, 404),
 	MACDEMO1_l("petepilotti1", "Demo", "Pete Pilotin esittely", "0c7bbb4b24823e5ab871cb4c1d6f3710", 483746, Common::FI_FIN, 404),
 	WINGAME1_l("petepilotti1", "",	   "PETE.EXE",	   "4d4637a93653ece18e7d1238cc52a111", 1295281, Common::FI_FIN, 404),
@@ -2849,6 +3002,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is ラインの黄金CD
 	MACDEMO1_l("rheingold", "Demo", "Das Rheingold CD", "b7e69c37b7355022d400c14aa97c5d54", 484351, Common::JA_JPN, 404),
 
+    // Developed by Masahiro Fukuda & Co, published by Mizuki of Kashiba, Nara, Japan (1995)
+    // Auto Mode plays game as a non-interactive movie
+    WINGAME1_l("sabotenman", "",          "SABOTEN.EXE",  "30721602cb11d8764c5f0d9999ebe04d", 753725, Common::JA_JPN, 404),
+    WINGAME1_l("sabotenman", "Auto Mode", "AUTOMODE.EXE", "67388a4076d1ba021dc7aa551798754e", 754423, Common::JA_JPN, 404),
+
 	// Found on Sakhr Arabic Grammar v1.1
 	// Product catalogue for Sakhr Software Co., Heliopolis, Egypt
 	WINGAME1_l("sakhr", "", "MMDEMO.EXE", "0e5436b4daa9e787abb2692bb5ca5454", 740524, Common::AR_ARB, 404),
@@ -2868,6 +3026,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("searchlearn", "Demo", "SEARCH.EXE", "a563a1a244faf97137b47a3c0ee82176", 8088823, 404),
 
 	MACGAME1("sensei", "", "Sensei", "6ab7bac3d8fe6bcf4da81750d7ca286c", 284630, 404),
+
+    MACGAME1("sfpd", "v1.00", "Body in the Bay", "01be45e7241194dad07938e7059b88e3", 483774, 404),
 
 	// Product was published by 夢本舗株式会社 (Yumehonpo)
 	MACDEMO1_l("shadeviewer", "Operation Manual", "Manual", "8b138db44d4421cc7294a9dc792ccf1b", 502913, Common::JA_JPN, 404),
@@ -3088,14 +3248,25 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("xaxa", "", "XAXA MACHINE", "ff0b7a4b925c7345785c372d618d0967", 343233, Common::JA_JPN, 400),
 
+	MACGAME1_l("ybr2", "", "YBR2", "b797956eb3a4dabcc15bfadf6fc66591", 504153, Common::JA_JPN, 400),
+	WINGAME1_l("ybr2", "", "YBR2.EXE", "dbe273c1df60305be98a1a582ddd2c3b", 860579, Common::JA_JPN, 400),
+	WINDEMO1_l("ybr2", "Demo", "YBR2DEMO.EXE", "25ecc053e02a0ef537d34d615119c814", 900973, Common::JA_JPN, 400),
+
 	// Original Mac filename is よーいドンDEMO
 	MACDEMO1_l("yoidon", "Demo", "Yo-i Don DEMO", "3a0c62a46f36157434c4204e50f22886", 305032, Common::JA_JPN, 403),
 	WINDEMO2_l("yoidon", "Demo", "S.EXE",		  "9448daa2ccbc2c3707df48323327feb0", 747007,
 								 "START.DXR",	  "651764cd9add9cc56022dc499b2aca92", 9803044, Common::JA_JPN, 404),
 
-	MACGAME1_l("ybr2", "", "YBR2", "b797956eb3a4dabcc15bfadf6fc66591", 504153, Common::JA_JPN, 400),
-	WINGAME1_l("ybr2", "", "YBR2.EXE", "dbe273c1df60305be98a1a582ddd2c3b", 860579, Common::JA_JPN, 400),
-	WINDEMO1_l("ybr2", "Demo", "YBR2DEMO.EXE", "25ecc053e02a0ef537d34d615119c814", 900973, Common::JA_JPN, 400),
+    // Original Mac filename is 真・百物語
+    MACGAME1_l("yokai", "", "xn--vek138qttcmsa439e", "17efee018a660458fae80de4364021ac", 556245, Common::JA_JPN, 404),
+    WINGAME1_l("yokai", "", "YOUKAI.EXE", "d223c4b2174baf83bc33357a94077fea", 740279, Common::JA_JPN, 404),
+
+    // Published by Nikkei and Sakura Notes of Minato City, Tokyo (1996)
+    // Windows disc contains a projector SWAP.EXE that loads the program using virtual memory
+    // Four different Mac projectors for various memory and monitor configurations
+    // Original Mac filename is 17インチ1670万色(要10Ｍ）
+    MACGAME1_l("yumemirukairo", "", "xn--171670(10-hv4htktuj831avm1hqewau034bqra", "8b138db44d4421cc7294a9dc792ccf1b", 505178, Common::JA_JPN, 400),
+    WINGAME1_l("yumemirukairo", "", "YUMEMIRU.EXE", "a6573719b2f3c3fbc6b7ad6a7bb191c0", 866281, Common::JA_JPN, 404),
 
 	// Full game is supported in ZVision engine
 	WINDEMO1("znemesis", "Demo", "ZORKDEMO.EXE", "4a8fd0d74faef305bc935e1aac94d3e8", 712817, 400),
@@ -3114,6 +3285,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Run Windows installer (ASENNA.EXE) on Win9X extract 32-bit executable
 	MACGAME1_l("aapelin1", "", "Aapelin ABC, 7-9 v", "231d3041df162be4a0ddd36a74eb03b6", 719261, Common::FI_FIN, 501),
 	WINGAME1_l("aapelin1", "", "Aapeli32.exe", "3460ad87d2ba57104e2810a77b53c220", 1396675, Common::FI_FIN, 500),
+
+    // GT Publishing, New York, ABCD-ROM series (1997)
+    WINGAME1("abclunch", "", "ABC95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1421779, 501),
 
 	// Installers for both platforms also use Director
 	MACGAME1("alcohol101", "", "Let\'s Party", "2d2ac01320f4c2dce8e156cda5c73fe8", 719289, 501),
@@ -3156,8 +3330,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("backpacker2", "", "bp2new.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1418983, Common::SE_SWE, 501),
 
     // Based on the Australian TV children's TV series
+    // Swedish released in association with Lattjo Lajban (1998)
     // Brazilian version was released on CD Expert Kids nº 19 (1999)
+    WINGAME1("bananasfun", "",   "BIP32.EXE",      "1a7acbba10a7246ba58c1d53fc7203f5", 1410665, 501),
     MACGAME1_l("bananasfun", "", "It's Fun Time!", "07f19d8ae16dd1ffab68540c78fa0b8b", 719743, Common::PT_BRA, 501),
+    MACGAME1_l("bananasfun", "", "It’s Fun Time!", "231d3041df162be4a0ddd36a74eb03b6", 719743, Common::SE_SWE, 501),
 
 	WINGAME1("barbssbubbles", "Screensaver", "BUBBLES.EXE", "77c85ac62fdb5a5f1ed40209ca88f78e", 1117695, 501),
 	WINGAME1("barbsskisses", "Screensaver", "KISSES.EXE", "77c85ac62fdb5a5f1ed40209ca88f78e", 1145437, 501),
@@ -3251,6 +3428,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("dinos", "", "Dinos", "231d3041df162be4a0ddd36a74eb03b6", 718285, 500),
 	WINGAME1("dinos", "", "DINO98.EXE", "3460ad87d2ba57104e2810a77b53c220", 1393813, 500),
 
+    MACGAME1_l("djrom", "", "DJ-ROM", "4a3fc901992d82fa2197da9da1be6992", 107828, Common::JA_JPN, 501),
+    WINGAME1_l("djrom", "", "DJROM.exe", "38b75ecdedf662326fe4931a68ae60cd", 1823050, Common::JA_JPN, 501),
+
 	// Win versions on same discs are D4
 	MACGAME1_l("draculassecret", "", "Dracula.PPC", "65f0701cced8f5c64813e1e0353f0510", 108119, Common::FR_FRA, 501),
 	MACGAME1_l("draculassecret", "", "Het geheim", "a4df1e62980bf13fb87cc2598ca72c9e", 95653, Common::NL_NLD, 500),
@@ -3294,6 +3474,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 								"TEXT_E.Cxt", "5f14330705974a22deb9a12cd8ae6e79", 691046, 501),
 	WINGAME2_l("gadgetpaf", "", "GADGET.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1411507,
 								"TEXT_E.Cxt", "056ab5419f65fab51fa50c28ad360e76", 561824, Common::ES_ESP, 501),
+
+    MACGAME1("getaheadstrat", "", "Strategy Heads", "f5d1590da086b496507871f12382e973", 719456, 501),
+
+    // Creator makes heads to be used in the full games
+    WINGAME1("getaheadmathcr", "", "CREATE32.EXE", "3fbb58682d34ce5ec8b774064725b172", 1410627, 501),
 
 	MACGAME1("gamingmegapac", "", "Gaming MegaPac", "b861188374e80b1184e7f96dcab4fc9b", 719261, 501),
 
@@ -3346,6 +3531,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("incarnatia", "", "incarnatia_PowerMac", "2e7d373f75c014be20cfb04c5cd65dae", 108736, Common::JA_JPN, 501),
 	WINGAME1_l("incarnatia", "", "incarnatia_Win.exe", "38b75ecdedf662326fe4931a68ae60cd", 1414152, Common::JA_JPN, 501),
 
+    // Australian Broadcasting Corporation (ABC) has made this available for free download
+    // https://www.abc.net.au/science/ingenious/patch.htm
+    MACGAME1("ingenious", "",   "Ingenious",   "f5d1590da086b496507871f12382e973", 754833, 501),
+    WINGAME1("ingenious", "",   "INGW95.EXE",  "3460ad87d2ba57104e2810a77b53c220", 1398293, 500),
+    MACGAME1("ingenioused", "", "EdRes",       "f5d1590da086b496507871f12382e973", 754807, 501),
+    WINGAME1("ingenioused", "", "EDRES95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1417113, 501),
+
 	// Later releases are titled "I Spy School Days"
 	// Bilingual Spanish/English release by Star E-Media of Orange County, California
 	MACGAME1("ispy", "",	  "Play I Spy",	 "6e7e31d05709e1d38d63f4df6a59eec0", 719289, 501),
@@ -3359,6 +3551,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("itc", "", "Internet The City", "4ab012350c6e1c39eda772e33df30cea", 719289, 501),
 
 	// Later released as Jewels II: The Ultimate Challenge
+	MACDEMO1("jewels2", "Demo", "Jewels II", "231d3041df162be4a0ddd36a74eb03b6", 719261, 501),
 	WINGAME1("jewels2", "", "JewsII95.exe", "3460ad87d2ba57104e2810a77b53c220", 1454223, 500),
 
 	MACGAME1("jslearn", "1997 D5 Demo", "JumpStart Previews", "231d3041df162be4a0ddd36a74eb03b6", 718745, 501),
@@ -3375,6 +3568,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("madccpk", "Demo",		 "MADPK.EXE",  "842014a812b454620f64b860fd7211f0", 932303, 501),
 
 	WINGAME1_l("maria", "", "MARIA1.EXE", "3460ad87d2ba57104e2810a77b53c220", 6727617, Common::JA_JPN, 500),
+
+    // Original Mac filename is Demonstraciä
+    // Found on Russian Max 3 CD from NRG
+    MACGAME1_l("max1max2", "Demo", "Demonstracia", "06ed90580400cd9e263525f84c8075fd", 705673, Common::RU_RUS, 500),
+
+	// Apple Masters of Media #011
+	MACGAME1_l("mmedia11", "", "Making of SAKURA", "bef2a1951fe8853c36f7313940040cb6", 717656, Common::JA_JPN, 501),
 
 	MACDEMO1("mavisbeacon", "v5.0 Demo", "Mavis 5 Demo 12_12", "35dbf55e70f69e00ca016e3663379970", 703409, 500),
 
@@ -3399,8 +3599,18 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("murderbrett", "", "Brad, le surfeur", "227fcce08de8028e2201f5f4eb3b3cc3", 720160, Common::FR_FRA, 500),
 	WINGAME1_l("murderbrett", "", "BRAD.EXE", "e1c3cb4df694b887f3708f9ebb72302f", 934342, Common::FR_FRA, 500),
 
-	// Original Mac filename is Nikolai's Mysteries™
-	MACGAME1("nikolaimystery", "", "Nikolai\'s Mysteries", "c43bfadda9be111e461dc0b735430ad3", 719241, 501),
+    // Found on PC World (Czechia) Sept 2003
+    WINGAME2_l("nemcina", "", "START_32.EXE", "3460ad87d2ba57104e2810a77b53c220", 1710313,
+                              "CVIC.DXR",     "8f12d20e12dddc2fc3207e1f4e571d17", 23223862, Common::CZ_CZE, 500),
+
+	// All original Mac filenames end with ™
+    // Nikolai in Outer Space did not get a Mac release
+	MACGAME1("nikolaiknights", "v2.0", "Nikolai\'s Knights",   "c43bfadda9be111e461dc0b735430ad3", 720690, 501),
+	MACGAME1("nikolaimystery", "",     "Nikolai\'s Mysteries", "c43bfadda9be111e461dc0b735430ad3", 719241, 501),
+	MACGAME1("nikolaipirates", "",     "Nikolai\'s Pirates",   "c43bfadda9be111e461dc0b735430ad3", 719289, 501),
+    WINGAME1("nikolaiknights", "v2.0", "KNIGHT95.EXE",         "1a7acbba10a7246ba58c1d53fc7203f5", 1410541, 501),
+    WINGAME1("nikolaipirates", "",     "PIRATE95.EXE",         "3460ad87d2ba57104e2810a77b53c220", 1394017, 500),
+    WINGAME1("nikolaispace", "",       "0_LAUNCH.EXE",         "3460ad87d2ba57104e2810a77b53c220", 1394291, 501),
 
     // spaceedu module can also be launched externally
     WINGAME1("nikolaispaceedu", "", "spaceedu.exe", "3460ad87d2ba57104e2810a77b53c220", 1394307, 500),
@@ -3455,6 +3665,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("pingustunt", "Screen Saver", " PINGU - Stunt Pingu",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
 	MACGAME1("pingutime",  "Screen Saver", " PINGU - Time for Pingu", "35dbf55e70f69e00ca016e3663379970", 799282, 500),
 
+    // Found on Sierra On-Line's MasterCook Cooking Light v4.0 (1996)
+    // There are no Mac demos on this disc
+    WINDEMO1("powerchess", "Demo", "PCHESW95.EXE", "3460ad87d2ba57104e2810a77b53c220", 1400353, 500),
+
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
 	// "Making of Pyst" parody video is from X-Fools
@@ -3481,6 +3695,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 									 "DEMO.DXR", 	 "eef8ef25462ea82637af5ab730d3c684", 10075784, Common::JA_JPN, 501),
 
 	WINGAME1("safecracker", "", "sc_eng.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1415977, 501),
+
+    // Published by the University of Arizona and the Environmental Education Exchange
+    MACGAME1("saguaro", "", "SCInstall", "ec6fba1c2d0fd9dbe987f4336cb08e2b", 719261, 501),
+    WINGAME1("saguaro", "", "SCWIN32.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1417616, 501),
 
 	// Use 32-bit Windows executable in SUPPORT/WIN_95
 	MACGAME1("saillusion", "", "Illusion", "3f3285490a1764d200c9a82041bf4937", 719289, 501),
@@ -3516,8 +3734,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("shrmess", "Demo", "SHRMESS.EXE", "842014a812b454620f64b860fd7211f0", 932319, 501),
 
-	MACDEMO1("slamdunktyping", "Demo", "Mac Slam Dunk", "231d3041df162be4a0ddd36a74eb03b6", 719261, 501),
-	WINDEMO1("slamdunktyping", "Demo", "SDTDEMO.EXE", "842014a812b454620f64b860fd7211f0", 932727, 501),
+    // Developed by Mary Boies Software, published by Creative Wonders
+    // Windows version also found in Middle School Advantage 2001 bundle
+	MACGAME1("slamdunktyping", "",     "Slam Dunk Typing", "5683c6b3956a3bca7fb5fc5bbb237984", 719201, 501),
+	WINGAME1("slamdunktyping", "",     "SDT95.EXE",        "1a7acbba10a7246ba58c1d53fc7203f5", 1840781, 501),
+	WINDEMO1("slamdunktyping", "Demo", "SDTDEMO.EXE",      "842014a812b454620f64b860fd7211f0", 932727, 501),
+	MACDEMO1("slamdunktyping", "Demo", "Mac Slam Dunk",    "231d3041df162be4a0ddd36a74eb03b6", 719261, 501),
 
 	// Polish version is from the covermount of CyberMycha 07/2002
 	WINGAME1_l("snow7han", "", "Snw7han.exe", "65ef7246e9ab04aff59fb734e9551727", 941245, Common::PL_POL, 501),
@@ -3619,6 +3841,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("ybr3", "Single", "Harapeco", "4ab012350c6e1c39eda772e33df30cea", 723903, Common::JA_JPN, 500),
 	WINGAME1_l("ybr3", "Single", "YBRSingl.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410799, Common::JA_JPN, 500),
 
+    // Developed by Kodansha Co. of Bunkyo, Tokyo
+    // Original Mac filename is 妖怪図鑑1
+    MACGAME1_l("yokai200", "", "xn--1-we0by4fq4jlr4e", "5b6db61d580e40b903a7f0797b0bdad7", 719012, Common::JA_JPN, 501),
+    WINGAME1_l("yokai200", "", "YOUKAI1.EXE", "38b75ecdedf662326fe4931a68ae60cd", 1411170, Common::JA_JPN, 501),
+
 //////////////////////////////////////////////////
 //
 // Macromedia Director v6
@@ -3643,6 +3870,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("afiles", "", "Projector.exe", "4c850adf7c36a9a3dea64c880eaf25c0", 1515545,
 						   "intro.dir", 	"8030f92799c85ab5a6fd1c23f4ce6734", 396047, 602),
 
+    // Cherry Coke Presents a Myst clone
+    MACGAME1("alanna", "", "Alanna", "05c94e6fcb102f9fa795e354c956b28e", 1029257, 600),
+
 	MACGAME1("amertailmb", "", "An American Tail MB", "41fa2186d635be3094403c75b5f44d4b", 115647, 600),
 	WINGAME1("amertailmb", "", "Amer32.exe", "518a98696fe1122e08410b0f157f21bf", 2075235, 602),
 
@@ -3653,6 +3883,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("amgpremiere", "Advanced Tutorial", "ADVTUTOR.EXE", "a593079aecf5bd938ce75264cac24b2d", 3019357, 600),
 	WINDEMO1("amgpremiere", "Beginning Tutorial", "BEGTUTOR.EXE", "a593079aecf5bd938ce75264cac24b2d", 2078039, 600),
 	WINDEMO1("amgpremiere", "Director's Guide", "DIRGUIDE.EXE", "a593079aecf5bd938ce75264cac24b2d", 2070484, 600),
+
+    // Fun Pack is on the Party Time CD
+    WINGAME1("bananaspack", "", "_Fun_Pack.exe", "a593079aecf5bd938ce75264cac24b2d", 1508656, 600),
+    WINGAME1("bananasparty", "", "_Party_Time.exe", "a593079aecf5bd938ce75264cac24b2d", 1508811, 600),
 
 	WINGAME2("barbnail", "", "LAUNCH.EXE", "518a98696fe1122e08410b0f157f21bf", 1758656,
 							 "intro.dxr",  "8732eb742a8bbfd6de5c55b22e41317b", 2549490, 602),
@@ -3765,8 +3999,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("garage", "", "Garage.exe", "0e43a5130e1964231fa25472108ca522", 1516264,
 							 "open.swf",   "d01cf5e6eb157859466f846ccb30a081", 178668, Common::JA_JPN, 650),
 
-
-	//Miel Monteur - Miel Bouwt Auto's! (demo)
+	// Miel Monteur - Miel Bouwt Auto's! localized by Transposia
+    // Mac demo is found in the Flipper & Lopaka compilation
+	MACDEMO1_l("garygadget1", "Demo", "Miel Monteur demo", "329aab81c0d74c5d3f31ddad26bcc639", 1029165, Common::NL_NLD, 600),
 	WINDEMO1_l("garygadget1", "Demo", "miel.exe", "518a98696fe1122e08410b0f157f21bf", 1512519, Common::NL_NLD, 602),
 
 	// Windows version on same disc is D8
@@ -3880,6 +4115,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("netmarket", "", "netMarket", "ade290061bd8f78051a8e872a889855c", 1030738, 600),
 	WINGAME1("netmarket", "", "NETMKT32.EXE", "3cb7a28198b9b8acd58d6d0e74272531", 1514399, 600),
 
+    // Study guide from The Daily Telegraph
+    // Mac executable filename does indeed end in .exe
+    MACGAME1("nia4", "", "nia4.exe", "ee2cca33b022bed087aa3911f9ec78b1", 1032689, 650),
+    WINGAME1("nia4", "", "nia4w95.exe", "d62438566e44826960fc16c5c23dbe43", 1711499, 650),
+
     // Original Mac filename is Nikolai's Treats™
     MACGAME1("nikolaitreats", "", "Nikolai's Treats", "ce0a3a5891a35b2dd2ab706e8e376baa", 1032717, 650),
 
@@ -3990,6 +4230,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Mac version is D5
 	WINGAME1("ssrevwar", "", "Revwar.exe", "d62438566e44826960fc16c5c23dbe43", 21088827, 650),
 
+    // Developed by Accurate Research, Inc. of Sunnyvale, California (1998)
+    // Part of the Super Tutor series sold through Homeworkhelp.com
+    // Found in the Middle School Advantage 2001 bundle and High Achiever Grammar from PC Treasures
+    WINGAME1("supertutorgram", "v1.0", "GRAMMAR.EXE", "a593079aecf5bd938ce75264cac24b2d", 1853673, 600),
+
 	WINDEMO1_l("tchaik", "Demo", "TCHAIK.EXE", "a593079aecf5bd938ce75264cac24b2d", 15780729, Common::RU_RUS, 600),
 
 	WINGAME1("technik", "", "Techni00.exe", "1b8d78ddca650041b8997cac7af3184b", 1615559, 650),
@@ -4017,12 +4262,21 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("void", "", "VOID.exe", "1154a54e6fb77f82e9091a9adc37a4cb", 1701070, 602),
 
+    // CD check projector uses Win95 GUI mockup to ask your drive speed then launch game
+    WINGAME1("wiggles1", "", "WIGGLES.EXE", "d62438566e44826960fc16c5c23dbe43", 1862279, 650),
+
+    WINGAME1("worldnet", "", "EGUIDE95.EXE", "518a98696fe1122e08410b0f157f21bf", 2876414, 602),
+
 	WINGAME1("xfools", "", "XFOOLS32.EXE", "a593079aecf5bd938ce75264cac24b2d", 2115343, 600),
 	MACDEMO1("xfools", "Preview", "The X-Fools Preview", "41fa2186d635be3094403c75b5f44d4b", 115647, 600),
 	WINDEMO1("xfools", "Preview", "XMAN32.EXE", "a593079aecf5bd938ce75264cac24b2d", 1701371, 600),
 
 	// Disc 2 has no director content
 	WINGAME1("xfua", "", "X-FILES.EXE", "518a98696fe1122e08410b0f157f21bf", 1719387, 602),
+
+    // Original Mac filename is 妖怪図鑑2
+    MACGAME1_l("yokai400", "", "xn--2-we0by4fq4jlr4e", "d14bf1f7a413df29a04b8fbc7a0fe81f", 1033551, Common::JA_JPN, 601),
+    WINGAME1_l("yokai400", "", "YOUKAI2.EXE", "3703e9ea28aed0c647b73a1b49a51d65", 1512615, Common::JA_JPN, 601),
 
 //////////////////////////////////////////////////
 //
@@ -4107,15 +4361,30 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("easports2000", "", "PC.EXE", 	  "c1a2e8b7e41fa204009324a9c7db1030", 2212134,
 								 "INTRO.DXR", "209cd844f714140413eb58c3a69db454", 5179191, 700),
 
+    // Shockwave movie found on the CD Especial from Pc Pro magazine Nº1 (2000) published by Larpress of Madrid
+    WINGAME1_l("encartaatlas2000", "Demo", "PT_EWIA.dcr", "659daa595626c56635519af2c18e2ad1", 2612035, Common::ES_ESP, 700),
+
 	MACGAME1("erdisaster", "", "ER Disaster Strikes Start", "0944b962ebb00f4b5d5149d220f8449b", 114890, 702),
 	WINGAME1("erdisaster", "", "ER Disaster Strikes.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2682526, 702),
 
 	MACGAME1_l("fg25ans", "", "FG25Ans", "dec72b4b6f8e97f1ea24361794bf0bdf", 114301, Common::FR_FRA, 702),
 	WINGAME1_l("fg25ans", "", "FG25Ans.exe", "88d4c24f6d4b78a73ce5b07693eddbc8", 2412706, Common::FR_FRA, 702),
 
+    // Found on デスクトップマスコット ファービー (Desktop Mascot Furby)
+    WINGAME1_l("furbydentaku", "", "xn--.exe-fk4colma72ab4209fos3h", "1799677b9d869c8dc577d931e229ee3b", 3002842, Common::JA_JPN, 702),
+
 	//Miel Monteur - Miel Bouwt Auto's!
 	WINGAME2_l("garygadget1", "", "Start.exe", "c1a2e8b7e41fa204009324a9c7db1030", 2933829,
 			"Monteur.cnt", "7038be89eb5c49b51927bf76d8fd0b8a", 2490, Common::NL_NLD, 700),
+
+    // Found on アクティブマスコット・ハイジ (Heidi Desktop Mascot) software from Inner Brain, Shinjuku, Tokyo
+    // Installers for the screen savers and other applications also use Director
+    // Original calculator filenames are ハイジ電卓１.exe, ハイジ電卓２.exe, ハイジ電卓３.exe
+    WINGAME1_l("heididentaku1", "", "xn--.exe-uk4cqevgp14zyi5ggs7i", "1799677b9d869c8dc577d931e229ee3b", 3232268, Common::JA_JPN, 702),
+    WINGAME1_l("heididentaku2", "", "xn--.exe-uk4cqevgp14zyi5gqs7i", "1799677b9d869c8dc577d931e229ee3b", 2947676, Common::JA_JPN, 702),
+    WINGAME1_l("heididentaku3", "", "xn--.exe-uk4cqevgp14zyi5g0s7i", "1799677b9d869c8dc577d931e229ee3b", 2988876, Common::JA_JPN, 702),
+    WINGAME1_l("heidimail", "",  "HeidiML.exe", "1799677b9d869c8dc577d931e229ee3b", 2662490, Common::JA_JPN, 702),
+    WINGAME1_l("heidislide", "", "Slide.exe",   "1799677b9d869c8dc577d931e229ee3b", 7934640, Common::JA_JPN, 702),
 
 	MACGAME1_l("ironmask", "", "THE IRON MASK", "0944b962ebb00f4b5d5149d220f8449b", 112786, Common::IT_ITA, 702),
 	WINGAME1_l("ironmask", "", "TIM.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2916546, Common::IT_ITA, 702),
@@ -4164,6 +4433,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1("mickeyp", "D7 Demo", "MickeyP.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2044554, 702),
 	MACDEMO1("mickeyt", "D7 Demo", "MickeyT.mac", "0944b962ebb00f4b5d5149d220f8449b", 111478, 702),
 	WINDEMO1("mickeyt", "D7 Demo", "MickeyT.exe", "7c18c9a6af2694156bf09ed195c1ab09", 1880445, 702),
+
+    // Launcher for third party products included in MSA bundle from Softkey
+    // Also includes single page ads with links to defunct sales pages for other Advantage bundles
+    // Encore Software's budget release is v2.0
+    WINGAME1("msa2001", "v2.0", "Middle School Advantage.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2691484, 702),
 
 	MACGAME1("myfirstwords", "", "My First Reading Words Start", "0944b962ebb00f4b5d5149d220f8449b", 111450, 702),
 	WINGAME1("myfirstwords", "", "MFRWORDS.EXE", "7c18c9a6af2694156bf09ed195c1ab09", 3918368, 702),
@@ -4224,6 +4498,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("solmahjong", "1999 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2757472, 702),
 	WINGAME1("solmahjong", "2001 version", "Mahjong.exe", "7a4164849d026c0f2aa8ea4c7d5447ba", 2832712, 702),
 
+    WINGAME1("ssheidi1", "", "_heidi01.exe", "91823501d9b3f9b9ced814101312fd11", 5985066, 701),
+    WINGAME1("ssheidi2", "", "_heidi02.exe", "91823501d9b3f9b9ced814101312fd11", 7783641, 701),
+
 	// http://web.archive.org/web/20080412010505/http://www.beachware.com/download/
 	MACGAME1("ssmorphclock", "", "MorphClock", "fa52f0136cde568a46249ce74f01a324", 189234, 700),
 	WINGAME1("ssmorphclock", "", "Morph Clock.exe", "c1a2e8b7e41fa204009324a9c7db1030", 3800619, 700),
@@ -4244,6 +4521,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("webmaster", "", "Webmaster", "0944b962ebb00f4b5d5149d220f8449b", 128297, 702),
 	WINGAME1("webmaster", "", "Webmaster.exe", "7c18c9a6af2694156bf09ed195c1ab09", 1820594, 702),
+
+    // Found on アクティブマスコット・ハイジ (Heidi Desktop Mascot)
+    // Create cards using ZUIYO's new characters Popee and Beast
+    WINGAME1_l("zuiyomail", "", "MAIL2.exe", "1799677b9d869c8dc577d931e229ee3b", 2662488, Common::JA_JPN, 702),
 
 //////////////////////////////////////////////////
 //
@@ -4328,6 +4609,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("cmi", "CM38/10/01", "CMi_38_Mac", "f065c75691d28120e9f630448c3b1b71", 1225735, 800),
 	WINGAME1("cmi", "CM38/10/01", "CMi_38_Win.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2514361, 800),
 
+    // Distributed by Océano Multimedia (Colombia) of Cota, Cundinamarca (2000)
+    WINGAME2_l("deportes", "", "start.exe",    "c163f36141579ee374f7b4b2bddee95a", 2383840,
+                               "Deportes.dxr", "2330cc03f17c2aa4a4a10e76bc774fe8", 3985672, Common::ES_ESP, 850),
+
 	MACGAME1("dispix2and3", "", "2nd and 3rd Grade", "a44511b8ff0e46b4f9c85dd1cb58d458", 220552, 851),
 	WINGAME1("dispix2and3", "", "2nd and 3rd Grade.exe", "68835b24dd317fbc96e4a8c53892a361", 2630239, 851),
 
@@ -4336,13 +4621,20 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("fcdk", "", "Start.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 511933,
 			"boma.dir", "484a5f57cde0ce4f035be6be933ede34", 10561442, Common::NL_NLD, 800),
 
-	MACGAME2("flipper3worlds", "",	 "Flipper",		"305030a32728843d9e953b8e0f53a149", 6129,
-									 "Splash.dxr",	"e2e9db4d52497b66d30b67257ac0b9f3", 3227343, 800),
-	MACGAME2_l("flipper3worlds", "", "Flipper",		"305030a32728843d9e953b8e0f53a149", 6129,
-									 "Splash.dxr",	"690080bb870fa4f9dd92665dd05a6e75", 3403943, Common::FR_FRA, 800),
-	WINGAME1_l("flipper3worlds", "", "Flipper.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57196, Common::FR_FRA, 800),
+    // De drie werelden van Flipper & Lopaka published by Transposia of Ghent, Flanders
+	MACGAME2("flipper1", "",   "Flipper",	  "305030a32728843d9e953b8e0f53a149", 6129,
+							   "Splash.dxr",  "e2e9db4d52497b66d30b67257ac0b9f3", 3227343, 800),
+	MACGAME2_l("flipper1", "", "Flipper",	  "305030a32728843d9e953b8e0f53a149", 6129,
+							   "Splash.dxr",  "690080bb870fa4f9dd92665dd05a6e75", 3403943, Common::FR_FRA, 800),
+	MACGAME2_l("flipper1", "", "Flipper",	  "26342893ab4fceffc6c6efaa81718780", 6165,
+							   "Splash.dxr",  "5430500b5660bd30ec9fd72784233560", 3521553, Common::NL_NLD, 800),
+	WINGAME2_l("flipper1", "", "Flipper.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57196,
+                               "Splash.dxr",  "2cb70c1101fc967f6b134fd1237d40a7", 3403815, Common::FR_FRA, 800),
+	WINGAME2_l("flipper1", "", "Flipper.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57196,
+                               "Splash.dxr",  "34027bf8975bced3a92ea6a1d41ccf21", 3521425, Common::NL_NLD, 800),
 
-	MACGAME1_l("flippersecrets", "", "Secrets", "039fd480c0ba5b06a88c233f79bbabbe", 8429, Common::NL_NLD, 850),
+	MACGAME1_l("flipper2", "", "Secrets", "039fd480c0ba5b06a88c233f79bbabbe", 8429, Common::NL_NLD, 850),
+	WINGAME1_l("flipper2", "", "Secrets.exe", "c163f36141579ee374f7b4b2bddee95a", 57184, Common::NL_NLD, 850),
 
 	MACGAME1_l("forestiajr", "", "Forestia Aufstand im Zoo", "75e71e2abbe6cf6e79a62be76cc05d06", 157104, Common::DE_DEU, 850),
 	WINGAME1_l("forestiajr", "", "Forestia Aufstand im Zoo.exe", "14a1ca568d9188926eb70827f42ac856", 2166796, Common::DE_DEU, 851),
@@ -4522,6 +4814,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1_l("skeeto10", "", "mm7main.exe", "0c81c84ca4966313ad27d47daba44537", 12051446, Common::DA_DAN, 851),
 
+    // Dutch demos found on Flipper & Lopaka compilation
+    MACGAME1_l("skippy", "",     "Skippy",      "4ea5fc09f79eee6dded94dc40f303779", 197127, Common::NL_NLD, 800),
+    MACDEMO1_l("skippy", "Demo", "Skippy Demo", "4ea5fc09f79eee6dded94dc40f303779", 197127, Common::NL_NLD, 800),
+
 	// Loads two external Flash games and one external Director game
 	WINGAME1("smashchillin", "ECD", "Smash.exe", "c163f36141579ee374f7b4b2bddee95a", 2152147, 850),
 
@@ -4565,6 +4861,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("westwood", "", "WW DPK", "4ea5fc09f79eee6dded94dc40f303779", 194863, 800),
 	WINGAME1("westwood", "", "WW_DPK.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2351418, 800),
+
+    // Original Mac filename is 妖精妖怪図鑑
+    MACGAME1_l("yokaizukan", "", "xn--lcs34da058ddt2bxt3a", "dd3c8aeb1d2847c77db701ad49ad8186", 163060, Common::JA_JPN, 850),
+    WINGAME1_l("yokaizukan", "", "xn--.exe-ul4gs3la685khv6dnj8b", "b541b4e21a7284bef5180907f72d5702", 2118234, Common::JA_JPN, 850),
 
 	MACGAME1_l("zwergnase", "", "Zwergnase", "afc6a14573e21d1de9d0c7fbb1ceb874", 181398, Common::DE_DEU, 851),
 	WINGAME1_l("zwergnase", "", "ZWERGNASE.EXE", "0c81c84ca4966313ad27d47daba44537", 2383258, Common::DE_DEU, 851),
@@ -4643,6 +4943,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME2_l("1contre100", "", "start.exe", "00541c08177b6d55a3df893bcfccc843", 2764454,
 								 "main.dxr",  "c2bf555f6209e51a1c8cce29c8e6534f", 43315121, Common::FR_FRA, 1010),
+
+    // Found on AOL 9.0 promo CD
+    // Game description is based on desktop shortcut after installation
+    WINGAME1("aolstarwars", "", "STARWARS.EXE", "bcf64185ce848b7b70858d62945f48a8", 25472412, 1010),
 
 	MACGAME1("babarcoins", "", "Mac.osx", 		"a171b7a952d1ac68ae3cd419d6dfc674", 309249, 1010),
 	WINGAME2("babarcoins", "", "Start.exe",		"b198e9bf56c679747e4fd0972d5ba7b7", 2659300,
@@ -4737,7 +5041,6 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("shellwhirl", "", "Shell Whirl.exe", "bcf64185ce848b7b70858d62945f48a8", 3779090, 1010),
 
 	// Found on AOL 9.0 trial CD
-	MACGAME1("seinfeldondvd", "", "SEINFELD.EXE", "827e5af88f4c096652a1523dc28c9bf4", 3572626, 1000),
 	WINGAME1("seinfeldondvd", "", "SEINFELD.EXE", "827e5af88f4c096652a1523dc28c9bf4", 3572626, 1000),
 
 	WINDEMO1_l("tokimemotypegs", "Demo", "tkmkgstype.exe", "1d1646000633ab994404ac38fb350553", 2716404, Common::JA_JPN, 1000),

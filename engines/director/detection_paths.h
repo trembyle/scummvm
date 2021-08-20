@@ -148,11 +148,25 @@ const char *directoryGlobs[] = {
 	"ned",							// I Spy School Days (Dutch)
 	"fl1",
 	"flipper",						// Flipper games (Yoram Gross)
+	"cipdemo",
 	"cipher",						// Jewels of the Oracle
 	"gems",							// Gems of Darkness / Jewels II
 	"corel cd home",
 	"the cassandra galleries",		// Cassandra Galleries
+	"nnnn",							// Nikolai Toy Makers
+	"knights",						// Nikolai's Knights
 	"birdmpc",						// Bird's Life
+	"nemcina",						// Německá gramatika
+	"hdfiles",
+	"creator",						// Get a Head series
+	"32bit",
+	"sd",
+	"mac install",
+	"slam dunk typing",
+	"typing",						// Slam Dunk Typing
+	"app",							// Rodney's Wonder Window
+	"settings",						// Saguaro & the City
+	"xn--t8jo8k",					// Perfect Blue screen savers
 	0
 };
 
