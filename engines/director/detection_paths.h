@@ -142,6 +142,8 @@ const char *directoryGlobs[] = {
 	"instdata",						// Pingu
 	"bellinin bikinit",				// Bellini 3 (Finnish)
 	"put me on your desktop",		// Betty Page
+	"abc",							// Alphabet Train
+	"123",							// Ktar Alarkam
 	0
 };
 

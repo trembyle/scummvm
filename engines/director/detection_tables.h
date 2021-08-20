@@ -957,6 +957,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "globiss",			"Globi's Bildschirmschoner" },
 	{ "lewisclarkss",		"Lewis and Clark Screen Saver" },
 	{ "photos4us",			"Photos4us" },
+	{ "pingufight",			"Pingu Snowball Fight" },
+	{ "pingufish",			"Pingu Fish Chase" },
+	{ "pinguss",			"Pingu Screen Savers" },
+	{ "pingustorm",			"Pingu Snow Storm" },
+	{ "pingustunt",			"Stunt Pingu" },
+	{ "pingutime",			"Time for Pingu" },
 	{ "ss102dalmations",	"102 Dalmations Screen Saver" },
 	{ "sscocacola",			"Coca-Cola Screen Saver" },
 	{ "ssdietcoke",			"Diet Coke Screen Saver" },
@@ -3227,8 +3233,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 								"PINTITLE.DXR", "3c4192601421a1eee08bb6b8f0c33b84", 481270, Common::PT_BRA, 500),
 
 	// Included with Pingu 1. Contains no text or speech.
-	WINGAME1("pinguss", "GSP",	"PINGU_SS.EXE", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
+	// Mac version uses a different projector for each screen saver
+	WINGAME1("pinguss", "GSP",	"PINGU_SS.EXE", "2e62abdad839e42068afdcd0644d7dcf", 918527, 500),
 	WINGAME1("pinguss", "Zeta", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
+	MACGAME1("pingufish",  "Screen Saver", " PINGU - Fish Chase",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingufight", "Screen Saver", " PINGU - Snowball Fight", "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingustorm", "Screen Saver", " PINGU - Snow Storm",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingustunt", "Screen Saver", " PINGU - Stunt Pingu",	  "35dbf55e70f69e00ca016e3663379970", 799260, 500),
+	MACGAME1("pingutime",  "Screen Saver", " PINGU - Time for Pingu", "35dbf55e70f69e00ca016e3663379970", 799282, 500),
 
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
@@ -3530,6 +3542,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("fusion", "", "Start FUSION Mac", "3849d7cd0cdbe4f46333879cbed56492", 1029165, 600),
 	WINGAME1("fusion", "", "FUSION.exe", "518a98696fe1122e08410b0f157f21bf", 1513751, 602),
 
+	// Contains previews for educational and religious products for children and adults
+	// Miscellaneous section contains an art package and an encyclopedia on pregnancy and birth
+	WINGAME1_l("futsoft", "", "fs_demo.exe", "a593079aecf5bd938ce75264cac24b2d", 2091687, Common::AR_SAU, 600),
+
 	MACGAME1_l("garage", "", "Garage",	   "e5ed4533b25be47b708bb1245550cb2c", 118818, Common::JA_JPN, 650),
 	WINGAME2("garage", "",	 "Garage.exe", "0e43a5130e1964231fa25472108ca522", 1516264,
 							 "open.swf",   "9c6eb1fb21dfcd3ddff4c153c88a53b7", 96640, 650),
@@ -3681,10 +3697,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "518a98696fe1122e08410b0f157f21bf", 1738188, Common::FI_FIN, 602),
 
 	// Global Software Products catalogue # 1282B (1999) and 1282C (Favourites, 2006)
-	WINGAME2("pingu1", "1282B", "PINGU.EXE",	"d62438566e44826960fc16c5c23dbe43", 1570152,
-								"BBCLOGO.DXR",	"0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
-	WINGAME2("pingu1", "1282C", "Pingu.exe",	"d62438566e44826960fc16c5c23dbe43", 1999206,
-								"Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+	WINGAME2("pingu1",	"1282B", "PINGU.EXE",	 "d62438566e44826960fc16c5c23dbe43", 1570152,
+								 "BBCLOGO.DXR",	 "0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
+	WINGAME2("pingu1",	"1282C", "Pingu.exe",	 "d62438566e44826960fc16c5c23dbe43", 1999206,
+								 "Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+	WINGAME1("pinguss", "1282C", "Pingu_ss.exe", "d62438566e44826960fc16c5c23dbe43", 1513419, 650),
 
 	WINGAME1_l("plcd", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
 	WINGAME2_l("plcd", "Nº12 1998", "Start.exe",	 "d62438566e44826960fc16c5c23dbe43", 1919710,
