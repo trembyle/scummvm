@@ -350,6 +350,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "babylon5int",		"Babylon 5 Interactive" },
 	{ "battles",			"Battles of the World" },
 	{ "beatexp",			"The Beat Experience" },
+	{ "bettypage",			"Betty Page: The World of a Pin-Up Queen" },
 	{ "beyondcyberpunk",	"Beyond Cyberpunk! A Do-It-Yourself Guide to the Future" },
 	{ "bht",				"A Brief History of Time: An Interactive Adventure" },
 	{ "bioflix",			"BioFlix" },
@@ -550,6 +551,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "cklasse",			"Mercedes-Benz C-Class Information Booth" },
 	{ "flaschenfahrrad",	"Das Verkehrs-Lernspiel: Fred und das Flaschenfahrrad" },
 	{ "girlspack",			"Girl's Pack!" },
+	{ "globiabc",			"Globi's ABC" },
 	{ "mats3",				"Mats und das rätselhafte Tier" },
 	{ "max2",				"Max and the Haunted Castle" },
 	{ "ravensburger",		"Ravensburger Interactive Demo-Sampler" },
@@ -952,6 +954,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "barbssshoes",		"Barbie Screen Styler: Shoes" },
 	{ "billetrille1ss",		"Bille & Trille 1 Screen Saver" },
 	{ "cinemac",			"CineMac Screen Saver Factory" },
+	{ "globiss",			"Globi's Bildschirmschoner" },
 	{ "lewisclarkss",		"Lewis and Clark Screen Saver" },
 	{ "photos4us",			"Photos4us" },
 	{ "ss102dalmations",	"102 Dalmations Screen Saver" },
@@ -995,6 +998,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "legs",				"Legs" },
 	{ "macplaymate1",		"MacPlaymate" },
 	{ "macplaymate2",		"MacPlaymate II" },
+	{ "pbvv",				"Playboy's Voluptuous Vixens" },
+	{ "playmate1999",		"1999 Playboy Playmate Calendar" },
 	{ "sadowar",			"RSP" },
 	{ "thebody",			"The Body: Five doors plus" },
 	{ "thelegs",			"The Legs ～Get a LEG up～" },
@@ -3211,8 +3216,19 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Later releases are D6
 	// Multi3 disc from Zeta Multimedia (Barcelona) contains Brazil/Catalan/Spanish
-	WINGAME2_l("pingu1", "",	"PINGU.EXE",	"2e62abdad839e42068afdcd0644d7dcf", 917473,
+	MACGAME1("pingu1", "",		"Pingu CD-ROM", "35dbf55e70f69e00ca016e3663379970", 705701, 500),
+	WINGAME2("pingu1", "1282A", "PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "2e604dfd80ce4189dc0162dbe47ca7e2", 478854, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
 								"PINTITLE.DXR", "e56af5ddd0750b8ec04cb4ea3d707066", 489234, Common::CA_ESP, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "2b0c09c2aab5064afd0006fc33579d52", 482580, Common::ES_ESP, 500),
+	WINGAME2_l("pingu1", "",	"PINGU.EXE",	 "2e62abdad839e42068afdcd0644d7dcf", 917473,
+								"PINTITLE.DXR", "3c4192601421a1eee08bb6b8f0c33b84", 481270, Common::PT_BRA, 500),
+
+	// Included with Pingu 1. Contains no text or speech.
+	WINGAME1("pinguss", "GSP",	"PINGU_SS.EXE", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
+	WINGAME1("pinguss", "Zeta", "Pingu_ss.exe", "2e62abdad839e42068afdcd0644d7dcf", 918549, 500),
 
 	WINGAME1("princetonsat98", "", "sat98_32.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1446775, 501),
 
@@ -3416,6 +3432,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("barbnail", "", "LAUNCH.EXE", "518a98696fe1122e08410b0f157f21bf", 1758656,
 							 "intro.dxr",  "8732eb742a8bbfd6de5c55b22e41317b", 2549490, 602),
 
+	// Part of box set with music CD and photo book
+	MACGAME1("bettypage", "", "Betty", "be947e969e358cc77e6a96ee42bab3f1", 1031674, 601),
+	WINGAME1("bettypage", "", "betty.exe", "a593079aecf5bd938ce75264cac24b2d", 1510046, 600),
+
 	WINGAME1_l("bigmax", "nº20", "BIG32.EXE", "518a98696fe1122e08410b0f157f21bf", 7313980, Common::PT_BRA, 602),
 
 	//Edison: Bio-Mania
@@ -3525,6 +3545,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 								  "StartCD.dxr", "07c672f1c05c4c12ac6abbb371a0ee1f", 24053, Common::NL_NLD, 600),
 
 	WINDEMO1("generations", "v4.2 Demo", "GEN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 15646702, 600),
+
+	// Language selection at start for High German / Swiss German
+	MACGAME1_l("globiabc", "", "Globi's ABC Power PC", "0bc838e9350c4749e2d10523d620a2ad", 117356, Common::DE_DEU, 650),
+	WINGAME1_l("globiabc", "", "GLOBI32.EXE", "d62438566e44826960fc16c5c23dbe43", 1711195, Common::DE_DEU, 650),
+
+	// Windows screen saver is in BILDNT directory
+	MACGAME1_l("globiss", "", "Globi's Bildschirmschoner", "512aa445bccb66babe48419237422745", 1150767, Common::DE_DEU, 650),
+	WINGAME1_l("globiss", "", "GLOBISAZ.EXE", "6e893e1d588f51d9d6202410a38a73a6", 9857917, Common::DE_DEU, 650),
 
 	// Published by A-Star Interactive (Singapore)
 	WINGAME1("grammarplaytime2", "", "H_32.exe", "a593079aecf5bd938ce75264cac24b2d", 2234889, 600),
@@ -3652,9 +3680,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 1702396, Common::SE_SWE, 600),
 	WINGAME1_l("pettsonjk", "", "PETWIN95.EXE", "518a98696fe1122e08410b0f157f21bf", 1738188, Common::FI_FIN, 602),
 
+	// Global Software Products catalogue # 1282B (1999) and 1282C (Favourites, 2006)
+	WINGAME2("pingu1", "1282B", "PINGU.EXE",	"d62438566e44826960fc16c5c23dbe43", 1570152,
+								"BBCLOGO.DXR",	"0af3596b90ae5ee1fcd14c4a84d72c5f", 1516128, 650),
+	WINGAME2("pingu1", "1282C", "Pingu.exe",	"d62438566e44826960fc16c5c23dbe43", 1999206,
+								"Pintitle.dxr", "e02ebaad2b4c28914b9fe0fedd740a53", 498532, 650),
+
 	WINGAME1_l("plcd", "Nº11 1998", "submarine.exe", "a593079aecf5bd938ce75264cac24b2d", 1700379, Common::RU_RUS, 600),
 	WINGAME2_l("plcd", "Nº12 1998", "Start.exe",	 "d62438566e44826960fc16c5c23dbe43", 1919710,
-								  "Mainmenu.dxr",	 "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
+									"Mainmenu.dxr",	 "23c87266e4b249d6cb25c09c50ae0666", 10447472, Common::RU_RUS, 650),
 
 	// DVD-ROM content from Planetary Traveler movie
 	WINGAME1("planetrav", "", "PCDVD.EXE", "a593079aecf5bd938ce75264cac24b2d", 2345815, 600),
@@ -3770,6 +3804,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 									  "Mission1.dxr", "ddf7a5d922d1d99c9debc72f7ab3f247", 1979501, 700),
 
 	WINGAME1("bbbighelpers", "", "BigHelpers.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2843894, 702),
+
+	// Later releases are D8
+	WINGAME1_l("beautyorbeast", "", "Beauty or the Beast.exe", "02b0d114c93b598c737b1c627178195c", 2190754, Common::RU_RUS, 702),
+
+	MACGAME1_l("bellini3", "", "Bellinis bikini",	   "0944b962ebb00f4b5d5149d220f8449b", 114321, Common::DA_DAN, 702),
+	MACGAME1_l("bellini3", "", "Bellinin bikinit",	   "0944b962ebb00f4b5d5149d220f8449b", 114321, Common::FI_FIN, 702),
+	WINGAME1_l("bellini3", "", "Bellinis bikini.exe",  "7c18c9a6af2694156bf09ed195c1ab09", 2596204, Common::DA_DAN, 702),
+	WINGAME1_l("bellini3", "", "Bellinin bikinit.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2596204, Common::FI_FIN, 702),
 
 	MACGAME1_l("bibi2", "", "Spielstart",  "0944b962ebb00f4b5d5149d220f8449b", 117347, Common::DE_DEU, 702),
 	WINGAME2_l("bibi2", "", "Start.exe",   "7c18c9a6af2694156bf09ed195c1ab09", 1820386,
@@ -4454,13 +4496,17 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO1_l("legs", "Demo",	   "LEGS Vol.1",				 "f5277c53bacd27936158dd3867e587e2", 548017, Common::JA_JPN, 311),
 
 	// Touring Engine Ver 1.00. Original filename is MacPlaymate™
-	MACGAME1("macplaymate1", "",  "MacPlaymate",	"4bdad2173d739dcaca1241afe88c7aef", 33851, 0),
-	MACGAME1("macplaymate2", "",  "MacPlaymate II", "cfa68a1bc49251497ebde18e5fc9c217", 822229, 200),
-	WINGAME1("sadowar", "v1.1",	  "RSP.EXE",		"3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
-	MACDEMO2_l("thebody", "Demo", "DEMO", 			"bcd3c718db258701496b3c5bcb827ef2", 484323,
-								  "START.DIR",		"beeb32cacc5108838a8b5c6850275b86", 7342, Common::JA_JPN, 404),
-	WINDEMO2_l("thebody", "Demo", "DEMO.EXE",		"763f360a098cf3bec7cbdc5685b1e4a3", 1193483,
-								  "START.DIR",		"dd60f73a3c0590754b07e0cee4ec2921", 7206, Common::JA_JPN, 404),
+	MACGAME1("macplaymate1", "",  "MacPlaymate",	 "4bdad2173d739dcaca1241afe88c7aef", 33851, 0),
+	MACGAME1("macplaymate2", "",  "MacPlaymate II",	 "cfa68a1bc49251497ebde18e5fc9c217", 822229, 200),
+	MACGAME1("pbvv", "",		  "Playboy",		 "f26885badb07dcf3a79defda517d4ddb", 1032662, 602),
+	WINGAME1("pbvv", "",		  "PBVV95.EXE",		 "a593079aecf5bd938ce75264cac24b2d", 1700279, 600),
+	MACGAME1("playmate1999", "",  "Playboy PowerPC", "63e8b9f6744efefbb8a004a2b76e2b1d", 116023, 650),
+	WINGAME1("playmate1999", "",  "PB95.exe",		 "d62438566e44826960fc16c5c23dbe43", 1710252, 650),
+	WINGAME1("sadowar", "v1.1",	  "RSP.EXE",		 "3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
+	MACDEMO2_l("thebody", "Demo", "DEMO", 			 "bcd3c718db258701496b3c5bcb827ef2", 484323,
+								  "START.DIR",		 "beeb32cacc5108838a8b5c6850275b86", 7342, Common::JA_JPN, 404),
+	WINDEMO2_l("thebody", "Demo", "DEMO.EXE",		 "763f360a098cf3bec7cbdc5685b1e4a3", 1193483,
+								  "START.DIR",		 "dd60f73a3c0590754b07e0cee4ec2921", 7206, Common::JA_JPN, 404),
 	WINDEMO2_l("thelegs", "8-bit Color Demo",  "S.EXE",		  "c3c38bd3907ca7e13220b74bd0317a6c", 1013279,
 											   "START8.DIR",  "ed4bfebf096a195ae68db0fe7ba999cc", 4812, Common::JA_JPN, 500),
 	WINDEMO2_l("thelegs", "16-bit Color Demo", "S.EXE",		  "1c654e09938e5a27f694e694aca13833", 1387193,

@@ -138,6 +138,10 @@ const char *directoryGlobs[] = {
 	"previews",						// TeraMedia Previews
 	"parts",						// The People Multimedia CD-Plus
 	"toinstall",					// Jönssonligan series
+	"pingucd",
+	"instdata",						// Pingu
+	"bellinin bikinit",				// Bellini 3 (Finnish)
+	"put me on your desktop",		// Betty Page
 	0
 };
 
