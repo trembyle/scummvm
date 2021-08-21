@@ -20,26 +20,24 @@
  *
  */
 
-// Disable symbol overrides so that we can use system headers.
-#define FORBIDDEN_SYMBOL_ALLOW_ALL
+#include "twine/shared.h"
 
-#include "SDL_syswm.h"
-#include "backends/graphics/sdl/sdl-graphics.h"
-#include <AppKit/NSWindow.h>
+namespace TwinE {
 
-bool SdlGraphicsManager::getMacWindowScaling(float &scale) const {
-#if SDL_VERSION_ATLEAST(2, 0, 0) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
-	SDL_SysWMinfo wmInfo;
-	SDL_VERSION(&wmInfo.version); /* initialize info structure with SDL version info */
-	if (!SDL_GetWindowWMInfo(_window->getSDLWindow(), &wmInfo))
-		return false;
+int32 getDistance2D(int32 x1, int32 z1, int32 x2, int32 z2) {
+	return (int32)sqrt((float)((x2 - x1) * (x2 - x1) + (z2 - z1) * (z2 - z1)));
+}
 
-	NSWindow *nswindow = wmInfo.info.cocoa.window;
-	if (!nswindow)
-		return false;
-	scale = [nswindow backingScaleFactor];
-	return true;
-#else
-	return false;
-#endif
+int32 getDistance2D(const IVec3 &v1, const IVec3 &v2) {
+	return (int32)sqrt((float)((v2.x - v1.x) * (v2.x - v1.x) + (v2.z - v1.z) * (v2.z - v1.z)));
+}
+
+int32 getDistance3D(int32 x1, int32 y1, int32 z1, int32 x2, int32 y2, int32 z2) {
+	return (int32)sqrt((float)((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1)));
+}
+
+int32 getDistance3D(const IVec3 &v1, const IVec3 &v2) {
+	return (int32)sqrt((float)((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y) + (v2.z - v1.z) * (v2.z - v1.z)));
+}
+
 }

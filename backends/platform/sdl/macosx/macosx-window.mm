@@ -20,32 +20,21 @@
  *
  */
 
-#ifndef AGS_ENGINE_MAIN_MAIN_HEADER_H
-#define AGS_ENGINE_MAIN_MAIN_HEADER_H
+// Disable symbol overrides so that we can use system headers.
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
 
-#include "ags/shared/core/platform.h"
-#include "ags/engine/main/main_defines_ex.h"
-#include "ags/engine/ac/math.h"
-#include "ags/engine/script/script_runtime.h"
-#include "ags/engine/gui/animating_gui_button.h"
-#include "ags/shared/gui/gui_button.h"
-#include "ags/engine/gfx/gfxfilter.h"
-#include "ags/shared/util/string_utils.h"
-#include "ags/engine/device/mouse_w32.h"
-#include "ags/engine/ac/route_finder.h"
-#include "ags/shared/script/cc_error.h"
+#include "backends/platform/sdl/macosx/macosx-window.h"
+#include <AppKit/NSWindow.h>
 
-// include last since we affect windows includes
-#include "ags/engine/ac/file.h"
-
-#if AGS_PLATFORM_OS_ANDROID
-//include <sys/stat.h>
-//include <android/log.h>
-
-namespace AGS3 {
-extern "C" void selectLatestSavegame();
-extern bool psp_load_latest_savegame;
-} // namespace AGS3
+float SdlWindow_MacOSX::getDpiScalingFactor() const {
+#if SDL_VERSION_ATLEAST(2, 0, 0) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
+	SDL_SysWMinfo wmInfo;
+	if (getSDLWMInformation(&wmInfo)) {
+		NSWindow *nswindow = wmInfo.info.cocoa.window;
+		if (nswindow)
+			return [nswindow backingScaleFactor];
+	}
 #endif
 
-#endif
+	return SdlWindow::getDpiScalingFactor();
+}

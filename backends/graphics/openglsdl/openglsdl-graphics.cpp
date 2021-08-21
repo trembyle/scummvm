@@ -250,7 +250,7 @@ bool OpenGLSdlGraphicsManager::getFeatureState(OSystem::Feature f) const {
 }
 
 float OpenGLSdlGraphicsManager::getHiDPIScreenFactor() const {
-	return getDpiScalingFactor();
+	return _window->getDpiScalingFactor();
 }
 
 void OpenGLSdlGraphicsManager::initSize(uint w, uint h, const Graphics::PixelFormat *format) {
@@ -290,7 +290,7 @@ void OpenGLSdlGraphicsManager::notifyResize(const int width, const int height) {
 	// event is processed after recreating the window at the new resolution.
 	int currentWidth, currentHeight;
 	getWindowSizeFromSdl(&currentWidth, &currentHeight);
-	float scale = getDpiScalingFactor();
+	float scale = _window->getDpiScalingFactor();
 	debug(3, "req: %d x %d  cur: %d x %d, scale: %f", width, height, currentWidth, currentHeight, scale);
 
 	handleResize(currentWidth, currentHeight);
@@ -303,17 +303,13 @@ void OpenGLSdlGraphicsManager::notifyResize(const int width, const int height) {
 		currentWidth = (int)(currentWidth / scale);
 		currentHeight = (int)(currentHeight / scale);
 #endif
-		// Reset maximized flag
-		_windowIsMaximized = false;
 
 		// Check if the ScummVM window is maximized and store the current
 		// window dimensions.
-		if ((SDL_GetWindowFlags(_window->getSDLWindow()) & SDL_WINDOW_MAXIMIZED) == 128) {
-			_windowIsMaximized = true;
+		if (SDL_GetWindowFlags(_window->getSDLWindow()) & SDL_WINDOW_MAXIMIZED) {
 			ConfMan.setInt("window_maximized_width", currentWidth, Common::ConfigManager::kApplicationDomain);
 			ConfMan.setInt("window_maximized_height", currentHeight, Common::ConfigManager::kApplicationDomain);
 		} else {
-			_windowIsMaximized = false;
 			ConfMan.setInt("last_window_width", currentWidth, Common::ConfigManager::kApplicationDomain);
 			ConfMan.setInt("last_window_height", currentHeight, Common::ConfigManager::kApplicationDomain);
 		}
@@ -353,26 +349,25 @@ bool OpenGLSdlGraphicsManager::loadVideoMode(uint requestedWidth, uint requested
 	// Fetch current desktop resolution and determining max. width and height
 	Common::Rect desktopRes = _window->getDesktopResolution();
 
-	if (_windowIsMaximized == true) {
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+	SDL_Window *window = _window->getSDLWindow();
+	bool _isMaximized = window ? (SDL_GetWindowFlags(window) & SDL_WINDOW_MAXIMIZED) : false;
+	if (_isMaximized && ConfMan.hasKey("window_maximized_width", Common::ConfigManager::kApplicationDomain) && ConfMan.hasKey("window_maximized_height", Common::ConfigManager::kApplicationDomain)) {
 		// Set the window size to the values stored when the window was maximized
-		// for the last time. We also need to reset any scaling here.
+		// for the last time.
 		requestedWidth  = ConfMan.getInt("window_maximized_width", Common::ConfigManager::kApplicationDomain);
 		requestedHeight = ConfMan.getInt("window_maximized_height", Common::ConfigManager::kApplicationDomain);
 
-	} else if (ConfMan.hasKey("last_window_width", Common::ConfigManager::kApplicationDomain) && ConfMan.hasKey("last_window_height", Common::ConfigManager::kApplicationDomain)) {
-		// Restore previously stored window dimensions.
+	} else if (!_isMaximized && ConfMan.hasKey("last_window_width", Common::ConfigManager::kApplicationDomain) && ConfMan.hasKey("last_window_height", Common::ConfigManager::kApplicationDomain)) {
+		// Load previously stored window dimensions.
 		requestedWidth  = ConfMan.getInt("last_window_width", Common::ConfigManager::kApplicationDomain);
 		requestedHeight = ConfMan.getInt("last_window_height", Common::ConfigManager::kApplicationDomain);
 
 	} else {
 		// Set the basic window size based on the desktop resolution
 		// since we have no values stored, e.g. on first launch.
-		requestedWidth  = desktopRes.width()  * 0.3f;
-		requestedHeight = desktopRes.height() * 0.4f;
-
-		// Apply scaler
-		requestedWidth  *= _graphicsScale;
-		requestedHeight *= _graphicsScale;
+		requestedWidth  = MAX<uint>(desktopRes.width() / 2, 640);
+		requestedHeight = requestedWidth * 3 / 4;
 
 		// Save current window dimensions
 		ConfMan.setInt("last_window_width", requestedWidth, Common::ConfigManager::kApplicationDomain);
@@ -380,10 +375,27 @@ bool OpenGLSdlGraphicsManager::loadVideoMode(uint requestedWidth, uint requested
 		ConfMan.flushToDisk();
 	}
 
-	// Determine current aspect ratio
+#else
+		// Set the basic window size based on the desktop resolution
+		// since we cannot reliably determine the current window state
+		// on SDL1.
+		requestedWidth  = MAX<uint>(desktopRes.width() / 2, 640);
+		requestedHeight = requestedWidth * 3 / 4;
+
+#endif
+
+	// In order to prevent any unnecessary downscaling (e.g. when launching
+	// a game in 800x600 while having a smaller screen size stored in the configuration file),
+	// we override the window dimensions with the "real" resolution request made by the engine.
+	if ((requestedWidth < _lastRequestedWidth  * _graphicsScale || requestedHeight < _lastRequestedHeight * _graphicsScale) && ConfMan.getActiveDomain()) {
+		requestedWidth  = _lastRequestedWidth  * _graphicsScale;
+		requestedHeight = _lastRequestedHeight * _graphicsScale;
+	}
+
+	// Set allowed dimensions
 	uint maxAllowedWidth   = desktopRes.width();
 	uint maxAllowedHeight  = desktopRes.height();
-	float ratio = (float)requestedWidth / requestedHeight;
+	float ratio = (float)requestedWidth / (float)requestedHeight;
 
 	// Check if we request a larger window than physically possible,
 	// e.g. by starting with additional launcher parameters forcing
@@ -644,7 +656,7 @@ bool OpenGLSdlGraphicsManager::notifyEvent(const Common::Event &event) {
 			getWindowSizeFromSdl(&windowWidth, &windowHeight);
 			// FIXME HACK. I don't like this at all, but macOS requires window size in LoDPI
 	#ifdef __APPLE__
-			float scale = getDpiScalingFactor();
+			float scale = _window->getDpiScalingFactor();
 			windowWidth /= scale;
 			windowHeight /= scale;
 	#endif

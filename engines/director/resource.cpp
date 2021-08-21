@@ -26,6 +26,7 @@
 #include "common/macresman.h"
 #include "common/substream.h"
 #include "common/winexe.h"
+#include "graphics/wincursor.h"
 
 #include "director/director.h"
 #include "director/cast.h"
@@ -235,6 +236,13 @@ void Window::loadEXE(const Common::String movie) {
 			delete info;
 
 		}
+
+		Common::Array<Common::WinResourceID> idList = exe->getIDList(Common::kWinGroupCursor);
+		for (uint i = 0; i < idList.size(); i++) {
+			Graphics::WinCursorGroup *group = Graphics::WinCursorGroup::createCursorGroup(exe, idList[i]);
+			g_director->_winCursor.push_back(group);
+		}
+
 		delete exe;
 
 		exeStream->seek(-4, SEEK_END);

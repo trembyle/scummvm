@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ScummVM 2.3.0git\n"
 "Report-Msgid-Bugs-To: scummvm-devel@lists.scummvm.org\n"
-"POT-Creation-Date: 2021-08-14 13:33+0000\n"
+"POT-Creation-Date: 2021-08-18 21:39+0000\n"
 "PO-Revision-Date: 2021-03-21 08:24+0000\n"
 "Last-Translator: Aashwin Vaish <aashwin.vaish@research.iiit.ac.in>\n"
 "Language-Team: Hindi <https://translations.scummvm.org/projects/scummvm/"
@@ -268,7 +268,7 @@ msgid "Engine"
 msgstr "इंजन"
 
 #: gui/editgamedialog.cpp:207 gui/options.cpp:1781 gui/options.cpp:1938
-#: backends/graphics/sdl/sdl-graphics.cpp:408
+#: backends/graphics/sdl/sdl-graphics.cpp:425
 msgid "Graphics"
 msgstr "ग्राफ़िक्स"
 
@@ -594,48 +594,48 @@ msgid ""
 "Do you really want to reset all FluidSynth settings to their default values?"
 msgstr ""
 
-#: gui/gui-manager.cpp:129
+#: gui/gui-manager.cpp:141
 msgid "GUI"
 msgstr ""
 
-#: gui/gui-manager.cpp:133 engines/mohawk/myst.cpp:574
+#: gui/gui-manager.cpp:145 engines/mohawk/myst.cpp:574
 #: engines/mohawk/riven.cpp:838
 msgid "Interact"
 msgstr ""
 
-#: gui/gui-manager.cpp:138 gui/unknown-game-dialog.cpp:54
+#: gui/gui-manager.cpp:150 gui/unknown-game-dialog.cpp:54
 #: engines/nancy/dialogs.cpp:314 engines/scumm/help.cpp:125
 #: engines/scumm/help.cpp:140 engines/scumm/help.cpp:165
 #: engines/scumm/help.cpp:191 engines/scumm/help.cpp:209
 msgid "Close"
 msgstr "बंद करें"
 
-#: gui/gui-manager.cpp:144 engines/metaengine.cpp:108
+#: gui/gui-manager.cpp:156 engines/metaengine.cpp:108
 #: engines/dragons/metaengine.cpp:163 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:96 engines/grim/grim.cpp:448
-#: engines/grim/grim.cpp:525 engines/twine/metaengine.cpp:313
-#: engines/twine/metaengine.cpp:380 engines/wintermute/keymapper_tables.h:1263
+#: engines/grim/grim.cpp:525 engines/twine/metaengine.cpp:318
+#: engines/twine/metaengine.cpp:385 engines/wintermute/keymapper_tables.h:1263
 #: engines/wintermute/keymapper_tables.h:1373
 #: engines/wintermute/keymapper_tables.h:1844
 #: engines/wintermute/keymapper_tables.h:2078
 msgid "Up"
 msgstr "ऊपर"
 
-#: gui/gui-manager.cpp:149 engines/metaengine.cpp:113
+#: gui/gui-manager.cpp:161 engines/metaengine.cpp:113
 #: engines/dragons/metaengine.cpp:169 engines/glk/scott/scott.cpp:412
 #: engines/griffon/metaengine.cpp:102 engines/grim/grim.cpp:453
-#: engines/grim/grim.cpp:530 engines/twine/metaengine.cpp:320
-#: engines/twine/metaengine.cpp:388 engines/wintermute/keymapper_tables.h:1269
+#: engines/grim/grim.cpp:530 engines/twine/metaengine.cpp:325
+#: engines/twine/metaengine.cpp:393 engines/wintermute/keymapper_tables.h:1269
 #: engines/wintermute/keymapper_tables.h:1380
 #: engines/wintermute/keymapper_tables.h:1850
 #: engines/wintermute/keymapper_tables.h:2084
 msgid "Down"
 msgstr "नीचे"
 
-#: gui/gui-manager.cpp:154 engines/metaengine.cpp:118
+#: gui/gui-manager.cpp:166 engines/metaengine.cpp:118
 #: engines/dragons/metaengine.cpp:175 engines/griffon/metaengine.cpp:108
 #: engines/grim/grim.cpp:458 engines/grim/grim.cpp:535
-#: engines/twine/metaengine.cpp:335 engines/twine/metaengine.cpp:403
+#: engines/twine/metaengine.cpp:340 engines/twine/metaengine.cpp:408
 #: engines/wintermute/keymapper_tables.h:321
 #: engines/wintermute/keymapper_tables.h:1275
 #: engines/wintermute/keymapper_tables.h:1832
@@ -644,10 +644,10 @@ msgstr "नीचे"
 msgid "Left"
 msgstr "बाएँ"
 
-#: gui/gui-manager.cpp:159 engines/metaengine.cpp:123
+#: gui/gui-manager.cpp:171 engines/metaengine.cpp:123
 #: engines/dragons/metaengine.cpp:181 engines/griffon/metaengine.cpp:114
 #: engines/grim/grim.cpp:463 engines/grim/grim.cpp:540
-#: engines/twine/metaengine.cpp:327 engines/twine/metaengine.cpp:396
+#: engines/twine/metaengine.cpp:332 engines/twine/metaengine.cpp:401
 #: engines/wintermute/keymapper_tables.h:327
 #: engines/wintermute/keymapper_tables.h:1281
 #: engines/wintermute/keymapper_tables.h:1838
@@ -656,7 +656,7 @@ msgstr "बाएँ"
 msgid "Right"
 msgstr "दाएँ"
 
-#: gui/gui-manager.cpp:164 engines/pegasus/pegasus.cpp:2807
+#: gui/gui-manager.cpp:176 engines/pegasus/pegasus.cpp:2807
 #: engines/wintermute/keymapper_tables.h:306
 #: engines/wintermute/keymapper_tables.h:347
 #: engines/wintermute/keymapper_tables.h:382
@@ -862,7 +862,7 @@ msgstr ""
 msgid "Discovered %d new games, ignored %d previously added games ..."
 msgstr ""
 
-#: gui/message.cpp:148 gui/message.cpp:152 gui/options.cpp:2402
+#: gui/message.cpp:174 gui/message.cpp:178 gui/options.cpp:2402
 msgid "Open URL"
 msgstr ""
 
@@ -1041,7 +1041,7 @@ msgstr ""
 msgid "Scaler:"
 msgstr ""
 
-#: gui/options.cpp:1439 backends/graphics/sdl/sdl-graphics.cpp:399
+#: gui/options.cpp:1439 backends/graphics/sdl/sdl-graphics.cpp:416
 msgid "Fullscreen mode"
 msgstr ""
 
@@ -1990,11 +1990,11 @@ msgstr ""
 msgid "Clear value"
 msgstr ""
 
-#: base/main.cpp:628
+#: base/main.cpp:638
 msgid "Error running game:"
 msgstr ""
 
-#: base/main.cpp:675
+#: base/main.cpp:685
 msgid "Could not find any engine capable of running the selected game"
 msgstr ""
 
@@ -2198,7 +2198,7 @@ msgstr ""
 #: engines/mads/nebular/dialogs_nebular.cpp:350
 #: engines/neverhood/menumodule.cpp:890 engines/pegasus/pegasus.cpp:403
 #: engines/prince/saveload.cpp:55 engines/sci/engine/guest_additions.cpp:688
-#: engines/sci/engine/kfile.cpp:1084 engines/sherlock/scalpel/scalpel.cpp:1250
+#: engines/sci/engine/kfile.cpp:1085 engines/sherlock/scalpel/scalpel.cpp:1250
 #: engines/sherlock/tattoo/widget_files.cpp:75 engines/startrek/saveload.cpp:43
 #: engines/toltecs/menu.cpp:292 engines/toon/toon.cpp:3347
 #: engines/trecision/saveload.cpp:67 engines/tsage/scenes.cpp:629
@@ -2218,7 +2218,7 @@ msgstr ""
 #: engines/neverhood/menumodule.cpp:890 engines/parallaction/metaengine.cpp:124
 #: engines/parallaction/saveload.cpp:209 engines/pegasus/pegasus.cpp:403
 #: engines/prince/saveload.cpp:55 engines/sci/engine/guest_additions.cpp:689
-#: engines/sci/engine/kfile.cpp:1084 engines/scumm/dialogs.cpp:177
+#: engines/sci/engine/kfile.cpp:1085 engines/scumm/dialogs.cpp:177
 #: engines/sherlock/scalpel/scalpel.cpp:1250
 #: engines/sherlock/tattoo/widget_files.cpp:75 engines/startrek/saveload.cpp:43
 #: engines/toltecs/menu.cpp:292 engines/toon/toon.cpp:3347
@@ -2695,7 +2695,7 @@ msgstr ""
 
 #: backends/graphics/opengl/opengl-graphics.cpp:242
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:67
-#: engines/twine/metaengine.cpp:212
+#: engines/twine/metaengine.cpp:217
 msgid "Center"
 msgstr ""
 
@@ -2723,32 +2723,32 @@ msgstr ""
 msgid "Fit to window (4:3)"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:675
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:687
 #, c-format
 msgid "Resolution: %dx%d"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:698
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:710
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2412
 msgid "Enabled aspect ratio correction"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:700
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:712
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2418
 msgid "Disabled aspect ratio correction"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:721
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:733
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2434
 msgid "Filtering enabled"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:723
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:735
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2436
 msgid "Filtering disabled"
 msgstr ""
 
-#: backends/graphics/openglsdl/openglsdl-graphics.cpp:752
+#: backends/graphics/openglsdl/openglsdl-graphics.cpp:764
 #: backends/graphics/surfacesdl/surfacesdl-graphics.cpp:2463
 msgid "Stretch mode"
 msgstr ""
@@ -2761,20 +2761,29 @@ msgstr ""
 msgid "Active graphics filter:"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:401
+#: backends/graphics/sdl/sdl-graphics.cpp:368
+#, c-format
+msgid "Saved screenshot '%s'"
+msgstr ""
+
+#: backends/graphics/sdl/sdl-graphics.cpp:377
+msgid "Could not save screenshot"
+msgstr ""
+
+#: backends/graphics/sdl/sdl-graphics.cpp:418
 msgid "Windowed mode"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:412 engines/scumm/help.cpp:86
+#: backends/graphics/sdl/sdl-graphics.cpp:429 engines/scumm/help.cpp:86
 msgid "Toggle fullscreen"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:419 engines/scumm/help.cpp:99
+#: backends/graphics/sdl/sdl-graphics.cpp:436 engines/scumm/help.cpp:99
 #: engines/wintermute/keymapper_tables.h:961
 msgid "Toggle mouse capture"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:424
+#: backends/graphics/sdl/sdl-graphics.cpp:441
 #: engines/wintermute/keymapper_tables.h:647
 #: engines/wintermute/keymapper_tables.h:696
 #: engines/wintermute/keymapper_tables.h:1099
@@ -2787,32 +2796,32 @@ msgstr ""
 msgid "Save screenshot"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:430
+#: backends/graphics/sdl/sdl-graphics.cpp:447
 msgid "Toggle aspect ratio correction"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:437
+#: backends/graphics/sdl/sdl-graphics.cpp:454
 msgid "Toggle linear filtered scaling"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:444
+#: backends/graphics/sdl/sdl-graphics.cpp:461
 msgid "Cycle through stretch modes"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:450
+#: backends/graphics/sdl/sdl-graphics.cpp:467
 msgid "Increase the scale factor"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:456
+#: backends/graphics/sdl/sdl-graphics.cpp:473
 msgid "Decrease the scale factor"
 msgstr ""
 
-#: backends/graphics/sdl/sdl-graphics.cpp:462
+#: backends/graphics/sdl/sdl-graphics.cpp:479
 #, fuzzy
 msgid "Switch to the next scaler"
 msgstr "खेल"
 
-#: backends/graphics/sdl/sdl-graphics.cpp:467
+#: backends/graphics/sdl/sdl-graphics.cpp:484
 msgid "Switch to the previous scaler"
 msgstr ""
 
@@ -3749,7 +3758,7 @@ msgstr ""
 msgid "Add game speed menu (similar to PC version)"
 msgstr ""
 
-#: engines/agi/font.cpp:1090
+#: engines/agi/font.cpp:1097
 msgid ""
 "Could not open/use file 'hgc_font' for Hercules hires font.\n"
 "If you have such file in other AGI (Sierra) game, you can copy it to the "
@@ -3764,7 +3773,7 @@ msgstr ""
 #: engines/illusions/menusystem.cpp:680 engines/kingdom/kingdom.cpp:747
 #: engines/lab/savegame.cpp:258 engines/mads/nebular/dialogs_nebular.cpp:377
 #: engines/neverhood/menumodule.cpp:903 engines/prince/saveload.cpp:64
-#: engines/sci/engine/guest_additions.cpp:691 engines/sci/engine/kfile.cpp:1201
+#: engines/sci/engine/guest_additions.cpp:691 engines/sci/engine/kfile.cpp:1202
 #: engines/sherlock/scalpel/scalpel.cpp:1263
 #: engines/sherlock/tattoo/widget_files.cpp:94 engines/startrek/saveload.cpp:68
 #: engines/toltecs/menu.cpp:267 engines/toon/toon.cpp:3441
@@ -3781,7 +3790,7 @@ msgstr ""
 #: engines/lab/savegame.cpp:238 engines/lab/savegame.cpp:258
 #: engines/mads/nebular/dialogs_nebular.cpp:377
 #: engines/neverhood/menumodule.cpp:903 engines/prince/saveload.cpp:64
-#: engines/sci/engine/guest_additions.cpp:692 engines/sci/engine/kfile.cpp:1201
+#: engines/sci/engine/guest_additions.cpp:692 engines/sci/engine/kfile.cpp:1202
 #: engines/sherlock/scalpel/scalpel.cpp:1263
 #: engines/sherlock/tattoo/widget_files.cpp:94 engines/startrek/saveload.cpp:68
 #: engines/toltecs/menu.cpp:267 engines/toon/toon.cpp:3441
@@ -3853,30 +3862,30 @@ msgstr ""
 msgid "Use antialiasing to draw text even if the game does not ask for it"
 msgstr ""
 
-#: engines/asylum/metaengine.cpp:68
+#: engines/asylum/metaengine.cpp:70
 #, fuzzy
 msgid "Show version"
 msgstr "छिपी हुई files दिखाये"
 
-#: engines/asylum/metaengine.cpp:73 engines/wintermute/keymapper_tables.h:951
+#: engines/asylum/metaengine.cpp:75 engines/wintermute/keymapper_tables.h:951
 msgid "Quick load"
 msgstr ""
 
-#: engines/asylum/metaengine.cpp:78 engines/wintermute/keymapper_tables.h:931
+#: engines/asylum/metaengine.cpp:80 engines/wintermute/keymapper_tables.h:931
 msgid "Quick save"
 msgstr ""
 
-#: engines/asylum/metaengine.cpp:83
+#: engines/asylum/metaengine.cpp:85
 #, fuzzy
 msgid "Switch to Sarah"
 msgstr "खेल"
 
-#: engines/asylum/metaengine.cpp:88
+#: engines/asylum/metaengine.cpp:90
 #, fuzzy
 msgid "Switch to Grimwall"
 msgstr "खेल"
 
-#: engines/asylum/metaengine.cpp:93
+#: engines/asylum/metaengine.cpp:95
 #, fuzzy
 msgid "Switch to Olmec"
 msgstr "खेल"
@@ -3963,7 +3972,7 @@ msgstr ""
 
 #: engines/bladerunner/detection_tables.h:129 engines/cge/detection.cpp:57
 #: engines/cge/detection.cpp:63 engines/kyra/detection_tables.h:303
-#: engines/kyra/detection_tables.h:983 engines/lure/detection.cpp:233
+#: engines/kyra/detection_tables.h:997 engines/lure/detection.cpp:233
 #: engines/mohawk/detection_tables.h:954 engines/mohawk/detection_tables.h:1045
 #: engines/mohawk/detection_tables.h:1060 engines/neverhood/detection.cpp:110
 #: engines/saga/detection_tables.h:187 engines/saga/detection_tables.h:985
@@ -4075,7 +4084,7 @@ msgstr ""
 #: engines/hdb/metaengine.cpp:231 engines/nancy/dialogs.cpp:146
 #: engines/scumm/help.cpp:225 engines/scumm/help.cpp:234
 #: engines/scumm/help.cpp:241 engines/scumm/help.cpp:249
-#: engines/twine/metaengine.cpp:270 engines/zvision/metaengine.cpp:164
+#: engines/twine/metaengine.cpp:275 engines/zvision/metaengine.cpp:164
 msgid "Inventory"
 msgstr ""
 
@@ -4735,12 +4744,12 @@ msgid ""
 "translation."
 msgstr ""
 
-#: engines/kyra/detection_tables.h:1402
+#: engines/kyra/detection_tables.h:1416
 msgid "You added the game incorrectly. Please add the root folder of the game."
 msgstr ""
 
 #. I18N: The file in the game directory needs to be extracted
-#: engines/kyra/detection_tables.h:1418
+#: engines/kyra/detection_tables.h:1432
 msgid ""
 "You added the game incorrectly. The GAME.DAT file is an ISO image and you "
 "need to extract the game data files from it."
@@ -4775,7 +4784,7 @@ msgid "Interact via Right Click"
 msgstr ""
 
 #: engines/kyra/engine/eobcommon.cpp:370 engines/kyra/engine/lol.cpp:481
-#: engines/twine/metaengine.cpp:232
+#: engines/twine/metaengine.cpp:237
 #, fuzzy
 msgid "Move Forward"
 msgstr "नीचे देखो"
@@ -4795,13 +4804,13 @@ msgid "Move Right"
 msgstr "दाहिने"
 
 #: engines/kyra/engine/eobcommon.cpp:374 engines/kyra/engine/lol.cpp:485
-#: engines/pegasus/pegasus.cpp:2728 engines/twine/metaengine.cpp:253
+#: engines/pegasus/pegasus.cpp:2728 engines/twine/metaengine.cpp:258
 #: engines/zvision/metaengine.cpp:141
 msgid "Turn Left"
 msgstr "बांए मुड़िए"
 
 #: engines/kyra/engine/eobcommon.cpp:375 engines/kyra/engine/lol.cpp:486
-#: engines/pegasus/pegasus.cpp:2735 engines/twine/metaengine.cpp:246
+#: engines/pegasus/pegasus.cpp:2735 engines/twine/metaengine.cpp:251
 #: engines/zvision/metaengine.cpp:147
 #, fuzzy
 msgid "Turn Right"
@@ -7086,88 +7095,92 @@ msgid "Debug Grid Camera Right"
 msgstr ""
 
 #: engines/twine/metaengine.cpp:144
-msgid "Debug Menu"
+msgid "Place actor at center of screen"
 msgstr ""
 
 #: engines/twine/metaengine.cpp:149
+msgid "Debug Menu"
+msgstr ""
+
+#: engines/twine/metaengine.cpp:154
 msgid "Debug Menu Execute"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:154 engines/twine/metaengine.cpp:174
+#: engines/twine/metaengine.cpp:159 engines/twine/metaengine.cpp:179
 msgid "Normal Behaviour"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:159 engines/twine/metaengine.cpp:179
+#: engines/twine/metaengine.cpp:164 engines/twine/metaengine.cpp:184
 msgid "Athletic Behaviour"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:164 engines/twine/metaengine.cpp:184
+#: engines/twine/metaengine.cpp:169 engines/twine/metaengine.cpp:189
 msgid "Aggressive Behaviour"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:169 engines/twine/metaengine.cpp:189
+#: engines/twine/metaengine.cpp:174 engines/twine/metaengine.cpp:194
 msgid "Discreet Behaviour"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:194
+#: engines/twine/metaengine.cpp:199
 msgid "Behaviour Action"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:200
+#: engines/twine/metaengine.cpp:205
 msgid "Change Behaviour"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:207
+#: engines/twine/metaengine.cpp:212
 msgid "Options Menu"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:219
+#: engines/twine/metaengine.cpp:224
 msgid "Use Selected Object"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:225
+#: engines/twine/metaengine.cpp:230
 msgid "Throw Magic Ball"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:239
+#: engines/twine/metaengine.cpp:244
 msgid "Move Backward"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:260
+#: engines/twine/metaengine.cpp:265
 msgid "Use Protopack"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:265
+#: engines/twine/metaengine.cpp:270
 msgid "Open Holomap"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:278
+#: engines/twine/metaengine.cpp:283
 msgid "Special Action"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:284 engines/wintermute/keymapper_tables.h:61
+#: engines/twine/metaengine.cpp:289 engines/wintermute/keymapper_tables.h:61
 msgid "Escape"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:297
+#: engines/twine/metaengine.cpp:302
 msgid "Accept"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:305 engines/twine/metaengine.cpp:357
-#: engines/twine/metaengine.cpp:373
+#: engines/twine/metaengine.cpp:310 engines/twine/metaengine.cpp:362
+#: engines/twine/metaengine.cpp:378
 msgid "Abort"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:343
+#: engines/twine/metaengine.cpp:348
 msgid "Next Page"
 msgstr ""
 
-#: engines/twine/metaengine.cpp:410
+#: engines/twine/metaengine.cpp:415
 #, fuzzy
 msgid "Previous location"
 msgstr "पिछला (P)"
 
-#: engines/twine/metaengine.cpp:415
+#: engines/twine/metaengine.cpp:420
 msgid "Next location"
 msgstr ""
 
@@ -7266,12 +7279,12 @@ msgstr ""
 msgid "Out of date engine data. Expected %d.%d, but got version %d.%d"
 msgstr ""
 
-#: engines/ultima/nuvie/nuvie.cpp:382
+#: engines/ultima/nuvie/nuvie.cpp:388
 #, c-format
 msgid "loading quick save %d"
 msgstr ""
 
-#: engines/ultima/nuvie/nuvie.cpp:387
+#: engines/ultima/nuvie/nuvie.cpp:393
 #, c-format
 msgid "saving quick save %d"
 msgstr ""
