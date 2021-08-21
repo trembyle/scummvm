@@ -62,8 +62,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "betterd",			"The Better Dead Ratification" },
 	{ "beyondthewall",		"Beyond the Wall of Stars" },
 	{ "blinkybill1",		"Blinky Bill's Ghost Cave" },
-	{ "blinkyps",			"Blinky Bill: Play and Learn - Preschool" },
+	{ "blinkybill2",		"Blinky Bill's Extraordinary Balloon Adventure" },
+	{ "blinkybill3",		"Blinky Bill and the Magician" },
+	{ "blinkycartoon",		"Blinky Bill's Cartoon Maker" },
 	{ "blinkyk1",			"Blinky Bill: Play and Learn - Kindergarten" },
+	{ "blinkyprint",		"Print & Play with Blinky Bill" },
+	{ "blinkyps",			"Blinky Bill: Play and Learn - Preschool" },
 	{ "blinkyy1",			"Blinky Bill: Play and Learn - Year 1" },
 	{ "bobcastle",			"Bob the Builder: Bob's Castle Adventure" },
 	{ "bodypark",			"Body Park" },
@@ -2912,6 +2916,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 									  "OPENING.DIR",   "45cb69d7174a3f93d54e9a5ee1fb9f3b", 2274768, 500),
 	WINGAME1("blender", "Volume 3.1", "LNCHR_32.EXE",  "1a7acbba10a7246ba58c1d53fc7203f5", 1421431, 501),
 
+	WINGAME1("blinkybill2", "", "BALLN95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1427375, 501),
+	//	Blinky Bill - Die Abenteuerliche Reise Im Ballon
+	WINGAME2_l("blinkybill2", "", "BLINKY.EXE", "4f1c34f196de0d5782788ecd0cec94aa", 1077417,
+			"BALLOON.ICO", "c54af79fccc9dba8fbfa0e529efc8dec", 766, Common::DE_DEU, 501),
+
 	// Designed by In Chair Viewing (ICV)
 	// Binaries provided for Win3.1, Win95, WinNT
 	WINGAME1("bluesbros2000", "Windows 95", "Blues95.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 1410935, 501),
@@ -3188,6 +3197,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("shrmess", "Demo", "SHRMESS.EXE", "842014a812b454620f64b860fd7211f0", 932319, 501),
 
+	//Topi y Teo en el Parque Paraíso, original Danish version is D4
+	WINGAME2_l("skeeto1", "", "tutor32.exe",   "1a7acbba10a7246ba58c1d53fc7203f5", 1448025, "anaya.avi",   "2e0e1b8324148806f80323ece3fc3bf9", 3145926, Common::ES_ESP, 501),
+
 	MACDEMO1("slamdunktyping", "Demo", "Mac Slam Dunk", "231d3041df162be4a0ddd36a74eb03b6", 719261, 501),
 	WINDEMO1("slamdunktyping", "Demo", "SDTDEMO.EXE", "842014a812b454620f64b860fd7211f0", 932727, 501),
 
@@ -3325,6 +3337,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 							 "intro.dxr",  "8732eb742a8bbfd6de5c55b22e41317b", 2549490, 602),
 
 	WINGAME1_l("bigmax", "nº20", "BIG32.EXE", "518a98696fe1122e08410b0f157f21bf", 7313980, Common::PT_BRA, 602),
+
+	WINGAME1("blinkybill3", "", "MAGI32.EXE", "d62438566e44826960fc16c5c23dbe43", 1514279, 650),
 
 	//Edison: Bio-Mania
 	WINGAME2_l("robidoc", "", "start.exe", "518a98696fe1122e08410b0f157f21bf", 1518949,
@@ -3674,16 +3688,19 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Bonus content on retail CD releases. No text or dialogue is used.
 	WINGAME1("billetrille1ss", "", "screensaverDT1.exe", "18e31b6357c42300bb6947a6af7b8a69", 3261985, 702),
 
-	//Blinky Bill Peuter
-	WINGAME1_l("blinkyps", "", "PS.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173560, Common::NL_NLD, 702),
-
 	WINGAME2("blinkyk1", "", "K1.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173598,
 			"home.dxr", "a5bf0926474b9d6100d5eb0a02c59e7c", 2414060, 702),
-	//Blinky Bill Kleuter
+	// Blinky Bill Kleuter
 	WINGAME2_l("blinkyk1", "", "K1.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173598,
 			"home.dxr", "dd7f95732848801b0d5a7e784db68962", 2381576, Common::NL_NLD, 702),
 
-	//Blinky Bill Lezertje
+	// Druckspaß mit Blinky Bill
+	WINGAME1_l("blinkyprint", "", "BB_DRUCK.EXE", "7c18c9a6af2694156bf09ed195c1ab09", 174050, Common::DE_DEU, 702),
+
+	// Blinky Bill Peuter
+	WINGAME1_l("blinkyps", "", "PS.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173560, Common::NL_NLD, 702),
+
+	// Blinky Bill Lezertje
 	WINGAME1_l("blinkyy1", "", "Y1.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173554, Common::NL_NLD, 702),
 
 	WINGAME1("buzz1", "", "DBLY1.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2201114, 702),
@@ -3895,6 +3912,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// although we don't know if it was actually released in English
 	// https://web.archive.org/web/20060208235824/http://billetrille.savannah.dk/dtpages.php3?page_id=208&lang=english
 	MACDEMO1_l("billetrille2", "Demo", "VilleLilli2Demo", "4ea5fc09f79eee6dded94dc40f303779", 196171, Common::FI_FIN, 800),
+
+	// Possible that book.exe is game too that launches different files?
+	WINGAME1("blinkycartoon", "", "fun.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57106, 800),
 
 	WINGAME2("bobmambo5", "ECD", "START.EXE", "e24d4bab978b1a5c2326d2c56cf4d781", 6980680,
 								 "MAMBO.MOV", "990db0c7187621250dfca0a55996538e", 39868175, 800),
