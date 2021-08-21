@@ -35,11 +35,6 @@ void parseCommandLine(int argc, char *argv[]) {
 	warning("STUB: parseCommandLine()");
 }
 
-uint32 pickHeapSize(uint32 minHeap) {
-	warning("STUB: pickHeapSize()");
-	return 0;
-}
-
 void initCleanup() {
 	warning("STUB: initCleanup()");
 }
@@ -50,7 +45,7 @@ bool initializeGame() {
 	return false;
 }
 void shutdownGame() {
-	warning("STUB: shutdownGame");
+	cleanupGame();
 }
 
 bool initSystemTimer() {

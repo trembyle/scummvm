@@ -2700,9 +2700,9 @@ void cleanupPrototypes(void) {
 	for (uint i = 0; i < nameListCount; ++i) {
 		if (g_vm->_nameList[i])
 			delete[] g_vm->_nameList[i];
-
-		g_vm->_nameList.clear();
 	}
+
+	g_vm->_nameList.clear();
 
 	for (uint i = 0; i < g_vm->_actorProtos.size(); ++i) {
 		if (g_vm->_actorProtos[i])
@@ -4375,7 +4375,7 @@ APPFUNC(cmdBrain) {
 			}
 		}
 	} else if (ev.eventType == gEventMouseMove) {
-		if (ev.value == gCompImage::leave) {
+		if (ev.value == GfxCompImage::leave) {
 			g_vm->_mouseInfo->setText(nullptr);
 		} else { //if (ev.value == gCompImage::enter)
 			// set the text in the cursor

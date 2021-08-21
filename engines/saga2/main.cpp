@@ -75,11 +75,7 @@ uint32 cliMemory        = 0;
 //  Display variables
 BackWindow              *mainWindow;            // main window...
 
-//  Memory allocation heap
-long                    memorySize = 8000000L;
-
 //  Global game state
-bool                    gameRunning = true;     // true while game running
 bool                    allPlayerActorsDead = false;
 //bool                  graphicsInit = false;   // true if graphics init OK
 bool                    checkExit = false;      // true while game running
@@ -109,10 +105,6 @@ static bool             cleanExit = true;
 bool                    gameInitialized = false;        // true when game initialized
 bool                    fullInitialized = false;
 bool                    delayReDraw = false;
-
-// main heap
-static uint8            *heapMemory;
-
 
 /* ===================================================================== *
    Debug
@@ -209,7 +201,7 @@ static void mainLoop(bool &cleanExit_, int argc, char *argv[]) {
 		displayUpdate();
 	checkRestartGame(exeFile);
 	fullInitialized = true;
-	EventLoop(gameRunning, false);
+	EventLoop(g_vm->_gameRunning, false);
 }
 
 /********************************************************************/
@@ -261,7 +253,7 @@ void processEventLoop(bool updateScreen = true);
 
 void EventLoop(bool &running, bool) {
 	//  Our typical main loop
-	while (running && gameRunning)
+	while (running && g_vm->_gameRunning)
 		processEventLoop(displayEnabled());
 }
 
@@ -274,8 +266,8 @@ void processEventLoop(bool updateScreen) {
 
 	debugC(1, kDebugEventLoop, "EventLoop: starting event loop");
 
-	if (checkExit && verifyUserExit()) {
-		//gameRunning=false;
+	if (g_vm->shouldQuit()) {
+		//g_vm->_gameRunning=false;
 		endGame();
 		return;
 	}
@@ -343,6 +335,7 @@ void displayUpdate(void) {
 		updateIndicators();
 
 		g_system->updateScreen();
+		g_system->delayMillis(10);
 
 		if (delayReDraw)
 			reDrawScreen();
@@ -392,7 +385,7 @@ void SystemEventLoop(void) {
 #ifdef DO_OUTRO_IN_CLEANUP
 	    whichOutro == -1 &&
 #endif
-	    !gameRunning)
+	    !g_vm->_gameRunning)
 		TroModeExternEvent();
 
 	Common::Event event;
@@ -410,6 +403,7 @@ void SystemEventLoop(void) {
 	}
 
 	g_system->updateScreen();
+	g_system->delayMillis(10);
 }
 
 /********************************************************************/
@@ -716,7 +710,7 @@ void loadGlobals(Common::InSaveFile *in) {
 // pops up a window to see if the user really wants to exit
 
 bool verifyUserExit(void) {
-	if (!gameRunning)
+	if (!g_vm->_gameRunning)
 		return true;
 	if (FTAMessageBox("Are you sure you want to exit", ERROR_YE_BUTTON, ERROR_NO_BUTTON) != 0)
 		return true;
@@ -849,52 +843,6 @@ APPFUNC(cmdWindowFunc) {
 	default:
 		break;
 	}
-}
-
-/********************************************************************/
-/*                                                                  */
-/* MEMORY MANAGEMENT CODE                                           */
-/*                                                                  */
-/********************************************************************/
-
-/* ===================================================================== *
-   Functions to initialize the memory manager.
- * ===================================================================== */
-
-//-----------------------------------------------------------------------
-//	Initialize memory manager
-
-bool initMemPool(void) {
-	uint32 take = pickHeapSize(memorySize);
-	memorySize = take;
-	if (NULL == (heapMemory = (uint8 *)malloc(take)))
-		return false;
-	//initMemHandler();
-	return true;
-}
-
-//-----------------------------------------------------------------------
-//	De-initialize memory manager
-
-void cleanupMemPool(void) {
-	//clearMemHandler();
-	if (heapMemory) {
-		free(heapMemory);
-		heapMemory = nullptr;
-	}
-}
-
-//-----------------------------------------------------------------------
-//	Allocates memory, or throws exception if allocation fails.
-
-void *mustAlloc(uint32 size, const char desc[]) {
-	void            *ptr;
-
-	ptr = malloc(size);
-	//  REM: Before we give up completely, try unloading some things...
-	if (ptr == NULL)
-		error("Local heap allocation size %d bytes failed.", size);
-	return ptr;
 }
 
 } // end of namespace Saga2

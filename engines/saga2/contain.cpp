@@ -379,8 +379,8 @@ void ContainerView::drawClipped(
 	                y;
 
 	//  Coordinates for slot 0,0.
-	int16           originX = extent.x - offset.x + iconOrigin.x,
-	                originY = extent.y - offset.y + iconOrigin.y;
+	int16           originX = _extent.x - offset.x + iconOrigin.x,
+	                originY = _extent.y - offset.y + iconOrigin.y;
 
 	ObjectID        objID;
 	GameObject      *item;
@@ -392,7 +392,7 @@ void ContainerView::drawClipped(
 	ColorTable      objColors;
 
 	//  If there's no overlap between extent and clip, then return.
-	if (!extent.overlap(r)) return;
+	if (!_extent.overlap(r)) return;
 
 	//  Iterate through each item within the container.
 	while ((objID = iter.next(&item)) != Nothing) {
@@ -679,7 +679,7 @@ bool ContainerView::pointerHit(gPanelMessage &msg) {
 
 	// total the mass and bulk of all the objects in this container
 	totalObjects();
-	window.update(extent);
+	window.update(_extent);
 
 	return activate(gEventMouseDown);
 }
@@ -1019,8 +1019,8 @@ void ReadyContainerView::drawClipped(
 	                y;
 
 	//  Coordinates for slot 0,0.
-	int16           originX = extent.x - offset.x + iconOrigin.x,
-	                originY = extent.y - offset.y + iconOrigin.y;
+	int16           originX = _extent.x - offset.x + iconOrigin.x,
+	                originY = _extent.y - offset.y + iconOrigin.y;
 
 	//  Row an column number of the inventory slot.
 	int16           col,
@@ -1036,14 +1036,14 @@ void ReadyContainerView::drawClipped(
 	ColorTable      objColors;
 
 	//  If there's no overlap between extent and clip, then return.
-	if (!extent.overlap(r)) return;
+	if (!_extent.overlap(r)) return;
 
 	//  Draw the boxes for visible rows and cols.
 
 	if (backImages) {
 		int16   i;
-		Point16 drawOrg(extent.x - offset.x + backOriginX,
-		                extent.y - offset.y + backOriginY);
+		Point16 drawOrg(_extent.x - offset.x + backOriginX,
+		                _extent.y - offset.y + backOriginY);
 
 		for (y = drawOrg.y, row = 0;
 		        row < visibleRows;
@@ -1162,7 +1162,7 @@ ContainerWindow::ContainerWindow(ContainerNode &nd,
 	view = NULL;
 
 	// create the close button for this window
-	closeCompButton = new gCompButton(
+	closeCompButton = new GfxCompButton(
 	                      *this,
 	                      app.closeRect,              // rect for button
 	                      containerRes,               // resource context
@@ -1189,7 +1189,7 @@ ScrollableContainerWindow::ScrollableContainerWindow(
 	view = new ContainerView(*this, app.viewRect, nd, app);
 
 	// make the button conected to this window
-	scrollCompButton = new gCompButton(
+	scrollCompButton = new GfxCompButton(
 	                       *this,
 	                       app.scrollRect,                 // rect for button
 	                       containerRes,                   // resource context
@@ -1274,7 +1274,7 @@ void TangibleContainerWindow::setContainerSprite(void) {
 	sprPos.x = objRect.x - (spr->size.x >> 1);  //objRect.x + ( spr->size.x >> 1 );
 	sprPos.y = objRect.y - (spr->size.y >> 1);
 
-	containerSpriteImg = new gSpriteImage(
+	containerSpriteImg = new GfxSpriteImage(
 	                         *this,
 	                         Rect16(sprPos.x,
 	                                sprPos.y,
@@ -1298,7 +1298,7 @@ void TangibleContainerWindow::drawClipped(
     gPort &port,
     const Point16 &offset,
     const Rect16 &clip) {
-	if (!extent.overlap(clip)) return;
+	if (!_extent.overlap(clip)) return;
 
 	// draw the decorations
 	ScrollableContainerWindow::drawClipped(port, offset, clip);
@@ -1312,7 +1312,7 @@ IntangibleContainerWindow::IntangibleContainerWindow(
     ContainerNode &nd, ContainerAppearanceDef &app)
 	: ScrollableContainerWindow(nd, app, "MentalWindow") {
 	// make the button conected to this window
-	mindSelectorCompButton = new gMultCompButton(
+	mindSelectorCompButton = new GfxMultCompButton(
 	                             *this,
 	                             Rect16(49, 15 - 13, 52, 67),
 	                             containerRes,
@@ -1342,7 +1342,7 @@ EnchantmentContainerWindow::EnchantmentContainerWindow(
 	view = new EnchantmentContainerView(*this, nd, app);
 
 	// make the button conected to this window
-	scrollCompButton = new gCompButton(
+	scrollCompButton = new GfxCompButton(
 	                       *this,
 	                       app.scrollRect,                 // rect for button
 	                       containerRes,                   // resource context
@@ -1761,7 +1761,6 @@ void cleanupContainers(void) {
 
 	selImage = NULL;
 	containerRes = NULL;
-	delete g_vm->_containerList;
 }
 
 void initContainerNodes(void) {
@@ -1845,6 +1844,9 @@ void loadContainerNodes(Common::InSaveFile *in) {
 }
 
 void cleanupContainerNodes(void) {
+	if (g_vm->_containerList == nullptr)
+		return;
+
 	Common::Array<ContainerNode *> deletionArray;
 
 	for (Common::List<ContainerNode *>::iterator it = g_vm->_containerList->_list.begin(); it != g_vm->_containerList->_list.end(); ++it) {
@@ -1955,7 +1957,7 @@ APPFUNC(cmdMindContainerFunc) {
 			g_vm->_mouseInfo->setText(textBuffer);
 		}
 
-		if (ev.value == gCompImage::leave) {
+		if (ev.value == GfxCompImage::leave) {
 			g_vm->_mouseInfo->setText(NULL);
 		}
 	}
@@ -1977,9 +1979,9 @@ APPFUNC(cmdCloseButtonFunc) {
 			g_vm->_mouseInfo->setText(NULL);
 		}
 	} else if (ev.eventType == gEventMouseMove) {
-		if (ev.value == gCompImage::enter) {
+		if (ev.value == GfxCompImage::enter) {
 			g_vm->_mouseInfo->setText(CLOSE_MOUSE);
-		} else if (ev.value == gCompImage::leave) {
+		} else if (ev.value == GfxCompImage::leave) {
 			g_vm->_mouseInfo->setText(NULL);
 		}
 	}
@@ -1997,9 +1999,9 @@ APPFUNC(cmdScrollFunc) {
 			cw->scrollDown();
 		ev.window->update(cw->getView().getExtent());
 	} else if (ev.eventType == gEventMouseMove) {
-		if (ev.value == gCompImage::enter) {
+		if (ev.value == GfxCompImage::enter) {
 			g_vm->_mouseInfo->setText(SCROLL_MOUSE);
-		} else if (ev.value == gCompImage::leave) {
+		} else if (ev.value == GfxCompImage::leave) {
 			g_vm->_mouseInfo->setText(NULL);
 		}
 	}

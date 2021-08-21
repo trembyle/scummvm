@@ -77,6 +77,8 @@ class TaskList;
 class Deejay;
 class frameSmoother;
 class frameCounter;
+class CMapFeature;
+class AudioInterface;
 
 enum {
 	kDebugResources = 1 << 0,
@@ -110,6 +112,7 @@ public:
 	Common::Error saveGameStream(Common::WriteStream *stream, bool isAutosave = false) override;
 	Common::Error saveGameState(int slot, const Common::String &desc, bool isAutosave) override;
 	Common::Error loadGameState(int slot) override;
+	void syncSoundSettings() override;
 
 	Common::String getSavegameFile(int num);
 
@@ -132,6 +135,7 @@ public:
 	Common::RandomSource *_rnd;
 	Console *_console;
 	Renderer *_renderer;
+	AudioInterface *_audio;
 
 	WeaponStuff _weaponRack[kMaxWeapons];
 	weaponID _loadedWeapons;
@@ -140,6 +144,7 @@ public:
 	Common::Array<PlayerActor *> _playerList;
 	Common::Array<ProtoObj *> _objectProtos;
 	Common::Array<ActorProto *> _actorProtos;
+	Common::Array<CMapFeature *> _mapFeatures;
 	Common::List<TimerList *> _timerLists;
 	Common::List<Timer *> _timers;
 	Common::List<ActorAppearance *> _appearanceLRU;
@@ -173,13 +178,15 @@ public:
 	gPort _backPort;
 	gPixelMap _tileDrawMap;
 
+	bool _gameRunning;
 	bool _autoAggression;
 	bool _autoWeapon;
 	bool _showNight;
 	bool _speechText;
+	bool _speechVoice;
+
 	bool _teleportOnClick;
 	bool _teleportOnMap;
-
 	bool _showPosition;
 	bool _showStats;
 
