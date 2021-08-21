@@ -278,6 +278,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "shrmess",			"Schoolhouse Rock!: 1st-4th Grade Math Essentials" },
 	{ "simpsonplayer",		"The Simpsons Cartoon Player"},
 	{ "simpsonstudio",		"The Simpsons Cartoon Studio"},
+	{ "skeeto1",			"Skipper & Skeeto: Tales from Paradise Park " }, // Magnus & Myggen 1
 	{ "skeeto10",			"Skipper & Skeeto: Fun in the Park" }, // Magnus & Myggen
 	{ "skyborg",			"SkyBorg: Into the Vortex" },
 	{ "slamdunktyping",		"Slam Dunk Typing" },
@@ -487,6 +488,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "fcdk",				"F.C. De Kampioenen: Op Zoek Naar Neroke" },
 	{ "griezelbus1",		"De Griezelbus 1" },
 	{ "lannoo",				"Lannoo Nieuwe Media Demo" },
+	{ "lletters",			"Levende Letters" },
 	{ "samson",				"Op Reis Met Samson & Gert" },
 
 	// Finnish titles
@@ -503,6 +505,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "forestiajr",			"Forestia Révoltozoo" },
 	{ "guignols1",			"Les Guignols de l'Info ... LE JEU!" },
 	{ "guignols2",			"Les Guignols de l'Info: Le cauchemar de PPD" },
+	{ "lpp",				"Le Petit Prince" },
 	{ "lvi",				"La Vague Interactive" },
 	{ "madmac",				"Mad Mac Cartoons" },
 	{ "recfantome",			"Récréation fantôme" },
@@ -2617,6 +2620,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("simpsonstudio", "", "SIMPSONS.EXE", "358af28ffe3fa515a9b9a03149483cb1", 3368957, 404),
 	WINGAME1("simpsonplayer", "", "SPLAYER.EXE", "8966c096c5718316fddc7b238dd9df94", 884843, 404), // standalone player for simpsons cartoons
 
+	//Leg og Lær med Magnus & Myggen
+	WINGAME1_l("skeeto1", "", "MAGNUS.EXE",   "2e1f989b0246b4df9dbd8a5aed0df8bb", 28614851, Common::DA_DAN, 404),
+
 	// Windows demo is from PC Gamer (US) demo disc #11 - Oct 1995
 	MACGAME1("skyborg", "", "SkyBorg 1.0", "bcd3c718db258701496b3c5bcb827ef2", 486954, 404),
 	WINGAME1("skyborg", "", "BORG.EXE", "855f305ba8ae70d5e5a53a9085b83d5b", 1887499, 404),
@@ -3032,6 +3038,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("jslearn", "1997 D5 Demo", "JumpStart Previews", "231d3041df162be4a0ddd36a74eb03b6", 718745, 501),
 	WINGAME1("jslearn", "1997 D5 Demo", "PREV32A.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1411155, 501),
+
+	WINGAME2_l("lletters", "", "start95.exe", "3460ad87d2ba57104e2810a77b53c220", 1393815, "3_doek.aif", "5b14e3916329ec7ace6fd5f9c7f8062e", 12854, Common::NL_NLD, 500),
 
 	MACGAME1("maccubed7", "", "Let's Go! Internet & Utilities", "5b3a7fa45ec7655c5f9b7fe39ae37a11", 705613, 500),
 
@@ -4120,6 +4128,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Classic OS executable is D8
 	MACGAME1("heuther", "OS X", "HuetherOSX", "d483e955df901222145267d2ad729ea2", 228355, 900),
 	WINGAME1("heuther", "", "Huether.exe", "c612aa43e7ef55aa4fd2e1085fb1ef7a", 3353374, 900),
+
+	WINGAME2_l("lpp", "", "lpp.exe", "c612aa43e7ef55aa4fd2e1085fb1ef7a", 1698072, "dkp.exe", "84fa8d332d04f32630218ab40b7cfc38", 1236545, Common::NL_NLD, 900),
 
 	// Original Mac filename is Mats und das rätselhafte Tier
 	// Mac version must be installed. Additional OS X installer runs the game Classic environment.
