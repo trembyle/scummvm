@@ -35,6 +35,7 @@
 #include "saga2/saga2.h"
 #include "saga2/fta.h"
 
+#include "saga2/actor.h"
 #include "saga2/audio.h"
 #include "saga2/band.h"
 #include "saga2/beegee.h"
@@ -47,6 +48,7 @@
 #include "saga2/music.h"
 #include "saga2/panel.h"
 #include "saga2/spelshow.h"
+#include "saga2/vpal.h"
 
 namespace Saga2 {
 
@@ -66,6 +68,8 @@ Saga2Engine::Saga2Engine(OSystem *syst)
 	_console = nullptr;
 	_renderer = nullptr;
 	_audio = nullptr;
+	_pal = nullptr;
+	_act = nullptr;
 
 	_bandList = nullptr;
 	_mouseInfo = nullptr;
@@ -84,6 +88,11 @@ Saga2Engine::Saga2Engine(OSystem *syst)
 	_showStats = false;
 	_teleportOnClick = false;
 	_teleportOnMap = false;
+
+	_indivControlsFlag = false;
+	_userControlsSetup = false;
+	_fadeDepth = 1;
+	_currentMapNum = 0;
 
 	SearchMan.addSubDirectoryMatching(gameDataDir, "res");
 	SearchMan.addSubDirectoryMatching(gameDataDir, "dos/drivers"); // For Miles Sound files
@@ -121,6 +130,8 @@ Saga2Engine::~Saga2Engine() {
 	// Dispose your resources here
 	delete _rnd;
 	delete _renderer;
+	delete _pal;
+	delete _act;
 
 	delete _imageCache;
 	delete _mTaskList;
@@ -146,6 +157,9 @@ Common::Error Saga2Engine::run() {
 	setDebugger(_console);
 
 	_renderer = new Renderer();
+
+	_pal = new PaletteManager;
+	_act = new ActorManager;
 
 	readConfig();
 

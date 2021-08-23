@@ -6,8 +6,7 @@
 # This file contains tests. They can be run with:
 #  $ pytest dumper-companion.py
 #
-# Code is formatted with `black -l 2000`
-# The rediculous line length is to keep the decoding table sane
+# Code is formatted with `black `
 
 import argparse
 import io
@@ -26,8 +25,8 @@ if sys.platform == "darwin":
     except ImportError:
         print("xattr is required for the 'mac' mode to work\n")
 
-from typing import ByteString
 
+# fmt: off
 decode_map = {
     "81": ["　", "、", "。", "，", "．", "・", "：", "；", "？", "！", "゛", "゜", "´", "｀", "¨", "＾", "￣", "＿", "ヽ", "ヾ", "ゝ", "ゞ", "〃", "仝", "々", "〆", "〇", "ー", "—", "‐", "／", "＼", "〜", "‖", "｜", "…", "‥", "‘", "’", "“", "”", "（", "）", "〔", "〕", "［", "］", "｛", "｝", "〈", "〉", "《", "》", "「", "」", "『", "』", "【", "】", "＋", "−", "±", "×", None, "÷", "＝", "≠", "＜", "＞", "≦", "≧", "∞", "∴", "♂", "♀", "°", "′", "″", "℃", "￥", "＄", "¢", "£", "％", "＃", "＆", "＊", "＠", "§", "☆", "★", "○", "●", "◎", "◇", "◆", "□", "■", "△", "▲", "▽", "▼", "※", "〒", "→", "←", "↑", "↓", "〓", None, None, None, None, None, None, None, None, None, None, None, "∈", "∋", "⊆", "⊇", "⊂", "⊃", "∪", "∩", None, None, None, None, None, None, None, None, "∧", "∨", "¬", "⇒", "⇔", "∀", "∃", None, None, None, None, None, None, None, None, None, None, None, "∠", "⊥", "⌒", "∂", "∇", "≡", "≒", "≪", "≫", "√", "∽", "∝", "∵", "∫", "∬", None, None, None, None, None, None, None, "Å", "‰", "♯", "♭", "♪", "†", "‡", "¶", None, None, None, None, "◯"],
     "82": [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "０", "１", "２", "３", "４", "５", "６", "７", "８", "９", None, None, None, None, None, None, None, "Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ", "Ｌ", "Ｍ", "Ｎ", "Ｏ", "Ｐ", "Ｑ", "Ｒ", "Ｓ", "Ｔ", "Ｕ", "Ｖ", "Ｗ", "Ｘ", "Ｙ", "Ｚ", None, None, None, None, None, None, None, "ａ", "ｂ", "ｃ", "ｄ", "ｅ", "ｆ", "ｇ", "ｈ", "ｉ", "ｊ", "ｋ", "ｌ", "ｍ", "ｎ", "ｏ", "ｐ", "ｑ", "ｒ", "ｓ", "ｔ", "ｕ", "ｖ", "ｗ", "ｘ", "ｙ", "ｚ", None, None, None, None, "ぁ", "あ", "ぃ", "い", "ぅ", "う", "ぇ", "え", "ぉ", "お", "か", "が", "き", "ぎ", "く", "ぐ", "け", "げ", "こ", "ご", "さ", "ざ", "し", "じ", "す", "ず", "せ", "ぜ", "そ", "ぞ", "た", "だ", "ち", "ぢ", "っ", "つ", "づ", "て", "で", "と", "ど", "な", "に", "ぬ", "ね", "の", "は", "ば", "ぱ", "ひ", "び", "ぴ", "ふ", "ぶ", "ぷ", "へ", "べ", "ぺ", "ほ", "ぼ", "ぽ", "ま", "み", "む", "め", "も", "ゃ", "や", "ゅ", "ゆ", "ょ", "よ", "ら", "り", "る", "れ", "ろ", "ゎ", "わ", "ゐ", "ゑ", "を", "ん"],
@@ -75,6 +74,7 @@ decode_map = {
     "ec": [None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "ぁ", None, "ぃ", None, "ぅ", None, "ぇ", None, "ぉ", None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "っ", None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "ゃ", None, "ゅ", None, "ょ", None, None, None, None, None, None, "ゎ"],
     "ed": ["ァ", None, "ィ", None, "ゥ", None, "ェ", None, "ォ", None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "ッ", None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, "ャ", None, "ュ", None, "ョ", None, None, None, None, None, None, "ヮ", None, None, None, None, None, None, "ヵ", "ヶ"],
 }
+# fmt: on
 
 
 def decode_macjapanese(text: ByteString) -> str:
@@ -100,7 +100,9 @@ def decode_macjapanese(text: ByteString) -> str:
             hi_key = hex(hi)[2:]
             lo_key = lo - 0x40
             if decode_map.get(hi_key) is None or decode_map[hi_key][lo_key] is None:
-                raise Exception(f"No mapping for Mac Japanese sequence 0x{hi_key}{hex(lo)[2:]}")
+                raise Exception(
+                    f"No mapping for Mac Japanese sequence 0x{hi_key}{hex(lo)[2:]}"
+                )
             assert_tmp = decode_map[hi_key][lo_key]
             assert assert_tmp  # mypy assert
             res += assert_tmp
@@ -160,25 +162,84 @@ def file_to_macbin(f: machfs.File, name: ByteString) -> bytes:
 
 
 def escape_string(s: str) -> str:
+    """
+    Escape strings
+
+    Escape the following:
+    - escape char: \x81
+    - unallowed filename chars: https://en.wikipedia.org/wiki/Filename#Reserved_characters_and_words
+    - control chars < 0x20
+    """
     new_name = ""
     for char in s:
         if char == "\x81":
             new_name += "\x81\x79"
-        elif char in '/":*[]+|\\?%<>,;=' or ord(char) < 0x20:
+        elif char in '/":*|\\?%<>' or ord(char) < 0x20:
             new_name += "\x81" + chr(0x80 + ord(char))
         else:
             new_name += char
     return new_name
 
 
+def unescape_string(s: str) -> str:
+    """unescape strings"""
+
+    orig_name = ""
+    s_iter = iter(s)
+    hi = next(s_iter, None)
+    while hi is not None:
+        if hi == "\x81":
+            low = next(s_iter, None)
+            assert low is not None, "Error decoding string"
+            if low == "\x79":
+                orig_name += "\x81"
+            else:
+                orig_name += chr(ord(low) - 0x80)
+        else:
+            orig_name += hi
+        hi = next(s_iter, None)
+    return orig_name
+
+
+def needs_punyencoding(orig: str) -> bool:
+    """
+    A filename needs to be punyencoded when it:
+
+    - contains a char that should be escaped or
+    - ends with a dot or a space.
+    """
+    if orig != escape_string(orig):
+        return True
+    if orig[-1] in " .":
+        return True
+    return False
+
+
 def punyencode(orig: str) -> str:
+    """
+    Punyencode strings
+
+    - escape special characters and
+    - ensure filenames can't end in a space or dot
+    """
     s = escape_string(orig)
     encoded = s.encode("punycode").decode("ascii")
     # punyencoding adds an '-' at the end when there are no special chars
     # don't use it for comparing
-    if orig != encoded[:-1]:
+    compare = encoded
+    if encoded.endswith("-"):
+        compare = encoded[:-1]
+    if orig != compare or compare[-1] in " .":
         return "xn--" + encoded
     return orig
+
+
+def decode_string(orig: str) -> str:
+    """
+    Decode punyencoded strings
+    """
+    st = orig[4:].encode("ascii").decode("punycode")
+    return unescape_string(st)
 
 
 def encode_string(args: argparse.Namespace) -> int:
@@ -186,7 +247,10 @@ def encode_string(args: argparse.Namespace) -> int:
         var = args.string
     if args.stdin:
         var = input()
-    print(punyencode(var))
+    if var.startswith("xn--"):
+        print(decode_string(var))
+    else:
+        print(punyencode(var))
     return 0
 
 
@@ -216,8 +280,9 @@ def extract_volume(args: argparse.Namespace) -> int:
         for el in hpath:
             if japanese:
                 el = decode_macjapanese(el.encode("mac_roman"))
-            if punify:
+            if punify or needs_punyencoding(el):
                 el = punyencode(el)
+
             upath /= el
 
         if isinstance(obj, machfs.Folder):
@@ -228,6 +293,7 @@ def extract_volume(args: argparse.Namespace) -> int:
             if obj.rsrc:
                 file = file_to_macbin(obj, hpath[-1].encode("mac_roman"))
             upath.write_bytes(file)
+            os.utime(upath, (obj.mddate - 2082844800, obj.mddate - 2082844800))
     return 0
 
 
@@ -235,7 +301,7 @@ def punyencode_paths(paths: List[Path], verbose: bool = False) -> int:
     """Rename filepaths to their punyencoded names"""
     count = 0
     for path in paths:
-        new_name = punyencode(path.stem)
+        new_name = punyencode(path.name)
         if path.stem != new_name:
             count += 1
             new_path = path.parent / new_name
@@ -247,7 +313,7 @@ def punyencode_paths(paths: List[Path], verbose: bool = False) -> int:
 
 def punyencode_arg(args: argparse.Namespace) -> int:
     """wrapper function"""
-    punyencode_dir(args.dir)
+    punyencode_dir(args.directory, verbose=True)
     return 0
 
 
@@ -257,9 +323,10 @@ def punyencode_dir(directory: Path, verbose: bool = False) -> int:
 
     Renames the leaves, i.e. files, first and the works it way up the tree by renaming the
     """
-    files: List[Path]
-    dirs: List[Path]
-    for item in directory.glob("**"):
+    files: List[Path] = []
+    dirs: List[Path] = []
+    path_glob = directory.glob("**/*")
+    for item in path_glob:
         if item.is_file():
             files.append(item)
         if item.is_dir():
@@ -355,22 +422,34 @@ def generate_parser() -> argparse.ArgumentParser:
     parser_iso = subparsers.add_parser("iso", help="Dump hfs isos")
 
     parser_iso.add_argument("src", metavar="INPUT", type=Path, help="Disk image")
-    parser_iso.add_argument("--punycode", action="store_true", help="encode pathnames into punycode")
-    parser_iso.add_argument("--japanese", action="store_true", help="read mac_japanese hfs+")
-    parser_iso.add_argument("dir", metavar="OUTPUT", type=Path, help="Destination folder")
+    parser_iso.add_argument(
+        "--punycode", action="store_true", help="encode pathnames into punycode"
+    )
+    parser_iso.add_argument(
+        "--japanese", action="store_true", help="read mac_japanese hfs+"
+    )
+    parser_iso.add_argument(
+        "dir", metavar="OUTPUT", type=Path, help="Destination folder"
+    )
     parser_iso.set_defaults(func=extract_volume)
 
-    parser_dir = subparsers.add_parser("dir", help="Punyencode all files and dirs in place")
+    parser_dir = subparsers.add_parser(
+        "dir", help="Punyencode all files and dirs in place"
+    )
     parser_dir.add_argument("directory", metavar="directory ", type=Path, help="Path")
-    parser_dir.set_defaults(func=punyencode_dir)
+    parser_dir.set_defaults(func=punyencode_arg)
 
-    parser_str = subparsers.add_parser("str", help="Punyencode strings or standard in")
-    parser_str.add_argument("--stdin", action="store_true", help="Convert stdin to punycode")
+    parser_str = subparsers.add_parser(
+        "str", help="Convert strings or standard in to or from punycode"
+    )
+    parser_str.add_argument(
+        "--stdin", action="store_true", help="Convert stdin to punycode"
+    )
     parser_str.add_argument(
         "string",
         metavar="STRING",
         type=str,
-        help="Convert string to punycode",
+        help="Convert string to or from punycode",
         nargs="?",
     )
     parser_str.set_defaults(func=encode_string)
@@ -380,8 +459,14 @@ def generate_parser() -> argparse.ArgumentParser:
             "mac",
             help="MacOS only: Operate in MacBinary encoding mode. Recursively encode all resource forks in the current directory",
         )
-        parser_macbinary.add_argument("--punycode", action="store_true", help="encode pathnames into punycode")
-        parser_macbinary.add_argument("dir", metavar="directory", type=Path, help="input directory")
+        parser_macbinary.add_argument(
+            "--punycode",
+            action="store_true",
+            help="encode pathnames into punycode",
+        )
+        parser_macbinary.add_argument(
+            "dir", metavar="directory", type=Path, help="input directory"
+        )
         parser_macbinary.set_defaults(func=collect_forks)
 
     return parser
@@ -403,15 +488,26 @@ def call_test_parser(input_args: List[str]) -> Any:
 
 
 def test_decode_mac_japanese():
-    checks = [[b"QuickTime\xfe \x89\xb9\x90F\x91\xce\x89\x9e\x95\\", "QuickTime™ 音色対応表"]]
+    checks = [
+        [
+            b"QuickTime\xfe \x89\xb9\x90F\x91\xce\x89\x9e\x95\\",
+            "QuickTime™ 音色対応表",
+        ]
+    ]
     for input, expected in checks:
         assert decode_macjapanese(input) == expected
 
 
 def test_encode_string(capsys):
-    call_test_parser(["str", "Icon\r"])
-    captured = capsys.readouterr()
-    assert captured.out == "xn--Icon-ja6e\n"
+    checks = [["Icon\r", "xn--Icon-ja6e"]]
+    for input, output in checks:
+        call_test_parser(["str", input])
+        captured = capsys.readouterr()
+        assert captured.out == output + "\n"
+
+        call_test_parser(["str", output])
+        captured = capsys.readouterr()
+        assert captured.out == input + "\n"
 
 
 def test_encode_stdin(capsys, monkeypatch):
@@ -424,13 +520,29 @@ def test_encode_stdin(capsys, monkeypatch):
 def test_decode_name():
     checks = [
         ["Icon\r", "xn--Icon-ja6e"],
+        ["ends with dot .", "xn--ends with dot .-"],
+        ["ends with space ", "xn--ends with space -"],
         ["バッドデイ(Power PC)", "xn--(Power PC)-jx4ilmwb1a7h"],
     ]
+    for input, output in checks:
+        assert punyencode(input) == output
+        assert decode_string(output) == input
+
+
+def test_needs_punyencoding():
+    checks = [
+        ["Icon\r", True],
+        ["ascii", False],
+        ["バッドデイ(Power PC)", False],
+        ["ends_with_dot .", True],
+        ["ends_with_space ", True],
+    ]
     for input, expected in checks:
-        assert punyencode(input) == expected
+        assert needs_punyencoding(input) == expected
 
 
 def test_escape_string():
     checks = [["\r", "\x81\x8d"], ["\x81", "\x81\x79"]]
-    for input, expected in checks:
-        assert escape_string(input) == expected
+    for input, output in checks:
+        assert escape_string(input) == output
+        assert unescape_string(output) == input

@@ -79,6 +79,8 @@ class frameSmoother;
 class frameCounter;
 class CMapFeature;
 class AudioInterface;
+class PaletteManager;
+class ActorManager;
 
 enum {
 	kDebugResources = 1 << 0,
@@ -136,11 +138,12 @@ public:
 	Console *_console;
 	Renderer *_renderer;
 	AudioInterface *_audio;
+	PaletteManager *_pal;
+	ActorManager *_act;
 
 	WeaponStuff _weaponRack[kMaxWeapons];
 	weaponID _loadedWeapons;
 	Common::Array<char *> _nameList;
-	Common::Array<Actor *> _actorList;
 	Common::Array<PlayerActor *> _playerList;
 	Common::Array<ProtoObj *> _objectProtos;
 	Common::Array<ActorProto *> _actorProtos;
@@ -189,6 +192,12 @@ public:
 	bool _teleportOnMap;
 	bool _showPosition;
 	bool _showStats;
+
+	bool _indivControlsFlag;
+	bool _userControlsSetup;
+	int _fadeDepth;
+	int _currentMapNum;
+
 
 private:
 	Video::SmackerDecoder *_smkDecoder;

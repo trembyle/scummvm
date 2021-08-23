@@ -1430,6 +1430,22 @@ static const MohawkGameDescription gameDescriptions[] = {
 		"Living Books Player"
 	},
 
+	// English/Spanish demo. From einstein95, bugreport #12829
+	{
+		{
+			"arthur",
+			"Demo English/Spanish",
+			AD_ENTRY1s("Bookoutline", "3e6335865b4041be934d2e0c8ee75af2", 645),
+			Common::UNK_LANG,
+			Common::kPlatformMacintosh,
+			ADGF_DEMO,
+			GUIO1(GUIO_NOASPECT)
+		},
+		GType_LIVINGBOOKSV1,
+		GF_DEMO | GF_LB_10,
+		"Arthur's Teacher Trouble"
+	},
+
 	// Just Grandma and Me 2.0
 	// From pacifist
 	{
@@ -1556,6 +1572,23 @@ static const MohawkGameDescription gameDescriptions[] = {
 			Common::EN_GRB,
 			Common::kPlatformWindows,
 			ADGF_NO_FLAGS,
+			GUIO1(GUIO_NOASPECT)
+		},
+		GType_LIVINGBOOKSV2,
+		0,
+		0,
+	},
+
+	// From einstein95 in bug#12830
+	// English/Japanese/Spanish demo
+	{
+		{
+			"grandma",
+			"Demo v1.12 English/Japanese/Spanish",
+			AD_ENTRY1s("BookOutline", "577c2c6be1b76c38d83446e303664708", 804),
+			Common::UNK_LANG,
+			Common::kPlatformMacintosh,
+			ADGF_DEMO,
 			GUIO1(GUIO_NOASPECT)
 		},
 		GType_LIVINGBOOKSV2,
