@@ -56,11 +56,35 @@ static const ADGameDescription gameDescriptions[] = {
 	 Common::kPlatformDOS,
 	 ADGF_UNSUPPORTED | ADGF_TESTING,
 	 GUIO1(GUIO_NOMIDI)},
-	{"wetlands", // Wetlands Demo Disc (November 1995)
+	{"wetlands", // PC Review (UK) (November 1995) - "PlaySmks" non-interactive demo
+	 "Demo",
+	 AD_ENTRY2s("playsmks.exe", "edc5b0c0caf3d5b01d344cb555d9a085", 422607,
+				"wetlands.txt", "0b3120dd0cddc69c2e8cbdc987b6c3df", 961),
+	 Common::EN_GRB,
+	 Common::kPlatformDOS,
+	 ADGF_TESTING | ADGF_DEMO,
+	 GUIO1(GUIO_NOMIDI)},
+	{"wetlands", // PC Gamer Disc 12 (November 1995) - Chapter 31 demo
+	 "Demo",
+	 AD_ENTRY2s("wetlands.exe", "15a6b1b3819ef002438df340509b5373", 553355,
+				"missions.lib", "34b922fac8f64546c0690aa83f09e98e", 40891),
+	 Common::EN_USA,
+	 Common::kPlatformDOS,
+	 ADGF_TESTING | ADGF_DEMO,
+	 GUIO1(GUIO_NOMIDI)},
+	{"wetlands", // Wetlands Demo Disc (November 1995) - v2.0 demo
 	 "Demo",
 	 AD_ENTRY2s("wetlands.exe", "15a6b1b3819ef002438df340509b5373", 642231,
-				"wetdemo.exe", "15a6b1b3819ef002438df340509b5373", 458319),
+				"missions.lib", "7e3e5b23ade5ef0df88e9d31f5d669e6", 10188),
 	 Common::EN_USA,
+	 Common::kPlatformDOS,
+	 ADGF_TESTING | ADGF_DEMO,
+	 GUIO1(GUIO_NOMIDI)},
+	{"wetlands", // Personal Computer World (UK) (May 1996) - Chapter 11 demo
+	 "Demo",
+	 AD_ENTRY2s("wetlands.exe", "15a6b1b3819ef002438df340509b5373", 553355,
+				"missions.lib", "6ffa658f22a00b6e17d7f920fcc13578", 12469),
+	 Common::EN_GRB,
 	 Common::kPlatformDOS,
 	 ADGF_TESTING | ADGF_DEMO,
 	 GUIO1(GUIO_NOMIDI)},
@@ -90,6 +114,7 @@ static const char *const directoryGlobs[] = {
 	"factory",
 	"wetlands",
 	"movie",
+	"c_misc",
 	0};
 
 class HypnoMetaEngineDetection : public AdvancedMetaEngineDetection {
