@@ -198,6 +198,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "hellcab",			"Hell Cab" },
 	{ "hhouse",				"Gahan Wilson's The Ultimate Haunted House" },
 	{ "hkbigfun",			"Hello Kitty Big Fun Deluxe" },
+	{ "hockeee",			"Hockeee" },
 	{ "horrortour1",		"Zeddas: Servant of Sheol" },
 	{ "hotwheelscamaro",	"Hot Wheels Computer Cars - '93 Camaro" },
 	{ "hotwheelshydro",		"Hot Wheels Computer Cars - Hydroplane" },
@@ -7163,6 +7164,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Mac OS X executable is D9
 	MACGAME1("heuther", "Classic OS", "HuetherOS9", "789536da81694518f494945bb161ace9", 178551, 851),
+
+	// https://archive.org/details/MacintoshSharewareGamesH
+	MACGAME1("hockeee", "v3.0", "Hockeee", "0073108cc6492b756ee3bf088bbaaabb", 220171, 800),
 
 	WINGAME1_l("irpf2002", "", "Tutorial do IRPF2002.exe", "c163f36141579ee374f7b4b2bddee95a", 3197116, Common::PT_BRA, 850),
 
