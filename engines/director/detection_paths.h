@@ -199,6 +199,10 @@ const char *directoryGlobs[] = {
 	"Puppet Motel Folder",			// Puppet Motel (Mac)
 	"PUPPET",						// Puppet Motel (Win)
 	"Daedalus Max",					// The Daedalus Encounter
+	"me",
+	"start.app",
+	"contents",
+	"macos",						// Sinkha Hyleyn
 	0
 };
 

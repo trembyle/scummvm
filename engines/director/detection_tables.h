@@ -382,7 +382,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "shrmess",			"Schoolhouse Rock!: 1st-4th Grade Math Essentials" },
 	{ "simpsonsplayer",		"The Simpsons Cartoon Player" },
 	{ "simpsonsstudio",		"The Simpsons Cartoon Studio" },
-	{ "sitfarm",			"Sitting on the Farm" },
+	{ "sinkha",				"Sinkha: The 3D Multimedia Novel" },
+	{ "sinkhamusic",		"The Music and a Selection of Animation from Sinkha" },
+	{ "sinkha1",			"Sinkha: Hyleyn" },
+	{ "sinkha2",			"Sinkha: Atmosphere / Planet of the Clouds" },
+	{ "sitfarm",	        "Sitting on the Farm" },
 	{ "skeeto10",			"Skipper & Skeeto: Fun in the Park" }, // Magnus & Myggen
 	{ "skippy",             "Skippy and the Curse of the Temple of Ock" },
 	{ "skyborg",			"SkyBorg: Into the Vortex" },
@@ -5663,6 +5667,20 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Created by Tony Clemens, Desktop Wizard (1997)
 	WINGAME1("simpsontrivia", "v3.1", "Simpsons Trivia.exe", "1a7acbba10a7246ba58c1d53fc7203f5", 2355677, 501),
 
+	// Created by Virtual Views / Marco Patrito
+	// Published in the US by Mojave, St George, Utah (1995)
+	// Plays in English, Italian, Spanish, French, German
+	// French version from covermount of PC Fun Nº38 from PressImage, 10ᵉ Paris
+	// Mac filename is ' Sinkha '
+	MACGAME1("sinkha", "",		"xn-- Sinkha -",   "cb91232ecece0045461d236d5914c03d", 719289, 501),
+	WINGAME2("sinkha", "",		"SINKHA.EXE",	   "3460ad87d2ba57104e2810a77b53c220", 1393825,
+								"SINKHA.DXR",	   "12345", 12345, 500),
+	WINGAME2_l("sinkha", "",	"SINKHA.EXE",	   "3460ad87d2ba57104e2810a77b53c220", 1393825,
+								"SINKHA.DXR",	   "363580346c873a70fe1098175b99aa81", 709524, Common::FR_FRA, 500),
+	MACGAME1("sinkhamusic", "", "Music&Animation", "08d6f6e39fbd8388faf57f602acaebcc", 705701, 500),
+	WINGAME2("sinkhamusic", "", "MUSIC.EXE",	   "3460ad87d2ba57104e2810a77b53c220", 1393827,
+								"MUS_ANIM.DXR",	   "12345", 12345, 500),
+
 	// Developed by Mary Boies Software, published by Creative Wonders
 	// Windows version also found in Middle School Advantage 2001 bundle
 	MACGAME1("slamdunktyping", "",     "Mac Install/Slam Dunk Typing/Slam Dunk Typing", "5683c6b3956a3bca7fb5fc5bbb237984", 718945, 501),
@@ -7326,6 +7344,17 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("sethi2", "",		   "Sethi_Incas.exe", "0c81c84ca4966313ad27d47daba44537", 2158774, Common::FR_FRA, 851),
 	MACGAME1_l("sethi3", "Classic OS", "Start Me OS9",    "789536da81694518f494945bb161ace9", 179887,  Common::DE_DEU, 851),
 
+	// Published by Virtual Views, Turin (2003) in English, French, Italian
+	// Players were posted online throughout the decade for compatibility with later OS versions
+	MACGAME1("sinkha1", "", "HYLEYN",	  "08c9ea94f6469e71ae0c71987bbf6323", 158065, 850),
+	WINGAME1("sinkha1", "", "HYLEYN.exe", "c163f36141579ee374f7b4b2bddee95a", 2117678, 850),
+
+	// Published in 2007 (see notes for episode 1)
+	// Episodes 2 and 3 were sold together on one CD
+	// Episode selection is available after starting game
+	WINGAME2("sinkha2", "", "START.exe", "c163f36141579ee374f7b4b2bddee95a", 2117678,
+							"Init.dxr",  "40ef7beccb79c1a17a54752d833fc672", 769420, 850),
+
 	WINGAME1_l("skeeto10", "", "mm7main.exe", "0c81c84ca4966313ad27d47daba44537", 12051446, Common::DA_DNK, 851),
 
 	// Dutch demos found on Flipper & Lopaka compilation
@@ -7634,6 +7663,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Found on AOL 9.0 trial CD
 	WINGAME1("seinfeldondvd", "", "SEINFELD.EXE", "827e5af88f4c096652a1523dc28c9bf4", 3572626, 1000),
 
+	// Players for OS X 10.1 - 10.4 available here:
+	// http://www.sinkha.com/dfiles/players/HY_MOSX1.zip
+	MACGAME2("sinkha1", "PowerPC", "START.osx", "35ac287f0bf9819a4d23caf1331fd223", 3121528,
+								   "MAA.cxt",	"45ec208ec0fef58c2a9ddff0057eeeff", 835226, 1000),
+
 	// Time-limited shareware release from BeachWare Inc. Unlock full game with registration code.
 	// http://web.archive.org/web/20140629224457/http://www.beachware.com/download/ShellWhirl/ShellWhirl.dmg
 	// http://web.archive.org/web/20070207233900/http://www.beachware.com/download/ShellWhirl/ShellWhirlSetup.exe
@@ -7652,6 +7686,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 //////////////////////////////////////////////////
 
 	WINGAME1("mentalmaths", "", "Mental Maths.exe", "b162d633891f0ab2e2fc6ba6164df337", 5017068, 1100),
+
+	// Player for Windows XP SP2 - Windows 8 is here: http://www.sinkha.com/dfiles/players/HY_WIN2.zip
+	// Player for Mac OS X 10.4 and higher is here: http://www.sinkha.com/dfiles/players/HY_MOSX2.zip
+	MACGAME2("sinkha1", "x86", "start",	  "0af16c9169b5bbe8b8955d9ac4fa052b", 68678,
+							   "MAA.cxt", "34583453fe0aed123e166f6717a4e077", 835226, 1100),
+	WINGAME2("sinkha1", "XP",  "START_(Win_XP_sp2-Vista).exe", "3d6ccc7532d94fa518988e9685e45ba9", 4355622,
+							   "Init.dxr",					   "12345", 12345, 1100),
+	WINGAME2("sinkha2", "XP",  "START_(Win_XP_sp2-Vista).exe", "3d6ccc7532d94fa518988e9685e45ba9", 4355622,
+							   "Init.dxr",					   "75878b7f2ded1c7b0cd2c8647a7e1b03", 851715, 1100),
 
 
 //////////////////////////////////////////////////
