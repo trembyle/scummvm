@@ -119,6 +119,7 @@ const char *directoryGlobs[] = {
 	"copy to hdd",					// Rename from HDDにコピーしてください
 	"bdm",
 	"dkyasp",						// Bad Day on the Midway Japanese
+	"PRJCTR",						// Bad Day on the Midway French
 	"win_demo",
 	"file",
 	"mfile",
@@ -144,6 +145,7 @@ const char *directoryGlobs[] = {
 	"toinstall",					// Jönssonligan series
 	"pingucd",
 	"instdata",						// Pingu
+	"Kummituskone",					// Bellini 1 (Finnish)
 	"bellinin bikinit",				// Bellini 3 (Finnish)
 	"put me on your desktop",		// Betty Page
 	"abc",							// Alphabet Train
@@ -172,7 +174,7 @@ const char *directoryGlobs[] = {
 	"xn--t8jo8k",					// Perfect Blue screen savers
 	"maccurio",
 	"wincurio",						// Curio City
-	"a.d.a.m. the inside story 1.1", // ADAM
+	"a.d.a.m. the inside story 1.1",// ADAM
 	"nine month miracle 1.0",		// Nine Month Miracle
 	"_A.D.A.M. Data",				// ADAM Software Products
 	"_A.D.A.M.  Data",				// ADAM Software Products with more space
@@ -203,6 +205,32 @@ const char *directoryGlobs[] = {
 	"start.app",
 	"contents",
 	"macos",						// Sinkha Hyleyn
+	"me",							// Sinkha titles
+	"xn--Jul med findus-pao06cpa",	// "Jul med findus" (includes double quotes)
+	"Pettson & Findus gaan klussen",// Pettson 2 (Dutch)
+	"xn--Kummituskone -",			// Pettson 4 (Finnish)
+	"xn--Hndans och kattcirkus-hec",// Pettson 5 (Swedish)
+	"Professorn",					// Professorn upptäcker kroppen
+	"Dachs",						// Oscar the Balloonist (demo)
+	"xn--Dra denna mapp till hrddisken-grc", // Baltic Mission
+	"N",
+	"S",
+	"SF",							// Pelle Pirat
+	"XFILES",						// Socrates 101
+	"Tools",						// Kompuutteri Kaikille covermounts
+	"se",
+	"to_pc_hd",						// Kaspar i Nudådalen
+	"Classic",
+	"OSX",							// Josefine og dinosaurene
+	"Jul i Svingen",				// Jul i Svingen
+	"DIRECTOR",						// Prince: Spøgelsesjagten På Tågernes Slot
+	"xn--Parliament Hill -t2d",		// Parliament Hill ƒ
+	"EASYCOOK",						// Easy Cooking French
+	"PCFILES",						// Oslo World of Water
+	"INKY",							// National Aquarium in Baltimore
+	"C_REF",
+	"CLESSON",						// C/C++ Interactive Reference Guide
+	"DKCODE",						// Dorling Kindersley History Explorer
 	0
 };
 
