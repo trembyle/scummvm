@@ -6049,9 +6049,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t_l("superescriptori", "", "SUPERE32.EXE", "b5b63c6394e9a079f3bb603127bd788a", 1394541, Common::CA_ESP, 500),
 
 	// Installs from el Super Escriptori; uses CinéMac 1.2
-	MACGAME1("sssuper3", "", "SuperSalvaPantalles", "917377ccd18ea6d0791503bb680bb96f", 825787, 501),
-	WINGAME2t("sssuper3", "", "S32.EXE", "cfffdf47bce2ded025766f96e06c412f", 1523987,
-							  "S32.SCR", "27822cdd299a542ac5459da7f6392887", 124944, 500),
+	MACGAME1_n("sssuper3", "", "SuperSalvaPantalles", "917377ccd18ea6d0791503bb680bb96f", 825787, 501),
+	WINGAME2t_n("sssuper3", "", "S32.EXE", "cfffdf47bce2ded025766f96e06c412f", 1523987,
+								"S32.SCR", "27822cdd299a542ac5459da7f6392887", 124944, 500),
 
 	MACGAME2("takeru",   "Chapter 1", "Takeru",		  "231d3041df162be4a0ddd36a74eb03b6", 719289,
 									  "menu.Dxr",	  "2c0e5edc98e83efd468d9927395d809a", 3024360, 501),
