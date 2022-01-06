@@ -665,6 +665,14 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Manhunter SF (CoCo3 720k) [AGI 2.072]
 	GAME_PS("mh2", "updated", "c64875766700196e72a92359f70f45a9", 591, 0x2440, GID_MH2, Common::kPlatformCoCo3),
 
+	// Manhunter SF (CoCo3 720k) [AGI 2.072]
+	// Guillaume Major adaptation 10/24/21
+	// Uses interpreter from Sierra's LSL1. We'll need to handle this version as a special case.
+	// v2.072 adds the PLOT command and support for compression (a V3 addition to PC versions).
+	// Resource headers are 7 bytes in this version. However, unlike V3 interps, resource
+	// directories are still split by resource type.
+	GAME_PS("mh2", "3.02 2021-10-24", "9f9a5e4e882df507e62bd1a6c2ce6676", 591, 0x2072, GID_MH2, Common::kPlatformCoCo3),
+
 	// Mickey's Space Adventure
 	// Preagi game
 	GAMEpre_P("mickey", "", "1.pic", "b6ec04c91a05df374792872c4d4ce66d", 2489,
