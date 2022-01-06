@@ -378,6 +378,9 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Gold Rush! (CoCo3 360k/720k) [AGI 2.072]
 	GAME_PS("goldrush", "updated", "c49bf56bf91e31a4601a604e51ef8bfb", 744, 0x2440, GID_GOLDRUSH, Common::kPlatformCoCo3),
 
+	// Gold Rush! (CoCo3 360k/720k) [AGI 2.072]
+	GAME_PS("goldrush", "1.0 2021-02-03", "189f1ebfc0c558a6f7a8779a49b8910f", 744, 0x2072, GID_GOLDRUSH, Common::kPlatformCoCo3),
+
 	// King's Quest 1 (Amiga) 1.0U      # 2.082
 	// The original game did not have menus, they are enabled under ScummVM
 	GAME_PO("kq1", "1.0U 1986", "246c695324f1c514aee2b904fa352fad", 0x2440, GID_KQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
@@ -607,6 +610,9 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
 	GAME_PS("mh1", "updated", "d47da950c62289f8d4ccf36af73365f2", 495, 0x2440, GID_MH1, Common::kPlatformCoCo3),
+
+	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
+	GAME_PS("mh1", "1.22 2021-02-03", "c90842b26656d84ce5228dd6b2ae998b", 495, 0x2072, GID_MH1, Common::kPlatformCoCo3),
 
 	{
 		// Manhunter NY (Mac) 1.22 7.21/89 [AGI 2.917]
@@ -1123,6 +1129,7 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x3149
 	},
 	FANMADE_SVP("V: The Graphic Adventure", "1646eaade74f137a9041eb427a389969", 768, 0x2440, Common::kPlatformCoCo3),
+	FANMADE_SVP("V: The Graphic Adventure (v1.0 2021 Feb 3)", "5749cce609cabe6df6e2a0f4dcf9fdb8", 768, 0x2072, Common::kPlatformCoCo3),
 
 	FANMADE("Voodoo Girl - Queen of the Darned (v1.2 2002 Jan 1)", "ae95f0c77d9a97b61420fd192348b937"),
 	FANMADE("Voodoo Girl - Queen of the Darned (v1.2 2002 Mar 29)", "11d0417b7b886f963d0b36789dac4c8f"),
