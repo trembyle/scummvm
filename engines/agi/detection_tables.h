@@ -627,7 +627,7 @@ static const AGIGameDescription gameDescriptions[] = {
 	},
 
 	// Manhunter SF (ST) 1.0 7/29/89
-	GAME3_P("mh2", "1.0 1989-07-29", "mh2dir", "5e3581495708b952fea24438a6c7e040", 0x3149, 0, GID_MH1, Common::kPlatformAtariST),
+	GAME3_P("mh2", "1.0 1989-07-29", "mh2dir", "5e3581495708b952fea24438a6c7e040", 0x3149, 0, GID_MH2, Common::kPlatformAtariST),
 
 	// Manhunter SF (Amiga) 3.06 8/17/89        # 2.333
 	GAME3_PSO("mh2", "3.06 1989-08-17", "dirs", "b412e8a126368b76696696f7632d4c16", 2573, 0x3086, GF_OLDAMIGAV20, GID_MH2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
@@ -1107,10 +1107,10 @@ static const AGIGameDescription gameDescriptions[] = {
 	FANMADE("URI Quest (v0.173 Feb 27)", "3986eefcf546dafc45f920ae91a697c3"),
 	FANMADE("URI Quest (v0.173 Jan 29)", "494150940d34130605a4f2e67ee40b12"),
 	{
-		// V - The Graphical Adventure
+		// V - The Graphic Adventure
 		{
 			"agi-fanmade",
-			"V - The Graphical Adventure (Demo 2)",
+			"V: The Graphic Adventure (Demo 2)",
 			AD_ENTRY1s("vdir", "c71f5c1e008d352ae9040b77fcf79327", 3080),
 			Common::EN_ANY,
 			Common::kPlatformDOS,
@@ -1122,7 +1122,7 @@ static const AGIGameDescription gameDescriptions[] = {
 		GF_FANMADE,
 		0x3149
 	},
-	FANMADE_SVP("V - The Graphical Adventure", "1646eaade74f137a9041eb427a389969", 768, 0x2440, Common::kPlatformCoCo3),
+	FANMADE_SVP("V: The Graphic Adventure", "1646eaade74f137a9041eb427a389969", 768, 0x2440, Common::kPlatformCoCo3),
 
 	FANMADE("Voodoo Girl - Queen of the Darned (v1.2 2002 Jan 1)", "ae95f0c77d9a97b61420fd192348b937"),
 	FANMADE("Voodoo Girl - Queen of the Darned (v1.2 2002 Mar 29)", "11d0417b7b886f963d0b36789dac4c8f"),
