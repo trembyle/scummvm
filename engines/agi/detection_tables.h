@@ -181,7 +181,9 @@ namespace Agi {
 #define FANMADE_I(id,name,md5) FANMADE_IF(id,name,md5,0)
 #define FANMADE_O(name,md5,guioptions) FANMADE_FO(name,md5,0,guioptions)
 #define FANMADE_P(name,md5,platform) FANMADE_SVP(name,md5,-1,0x2917,platform)
+
 #define FANMADE_S(name,fname,md5,size) GAME_LVFPNF("agi-fanmade",name,fname,md5,size,Common::EN_ANY,0x2917,GF_FANMADE,GID_FANMADE,Common::kPlatformDOS,GType_V2,GAMEOPTIONS_DEFAULT)
+#define FANMADE3(name,fname,md5) GAME_LVFPNF("agi-fanmade",name,fname,md5,-1,Common::EN_ANY,0x3149,GF_FANMADE,GID_FANMADE,Common::kPlatformDOS,GType_V3,GAMEOPTIONS_DEFAULT)
 
 #define FANMADE(name,md5) FANMADE_F(name,md5,0)
 
@@ -1112,22 +1114,8 @@ static const AGIGameDescription gameDescriptions[] = {
 	FANMADE("Ultimate AGI Fangame (Demo)", "2d14d6fa2a2136d681e46e06821905bf"),
 	FANMADE("URI Quest (v0.173 Feb 27)", "3986eefcf546dafc45f920ae91a697c3"),
 	FANMADE("URI Quest (v0.173 Jan 29)", "494150940d34130605a4f2e67ee40b12"),
-	{
-		// V - The Graphic Adventure
-		{
-			"agi-fanmade",
-			"V: The Graphic Adventure (Demo 2)",
-			AD_ENTRY1s("vdir", "c71f5c1e008d352ae9040b77fcf79327", 3080),
-			Common::EN_ANY,
-			Common::kPlatformDOS,
-			ADGF_USEEXTRAASTITLE | ADGF_AUTOGENTARGET,
-			GAMEOPTIONS_DEFAULT
-		},
-		GID_FANMADE,
-		GType_V3,
-		GF_FANMADE,
-		0x3149
-	},
+
+	FANMADE3("V: The Graphic Adventure (Demo 2)","vdir","c71f5c1e008d352ae9040b77fcf79327"),
 	FANMADE_SVP("V: The Graphic Adventure", "1646eaade74f137a9041eb427a389969", 768, 0x2440, Common::kPlatformCoCo3),
 	FANMADE_SVP("V: The Graphic Adventure (v1.0 2021 Feb 3)", "5749cce609cabe6df6e2a0f4dcf9fdb8", 768, 0x2072, Common::kPlatformCoCo3),
 
