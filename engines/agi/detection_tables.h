@@ -189,11 +189,28 @@ namespace Agi {
 
 static const AGIGameDescription gameDescriptions[] = {
 
+	/* -------- Sort Order ----------------------------------------------------
+
+		Game ID, Platform, Version/Date, Disk Type
+
+		For platforms, "PC" versions always come first, starting with booters:
+			PCjr, Tandy 1000, IBM PC, MS-DOS
+
+		Then alphabetical by company name and chronological order of platform:
+			Apple ][, Apple IIgs, Apple Macintosh,
+			Atari 400/800, Atari ST,
+			Commodore 64, Commodore Amiga,
+			Tandy Color Computer, Tandy Color Computer 3
+
+		Translations go below English PC entries. Official Sierra translations
+		  come first, followed by later translations alphabetical by language.
+
+		Sort 5.25" disks before 3.5" disks.
+
+	   ------------------------------------------------------------------------ */
+
 	// AGI Demo 1 (PC) 05/87 [AGI 2.425]
 	GAME("agidemo", "Demo 1 1987-05-20", "9c4a5b09cc3564bc48b4766e679ea332", 0x2440, GID_AGIDEMO),
-
-	// AGI Demo 2 (IIgs) 1.0C (Censored)
-	GAME_P("agidemo", "Demo 2 1987-11-24 1.0C", "580ffdc569ff158f56fb92761604f70e", 0x2917, GID_AGIDEMO, Common::kPlatformApple2GS),
 
 	// AGI Demo 2 (PC 3.5") 11/87 [AGI 2.915]
 	GAME("agidemo", "Demo 2 1987-11-24 3.5\"", "e8ebeb0bbe978172fe166f91f51598c7", 0x2917, GID_AGIDEMO),
@@ -206,6 +223,9 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// AGI Demo 2 Tandy
 	GAME("agidemo", "Demo 2 Tandy", "94eca021fe7da8f8572c2edcc631bbc6", 0x2917, GID_AGIDEMO),
+
+	// AGI Demo 2 (IIgs) 1.0C (Censored)
+	GAME_P("agidemo", "Demo 2 1987-11-24 1.0C", "580ffdc569ff158f56fb92761604f70e", 0x2917, GID_AGIDEMO, Common::kPlatformApple2GS),
 
 	// AGI Demo 3 (PC) 09/88 [AGI 3.002.102]
 	GAME3("agidemo", "Demo 3 1988-09-13", "dmdir", "289c7a2c881f1d973661e961ced77d74", 0x3149, GID_AGIDEMO),
@@ -276,24 +296,24 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x1120
 	},
 
-	// Black Cauldron (Amiga) 2.00 6/14/87
-	GAME_PO("bc", "2.00 1987-06-14", "7b01694af21213b4727bb94476f64eb5", 0x2440, GID_BC, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+	// Black Cauldron (PC) 2.00 6/14/87 [AGI 2.439]
+	GAME("bc", "2.00 1987-06-14", "7f598d4712319b09d7bd5b3be10a2e4a", 0x2440, GID_BC),
+
+	// Black Cauldron (PC) 2.10 [AGI 3.002.097]
+	GAME3("bc", "2.10", "bcdir", "0de3953c9225009dc91e5b0d1692967b", 0x3149, GID_BC),
+
+	// Black Cauldron (PC 5.25") 2.10 11/10/88 [AGI 3.002.098]
+	GAME3("bc", "2.10 1988-11-10 5.25\"", "bcdir", "0c5a9acbcc7e51127c34818e75806df6", 0x3149, GID_BC),
+
+	// Black Cauldron (Russian)
+	GAME_LPS("bc", "",  "b7de782dfdf8ea7dde8064f09804bcf5", 357, Common::RU_RUS, 0x2440, GID_BC, Common::kPlatformDOS),
 
 	// Black Cauldron (Apple IIgs) 1.0O 2/24/89 (CE)
 	// Menus not tested
 	GAME3_PO("bc", "1.0O 1989-02-24 (CE)", "bcdir", "dc09d30b147242692f4f85b9811962db", 0x3149, 0, GID_BC, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
-	// Black Cauldron (PC) 2.00 6/14/87 [AGI 2.439]
-	GAME("bc", "2.00 1987-06-14", "7f598d4712319b09d7bd5b3be10a2e4a", 0x2440, GID_BC),
-
-	// Black Cauldron (Russian)
-	GAME_LPS("bc", "",  "b7de782dfdf8ea7dde8064f09804bcf5", 357, Common::RU_RUS, 0x2440, GID_BC, Common::kPlatformDOS),
-
-	// Black Cauldron (PC 5.25") 2.10 11/10/88 [AGI 3.002.098]
-	GAME3("bc", "2.10 1988-11-10 5.25\"", "bcdir", "0c5a9acbcc7e51127c34818e75806df6", 0x3149, GID_BC),
-
-	// Black Cauldron (PC) 2.10 [AGI 3.002.097]
-	GAME3("bc", "2.10", "bcdir", "0de3953c9225009dc91e5b0d1692967b", 0x3149, GID_BC),
+	// Black Cauldron (Amiga) 2.00 6/14/87
+	GAME_PO("bc", "2.00 1987-06-14", "7b01694af21213b4727bb94476f64eb5", 0x2440, GID_BC, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// Black Cauldron (CoCo3 360k) [AGI 2.023]
 	GAME_PS("bc", "", "51212c54808ade96176f201ae0ac7a6f", 357, 0x2440, GID_BC, Common::kPlatformCoCo3),
@@ -303,6 +323,10 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Donald Duck's Playground (PC Booter) 1.0Q
 	BOOTER2("ddp", "Booter 1.0Q", "ddp.img", "f323f10abf8140ffb2668b09af2e7b87", 368640, 0x2001, GID_DDP),
+
+	// reported by Filippos (thebluegr) in bugreport #3048
+	// Menus not tested
+	GAME_PS("ddp", "1.0C 1986-06-09", "550971d196f65190a5c760d2479406ef", 132, 0x2272, GID_DDP, Common::kPlatformDOS),
 
 	// Donald Duck's Playground (Amiga) 1.0C
 	// Menus not tested
@@ -329,20 +353,6 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x2001 // unknown
 	},
 
-	// reported by Filippos (thebluegr) in bugreport #3048
-	// Menus not tested
-	GAME_PS("ddp", "1.0C 1986-06-09", "550971d196f65190a5c760d2479406ef", 132, 0x2272, GID_DDP, Common::kPlatformDOS),
-
-	// Gold Rush! (Amiga) 1.01 1/13/89 aka 2.05 3/9/89  # 2.316
-	GAME3_PSO("goldrush", "1.01 1989-01-13 aka 2.05 1989-03-09", "dirs", "a1d4de3e75c2688c1e2ca2634ffc3bd8", 2399, 0x3149, 0, GID_GOLDRUSH, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// Gold Rush! (Apple IIgs) 1.0M 2/28/89 (CE) aka 2.01 12/22/88
-	// Menus not tested
-	GAME3_PO("goldrush", "1.0M 1989-02-28 (CE) aka 2.01 1988-12-22", "grdir", "3f7b9ce62631434389f85371b11921d6", 0x3149, GF_2GSOLDSOUND, GID_GOLDRUSH, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// Gold Rush! (ST) 1.01 1/13/89 aka 2.01 12/22/88
-	GAME3_P("goldrush", "1.01 1989-01-13 aka 2.01 1988-12-22", "grdir", "4dd4d50480a3d6c206fa227ce8142735", 0x3149, 0, GID_GOLDRUSH, Common::kPlatformAtariST),
-
 	// Gold Rush! (PC 5.25") 2.01 12/22/88 [AGI 3.002.149]
 	GAME3("goldrush", "2.01 1988-12-22 5.25\"", "grdir", "db733d199238d4009a9e95f11ece34e9", 0x3149, GID_GOLDRUSH),
 
@@ -355,6 +365,10 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Gold Rush! (PC 3.5", bought from The Software Farm) 3.0 1998-12-22 [AGI 3.002.149]
 	GAME3("goldrush", "3.0 1998-12-22 3.5\"", "grdir", "6882b6090473209da4cd78bb59f78dbe", 0x3149, GID_GOLDRUSH),
+
+	// Gold Rush! (Apple IIgs) 1.0M 2/28/89 (CE) aka 2.01 12/22/88
+	// Menus not tested
+	GAME3_PO("goldrush", "1.0M 1989-02-28 (CE) aka 2.01 1988-12-22", "grdir", "3f7b9ce62631434389f85371b11921d6", 0x3149, GF_2GSOLDSOUND, GID_GOLDRUSH, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
 	{
 		// Gold Rush! (Mac) 2.01 12/22/88 [AGI 3.002.149]
@@ -374,6 +388,12 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x3149
 	},
 
+	// Gold Rush! (ST) 1.01 1/13/89 aka 2.01 12/22/88
+	GAME3_P("goldrush", "1.01 1989-01-13 aka 2.01 1988-12-22", "grdir", "4dd4d50480a3d6c206fa227ce8142735", 0x3149, 0, GID_GOLDRUSH, Common::kPlatformAtariST),
+
+	// Gold Rush! (Amiga) 1.01 1/13/89 aka 2.05 3/9/89  # 2.316
+	GAME3_PSO("goldrush", "1.01 1989-01-13 aka 2.05 1989-03-09", "dirs", "a1d4de3e75c2688c1e2ca2634ffc3bd8", 2399, 0x3149, 0, GID_GOLDRUSH, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// Gold Rush! (CoCo3 720k) [AGI 2.023]
 	GAME_PS("goldrush", "", "0a41b65efc0cd6c4271e957e6ffbbd8e", 744, 0x2440, GID_GOLDRUSH, Common::kPlatformCoCo3),
 
@@ -382,21 +402,6 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Gold Rush! (CoCo3 360k/720k) [AGI 2.072]
 	GAME_PS("goldrush", "1.0 2021-02-03", "189f1ebfc0c558a6f7a8779a49b8910f", 744, 0x2072, GID_GOLDRUSH, Common::kPlatformCoCo3),
-
-	// King's Quest 1 (Amiga) 1.0U      # 2.082
-	// The original game did not have menus, they are enabled under ScummVM
-	GAME_PO("kq1", "1.0U 1986", "246c695324f1c514aee2b904fa352fad", 0x2440, GID_KQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// King's Quest 1 (ST) 1.0V
-	// The original game did not have menus, they are enabled under ScummVM
-	GAME_P("kq1", "1.0V 1986", "c3a017e556c4b0eece366a4cd9abb657", 0x2272, GID_KQ1, Common::kPlatformAtariST),
-
-	// King's Quest 1 (IIgs) 1.0S-88223
-	// Menus not tested
-	GAME_PO("kq1", "1.0S 1988-02-23", "f4277aa34b43d37382bc424c81627617", 0x2272, GID_KQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// King's Quest 1 (Mac) 2.0C 3/26/87
-	GAME_P("kq1", "2.0C 1987-03-26", "d4c4739d4ac63f7dbd29255425077d48", 0x2440, GID_KQ1, Common::kPlatformMacintosh),
 
 	// King's Quest 1 (IBM PCjr) 1.00 1502265 5/10/84
 	BOOTER1_U("kq1", "Early King\'s Quest releases are not currently supported.",
@@ -409,6 +414,24 @@ static const AGIGameDescription gameDescriptions[] = {
 	// King's Quest 1 (PC 5.25"/3.5") 2.0F [AGI 2.917]
 	GAME("kq1", "2.0F 1987-05-05 5.25\"/3.5\"", "10ad66e2ecbd66951534a50aedcd0128", 0x2917, GID_KQ1),
 
+	// King's Quest 1 (Russian)
+	GAME_LPS("kq1", "", "973f5830ed5e1c919354dfbcd5036c53", 315, Common::RU_RUS, 0x2440, GID_KQ1, Common::kPlatformDOS),
+
+	// King's Quest 1 (IIgs) 1.0S-88223
+	// Menus not tested
+	GAME_PO("kq1", "1.0S 1988-02-23", "f4277aa34b43d37382bc424c81627617", 0x2272, GID_KQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// King's Quest 1 (Mac) 2.0C 3/26/87
+	GAME_P("kq1", "2.0C 1987-03-26", "d4c4739d4ac63f7dbd29255425077d48", 0x2440, GID_KQ1, Common::kPlatformMacintosh),
+
+	// King's Quest 1 (ST) 1.0V
+	// The original game did not have menus, they are enabled under ScummVM
+	GAME_P("kq1", "1.0V 1986", "c3a017e556c4b0eece366a4cd9abb657", 0x2272, GID_KQ1, Common::kPlatformAtariST),
+
+	// King's Quest 1 (Amiga) 1.0U      # 2.082
+	// The original game did not have menus, they are enabled under ScummVM
+	GAME_PO("kq1", "1.0U 1986", "246c695324f1c514aee2b904fa352fad", 0x2440, GID_KQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// King's Quest 1 (CoCo3 360k) [AGI 2.023]
 	GAME_PS("kq1", "", "10ad66e2ecbd66951534a50aedcd0128", 315, 0x2440, GID_KQ1, Common::kPlatformCoCo3),
 
@@ -418,26 +441,14 @@ static const AGIGameDescription gameDescriptions[] = {
 	// King's Quest 1 (CoCo3 360k) [AGI 2.072]
 	GAME_PS("kq1", "updated", "94087178c78933a4af3cd24d1c8dd7b2", 315, 0x2440, GID_KQ1, Common::kPlatformCoCo3),
 
-	// King's Quest 1 (Russian)
-	GAME_LPS("kq1", "", "973f5830ed5e1c919354dfbcd5036c53", 315, Common::RU_RUS, 0x2440, GID_KQ1, Common::kPlatformDOS),
-
-	// King's Quest 2 (IIgs) 2.0A 6/16/88 (CE)
-	GAME_PO("kq2", "2.0A 1988-06-16 (CE)", "5203c8b95250a2ecfee93ddb99414753", 0x2917, GID_KQ2, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// King's Quest 2 (Amiga) 2.0J
-	GAME_PO("kq2", "2.0J 1987-01-29", "b866f0fab2fad91433a637a828cfa410", 0x2440, GID_KQ2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// King's Quest 2 (Mac) 2.0R 3/23/88
-	GAME_P("kq2", "2.0R 1988-03-23", "cbdb0083317c8e7cfb7ac35da4bc7fdc", 0x2440, GID_KQ2, Common::kPlatformMacintosh),
-
 	{
-		// King's Quest 2 (PC booter) 1.0W
+		// King's Quest 2 (PC booter) 1.1H
 		{
 			"kq2",
 			"Early King\'s Quest releases are not currently supported.",
 			{
-				{ "kq2-d1.img", BooterDisk1, "68302776c012f5036ceb66e36920d353", 368640},
-				{ "kq2-d2.img", BooterDisk2, "5fa6d8222608aee556627c67cb5fb4d4", 368640},
+				{ "kq2-d1.img", BooterDisk1, "c7216589aca72348bc063950cb80b266", 368640},
+				{ "kq2-d2.img", BooterDisk2, "9d29b6d41740945dce569cb59b2a6c5f", 368640},
 				AD_LISTEND
 			},
 			Common::EN_ANY,
@@ -452,13 +463,13 @@ static const AGIGameDescription gameDescriptions[] = {
 	},
 
 	{
-		// King's Quest 2 (PC booter) 1.1H
+		// King's Quest 2 (PC booter) 1.0W
 		{
 			"kq2",
 			"Early King\'s Quest releases are not currently supported.",
 			{
-				{ "kq2-d1.img", BooterDisk1, "c7216589aca72348bc063950cb80b266", 368640},
-				{ "kq2-d2.img", BooterDisk2, "9d29b6d41740945dce569cb59b2a6c5f", 368640},
+				{ "kq2-d1.img", BooterDisk1, "68302776c012f5036ceb66e36920d353", 368640},
+				{ "kq2-d2.img", BooterDisk2, "5fa6d8222608aee556627c67cb5fb4d4", 368640},
 				AD_LISTEND
 			},
 			Common::EN_ANY,
@@ -482,44 +493,30 @@ static const AGIGameDescription gameDescriptions[] = {
 	// King's Quest 2 (Russian)
 	GAME_LPS("kq2", "", "35211c574ececebdc723b23e35f99275", 543, Common::RU_RUS, 0x2917, GID_KQ2, Common::kPlatformDOS),
 
+	// King's Quest 2 (IIgs) 2.0A 6/16/88 (CE)
+	GAME_PO("kq2", "2.0A 1988-06-16 (CE)", "5203c8b95250a2ecfee93ddb99414753", 0x2917, GID_KQ2, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// King's Quest 2 (Mac) 2.0R 3/23/88
+	GAME_P("kq2", "2.0R 1988-03-23", "cbdb0083317c8e7cfb7ac35da4bc7fdc", 0x2440, GID_KQ2, Common::kPlatformMacintosh),
+
+	// King's Quest 2 (Amiga) 2.0J
+	GAME_PO("kq2", "2.0J 1987-01-29", "b866f0fab2fad91433a637a828cfa410", 0x2440, GID_KQ2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// King's Quest 2 (CoCo3 360k) [AGI 2.023]
 	GAME_PS("kq2", "", "b944c4ff18fb8867362dc21cc688a283", 543, 0x2440, GID_KQ2, Common::kPlatformCoCo3),
-
-	// King's Quest 2 (CoCo3 360k) [AGI 2.072]
-	GAME_PS("kq2", "updated", "f64a606de740a5348f3d125c03e989fe", 543, 0x2440, GID_KQ2, Common::kPlatformCoCo3),
 
 	// King's Quest 2 (CoCo3 360k) [AGI 2.023]
 	GAME_PS("kq2", "fixed", "fb33ac2768a94a89117a270771db465c", 768, 0x2440, GID_KQ2, Common::kPlatformCoCo3),
 
+	// King's Quest 2 (CoCo3 360k) [AGI 2.072]
+	GAME_PS("kq2", "updated", "f64a606de740a5348f3d125c03e989fe", 543, 0x2440, GID_KQ2, Common::kPlatformCoCo3),
+
 	// King's Quest 2 (CoCo3 720k)
 	GAME_PS("kq2", "", "bdb10876cd4cb20eabd88778c40b4075", 543, 0x2440, GID_KQ2, Common::kPlatformCoCo3),
-
-	// King's Quest 3 (Amiga) 1.01 11/8/86
-	// The original game did not have menus, they are enabled under ScummVM
-	GAME_PO("kq3", "1.01 1986-11-08", "8ab343306df0e2d98f136be4e8cfd0ef", 0x2440, GID_KQ3, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// King's Quest 3 (ST) 1.02 11/18/86
-	// Does not have menus, crashes if menus are enforced. Therefore, ESC pauses the game
-	GAME_P("kq3", "1.02 1986-11-18", "8846df2654302b623217ba8bd6d657a9", 0x2272, GID_KQ3, Common::kPlatformAtariST),
-
-	// King's Quest 3 (Mac) 2.14 3/15/88
-	GAME_P("kq3", "2.14 1988-03-15", "7639c0da5ce94848227d409351fabda2", 0x2440, GID_KQ3, Common::kPlatformMacintosh),
-
-	// King's Quest 3 (IIgs) 2.0A 8/28/88 (CE)
-	GAME_PO("kq3", "2.0A 1988-08-28 (CE)", "ac30b7ca5a089b5e642fbcdcbe872c12", 0x2917, GID_KQ3, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// King's Quest 3 (Amiga) 2.15 11/15/89 # 2.333
-	// Original pauses with ESC, has menus accessible with mouse.
-	// ver = 0x3086 -> menus accessible with ESC or mouse, bug #4528 (KQ3: Game Crash When Leaving Tavern as Fly).
-	// ver = 0x3149 -> menus accessible with mouse, ESC pauses game, bug #4528 disappears.
-	GAME3_PSO("kq3", "2.15 1989-11-15", "dirs", "8e35bded2bc5cf20f5eec2b15523b155", 1805, 0x3149, 0, GID_KQ3, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// King's Quest 3 (PC) 1.01 11/08/86 [AGI 2.272]
 	// Does not have menus, crashes if menus are enforced. Therefore, ESC pauses the game
 	GAME_P("kq3", "1.01 1986-11-08", "9c2b34e7ffaa89c8e2ecfeb3695d444b", 0x2272, GID_KQ3, Common::kPlatformDOS),
-
-	// King's Quest 3 (Russian)
-	GAME_LPS("kq3", "", "5856dec6ccb9c4b70aee21044a19270a", 390, Common::RU_RUS, 0x2272, GID_KQ3, Common::kPlatformDOS),
 
 	// King's Quest 3 (PC 5.25") 2.00 5/25/87 [AGI 2.435]
 	GAME("kq3", "2.00 1987-05-25 5.25\"", "18aad8f7acaaff760720c5c6885b6bab", 0x2440, GID_KQ3),
@@ -530,6 +527,29 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// King's Quest 3 (PC 3.5") 2.14 3/15/88 [AGI 2.936]
 	GAME("kq3", "2.14 1988-03-15 3.5\"", "d3d17b77b3b3cd13246749231d9473cd", 0x2936, GID_KQ3),
+
+	// King's Quest 3 (Russian)
+	GAME_LPS("kq3", "", "5856dec6ccb9c4b70aee21044a19270a", 390, Common::RU_RUS, 0x2272, GID_KQ3, Common::kPlatformDOS),
+
+	// King's Quest 3 (IIgs) 2.0A 8/28/88 (CE)
+	GAME_PO("kq3", "2.0A 1988-08-28 (CE)", "ac30b7ca5a089b5e642fbcdcbe872c12", 0x2917, GID_KQ3, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// King's Quest 3 (Mac) 2.14 3/15/88
+	GAME_P("kq3", "2.14 1988-03-15", "7639c0da5ce94848227d409351fabda2", 0x2440, GID_KQ3, Common::kPlatformMacintosh),
+
+	// King's Quest 3 (ST) 1.02 11/18/86
+	// Does not have menus, crashes if menus are enforced. Therefore, ESC pauses the game
+	GAME_P("kq3", "1.02 1986-11-18", "8846df2654302b623217ba8bd6d657a9", 0x2272, GID_KQ3, Common::kPlatformAtariST),
+
+	// King's Quest 3 (Amiga) 1.01 11/8/86
+	// The original game did not have menus, they are enabled under ScummVM
+	GAME_PO("kq3", "1.01 1986-11-08", "8ab343306df0e2d98f136be4e8cfd0ef", 0x2440, GID_KQ3, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
+	// King's Quest 3 (Amiga) 2.15 11/15/89 # 2.333
+	// Original pauses with ESC, has menus accessible with mouse.
+	// ver = 0x3086 -> menus accessible with ESC or mouse, bug #4528 (KQ3: Game Crash When Leaving Tavern as Fly).
+	// ver = 0x3149 -> menus accessible with mouse, ESC pauses game, bug #4528 disappears.
+	GAME3_PSO("kq3", "2.15 1989-11-15", "dirs", "8e35bded2bc5cf20f5eec2b15523b155", 1805, 0x3149, 0, GID_KQ3, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// King's Quest 3 (CoCo3 158k/360k) 1.0C [AGI 2.023]
 	GAME_PS("kq3", "", "5a6be7d16b1c742c369ef5cc64fefdd2", 429, 0x2440, GID_KQ3, Common::kPlatformCoCo3),
@@ -550,13 +570,13 @@ static const AGIGameDescription gameDescriptions[] = {
 	// King's Quest 4 (PC 3.5") 2.3 9/27/88 [AGI 3.002.086]
 	GAME3("kq4", "2.3 1988-09-27 3.5\"", "kq4dir", "82a0d39af891042e99ac1bd6e0b29046", 0x3086, GID_KQ4),
 
-	// King's Quest 4 (IIgs) 1.0K 11/22/88 (CE)
-	// Menus not tested
-	GAME3_PO("kq4", "1.0K 1988-11-22", "kq4dir", "8536859331159f15012e35dc82cb154e", 0x3086, 0, GID_KQ4, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
 	// King's Quest 4 demo (PC) [AGI 3.002.102]
 	// Menus not tested
 	GAME3("kq4", "Demo 1988-12-20", "dmdir", "a3332d70170a878469d870b14863d0bf", 0x3149, GID_KQ4),
+
+	// King's Quest 4 (IIgs) 1.0K 11/22/88 (CE)
+	// Menus not tested
+	GAME3_PO("kq4", "1.0K 1988-11-22", "kq4dir", "8536859331159f15012e35dc82cb154e", 0x3086, 0, GID_KQ4, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
 	// King's Quest 4 (CoCo3 720k) [AGI 2.023]
 	GAME_PS("kq4", "", "9e7729a28e749ca241d2bf71b9b2dbde", 741, 0x2440, GID_KQ4, Common::kPlatformCoCo3),
@@ -576,29 +596,20 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Leisure Suit Larry 1 Polish - Demo
 	GAME_LPS("lsl1", "Demo", "3b2f564306c401dff6334441df967ddd", 666, Common::PL_POL, 0x2917, GID_LSL1, Common::kPlatformDOS),
 
-	// Leisure Suit Larry 1 (ST) 1.04 6/18/87
-	GAME_P("lsl1", "1.04 1987-06-18", "8b579f8673fe9448c2538f5ed9887cf0", 0x2440, GID_LSL1, Common::kPlatformAtariST),
-
-	// Leisure Suit Larry 1 (Amiga) 1.05 6/26/87    # x.yyy
-	GAME_PO("lsl1", "1.05 1987-06-26", "3f5d26d8834ca49c147fb60936869d56", 0x2440, GID_LSL1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
 	// Leisure Suit Larry 1 (IIgs) 1.0E
 	GAME_PO("lsl1", "1.0E 1987", "5f9e1dd68d626c6d303131c119582ad4", 0x2440, GID_LSL1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
 	// Leisure Suit Larry 1 (Mac) 1.05 6/26/87
 	GAME_P("lsl1", "1.05 1987-06-26", "8a0076429890531832f0dc113285e31e", 0x2440, GID_LSL1, Common::kPlatformMacintosh),
 
+	// Leisure Suit Larry 1 (ST) 1.04 6/18/87
+	GAME_P("lsl1", "1.04 1987-06-18", "8b579f8673fe9448c2538f5ed9887cf0", 0x2440, GID_LSL1, Common::kPlatformAtariST),
+
+	// Leisure Suit Larry 1 (Amiga) 1.05 6/26/87    # x.yyy
+	GAME_PO("lsl1", "1.05 1987-06-26", "3f5d26d8834ca49c147fb60936869d56", 0x2440, GID_LSL1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// Leisure Suit Larry 1 (CoCo3 158k/360k) [AGI 2.072]
 	GAME_PS("lsl1", "", "a2de1fe76565c3e8b40c9d036b5e5612", 198, 0x2440, GID_LSL1, Common::kPlatformCoCo3),
-
-	// Manhunter NY (ST) 1.03 10/20/88
-	GAME3_P("mh1", "1.03 1988-10-20", "mhdir", "f2d58056ad802452d60776ee920a52a6", 0x3149, 0, GID_MH1, Common::kPlatformAtariST),
-
-	// Manhunter NY (IIgs) 2.0E 10/05/88 (CE)
-	GAME3_P("mh1", "2.0E 1988-10-05 (CE)", "mhdir", "2f1509f76f24e6e7d213f2dadebbf156", 0x3149, 0, GID_MH1, Common::kPlatformApple2GS),
-
-	// Manhunter NY (Amiga) 1.06 3/18/89
-	GAME3_PO("mh1", "1.06 1989-03-18", "dirs", "92c6183042d1c2bb76236236a7d7a847", 0x3149, GF_OLDAMIGAV20, GID_MH1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// reported by Filippos (thebluegr) in bugreport #3048
 	// Manhunter NY (PC 5.25") 1.22 8/31/88 [AGI 3.002.107]
@@ -607,14 +618,8 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Manhunter NY (PC 3.5") 1.22 8/31/88 [AGI 3.002.102]
 	GAME3_PS("mh1", "1.22 1988-08-31", "mhdir", "5b625329021ad49fd0c1d6f2d6f54bba", 2141, 0x3149, 0, GID_MH1, Common::kPlatformDOS),
 
-	// Manhunter NY (CoCo3 720k) [AGI 2.023]
-	GAME_PS("mh1", "", "b968285caf2f591c78dd9c9e26ab8974", 495, 0x2440, GID_MH1, Common::kPlatformCoCo3),
-
-	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
-	GAME_PS("mh1", "updated", "d47da950c62289f8d4ccf36af73365f2", 495, 0x2440, GID_MH1, Common::kPlatformCoCo3),
-
-	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
-	GAME_PS("mh1", "1.22 2021-02-03", "c90842b26656d84ce5228dd6b2ae998b", 495, 0x2072, GID_MH1, Common::kPlatformCoCo3),
+	// Manhunter NY (IIgs) 2.0E 10/05/88 (CE)
+	GAME3_P("mh1", "2.0E 1988-10-05 (CE)", "mhdir", "2f1509f76f24e6e7d213f2dadebbf156", 0x3149, 0, GID_MH1, Common::kPlatformApple2GS),
 
 	{
 		// Manhunter NY (Mac) 1.22 8/31/88
@@ -634,11 +639,20 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x3149
 	},
 
-	// Manhunter SF (ST) 1.0 7/29/89
-	GAME3_P("mh2", "1.0 1989-07-29", "mh2dir", "5e3581495708b952fea24438a6c7e040", 0x3149, 0, GID_MH2, Common::kPlatformAtariST),
+	// Manhunter NY (ST) 1.03 10/20/88
+	GAME3_P("mh1", "1.03 1988-10-20", "mhdir", "f2d58056ad802452d60776ee920a52a6", 0x3149, 0, GID_MH1, Common::kPlatformAtariST),
 
-	// Manhunter SF (Amiga) 3.06 8/17/89        # 2.333
-	GAME3_PSO("mh2", "3.06 1989-08-17", "dirs", "b412e8a126368b76696696f7632d4c16", 2573, 0x3086, GF_OLDAMIGAV20, GID_MH2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+	// Manhunter NY (Amiga) 1.06 3/18/89
+	GAME3_PO("mh1", "1.06 1989-03-18", "dirs", "92c6183042d1c2bb76236236a7d7a847", 0x3149, GF_OLDAMIGAV20, GID_MH1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
+	// Manhunter NY (CoCo3 720k) [AGI 2.023]
+	GAME_PS("mh1", "", "b968285caf2f591c78dd9c9e26ab8974", 495, 0x2440, GID_MH1, Common::kPlatformCoCo3),
+
+	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
+	GAME_PS("mh1", "updated", "d47da950c62289f8d4ccf36af73365f2", 495, 0x2440, GID_MH1, Common::kPlatformCoCo3),
+
+	// Manhunter NY (CoCo3 360k/720k) [AGI 2.072]
+	GAME_PS("mh1", "1.22 2021-02-03", "c90842b26656d84ce5228dd6b2ae998b", 495, 0x2072, GID_MH1, Common::kPlatformCoCo3),
 
 	// Manhunter SF (PC 5.25") 3.02 5.25\"" [AGI 3.002.149]
 	GAME3("mh2", "3.02 1989-07-26 5.25\"", "mh2dir", "bbb2c2f88d5740f7437fb7aa6f080b7b", 0x3149, GID_MH2),
@@ -667,6 +681,12 @@ static const AGIGameDescription gameDescriptions[] = {
 		0x3149
 	},
 
+	// Manhunter SF (ST) 1.0 7/29/89
+	GAME3_P("mh2", "1.0 1989-07-29", "mh2dir", "5e3581495708b952fea24438a6c7e040", 0x3149, 0, GID_MH2, Common::kPlatformAtariST),
+
+	// Manhunter SF (Amiga) 3.06 8/17/89        # 2.333
+	GAME3_PSO("mh2", "3.06 1989-08-17", "dirs", "b412e8a126368b76696696f7632d4c16", 2573, 0x3086, GF_OLDAMIGAV20, GID_MH2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// Manhunter SF (CoCo3 720k) [AGI 2.023]
 	GAME_PS("mh2", "", "acaaa577e10d1753c5a74f6ae1d858d4", 591, 0x2440, GID_MH2, Common::kPlatformCoCo3),
 
@@ -686,40 +706,25 @@ static const AGIGameDescription gameDescriptions[] = {
 	GAMEpre_P("mickey", "", "1.pic", "b6ec04c91a05df374792872c4d4ce66d", 2489,
 							"FLASHLIT.OOO", "d60a7b6ff96720037f7e88863f48c5d4", 97, 0x0000, GID_MICKEY, Common::kPlatformDOS),
 
+	// Mixed-Up Mother Goose (PC) [AGI 2.915]
+	GAME("mixedup", "1987-11-10", "e524655abf9b96a3b179ffcd1d0f79af", 0x2917, GID_MIXEDUP),
+
+	// Mixed Up Mother Goose (IIgs)
+	GAME_PO("mixedup", "1987", "3541954a7303467c6df87665312ffb6a", 0x2917, GID_MIXEDUP, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
 	// Mixed-Up Mother Goose (Amiga) 1.1
 	// Problematic: crashes
 	// Menus not tested
 	GAME3_PSO("mixedup", "1.1 1986-12-10", "dirs", "5c1295fe6daaf95831195ba12894dbd9", 2021, 0x3086, 0, GID_MIXEDUP, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
-	// Mixed Up Mother Goose (IIgs)
-	GAME_PO("mixedup", "1987", "3541954a7303467c6df87665312ffb6a", 0x2917, GID_MIXEDUP, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// Mixed-Up Mother Goose (PC) [AGI 2.915]
-	GAME("mixedup", "1987-11-10", "e524655abf9b96a3b179ffcd1d0f79af", 0x2917, GID_MIXEDUP),
-
 	// Mixed-Up Mother Goose (CoCo3 360k) [AGI 2.072]
 	GAME_PS("mixedup", "", "44e63e9b4d4822a31edea0e8a7e7eac4", 606, 0x2440, GID_MIXEDUP, Common::kPlatformCoCo3),
-
-	// Police Quest 1 (PC) 2.0E 11/17/87 [AGI 2.915]
-	GAME("pq1", "2.0E 1987-11-17", "2fd992a92df6ab0461d5a2cd83c72139", 0x2917, GID_PQ1),
-
-	// Police Quest 1 (Mac) 2.0G 12/3/87
-	GAME_P("pq1", "2.0G 1987-12-03", "805750b66c1c5b88a214e67bfdca17a1", 0x2440, GID_PQ1, Common::kPlatformMacintosh),
-
-	// Police Quest 1 (IIgs) 2.0B-88421
-	GAME_PO("pq1", "2.0B 1988-04-21", "e7c175918372336461e3811d594f482f", 0x2917, GID_PQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// Police Quest 1 (Amiga) 2.0B 2/22/89  # 2.310
-	GAME3_PSO("pq1", "2.0B 1989-02-22", "dirs", "cfa93e5f2aa7378bddd10ad6746a2ffb", 1613, 0x3149, 0, GID_PQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// Police Quest 1 (IIgs) 2.0A-88318
-	GAME_PO("pq1", "2.0A 1988-03-18", "8994e39d0901de3d07cecfb954075bb5", 0x2917, GID_PQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
 	// Police Quest 1 (PC) 2.0A 10/23/87 [AGI 2.903/2.911]
 	GAME("pq1", "2.0A 1987-10-23", "b9dbb305092851da5e34d6a9f00240b1", 0x2917, GID_PQ1),
 
-	// Police Quest 1 (Russian)
-	GAME_LPS("pq1", "", "604cc8041d24c4c7e5fa8baf386ef76e", 360, Common::RU_RUS, 0x2917, GID_PQ1, Common::kPlatformDOS),
+	// Police Quest 1 (PC) 2.0E 11/17/87 [AGI 2.915]
+	GAME("pq1", "2.0E 1987-11-17", "2fd992a92df6ab0461d5a2cd83c72139", 0x2917, GID_PQ1),
 
 	// Police Quest 1 2.0G 12/3/87
 	GAME("pq1", "2.0G 1987-12-03 5.25\"/ST", "231f3e28170d6e982fc0ced4c98c5c1c", 0x2440, GID_PQ1),
@@ -731,15 +736,30 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Police Quest 1 (PC) 2.0G 12/3/87; with Hebrew translation
 	GAME_LVFPN("pq1", "2.0G 1987-12-03", "PQ1.WAG", "59e1b2fb6d025968b8ed7388f107c7b5", -1, Common::HE_ISR, 0x2917, 0, GID_PQ1, Common::kPlatformDOS, GType_V2, GAMEOPTIONS_DEFAULT),
 
+	// Police Quest 1 (Russian)
+	GAME_LPS("pq1", "", "604cc8041d24c4c7e5fa8baf386ef76e", 360, Common::RU_RUS, 0x2917, GID_PQ1, Common::kPlatformDOS),
+
+	// Police Quest 1 (IIgs) 2.0A-88318
+	GAME_PO("pq1", "2.0A 1988-03-18", "8994e39d0901de3d07cecfb954075bb5", 0x2917, GID_PQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// Police Quest 1 (IIgs) 2.0B-88421
+	GAME_PO("pq1", "2.0B 1988-04-21", "e7c175918372336461e3811d594f482f", 0x2917, GID_PQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// Police Quest 1 (Mac) 2.0G 12/3/87
+	GAME_P("pq1", "2.0G 1987-12-03", "805750b66c1c5b88a214e67bfdca17a1", 0x2440, GID_PQ1, Common::kPlatformMacintosh),
+
+	// Police Quest 1 (Amiga) 2.0B 2/22/89  # 2.310
+	GAME3_PSO("pq1", "2.0B 1989-02-22", "dirs", "cfa93e5f2aa7378bddd10ad6746a2ffb", 1613, 0x3149, 0, GID_PQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+
 	// Police Quest 1 (CoCo3 360k) [AGI 2.023]
 	GAME_PS("pq1", "", "28a077041f75aab78f66804800940085", 375, 0x2440, GID_PQ1, Common::kPlatformCoCo3),
 
 	// Police Quest 1 (CoCo3 360k) [AGI 2.072]
 	GAME_PS("pq1", "updated", "63b9a9c6eec154751dd446cd3693e0e2", 768, 0x2440, GID_PQ1, Common::kPlatformCoCo3),
 
-	// Space Quest 1 (ST) 1.1A
-	// The original game did not have menus, they are enabled under ScummVM
-	GAME_P("sq1", "1.1A 1986-02-06", "6421fb64b0e6604c9dd065975d9279e9", 0x2440, GID_SQ1, Common::kPlatformAtariST),
+	// Space Quest 1 (PC) 1.0X [AGI 2.089]
+	// Does not have menus, crashes if menus are enforced. Therefore, ESC pauses the game
+	GAME_P("sq1", "1.0X 1986-09-24", "af93941b6c51460790a9efa0e8cb7122", 0x2089, GID_SQ1, Common::kPlatformDOS),
 
 	// Space Quest 1 (PC 360k) 1.1A [AGI 2.272]
 	// The original game did not have menus, they are enabled under ScummVM
@@ -749,25 +769,25 @@ static const AGIGameDescription gameDescriptions[] = {
 	// The original game did not have menus, they are enabled under ScummVM
 	GAME_P("sq1", "1.1A 720kb", "0a92b1be7daf3bb98caad3f849868aeb", 0x2272, GID_SQ1, Common::kPlatformDOS),
 
-	// Space Quest 1 (Amiga) 1.2            # 2.082
-	// The original game did not have menus, they are enabled under ScummVM
-	GAME_FPO("sq1", "1.2 1986", "0b216d931e95750f1f4837d6a4b821e5", 0x2440, GF_OLDAMIGAV20, GID_SQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
-
-	// Space Quest 1 (Mac) 1.5D
-	GAME_P("sq1", "1.5D 1987-04-02", "ce88419aadd073d1c6682d859b3d8aa2", 0x2440, GID_SQ1, Common::kPlatformMacintosh),
-
-	// Space Quest 1 (IIgs) 2.2
-	GAME_PO("sq1", "2.2 1987", "64b9b3d04c1066d36e6a6e56187a83f7", 0x2917, GID_SQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
-
-	// Space Quest 1 (PC) 1.0X [AGI 2.089]
-	// Does not have menus, crashes if menus are enforced. Therefore, ESC pauses the game
-	GAME_P("sq1", "1.0X 1986-09-24", "af93941b6c51460790a9efa0e8cb7122", 0x2089, GID_SQ1, Common::kPlatformDOS),
+	// Space Quest 1 (PC 5.25"/3.5") 2.2 [AGI 2.426/2.917]
+	GAME("sq1", "2.2 1987-05-07 5.25\"/3.5\"", "5d67630aba008ec5f7f9a6d0a00582f4", 0x2440, GID_SQ1),
 
 	// Space Quest 1 (Russian)
 	GAME_LPS("sq1", "", "a279eb8ddbdefdb1ea6adc827a1d632a", 372, Common::RU_RUS, 0x2089, GID_SQ1, Common::kPlatformDOS),
 
-	// Space Quest 1 (PC 5.25"/3.5") 2.2 [AGI 2.426/2.917]
-	GAME("sq1", "2.2 1987-05-07 5.25\"/3.5\"", "5d67630aba008ec5f7f9a6d0a00582f4", 0x2440, GID_SQ1),
+	// Space Quest 1 (IIgs) 2.2
+	GAME_PO("sq1", "2.2 1987", "64b9b3d04c1066d36e6a6e56187a83f7", 0x2917, GID_SQ1, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// Space Quest 1 (Mac) 1.5D
+	GAME_P("sq1", "1.5D 1987-04-02", "ce88419aadd073d1c6682d859b3d8aa2", 0x2440, GID_SQ1, Common::kPlatformMacintosh),
+
+	// Space Quest 1 (ST) 1.1A
+	// The original game did not have menus, they are enabled under ScummVM
+	GAME_P("sq1", "1.1A 1986-02-06", "6421fb64b0e6604c9dd065975d9279e9", 0x2440, GID_SQ1, Common::kPlatformAtariST),
+
+	// Space Quest 1 (Amiga) 1.2            # 2.082
+	// The original game did not have menus, they are enabled under ScummVM
+	GAME_FPO("sq1", "1.2 1986", "0b216d931e95750f1f4837d6a4b821e5", 0x2440, GF_OLDAMIGAV20, GID_SQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// Space Quest 1 (CoCo3 360k) [AGI 2.072]
 	GAME_PS("sq1", "", "5d67630aba008ec5f7f9a6d0a00582f4", 372, 0x2440, GID_SQ1, Common::kPlatformCoCo3),
@@ -778,8 +798,29 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Space Quest 1 (CoCo3 360k) [AGI 2.072]
 	GAME_PS("sq1", "updated", "7fa54e6bb7ffeb4cf20eca39d86f5fb2", 387, 0x2440, GID_SQ1, Common::kPlatformCoCo3),
 
+	// reported by Filippos (thebluegr) in bugreport #3048
+	// Space Quest 2 (PC 5.25") 2.0A [AGI 2.912]
+	GAME_PS("sq2", "2.0A 1987-11-06 5.25\"", "ad7ce8f800581ecc536f3e8021d7a74d", 423, 0x2917, GID_SQ2, Common::kPlatformDOS),
+
+	// Space Quest 2 (PC 3.5") 2.0A [AGI 2.912]
+	GAME_PS("sq2", "2.0A 1987-11-06 3.5\"", "6c25e33d23b8bed42a5c7fa63d588e5c", 423, 0x2917, GID_SQ2, Common::kPlatformDOS),
+
+	// Space Quest 2 (PC 5.25"/ST) 2.0C/A [AGI 2.915]
+	// Menus not tested
+	GAME("sq2", "2.0C/A 5.25\"/ST", "bd71fe54869e86945041700f1804a651", 0x2917, GID_SQ2),
+
 	// Space Quest 2 (PC 3.5") 2.0D [AGI 2.936]
 	GAME("sq2", "2.0D 1988-03-14 3.5\"", "85390bde8958c39830e1adbe9fff87f3", 0x2936, GID_SQ2),
+
+	// Space Quest 2 (PC 3.5") 2.0F [AGI 2.936]
+	GAME("sq2", "2.0F 1989-01-05 3.5\"", "28add5125484302d213911df60d2aded", 0x2936, GID_SQ2),
+
+	// reported by RadG (radg123) in bug report #5617
+	// Space Quest 2 (Spanish)
+	GAME_LPS("sq2", "", "1ae7640dd4d253c3ac2d708d61a35379", 426, Common::ES_ESP, 0x2917, GID_SQ2, Common::kPlatformDOS),
+
+	// Space Quest 2 (Russian)
+	GAME_LPS("sq2", "", "ba21c8934caf28e3ba45ce7d1cd6b041", 423, Common::RU_RUS, 0x2917, GID_SQ2, Common::kPlatformDOS),
 
 	// Space Quest 2 (IIgs) 2.0A 7/25/88 (CE)
 	// We have to see this as AGI < 2.936, because otherwise a set.pri.base call would somewhat break
@@ -790,6 +831,9 @@ static const AGIGameDescription gameDescriptions[] = {
 	// For KQ3 set.pri.base is called with parameters that seem to be sound resources, which means
 	// set.pri.base was possibly discard.sound. For KQ4 onwards it seems this was cleaned up.
 	GAME_PO("sq2", "2.0A 1988-07-25 (CE)", "5dfdac98dd3c01fcfb166529f917e911", 0x2917, GID_SQ2, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// Space Quest 2 (Mac) 2.0D
+	GAME_P("sq2", "2.0D 1988-04-04", "bfbebe0b59d83f931f2e1c62ce9484a7", 0x2936, GID_SQ2, Common::kPlatformMacintosh),
 
 	{
 		// Space Quest 2 (Amiga) 2.0F
@@ -808,30 +852,6 @@ static const AGIGameDescription gameDescriptions[] = {
 		0,
 		0x2936
 	},
-
-	// Space Quest 2 (Mac) 2.0D
-	GAME_P("sq2", "2.0D 1988-04-04", "bfbebe0b59d83f931f2e1c62ce9484a7", 0x2936, GID_SQ2, Common::kPlatformMacintosh),
-
-	// reported by Filippos (thebluegr) in bugreport #3048
-	// Space Quest 2 (PC 5.25") 2.0A [AGI 2.912]
-	GAME_PS("sq2", "2.0A 1987-11-06 5.25\"", "ad7ce8f800581ecc536f3e8021d7a74d", 423, 0x2917, GID_SQ2, Common::kPlatformDOS),
-
-	// reported by RadG (radg123) in bug report #5617
-	// Space Quest 2 (Spanish)
-	GAME_LPS("sq2", "", "1ae7640dd4d253c3ac2d708d61a35379", 426, Common::ES_ESP, 0x2917, GID_SQ2, Common::kPlatformDOS),
-
-	// Space Quest 2 (Russian)
-	GAME_LPS("sq2", "", "ba21c8934caf28e3ba45ce7d1cd6b041", 423, Common::RU_RUS, 0x2917, GID_SQ2, Common::kPlatformDOS),
-
-	// Space Quest 2 (PC 3.5") 2.0A [AGI 2.912]
-	GAME_PS("sq2", "2.0A 1987-11-06 3.5\"", "6c25e33d23b8bed42a5c7fa63d588e5c", 423, 0x2917, GID_SQ2, Common::kPlatformDOS),
-
-	// Space Quest 2 (PC 5.25"/ST) 2.0C/A [AGI 2.915]
-	// Menus not tested
-	GAME("sq2", "2.0C/A 5.25\"/ST", "bd71fe54869e86945041700f1804a651", 0x2917, GID_SQ2),
-
-	// Space Quest 2 (PC 3.5") 2.0F [AGI 2.936]
-	GAME("sq2", "2.0F 1989-01-05 3.5\"", "28add5125484302d213911df60d2aded", 0x2936, GID_SQ2),
 
 	// Space Quest 2 (CoCo3 360k) [AGI 2.023]
 	GAME_PS("sq2", "", "12973d39b892dc9d280257fd271e9597", 768, 0x2440, GID_SQ2, Common::kPlatformCoCo3),
@@ -857,17 +877,17 @@ static const AGIGameDescription gameDescriptions[] = {
 	GAMEpre_P("winnie", "", "title.pic", "2e7900c1ccaa7671d65405f6d1efed30", 1334,
 							"obj.40",    "188636a4a340fcfd8e7fab1e8e0ac53b", 657, 0x0000, GID_WINNIE, Common::kPlatformDOS),
 
-	// Winnie the Pooh in the Hundred Acre Wood (Amiga)
-	GAMEpre_PO("winnie", "", "title",   "2e7900c1ccaa7671d65405f6d1efed30", 1334,
-							 "room.62", "d56297aa9a1714dc654034f8db9f05c9", 1319, 0x0000, GID_WINNIE, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
+	// Winnie the Pooh in the Hundred Acre Wood (Apple ][)
+	GAMEpre_P("winnie", "", "title.pic",  "45e06010a3c61d78f4661103c901ae11", 8190,
+							"room62.obj", "d0711928e7a3ccfa4850fade052c6761", 1313, 0x0000, GID_WINNIE, Common::kPlatformApple2),
 
 	// Winnie the Pooh in the Hundred Acre Wood (C64)
 	GAMEpre_P("winnie", "", "title.pic", "d4eb97cffc866110f71e1ec9f84fe643", 4097,
 							"room62",    "f0e1c2de0ac257dfaa905eaa6de0ca8b", 1378, 0x0000, GID_WINNIE, Common::kPlatformC64),
 
-	// Winnie the Pooh in the Hundred Acre Wood (Apple ][)
-	GAMEpre_P("winnie", "", "title.pic",  "45e06010a3c61d78f4661103c901ae11", 8190,
-							"room62.obj", "d0711928e7a3ccfa4850fade052c6761", 1313, 0x0000, GID_WINNIE, Common::kPlatformApple2),
+	// Winnie the Pooh in the Hundred Acre Wood (Amiga)
+	GAMEpre_PO("winnie", "", "title",   "2e7900c1ccaa7671d65405f6d1efed30", 1334,
+							 "room.62", "d56297aa9a1714dc654034f8db9f05c9", 1319, 0x0000, GID_WINNIE, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
 
 	// Winnie the Pooh in the Hundred Acre Wood (CoCo)
 	GAMEpre_PU("winnie", "Early AGI games for Tandy Color Computer are not yet supported.",
