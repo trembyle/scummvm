@@ -146,6 +146,7 @@ namespace Agi {
 #define GAME_FSO(id,extra,fname,md5,size,ver,flags,gid,guioptions) GAME_LVFPN(id,extra,fname,md5,size,Common::EN_ANY,ver,flags,gid,Common::kPlatformDOS,GType_V2,guioptions)
 
 #define GAME_PS(id,extra,md5,size,ver,gid,platform) GAME_LVFPN(id,extra,"logdir",md5,size,Common::EN_ANY,ver,0,gid,platform,GType_V2,GAMEOPTIONS_DEFAULT)
+#define GAME_PSU(id,msg,fname,md5,size,ver,gid,platform) GAME_LVFPNU(id,msg,fname,md5,size,Common::EN_ANY,ver,0,gid,platform,GType_V2,GAMEOPTIONS_DEFAULT)
 
 #define GAME_LPS(id,extra,md5,size,lang,ver,gid,platform) GAME_LVFPN(id,extra,"logdir",md5,size,lang,ver,0,gid,platform,GType_V2,GAMEOPTIONS_DEFAULT)
 
@@ -311,6 +312,11 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Black Cauldron (Apple IIgs) 1.0O 2/24/89 (CE)
 	// Menus not tested
 	GAME3_PO("bc", "1.0O 1989-02-24 (CE)", "bcdir", "dc09d30b147242692f4f85b9811962db", 0x3149, 0, GID_BC, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
+
+	// Black Cauldron (Atari ST)
+	// Copy-protected disk; it will take some effort to extract the resources
+	GAME_PSU("bc", "Unable to access game resources on copy-protected disk",
+		"BC.PRG", "2d7bba4a0dbb6095f9e123b183eb5db8", 45655, 0x2440, GID_BC, Common::kPlatformAtariST),
 
 	// Black Cauldron (Amiga) 2.00 6/14/87
 	GAME_PO("bc", "2.00 1987-06-14", "7b01694af21213b4727bb94476f64eb5", 0x2440, GID_BC, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
@@ -498,6 +504,12 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// King's Quest 2 (Mac) 2.0R 3/23/88
 	GAME_P("kq2", "2.0R 1988-03-23", "cbdb0083317c8e7cfb7ac35da4bc7fdc", 0x2440, GID_KQ2, Common::kPlatformMacintosh),
+
+	// King's Quest 2 (Atari ST) 1.0 12/2/85 (timestamp)
+	// The disks are copy protected, and the files are normally inaccessible.
+	// Most likely a tool will need to be created to extract the AGI resources.
+	GAME_PSU("kq2", "Unable to access game resources on copy-protected disk",
+		"KQ.PRG", "f0c5fe0fd6f28c7551779c9683006781", 38162, 0x2440, GID_KQ2, Common::kPlatformAtariST),
 
 	// King's Quest 2 (Amiga) 2.0J
 	GAME_PO("kq2", "2.0J 1987-01-29", "b866f0fab2fad91433a637a828cfa410", 0x2440, GID_KQ2, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
@@ -712,6 +724,9 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Mixed Up Mother Goose (IIgs)
 	GAME_PO("mixedup", "1987", "3541954a7303467c6df87665312ffb6a", 0x2917, GID_MIXEDUP, Common::kPlatformApple2GS, GAMEOPTIONS_APPLE2GS),
 
+	// Mixed-Up Mother Goose (Atari ST) 12/3/87 (timestamp)
+	GAME_P("mixedup", "1987-12-03", "f79365f9d75ba6b8dd230164b7839fc1", 0x2917, GID_MIXEDUP, Common::kPlatformAtariST),
+
 	// Mixed-Up Mother Goose (Amiga) 1.1
 	// Problematic: crashes
 	// Menus not tested
@@ -725,9 +740,6 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Police Quest 1 (PC) 2.0E 11/17/87 [AGI 2.915]
 	GAME("pq1", "2.0E 1987-11-17", "2fd992a92df6ab0461d5a2cd83c72139", 0x2917, GID_PQ1),
-
-	// Police Quest 1 2.0G 12/3/87
-	GAME("pq1", "2.0G 1987-12-03 5.25\"/ST", "231f3e28170d6e982fc0ced4c98c5c1c", 0x2440, GID_PQ1),
 
 	// Police Quest 1 (PC) 2.0G 12/3/87; entry from DAGII, but missing from Sarien?
 	// not sure about disk format -- dsymonds
@@ -747,6 +759,9 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Police Quest 1 (Mac) 2.0G 12/3/87
 	GAME_P("pq1", "2.0G 1987-12-03", "805750b66c1c5b88a214e67bfdca17a1", 0x2440, GID_PQ1, Common::kPlatformMacintosh),
+
+	// Police Quest 1 (Atari ST) 2.0G 12/3/87
+	GAME_P("pq1", "2.0G 1987-12-03", "231f3e28170d6e982fc0ced4c98c5c1c", 0x2440, GID_PQ1, Common::kPlatformAtariST),
 
 	// Police Quest 1 (Amiga) 2.0B 2/22/89  # 2.310
 	GAME3_PSO("pq1", "2.0B 1989-02-22", "dirs", "cfa93e5f2aa7378bddd10ad6746a2ffb", 1613, 0x3149, 0, GID_PQ1, Common::kPlatformAmiga, GAMEOPTIONS_AMIGA),
@@ -805,10 +820,6 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Space Quest 2 (PC 3.5") 2.0A [AGI 2.912]
 	GAME_PS("sq2", "2.0A 1987-11-06 3.5\"", "6c25e33d23b8bed42a5c7fa63d588e5c", 423, 0x2917, GID_SQ2, Common::kPlatformDOS),
 
-	// Space Quest 2 (PC 5.25"/ST) 2.0C/A [AGI 2.915]
-	// Menus not tested
-	GAME("sq2", "2.0C/A 5.25\"/ST", "bd71fe54869e86945041700f1804a651", 0x2917, GID_SQ2),
-
 	// Space Quest 2 (PC 3.5") 2.0D [AGI 2.936]
 	GAME("sq2", "2.0D 1988-03-14 3.5\"", "85390bde8958c39830e1adbe9fff87f3", 0x2936, GID_SQ2),
 
@@ -834,6 +845,10 @@ static const AGIGameDescription gameDescriptions[] = {
 
 	// Space Quest 2 (Mac) 2.0D
 	GAME_P("sq2", "2.0D 1988-04-04", "bfbebe0b59d83f931f2e1c62ce9484a7", 0x2936, GID_SQ2, Common::kPlatformMacintosh),
+
+	// Space Quest 2 (Atari ST) 2.0C 11/19/87 (timestamp) [AGI 2.915]
+	// Menus not tested
+	GAME_P("sq2", "2.0C 1987-11-19", "bd71fe54869e86945041700f1804a651", 0x2917, GID_SQ2, Common::kPlatformAtariST),
 
 	{
 		// Space Quest 2 (Amiga) 2.0F
@@ -880,6 +895,11 @@ static const AGIGameDescription gameDescriptions[] = {
 	// Winnie the Pooh in the Hundred Acre Wood (Apple ][)
 	GAMEpre_P("winnie", "", "title.pic",  "45e06010a3c61d78f4661103c901ae11", 8190,
 							"room62.obj", "d0711928e7a3ccfa4850fade052c6761", 1313, 0x0000, GID_WINNIE, Common::kPlatformApple2),
+
+	// Winnie the Pooh in the Hundred Acre Wood (Atari ST)
+	// Crashes at title screen
+	GAMEpre_P("winnie", "", "title.pic",   "f7187e6cf5e4fa9e4d07a0dbadf3c9e0", 1018,
+							"rooms/rm.62", "b33e2a690e00b8628a2a0c46327d5c80", 1319, 0x0000, GID_WINNIE, Common::kPlatformAtariST),
 
 	// Winnie the Pooh in the Hundred Acre Wood (C64)
 	GAMEpre_P("winnie", "", "title.pic", "d4eb97cffc866110f71e1ec9f84fe643", 4097,
@@ -1094,6 +1114,8 @@ static const AGIGameDescription gameDescriptions[] = {
 	GAME_PS("sq0", "", "e1a8e4efcce86e1efcaa14633b9eb986", 762, 0x2440, GID_FANMADE, Common::kPlatformCoCo3),
 	GAME_FO("sqx", "v10.0 Feb 05", "c992ae2f8ab18360404efdf16fa9edd1", 0x2917, GF_FANMADE, GID_FANMADE, GAMEOPTIONS_DEFAULT),
 	GAME_FO("sqx", "v10.0 Jul 18", "812edec45cefad559d190ffde2f9c910", 0x2917, GF_FANMADE, GID_FANMADE, GAMEOPTIONS_DEFAULT),
+	GAME_PS("sqx", "v10.0 Feb 05", "66370af1f8e8c765f64ca3cb79f7ca05", 768, 0x2440, GID_FANMADE, Common::kPlatformAtariST),
+	GAME_PS("sqx", "v10.0 Jul 18", "8079c2c51e33211d988c4c52b9ebacf8", 768, 0x2440, GID_FANMADE, Common::kPlatformAtariST),
 	GAME_PS("sqx", "v10.0", "f0a59044475a5fa37c055d8c3eb4d1a7", 768, 0x2440, GID_FANMADE, Common::kPlatformCoCo3),
 	FANMADE_FO("Space Quest 3.5", "c077bc28d7b36213dd99dc9ecb0147fc", GF_AGIMOUSE, GAMEOPTIONS_FANMADE_MOUSE),	// AGIPAL
 	FANMADE("Space Trek (v1.0)", "807a1aeadb2ace6968831d36ab5ea37a"),
