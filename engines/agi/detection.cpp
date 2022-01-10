@@ -152,6 +152,8 @@ class AgiMetaEngineDetection : public AdvancedMetaEngineDetection {
 public:
 	AgiMetaEngineDetection() : AdvancedMetaEngineDetection(Agi::gameDescriptions, sizeof(Agi::AGIGameDescription), agiGames, optionsList) {
 		_guiOptions = GUIO1(GUIO_NOSPEECH);
+		_flags = kADFlagMatchFullPaths;
+		_maxScanDepth = 2;
 	}
 
 	const char *getEngineId() const override {
