@@ -188,6 +188,21 @@ static const StarTrekGameDescription gameDescriptions[] = {
 		GF_DEMO,
 	},
 
+	{ // ST25 DOS CD demo (EN)
+		{
+			"st25",
+			"CD Demo",
+			AD_ENTRY2s("data.001", "57040928a0f374281aa86ba4e7db8444", 7793814,
+					   "data.dir", "f193193bbc1576b730e0b681671cc370", 28238),
+			Common::EN_ANY,
+			Common::kPlatformDOS,
+			ADGF_DEMO | ADGF_CD | ADGF_UNSTABLE,
+			GUIO0()
+		},
+		GType_ST25,
+		GF_DEMO,
+	},
+
 	{ // ST25 MAC CD demo (EN)
 		{
 			"st25",
@@ -341,6 +356,20 @@ static const StarTrekGameDescription gameDescriptions[] = {
 			Common::FR_FRA,
 			Common::kPlatformDOS,
 			ADGF_UNSTABLE,
+			GUIO0()
+		},
+		GType_STJR,
+		0
+	},
+
+	{ // STJR DOS Demo (from US ST25 CD)
+		{
+			"stjr",
+			"Demo",
+			AD_ENTRY1s("s3demo.001", "4c7cd3c8c609031df834e388dc26e81b", 197232),
+			Common::EN_ANY,
+			Common::kPlatformDOS,
+			ADGF_UNSTABLE | ADGF_DEMO,
 			GUIO0()
 		},
 		GType_STJR,
