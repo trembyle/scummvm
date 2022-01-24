@@ -5272,7 +5272,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Mac version requires installation, Crystal Skull Installer, uses VISE
 	// 3 CDs, executables are only on CD 1
 	MACGAME1("crystalskull",  "", "Crystal Skull", "c148f66ae3511fb88733102aa27efe7e", 719459,  501),
-	WINGAME1t("crystalskull", "", "CRYS32.EXE",	   "3f5fd025e808943e1fa9b91ce63ef9b7", 1410495, 501),
+	WINGAME1t("crystalskull", "", "CRYSTAL1/DATA/CRYS32.EXE", "3f5fd025e808943e1fa9b91ce63ef9b7", 1410495, 501),
 
 	// Arc Media, Toronto (1998)
 	MACGAME1("dallydooanimals", "",	 "DALLYDOO",		 "231d3041df162be4a0ddd36a74eb03b6", 719005, 501),
