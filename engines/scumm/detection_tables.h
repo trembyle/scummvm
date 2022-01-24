@@ -212,7 +212,8 @@ static const GameSettings gameVariantsTable[] = {
 	{"samnmax",  "Floppy", 0, GID_SAMNMAX,  6, 0, MDT_ADLIB | MDT_MIDI | MDT_PREFER_GM, GF_USE_KEY, UNK, GUIO1(GUIO_NOSPEECH)},
 
 	{"ft",   "", 0, GID_FT,  7, 0, MDT_NONE, 0, UNK, GUIO1(GUIO_NOMIDI)},
-	{"ft",   "Demo", 0, GID_FT,  7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
+	{"ft",   "Demo", 0, GID_FT, 7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
+	{"ft",   "Trailer", 0, GID_FT, 7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
 
 	{"dig",  "", 0, GID_DIG, 7, 0, MDT_NONE, 0, UNK, GUIO1(GUIO_NOMIDI)},
 	{"dig",  "Demo", 0, GID_DIG, 7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
@@ -470,6 +471,7 @@ static const GameFilenamePattern gameFilenamesTable[] = {
 	{ "ft", "ftdemo.la%d", kGenDiskNum, UNK_LANG, UNK, "Demo" },
 	{ "ft", "Full Throttle Data", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, 0 },
 	{ "ft", "Full Throttle Demo Data", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, "Demo" },
+	{ "ft", "Full Throttle Trailer", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, "Demo" },
 	{ "ft", "Vollgas Data", kGenUnchanged, Common::DE_DEU, Common::kPlatformMacintosh, 0 },
 	{ "ft", "Vollgas Demo Data", kGenUnchanged, Common::DE_DEU, Common::kPlatformMacintosh, "Demo" },
 

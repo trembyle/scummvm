@@ -472,6 +472,7 @@ static const MD5Table md5table[] = {
 	{ "99a3699f80b8f776efae592b44b9b991", "maniac", "V2", "V2", -1, Common::FR_FRA, Common::kPlatformDOS },
 	{ "99b6f822b0b2612415407865438697d6", "atlantis", "", "Demo", -1, Common::EN_ANY, Common::kPlatformDOS },
 	{ "9b7452b5cd6d3ffb2b2f5118010af84f", "ft", "Demo", "Demo", 116463537, Common::EN_ANY, Common::kPlatformMacintosh },
+	{ "7f96848714955f90038543c4bbbf7b5d", "ft", "Trailer", "Trailer", 12220876, Common::EN_ANY, Common::kPlatformMacintosh },
 	{ "9bc548e179cdb0767009401c094d0895", "maniac", "V2", "V2", -1, Common::DE_DEU, Common::kPlatformAmiga },
 	{ "9bd2a8f72613e715c199246dd511e10f", "atlantis", "Floppy", "Floppy", -1, Common::ES_ESP, Common::kPlatformDOS },
 	{ "9bda5fee51d2fda5253d02c642016bf4", "spyfox", "HE 98.5", "", 49300, Common::NL_NLD, Common::kPlatformUnknown },
