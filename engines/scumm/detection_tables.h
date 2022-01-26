@@ -217,6 +217,7 @@ static const GameSettings gameVariantsTable[] = {
 
 	{"dig",  "", 0, GID_DIG, 7, 0, MDT_NONE, 0, UNK, GUIO1(GUIO_NOMIDI)},
 	{"dig",  "Demo", 0, GID_DIG, 7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
+	{"dig",  "Trailer", 0, GID_DIG, 7, 0, MDT_NONE, GF_DEMO, UNK, GUIO1(GUIO_NOMIDI)},
 	{"dig",  "Steam", "steam", GID_DIG, 7, 0, MDT_NONE, 0, UNK, GUIO1(GUIO_NOMIDI)},
 
 	{"comi", "", 0, GID_CMI, 8, 0, MDT_NONE, 0, Common::kPlatformWindows, GUIO2(GUIO_NOMIDI, GUIO_NOASPECT)},
@@ -461,6 +462,7 @@ static const GameFilenamePattern gameFilenamesTable[] = {
 
 	{ "dig", "dig.la%d", kGenDiskNum, UNK_LANG, UNK, 0 },
 	{ "dig", "thedig.la%d", kGenDiskNum, UNK_LANG, UNK, "Demo" }, // Used by an alternate version of the demo
+	{ "dig", "demofrnt.san", kGenDiskNum, UNK_LANG, Common::kPlatformWindows, "Trailer" }, // Smush video with Rebel Assault II
 	{ "dig", "The Dig Data", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, 0 },
 	{ "dig", "The Dig Demo Data", kGenUnchanged, UNK_LANG, Common::kPlatformMacintosh, "Demo" },
 	{ "dig", "dig.la%d", kGenDiskNumSteam, UNK_LANG, Common::kPlatformWindows, "Steam" },
