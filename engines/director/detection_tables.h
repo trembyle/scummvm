@@ -1586,14 +1586,18 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "busty4",				"Busty Babes Volume IV" },
 	{ "csa",				"Cyber Sex Angel" },
 	{ "cyberphoto",			"CyberPhotographer" },
+	{ "cybersex",			"Penthouse Guide to Cybersex" },
 	{ "dancinggals",		"Dancing Gals Power" },
 	{ "digerotica",			"Digital Erotica" },
+	{ "derotica3",			"Digital Erotica 3" },
 	{ "digitalogue",		"Digitalogue Home Museum Series" },
 	{ "dmj5",				"DMJ5: The Game!" },			// Devil in Miss Jones
 	{ "dmpgallery",			"Digital Magazine for Photography: Gallery" },
 	{ "dream1",				"The Dream Machine: The Virtual Sexual Experience" },
 	{ "dream2",				"The Dream Machine 2" },
 	{ "eros",				"Fischer's Erotic Encyclopedia" },
+	{ "eroticgames",		"Erotic Games" },
+	{ "gbbreakout",			"Grin and Bare It! Breakout" },
 	{ "gilgameshnite",		"ギルガメッシュ Night Super Deluxe CD-ROM" },		// Gilgamesh
 	{ "gulliveriana",		"Gulliveriana" },
 	{ "historiapoca",		"A História Não Contada de Pocahontas" }, // The Untold Story of Pocahontas
@@ -1601,6 +1605,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "immorale",			"Immorale" },
 	{ "kamasutra",			"Il gioco del Kamasutra" },
 	{ "kamasutralegend",	"The Legend of the Kama Sutra" },
+	{ "kisskill",			"Kiss & Kill" },
 	{ "labyrinth",			"Labyrinth" },
 	{ "legs",				"Legs" },
 	{ "macplaymate1",		"MacPlaymate" },
@@ -1608,7 +1613,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "neurodancer",		"NeuroDancer" },
 	{ "nightnurses",		"Nightshift Nurses: The Game" },
 	{ "pbvv",				"Playboy's Voluptuous Vixens" },
+	{ "penthouse",			"Penthouse Interactive Virtual Photo Shoot" },
 	{ "playmate1999",		"1999 Playboy Playmate Calendar" },
+	{ "rgsp",				"RealGirls Strip Poker" },
 	{ "sadowar",			"RSP" },
 	{ "scop",				"Scop" },
 	{ "shock",				"Shock: The Game" },
@@ -1617,8 +1624,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "thebody",			"The Body: Five doors plus" },
 	{ "thelegs",			"The Legs ～Get a LEG up～" },
 	{ "timewarp",			"Time Warp" },
+	{ "uvixen1",			"UltraVixen" },
+	{ "uvixen2",			"Ultravixen 2: Demonseed" },
 	{ "venus",				"Venus Photo CD-ROM" },
 	{ "vpeepshow",			"Virtual Peep Show" },
+	{ "vpet",				"Virtual Pet Slavegirl" },
 	{ "vsex1",				"Virtual Sex" },
 	{ "vsex2",				"Virtual Sex II" },
 	{ "vsexasia",			"Virtual Sex with Asia"},
@@ -8371,6 +8381,16 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO2_l("digitalogue", "Preview", "PREVIEW",   "f5277c53bacd27936158dd3867e587e2", 392506,
 										 "preview-1", "71f28684bafe3195685cf8b7a6c674d9", 1294330, Common::JA_JPN, 311),
 
+	MACGAME1("busty3", 		  "", 		 "Busty III Slide Viewer", "1682231de376e5465240f6e4a7952072", 289980, 400),
+	MACGAME1("busty4", 		  "", 		 "Busty 4",				   "d35d3bb2e79e008e6bd9af62d099344f", 483746, 404),
+	WINGAME1("busty3", 		  "", 		 "BUSTY3.EXE",			   "07c20a266c2fd9d35960a7ce413cfedf", 4293647, 400),
+	WINGAME1("busty4", 		  "",		 "BUSTY4.EXE",			   "09d32c60f12c76c6d1d0f3d2d5593e44", 1569431, 404),
+	MACGAME1("cybersex", 	  "",		 "Penthouse Guide",		   "67f572196550aedb1f9523d782022be0", 481226, 404),
+	MACDEMO1("derotica3", 	  "Demo",	 "SAMPLER3",			   "77f4098988d5386794d1530065f514cd", 303933, 400),
+	WINDEMO1t("derotica3", 	  "D3 Demo", "SAMPLER3.EXE",		   "da4f344f2b015101b4246f1eae26f8ae", 8422279, 311),
+	WINDEMO1t("derotica3", 	  "D4 Demo", "SAMPLER3.EXE",		   "401f999fc67e9728cc857afc1badef8f", 8467883, 404),
+	MACDEMO2_l("digitalogue", "Preview", "PREVIEW",   			   "f5277c53bacd27936158dd3867e587e2", 392506,
+										 "preview-1",			   "71f28684bafe3195685cf8b7a6c674d9", 1294330, Common::JA_JPN, 311),
 	MACGAME1_l("dmpgallery",  "Vol.1",   "Gallery vol.1",		   "a03ae8a9bf211bcb26388b6b6da17c2b", 7522802, Common::JA_JPN, 311),
 	MACGAME1_l("dmpgallery",  "Vol.2",   "Gallery vol.2",		   "f5277c53bacd27936158dd3867e587e2", 1941814, Common::JA_JPN, 311),
 	MACGAME1_l("dmpgallery",  "Vol.3",   "Gallery vol.3",		   "f5277c53bacd27936158dd3867e587e2", 2913247, Common::JA_JPN, 311),
@@ -8378,16 +8398,37 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("dream1", "", "xn--DREAM.13-ra44a", "2ce360c9ea2da80a2c6d1040b0ad92dd", 580694, 310),
 	WINGAME1("dream1", "", "PLAYER.EXE", "2e5713cd0e39c6bb9dc9292e552f88be", 58000, 310),
 
-	// Original filename is ギルガメSDガイ
-	MACDEMO1_l("gilgameshnite", "Demo", "Gilgamesh SD Guide", "f5277c53bacd27936158dd3867e587e2", 1173668, Common::JA_JPN, 311),
+	// Original Mac filename is Fischer's Erotic Encyclopœdia
+	MACGAME1("eros", "", "xn--Fischer's Erotic Encyclopdia-t9e", "0c7bbb4b24823e5ab871cb4c1d6f3710", 486982, 404),
+	WINGAME1("eros", "", "EROS.EXE", "714d53f8cfbb6a8bb22e535978af6278", 690595, 404),
 
+	// Sampler of Vivid Interactive products
+	MACGAME1("eroticgames", "", "Erotic Games", "0c7bbb4b24823e5ab871cb4c1d6f3710", 482582, 404),
+	WINGAME1t("eroticgames", "", "EROTIC.EXE", "330cf17703e4a845f647ceec0091f34a", 696711, 404),
+
+	// Russian version is from Triada Anthology DVD
+	WINGAME1t_l("gbbreakout", "", "BREAKOUT.EXE", "8ddbc7b3cf28a55d064e763c1fbb9305", 176640, Common::RU_RUS, 500),
+
+	// Original filename is ギルガメSDガイ
+	MACDEMO1_l("gilgameshnite", "Demo", "xn--SD-og4a3aci27asc", "f5277c53bacd27936158dd3867e587e2", 1173668, Common::JA_JPN, 311),
 	// Original filename is ﾍﾙﾑﾄ･ﾆｭｰﾄﾝ & 石田えり
-	MACDEMO1_l("immorale", "Demo", "Helmut Newton & Eri Ishida", "f5277c53bacd27936158dd3867e587e2", 390241, Common::JA_JPN, 311),
+	MACDEMO1_l("immorale", "Demo", "xn-- & -b73bsnw826anben334acca4a1tdx9guc5g5c", "f5277c53bacd27936158dd3867e587e2", 390241, Common::JA_JPN, 311),
+
+	// Mondadori New Media / Fabio Ratti Editoria Libraria e Multimediale, Milan (1997)
+	// El juego del Kamasutra published in Spain by Mondadori (1998)
+	MACGAME1_l("kamasutra", "",  "DATA/Kamasutra",	 "996eca6a1e73c99493ea7e553f2e0db6", 1030442, Common::IT_ITA, 601),
+	WINGAME2t_l("kamasutra", "", "DATA/Start32.exe", "50ec97ab3e4f1733990292b828c86996", 1655517,
+								 "DATA/Control.cst", "f3eb9029a4810cf6a0e58cd68049bf79", 202682, Common::IT_ITA, 601),
+	WINGAME2t_l("kamasutra", "", "DATA/START32.EXE", "50ec97ab3e4f1733990292b828c86996", 1655517,
+								 "DATA/CONTROL.CST", "51119ffbdd9bc20b3bb334dc9b31793b", 278672, Common::ES_ESP, 601),
 
 	// Vivid Interactive, Van Nuys, California (1994)
 	MACGAME1("kamasutralegend", "Millions of Colors", "Kama Sutra Millions",   "7f443f2e63fd497a9ad85b10dc880a91", 381954, 313),
 	MACGAME1("kamasutralegend", "256 Colors",		  "Kama Sutra 256 Colors", "7f443f2e63fd497a9ad85b10dc880a91", 381954, 313),
 	WINGAME1t("kamasutralegend", "", "KAMASTRA.EXE", "66ceb98c696fc9818c8ae11a29bf3c93", 375304, 310),
+
+	// Bilingual English/German
+	WINGAME1t("kisskill", "", "KISSKILL.EXE", "eb3272b5280c594d1b7c17f83691061a", 316793407, 602),
 
 	// Photography disc published by The One Corporation
 	MACDEMO1_l("labyrinth", "Demonstration Version", "Labyrinth_Demo", "276bee761e48a6fd709df77d5c2f60dd", 395949, Common::JA_JPN, 313),
@@ -8402,6 +8443,84 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("neurodancer",  "Online Manual", "NeuroDancer Online Manual",	 "2ce360c9ea2da80a2c6d1040b0ad92dd", 1237129, 300),
 	WINGAME1t("neurodancer", "Online Manual", "NDMAN.EXE",					 "58fdb03893ba8daa2f45789122c954ef", 1450997,  300),
 
+	MACGAME1("pbvv", "",		   "Playboy",		  "f26885badb07dcf3a79defda517d4ddb", 1032662, 602),
+	WINGAME1("pbvv", "",		   "PBVV95.EXE",	  "a593079aecf5bd938ce75264cac24b2d", 1700279, 600),
+	MACDEMO1("penthouse", "Demo",  "PHI Sampler",	  "dc5a87dda7a0daf46604515f7d2cca66", 289696, 403),
+	WINDEMO1t("penthouse", "Demo", "PHISAMPL.EXE",	  "20089d93a358256a92a4a0d0ac54b9d7", 3825065, 404),
+	MACGAME1_l("pinkmouse", "",	   "P_mouse",		  "bcd3c718db258701496b3c5bcb827ef2", 483159, Common::JA_JPN, 404),
+	WINGAME1t_l("pinkmouse", "",   "PMOUSE.EXE",	  "63174044115d74712ca7454bfff98afd", 684149, Common::JA_JPN, 404),
+	MACGAME1("playmate1999", "",   "Playboy PowerPC", "63e8b9f6744efefbb8a004a2b76e2b1d", 116023, 650),
+	WINGAME1("playmate1999", "",   "PB95.exe",		  "d62438566e44826960fc16c5c23dbe43", 1710252, 650),
+
+	// Pokai Software, Maricopa County, Arizona (1998)
+	// Opponent Packs are sold separately and require the original game
+	// Autorun projector in Windows provides installer & registration (NetLingo Xtra)
+	// Upgrade patches are available here: http://pokai.com/support.html
+	// Mac filename is RealGirls™ Strip Poker
+	MACGAME2("rgsp", "",		  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "SET1.cxt",						   "c7122a50cfcf0f3f49148e158f1a0c7d", 738116, 650),
+	MACGAME2("rgsp", "OS X",	  "RealGirls Strip Poker",		  	   "d483e955df901222145267d2ad729ea2", 256595,
+								  "SET1.cxt",					  	   "00655a0739965e4f41f0a31ed1780640", 733312, 850),
+	MACGAME2("rgsp", "Pack 1",	  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "PACK1/Opponent Pack #1/Pack1.cxt",  "c905d7a17c6a02e4e2bb415b537796c2", 724168, 650),
+	MACGAME2("rgsp", "Pack 2",	  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "PACK2/Opponent Pack #2/Pack2.cxt",  "3a62930369ac2812b05fedb78820103f", 750102, 650),
+	MACDEMO1("rgsp", "OS X Demo", "RealGirls Strip Poker Demo",		   "d483e955df901222145267d2ad729ea2", 256600, 850),
+	WINGAME2t("rgsp", "v1.0",	  "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "Set1.cxt",						   "b3fb48c1c9b309e65fb0768ff9bbb637", 737972, 650),
+	WINGAME2t("rgsp", "v1.1",	  "RealGirls Strip Poker.exe",		   "6bc522e94b9f470b3d0ebd41a57db182", 4048090,
+								  "Set1.cxt",						   "b3fb48c1c9b309e65fb0768ff9bbb637", 737972, 800),
+	WINGAME2t("rgsp", "Pack 1",   "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "PACK1/Pack1.cxt",				   "b3fb48c1c9b309e65fb0768ff9bbb637", 723990, 650),
+	WINGAME2t("rgsp", "Pack 2",   "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "PACK2/Pack2.cxt",				   "b3fb48c1c9b309e65fb0768ff9bbb637", 749922, 650),
+	WINDEMO1t("rgsp", "Demo",	  "RealGirls Strip Poker Demo.exe",	   "aecd21d2de9899e01a33b364e8499e19", 3040251, 650),
+	WINDEMO1t("rgsp", "Pack 1 Demo", "RealGirls Strip Poker Demo.exe", "aecd21d2de9899e01a33b364e8499e19", 3042965, 650),
+
+	// ROM Antics, New York (1996)
+	WINGAME1t("rrubber", "", "RODNEY.EXE", "7667c8c05593f0b9ee0bb9f2d5e6c459", 696907, 404),
+
+	WINGAME1("sadowar", "v1.1",	"RSP.EXE", "3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
+
+	MACGAME1("pbvv", "",		   "Playboy",		  "f26885badb07dcf3a79defda517d4ddb", 1032662, 602),
+	WINGAME1("pbvv", "",		   "PBVV95.EXE",	  "a593079aecf5bd938ce75264cac24b2d", 1700279, 600),
+	MACDEMO1("penthouse", "Demo",  "PHI Sampler",	  "dc5a87dda7a0daf46604515f7d2cca66", 289696, 403),
+	WINDEMO1t("penthouse", "Demo", "PHISAMPL.EXE",	  "20089d93a358256a92a4a0d0ac54b9d7", 3825065, 404),
+	MACGAME1_l("pinkmouse", "",	   "P_mouse",		  "bcd3c718db258701496b3c5bcb827ef2", 483159, Common::JA_JPN, 404),
+	WINGAME1t_l("pinkmouse", "",   "PMOUSE.EXE",	  "63174044115d74712ca7454bfff98afd", 684149, Common::JA_JPN, 404),
+	MACGAME1("playmate1999", "",   "Playboy PowerPC", "63e8b9f6744efefbb8a004a2b76e2b1d", 116023, 650),
+	WINGAME1("playmate1999", "",   "PB95.exe",		  "d62438566e44826960fc16c5c23dbe43", 1710252, 650),
+
+	// Pokai Software, Maricopa County, Arizona (1998)
+	// Opponent Packs are sold separately and require the original game
+	// Autorun projector in Windows provides installer & registration (NetLingo Xtra)
+	// Upgrade patches are available here: http://pokai.com/support.html
+	// Mac filename is RealGirls™ Strip Poker
+	MACGAME2("rgsp", "",		  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "SET1.cxt",						   "c7122a50cfcf0f3f49148e158f1a0c7d", 738116, 650),
+	MACGAME2("rgsp", "OS X",	  "RealGirls Strip Poker",		  	   "d483e955df901222145267d2ad729ea2", 256595,
+								  "SET1.cxt",					  	   "00655a0739965e4f41f0a31ed1780640", 733312, 850),
+	MACGAME2("rgsp", "Pack 1",	  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "PACK1/Opponent Pack #1/Pack1.cxt",  "c905d7a17c6a02e4e2bb415b537796c2", 724168, 650),
+	MACGAME2("rgsp", "Pack 2",	  "xn--RealGirls Strip Poker-mb4m",	   "63e8b9f6744efefbb8a004a2b76e2b1d", 113729,
+								  "PACK2/Opponent Pack #2/Pack2.cxt",  "3a62930369ac2812b05fedb78820103f", 750102, 650),
+	MACDEMO1("rgsp", "OS X Demo", "RealGirls Strip Poker Demo",		   "d483e955df901222145267d2ad729ea2", 256600, 850),
+	WINGAME2t("rgsp", "v1.0",	  "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "Set1.cxt",						   "b3fb48c1c9b309e65fb0768ff9bbb637", 737972, 650),
+	WINGAME2t("rgsp", "v1.1",	  "RealGirls Strip Poker.exe",		   "6bc522e94b9f470b3d0ebd41a57db182", 4048090,
+								  "Set1.cxt",						   "b3fb48c1c9b309e65fb0768ff9bbb637", 737972, 800),
+	WINGAME2t("rgsp", "Pack 1",   "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "PACK1/Pack1.cxt",				   "b3fb48c1c9b309e65fb0768ff9bbb637", 723990, 650),
+	WINGAME2t("rgsp", "Pack 2",   "RealGirls Strip Poker.exe",		   "aecd21d2de9899e01a33b364e8499e19", 2939551,
+								  "PACK2/Pack2.cxt",				   "b3fb48c1c9b309e65fb0768ff9bbb637", 749922, 650),
+	WINDEMO1t("rgsp", "Demo",	  "RealGirls Strip Poker Demo.exe",	   "aecd21d2de9899e01a33b364e8499e19", 3040251, 650),
+	WINDEMO1t("rgsp", "Pack 1 Demo", "RealGirls Strip Poker Demo.exe", "aecd21d2de9899e01a33b364e8499e19", 3042965, 650),
+
+	// ROM Antics, New York (1996)
+	WINGAME1t("rrubber", "", "RODNEY.EXE", "7667c8c05593f0b9ee0bb9f2d5e6c459", 696907, 404),
+
+	WINGAME1("sadowar", "v1.1",	"RSP.EXE", "3460ad87d2ba57104e2810a77b53c220", 1393989, 500),
+
 	// SPR-304  SPICE Vol.4
 	// MACGAME1_l("scop", "", "SCOP.SYSTEM/PROJ.SCOP", "276bee761e48a6fd709df77d5c2f60dd", 392502, Common::JA_JPN, 313),
 	MACGAME1_l("scop", "", "SCOP.SYSTEM/MAIN", "d315ad4319994f24cbbb251b44074270", 546587, Common::JA_JPN, 313),
@@ -8413,7 +8532,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 								   "SUPER.MMM",	"e3c566f05af462544f2686f3bd6f65a5", 685408, 310),
 
 	// Original filename is ビーナスの美女のデモ
-	MACDEMO1("venus", "Demo", "Venus no Bijo Demo", "1ae45c23586b41997ba52e2e7c771c4c", 3333366, 310),
+	MACDEMO1("venus", "Demo", "xn--u9ja7t4bl7c9f0iy996aewzd", "1ae45c23586b41997ba52e2e7c771c4c", 3333366, 310),
 
 	MACGAME1("vvalerie1", "", "VV", "d830c8fa306d1bd501fbedf1cf9dd57a", 707189, 310),
 
@@ -8505,6 +8624,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t_l("gulliveriana", "", "GULLIVER/START32.EXE",		 "fb403338a0f8cb01238e365f74fc68cd", 1747063, Common::ES_ESP, 501),
 	WINGAME1t_l("gulliveriana", "", "GULLIVER/DATA/START32.EXE", "9fd8129dee56c9bcae7cbe490f3520c2", 1953487, Common::DA_DNK, 601),
 
+
 	MACGAME2("houseparty", "", "PPC Mac", "6710977cfafc46ebe050897e01719f89", 106955,
 							   "Pc/intro.Dxr", "7baf18aedf9b59a44cd9f1ceed435dd9", 3789638, 501),
 	WINGAME1t("houseparty", "", "HP32.EXE", "2791eaf410352fbc2ab7030c83c35161", 1393989, 500),
@@ -8538,6 +8658,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("timewarp", "",  "Time Warp", "80d51128cda4f75986e2e00e110b26f3", 705445, Common::DE_DEU, 500),
 	WINGAME2t_l("timewarp", "", "START32.EXE", "13fa7fd5d46ec8f5a44fecef77e27962", 1855247,
 								"TIMEWARP/INTRO.DXR", "18e309348235ac467f103d80dcea13ee", 2498042, Common::DE_DEU, 501),
+
+	// Pixis Interactive, Irvine, California (1997-1999)
+	WINGAME1t("uvixen1", "",	 "UVIXEN.EXE", "daedae65efa59d6c87ec5f1d5cfeb047", 1472337, 500),
+	WINGAME1t("uvixen2", "v1.2", "UV2_32.EXE", "560aea3f241d70376a41e60202091082", 2635729, 600),
+
+	WINGAME1t("vpet", "", "Virtual Pet Slavegirl.exe",  "96e11fa9e51d2be40e98326236547c6e", 8117419, 501),
 
 	MACGAME1("vsexasia", "", "Virtual Sex with Asia", "f3817a8eca9efb143a23b76525dedfa9", 744578, 501),
 	WINGAME1t("vsexasia", "", "ASIA32.EXE", "686e9ceb9d2bceae861eac37d0f67653", 1397213, 501),
