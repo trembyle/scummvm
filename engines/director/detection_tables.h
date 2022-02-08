@@ -49,6 +49,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "amandastories",		"AmandaStories" },
 	{ "amber",				"AMBER: Journeys Beyond" },
 	{ "amertailmb",			"An American Tail Interactive MovieBook" },
+	{ "amyjimmy1",			"Amy & Jimmy: Exploring the House" },
+	{ "amyjimmy2",			"Amy & Jimmy 2: The Twin Town Park" },
+	{ "amyjimmy3",			"Amy & Jimmy 3: The Twin Cruise" },
 	{ "arcade",				"Classic Arcade" },
 	{ "arcadeairattack",	"Classic Arcade Air Attack" },
 	{ "arcadeboing",		"Classic Arcade Boing" },
@@ -669,6 +672,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "arad",				"Animaniacs River Adventure" },
 	{ "ayahtzee",			"Amanda's Yahtzee" },
 	{ "belcher",			"The Belcher" },
+	{ "belloadv",			"Bello's Adventure in Looking for Honeyz" },
 	{ "bigsound",			"BigSound VW Player" },
 	{ "bigtimemovie",		"Big Time Movie Studios" },
 	{ "bingobuds",			"Bingo Buddies" },
@@ -694,6 +698,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "kfk",				"Kung Fu Kim" },
 	{ "letterrally",		"Letter Rally" },
 	{ "limit0",				"Limit 0" },
+	{ "lovejourney",		"Love Journey" },
 	{ "makeamug",			"Make-A-Mug" },
 	{ "makingmusic",		"Morton Subotnick's Making Music" },
 	{ "mathtest",			"Math Test" },
@@ -709,8 +714,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "prangers1",			"PowerRangers Part 1" },
 	{ "prangers2",			"PowerRangers Part 2" },
 	{ "psych",				"Psych: An Interactive Stress Buster!" },
-	{ "saspurs2001",		"San Antonio Spurs 2001 Broadcast Screensaver" }, // Not a screensaver
-	{ "saspurs2005",		"San Antonio Spurs Internet Hot-links" }, // Not a screensaver
+	{ "pyramiddesign",		"Pyramid Design" },
+	{ "roncherry",			"Ron & Cherry: Days Out" },
+	{ "saspurs2001",     	"San Antonio Spurs 2001 Broadcast Screensaver" }, // Not a screensaver
+	{ "saspurs2005",     	"San Antonio Spurs Internet Hot-links" }, // Not a screensaver
 	{ "scanmon",			"ScanMon" },
 	{ "seinfeldondvd",		"Seinfeld on DVD" },
 	{ "sensei",				"Sensei" },
@@ -856,7 +863,47 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "zwergnase",			"Zwerg Nase: Ein interaktives Märchen" },
 
 	// Indonesian titles
+	{ "acehardcore",		"Ace Hardcore" },
+	{ "acer1",				"Anak Cerdas: Pengenalan" },
+	{ "acer2",				"Anak Cerdas: Ayo Sekolah!!!" },
+	{ "acer5",				"Anak Cerdas: Latihan di Rumah" },
+	{ "acer6",				"Anak Cerdas: Sehari Bersama Acel" },
+	{ "acerp1",				"Anak Cerdas: ABaCaDa" },
+	{ "acerp2",				"Anak Cerdas: Cermatika" },
+	{ "acerp3",				"Anak Cerdas: Mahirmatika" },
+	{ "anakislam1",			"Anak Islam: Berkemah di Hutan" },
+	{ "anakislam2",			"Anak Islam: Berpetualang ke Planet Cahaya" },
+	{ "anakislam3",			"Anak Islam: Rahasia 1000 Bulan" },
+	{ "anakjuara1",			"Anak Juara: Pulau Hodob" },
+	{ "anakmandiri1",		"Anak Mandiri: Aku Berani Sendiri" },
+	{ "anakmandiri2",		"Anak Mandiri: Aku Senang Sekolah" },
+	{ "anakmandiri3",		"Anak Mandiri: Aku Gak Takut ke Doktor" },
+	{ "anakmandiri4",		"Anak Mandiri: Aku Baik Banget" },
+	{ "anakpintar1",		"Anak Pintar: Alam & Teknologi" },
+	{ "ayoberkreasi1",		"Ayo Berkreasi: Kamarku, Oke Banget!" },
+	{ "ayoberkreasi2",		"Ayo Berkreasi: Taman Bermainku Keren!" },
+	{ "babymoslem",			"Baby Moslem: Bismillaah" },
+	{ "bcer1",				"Batita Cerdas Cilukba: mammaa" },
+	{ "bcer2",				"Batita Cerdas Cilukba: Makasiiih..." },
+	{ "bcerk",				"Balita Cerdas Klak Klik: Teropong" },
+	{ "bandung",			"Bandung on CD" },
+	{ "berhitung",			"Berhitung Keren Bersama" },
 	{ "bolala",				"Majalah Interaktif Bolala" },						// Interactive Magazine
+	{ "catur",				"Catur" },
+	{ "cerita",				"Cerita Interaktif Pilihan: Cerita dari Ladang" },
+	{ "dadumaster",			"Dadu Master Internasional" },						// Not a typo
+	{ "divinekids",			"DivineKids Penginstall Game" },
+	{ "dkexp3",				"Experiment 3: Abe" },
+	{ "infokomp",			"CD Majalah InfoKomputer" },
+	{ "jojojeje",			"Petualangan Jojo Jeje" },
+	{ "kuiskata",			"Kuis Kata" },
+	{ "lostvillage",		"The Lost Village" },
+	{ "misibesar",			"Misi Besar Divine Edu" },
+	{ "monsterjahat",		"Monster Jahat Buster" },
+	{ "paichelo",			"Pai Che Lo" },
+	{ "pelarianwii",		"Pelarian Wii" },
+	{ "peteril",			"Petualangan Eril" },
+	{ "thenanny",			"The Nanny" },
 
 	// Italian titles
 	{ "ironmask",			"The Iron Mask" },
@@ -3789,6 +3836,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("hotwheelswiener", "", "WIENER.EXE", "6d0228018fb293aa6e48b2a51e273e4d", 1391592, 404),
 
 	MACGAME1("hunchback", "", "Hunchback", "17efee018a660458fae80de4364021ac", 481226, 404),
+
+	WINDEMO1("hyperblade", "Demo", "HYPER.EXE", "4a8fd0d74faef305bc935e1aac94d3e8", 712817, 400), // full game is not Director
 
 	WINGAME2t("id4p1", "", "SUPREME.EXE", "c162bb07e8b76d4d4cd5f99d4b5fb6e7", 1664965,
 						   "ALIEN.ICO",	  "fcd97560b8b3f7404f9119bc06bbd5b5", 766, 404),
@@ -7523,12 +7572,23 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2t("aaha2007", "Technician 2", "StartCD.exe", "f5e1f52dc03126d4a906f78247b190da", 3437769,
 										  "Select.dxr", "3c766fe5aff43e8eae440d13468cd48a", 1395314, 850),
 
+	// Developed by MLN, a member of DivineKids Associates (2004)
+	WINDEMO1t_l("acehardcore", "Prelude", "acehardcore-mln.exe", "42987410dfe845a33b7b3b0efaa5025b", 35418016, Common::ID_IDN, 850),
+
 	MACGAME1_l("alfons", "", "Alfons", "08c9ea94f6469e71ae0c71987bbf6323", 199733, Common::SE_SWE, 851),
 	WINGAME1_l("alfons", "", "Alfons.exe", "02913e7deeab4ece4ae44ad521082d4e", 2166668, Common::SE_SWE, 851),
 
 	// Developed by Almajarra المجرة
 	WINGAME2_l("alhisab", "", "Start.exe",	  "c163f36141579ee374f7b4b2bddee95a", 2117096,
 							  "Preintro.dxr", "5fb6543cc57d53fac26d975922c18e48", 11170, Common::AR_ARB, 850),
+
+	// Akal Interaktif, Bandung, West Java (2003)
+	WINGAME2t_l("acer5", "v2.0", "Opening.exe",  "76e45f761341d6627f95e407ac2ea211", 80964,
+								 "Movies/1.dxr", "1dead3d42bb946e1c00d3a8f704420fe", 269828, Common::ID_IDN, 851),
+
+	// Akal Interaktif, Bandung, West Java (2001)
+	WINGAME2t_l("anakpintar1", "", "OPENING.exe",  "8cb074c522f4e13e3a6dcbb475d279dd", 1931832,
+								   "opening1.dxr", "9c1b7d44f3a12e978b67a282316d5df6", 599602, Common::ID_IDN, 800),
 
 	// Published by Future Soft of Nasr City, Cairo
 	WINGAME1_l("anasheed", "", "Anasheed.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 3595486, Common::AR_ARB, 800),
@@ -7565,6 +7625,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO2("barbrapunzel", "Trailer", "Trailer.exe", "c163f36141579ee374f7b4b2bddee95a", 2303378,
 										"Trailer.mov", "c23add499f206fb3f8e088cf315c2783", 17393683, 850),
 
+	// Developed by Fair's Studio, a member of DivineKids Associates (2004)
+	WINGAME1t("belloadv", "", "BelloAdv-Looking4Honeyz.exe", "6e40b2a23d7c32fe3f9bf28f7aa8f487", 17943573, 850),
+
+	// Game Pertama Indonesia #5
+	// Divine Kids Associates (DKA), Banten, Java (2004)
+	// https://www.divinekids.com/game/puzzle/berhitung-keren-dk
+	WINGAME1t_l("berhitung", "CD", "BerhitungKeren-DivineKids.exe", "d533930c63673e11b42c02f5ae313148", 11172133, Common::ID_IDN, 850),
+	WINGAME1t_l("berhitung", "v3", "BerhitungKeren-DivineKids.exe", "d533930c63673e11b42c02f5ae313148", 11550801, Common::ID_IDN, 850),
+
 	MACGAME1_l("bibifilm", "", "Filmstudio", "3ba983d2dd8c94d882c0de01ab920c43", 1249397, Common::DE_DEU, 850),
 	WINGAME1_l("bibifilm", "", "Filmstudio_start.exe", "c163f36141579ee374f7b4b2bddee95a", 148898, Common::DE_DEU, 850),
 
@@ -7589,8 +7658,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("casino5p", "", "Casino.exe", "fb46241e501df6a96d5a3109f13d61b6", 3335762, 850), // Disc 1
 	WINGAME1t("casino5p", "", "Slots200.exe", "0f04a70712597a6bd001232b0913d514", 3011024, 850), // Disc 2
 
+	// https://www.divinekids.com/game/strategy/catur-divinekids
+	WINGAME1t_l("catur", "", "divinekids-catur.exe", "791a3b65e38910856b7b4c889892da24", 4141696, Common::ID_IDN, 850),
+
 	MACGAME1("cmi", "CM38/10/01", "CMi_38_Mac", "f065c75691d28120e9f630448c3b1b71", 1225735, 800),
 	WINGAME1("cmi", "CM38/10/01", "CMi_38_Win.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2514361, 800),
+
+	// David Setiabudi, S.Sn, AmRO (2003-2004)
+	WINGAME1t_l("dadumaster", "SE", "DaduMaster-SE.exe", "4b22f1fbafad85e1678af1bd0f469cd9", 16025673, Common::ID_IDN, 850),
 
 	// Distributed by Océano Multimedia (Colombia) of Cota, Cundinamarca (2000)
 	WINGAME2_l("deportes", "", "start.exe",    "c163f36141579ee374f7b4b2bddee95a", 2383840,
@@ -7598,6 +7673,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("dispix2and3", "", "2nd and 3rd Grade", "a44511b8ff0e46b4f9c85dd1cb58d458", 220552, 851),
 	WINGAME1("dispix2and3", "", "2nd and 3rd Grade.exe", "68835b24dd317fbc96e4a8c53892a361", 2630239, 851),
+
+	// Installer and catalog of DivineKids products on CD
+	// Projects overseen by David Setiabudi, Multimedia Nusantara University
+	// Found on PCGame (Indonesia) Vol.5, Kompas Gramedia Group, Jakarta
+	WINGAME1t_l("divinekids", "", "Install-Divine2004.exe", "01d4682f3681b338833cf40743b05d3d", 7784640, Common::ID_IDN, 850),
+
+	// Found on PCGame (Indonesia) Vol.5
+	WINGAME1t_l("dkexp3", "", "EXPERIMENT-ABE3.exe", "26558039cd9772977a729703a5457ac7", 2649025, Common::ID_IDN, 850),
 
 	// Promotion for E.T. the Extra-Terrestrial 20th Anniversary
 	// Produced by Eric Mower and Associates (EMA), Syracuse, New York
@@ -7728,6 +7811,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t_l("janoschpanama", "", "panama.exe", "25d1a9fb6c8067953888719e07dc29bd", 2384444, Common::DE_DEU, 800),
 	WINGAME1t_l("janoschverkehr", "", "verkehr.exe", "fa749c7798f69f4aa615d35b2b991348", 2294886, Common::DE_DEU, 851),
 
+	// Novi, Febriosa, Mira (NFM), DivineKids Associates (2010)
+	WINGAME1t_l("jojojeje", "v1.00", "petualanganjojojeje.exe", "b31b57a164cf26a5e73251cc9ea64309", 17111611, Common::ID_IDN, 850),
+
 	// Windows filename is Blåfjell.exe
 	// Developed by Young Genius and distributed by Vision Park (2001)
 	MACGAME1_l("julblafjell", "", "Blaafjell", "08c9ea94f6469e71ae0c71987bbf6323", 180046, Common::NB_NOR, 850),
@@ -7743,6 +7829,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// OS X and Windows versions are D9
 	MACGAME1_l("kajprinsesse", "Classic OS", "Prinsessens (classic)", "789536da81694518f494945bb161ace9", 178323, Common::DA_DNK, 851),
+
+	// Game Pertama Indonesia #6 Special Edition
+	// DivineKids student production at Binus Center, Jakarta (2004)
+	// Indonesian / Javanese / Palembang / English / Mandarin Chinese (Simplified)
+	// Alpha version (freeware) is Bahasa Indonesia only
+	WINGAME1t_l("kartukembar", "Versi Alpha", "KartuKembarDivineKids.exe", "bfe7be88fe5aea2c62e38dc6d93b1f31", 31413258, Common::ID_IDN, 850),
+	WINGAME1t("kartukembar", "Multi Bahasa", "KKembarDivineKids-MultiBahasa.exe", "4dc4a7dfb666fd8753dbcebaf0f02aa9", 27159500, 850),
 
 	// Created by Young Genius, Stockholm (2001); published by Vision Park
 	// Original filenames are Nudådalen and Nudådalen.exe
@@ -7767,6 +7860,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Developed by CircumStance Design
 	MACGAME1("koththunt", "v2.0", "T-Hunt-mac", "41d09ba569da51ac5c075bfde0f8e10b", 25216, 800),
 	WINGAME1t("koththunt", "v2.0", "ThuntPC.exe", "775b80653a1daa36dc82257ac2b83fda", 2103339, 800),
+
+	// https://www.divinekids.com/game/puzzle/kuis-kata-divinekids
+	WINGAME1t_l("kuiskata", "v2.10", "Kuiskata-DivineKids.exe", "3f558e84610b59682767c039489a142f", 5636172, Common::ID_IDN, 850),
 
 	// From Dutch Pettson 1 v3.0 disc
 	// Static screen with 2 http links (one to local html files) and a mailto link
@@ -7793,6 +7889,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original Win executable name is Löwenzahn5.exe
 	WINGAME1t_l("loewe5", "", "xn--lwenzahn5.exe-imb", "9c59833b332f0b9f8ecc97f0aa47ec99", 2386566, Common::DE_DEU, 800),
 
+	// Developed by Dotz!, a DivineKids Associate (2004)
+	WINGAME1t_l("lostvillage", "", "TheLostVilage-Dotz!.exe", "f328945536aa8c0e73de4d5799202ad2", 17298716, Common::ID_IDN, 850),
+
+	// Developed by Clementtale, a DivineKids Associate (2004)
+	WINGAME1t("lovejourney", "", "LoveJourney.exe", "e0cf4fbe5f35d85e4e7cb09fbaff12ea", 18212216, 850),
+
 	WINGAME1_l("lunes", "", "Lunes.exe", "9482a4a5f6ae02470ce1863808120f6e", 2258509, Common::IT_ITA, 851),
 
 	// Advertainment film from Ferrero (chocolates)
@@ -7814,9 +7916,16 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1t("mightymachines", "DVD rerelease", "PROJECTO.EXE", "3159e82225dc0d21f91c0afbecba84e5", 4693198, 850),
 
+	// Optima Solusindo Informatika (DVA), distributed by Prima IndieSoft (2004)
+	WINGAME1t_l("misibesar", "v1.85", "MisiBesarDivineEdu.exe", "4cf77bbe4ef7c3fd851de141007220a6", 37946376, Common::ID_IDN, 850),
+
 	// Published by Fujitsu BSC, Minato City, Tokyo
 	MACGAME1_l("momotaro", "", "MOMOTARO", "2e860522900a5342e52e5ce51bcad9dd", 194842, Common::JA_JPN, 800),
 	WINGAME1_l("momotaro", "", "MOMOTARO.EXE", "a60f99447824a8ef70799dd7596b8945", 4011752, Common::JA_JPN, 800),
+
+	// Game Pertama Indonesia #7 Beta Version (Freeware)
+	// David Setiabudi, S.Sn, AmRO., Tarumanagara University, Jakarta (2004)
+	WINGAME1t_l("monsterjahat", "v0.50", "MonsterJahat.exe", "d888e922cf0d60d7ce5ec32f366ac816", 4945936, Common::ID_IDN, 850),
 
 	// Designed by Involve Learning and distributed by VQ International, Stockholm (2001)
 	// German Mac filename is Nikki — Das erste Abenteuer
@@ -7840,9 +7949,24 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("operafatal", "Classic OS", "Opera Classic", "78e78f91a6e42ece5a585c3a3dc81de3", 172200, Common::DE_DEU, 800),
 
+	// Made by Comblank, a member of DivineKids Associates (2004)
+	WINGAME1t_l("paichelo", "", "PaiCheLo.exe", "7f7eadf98c3fc552da70854537cd94ae", 70085914, Common::ID_IDN, 850),
+
 	WINGAME1("pcformat", "PCF132 CD 02/02", "PCF132.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 4722596, 800),
 
+	// GamePro Contenidos Digitales, Bilbao (2002)
+	WINGAME2t_l("pcreciclator", "2002.12.03", "Juego.exe",		"34776c931831932081a8ffba91c956de", 2461339,
+											  "grafs/base.cxt", "0a109e021f6100f2adba0b8daf6f5fa7", 1076762, Common::ES_ESP, 800),
+	WINGAME2t_l("pcreciclator", "2003.11.27", "Juego.exe",		"007c647e6caf3a183ee03835bba736f2", 2251626,
+											  "rc.dxr",			"f959efbc636e6f0f1332340496fab340", 225391, Common::ES_ESP, 800),
+
+	// Mashellina Monica dan Monica, DivineKids Associates (2012)
+	WINGAME1t_l("pelarianwii", "v1.01", "PelarianWii.exe", "671d6d248e2a2276694160049b9f1700", 4754500, Common::ID_IDN, 850),
+
 	WINGAME1t("pennyhorse", "", "PennyHorse.exe", "3aa62f6efd4616c3cc6b935411c1f8a7", 4780197, 851),
+
+	// Bleb Design, a member of DivineKids Associates (2004)
+	WINGAME1t_l("peteril", "", "PetualanganEril.exe", "9331c5a646aa63b68e8559a443cbf7f8", 28497960, Common::ID_IDN, 850),
 
 	// Mac OS X installer runs the game in Classic environment
 	MACGAME1_l("pettson1", "v3.0", "Spelen",	   "a44511b8ff0e46b4f9c85dd1cb58d458", 158043, Common::NL_NLD, 851),
@@ -7945,6 +8069,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("rhlava", "", "RH Lava Landslide.exe", "c163f36141579ee374f7b4b2bddee95a", 2116280, 850),
 	MACGAME1("rhmeteor", "", "RH Meteor Madness", "4ea5fc09f79eee6dded94dc40f303779", 199688, 800),
 	WINGAME1("rhmeteor", "", "RescueHeroes.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2248192, 800),
+
+	// Made by DreamBox, a member of DivineKids Associates (2004)
+	WINGAME1t("roncherry", "", "Ron-Cherry-DaysOut.exe", "08529f23b22874135a4f6a4a43f19e97", 20596821, 850),
 
 	MACGAME2("royksoppam", "Bonus disc", "Projector", "a44511b8ff0e46b4f9c85dd1cb58d458", 155743,
 										 "MAIN.dxr",  "b03dfbaac4bf75198d724048e4fdad80", 3236242, 851),
@@ -8079,6 +8206,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 // Macromedia Director MX (v9)
 //
 //////////////////////////////////////////////////
+
+	WINGAME1t_l("acer5", "v1.1", "Init-AcerLatihan.exe", "2a27e38aa3ef02af88d62691260b98bf", 97598, Common::ID_IDN, 900),
+
+	// Teratai Multimedia, Bandung, West Java (2004)
+	WINGAME1t_l("bandung", "", "BandungOnCD.exe", "d325f9624dd77e9fc38884b77d5c9fe8", 3591024, Common::ID_IDN, 900),
 
 	WINDEMO1("barbpauper", "Demo", "PPDemo.exe", "dde8ac96c47b16cb802a38feb1f1df19", 2519617, 900),
 
@@ -8386,6 +8518,42 @@ static const DirectorGameDescription gameDescriptions[] = {
 // Adobe Director v11
 //
 //////////////////////////////////////////////////
+	
+	// Copyright Akal Interaktif 2001-2021
+	WINGAME1t_l("acer1", "v2.0.1", "AcerPengenalan-DL.exe",	   "5aeebe25974eb5c21c9314994fa3a546", 4596880, Common::ID_IDN, 1150),
+	WINGAME1t_l("acer2", "v2.0.3", "AcerSekolah-DL.exe",	   "ed4725fee3a91584784dfe1d61ff49b0", 4600976, Common::ID_IDN, 1150),
+	WINGAME1t_l("acer5", "v2.0.2", "AcerLatihan-DL.exe",	   "48b20a489b9c232939a4165ac9c93b17", 4592776, Common::ID_IDN, 1150),
+	WINGAME1t_l("acer6", "v2.0.1", "AcerSehariBersama-DL.exe", "41ad46ac352cbaa13c65b3d024264ba9", 4600984, Common::ID_IDN, 1150),
+
+	WINGAME1t_l("acerp1", "v2.0.9", "AcerAbacada-DL.exe",	  "e8b5d8fc9a73c0aba9cb227dc8798070", 4523216, Common::ID_IDN, 1150),
+	WINGAME1t_l("acerp2", "v2.0.9", "AcerCermatika-DL.exe",	  "a661b57cdb30c7ae2a069cec8088624a", 4523728, Common::ID_IDN, 1150),
+	WINGAME1t_l("acerp3", "v2.0.8", "AcerMahirmatika-DL.exe", "87065e6a31b7177a23683e6e11947e60", 4518418, Common::ID_IDN, 1150),
+
+	// Bilingual English / Indonesian
+	WINGAME1t("amyjimmy1", "v2.1.7", "Amy&Jimmy1-DL.exe", "8a400cf1cb19d45fd0fd201f1b17b835", 4592716, 1150),
+	WINGAME1t("amyjimmy1", "v2.1.9", "Amy_Jimmy1-DL.exe", "054ce5bc308f45278cd85b81b4702cb8", 4601664, 1150),
+	WINGAME1t("amyjimmy2", "v2.1.7", "Amy&Jimmy2-DL.exe", "3f709ee83dda65baf8a3e7515ee82f04", 4592730, 1150),
+	WINGAME1t("amyjimmy2", "v2.1.9", "Amy_Jimmy2-DL.exe", "b6770e5565c00c2e4f637d3eb837bdd5", 4601680, 1150),
+	WINGAME1t("amyjimmy3", "v2.1.7", "Amy&Jimmy3-DL.exe", "a15bbe0c62e86e9411b94a4a48bb7b48", 4592728, 1150),
+	WINGAME1t("amyjimmy3", "v2.1.9", "Amy_Jimmy3-DL.exe", "86d1712dc15d151082f05b3160150967", 4601672, 1150),
+
+	// Copyright Akal Interaktif 2003-2021
+	WINGAME1t_l("anakislam1", "v2.1.2", "AnakIslam1-DL.exe", "ba68d27eb8489418f1600c073f531831", 4608408, Common::ID_IDN, 1150),
+	WINGAME1t_l("anakislam2", "v2.0.4", "AnakIslam2-DL.exe", "43203d4aea4a6a0b52d3bb2ef852ba79", 4613264, Common::ID_IDN, 1150),
+	WINGAME1t_l("anakislam3", "v2.0.4", "AnakIslam3-DL.exe", "1ae23bd473a4fafc9d46435b230daeb3", 4609680, Common::ID_IDN, 1150),
+
+	// Copyright Akal Interaktif 2004-2021
+	WINGAME1t_l("anakjuara1", "v2.0.0", "AnakJuara1-DL.exe", "3302959e9d3baf8f3161a8c7afdbbe68", 4593336, Common::ID_IDN, 1150),
+
+	// Copyright Akal Interaktif 2004-2021
+	WINGAME1t_l("anakmandiri1", "v2.0.0", "AnakMandiri1-DL.exe", "9945875b9cbfc2c63254b81921ef7efc", 4593328, Common::ID_IDN, 1150),
+	WINGAME1t_l("anakmandiri2", "v2.0.2", "AnakMandiri2-DL.exe", "cd39f73ba2e32f240e7f1edeafb676e2", 4601520, Common::ID_IDN, 1150),
+	WINGAME1t_l("anakmandiri3", "v2.0.2", "AnakMandiri3-DL.exe", "965615a766451970ae22238b1a464d63", 4597424, Common::ID_IDN, 1150),
+	WINGAME1t_l("anakmandiri4", "v2.0.4", "AnakMandiri4-DL.exe", "968c706789d7972bfeb46f0422390379", 4589232, Common::ID_IDN, 1150),
+
+	// Copyright Akal Interaktif 2005-2021
+	WINGAME1t_l("ayoberkreasi1", "v2.0.2", "AyoBerkreasiKamar-DL.exe", "5d1556b957ba27d3627c982a71b06909", 4601008, Common::ID_IDN, 1150),
+	WINGAME1t_l("ayoberkreasi2", "v2.0.2", "AyoBerkreasiTaman-DL.exe", "6010d49a553aaec6fd9aa38df55b1393", 4605120, Common::ID_IDN, 1150),
 
 	// Copyright Akal Interaktif 2007-2021
 	// https://akalinteraktif.com/akal/akal-download/
@@ -8410,7 +8578,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t_l("bolala", "19 naik kereta api tut...tut...tut...", "Bolala19-DL.exe", "71f8580ae317717cb3dd9453ad97b8a7", 4601488, Common::ID_IDN, 1150),
 	WINGAME1t_l("bolala", "21 Batik Budaya Asli Indonesia",		   "Bolala21-DL.exe", "fe061b4b15e844e4142c36b5b264e0f4", 4613784, Common::ID_IDN, 1150),
 	WINGAME1t_l("bolala", "22 Padiku Subur, Petaniku Makmur!",	   "Bolala22-DL.exe", "9e8dc7489f4be831e8d09c1958268f83", 4601504, Common::ID_IDN, 1150),
-	
+
+	// Copyright Akal Interaktif 2007-2021
+	WINGAME1t_l("cerita", "v2.0.0", "CeritaDariLadang-DL.exe", "df86f48057ad0e5aac63b50c7ab63771", 4531928, Common::ID_IDN, 1150),
+
 	// eMedia Music, Seattle (2010)
 	MACGAME1("dummiesguitar", "Level 2",
 		"Guitar For Dummies Level_2.app/Contents/MacOS/Guitar for Dummies Level 2",
@@ -8435,6 +8606,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 // Adobe Director v12
 //
 //////////////////////////////////////////////////
+
+	// Copyright Akal Interaktif 2006-2021
+	WINGAME1t_l("babymoslem", "v2.0.2", "BabyMoslemBismillaah-DL.exe", "0547895c57e31f5a48a04e9074193d26", 4924536, Common::ID_IDN, 1201),
+
+	// Copyright Akal Interaktif 2006-2022
+	WINGAME1t_l("bcer1", "v2.0.3", "BatitaCerdasMammaa-DL.exe",	   "dea4be5bbcb256d4a49cfaaf592a5262", 4909696, Common::ID_IDN, 1201),
+	WINGAME1t_l("bcer2", "v2.0.1", "BatitaCerdasMakasiiih-DL.exe", "9e22fea5467d22e894a3627fb8b06539", 4910216, Common::ID_IDN, 1201),
+	WINGAME1t_l("bcerk", "v2.0.0", "BalitaCerdasTeropong-DL.exe",  "c057c8a64e5603ac6607500434f1150f", 433256, Common::ID_IDN, 1201),
 
 	// As of Feb 2022, all other issues of the magazine for download are D11
 	WINGAME1t_l("bolala", "14 Rajin sekolah... Kaya Ilmu!", "Bolala14-DL.exe", "59a4aa8be0887de883b7f214cefaf817", 4945544, Common::ID_IDN, 1201),
