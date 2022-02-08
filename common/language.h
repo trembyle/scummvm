@@ -60,6 +60,7 @@ enum Language {
 	HE_ISR,
 	HR_HRV,
 	HU_HUN,
+	ID_IDN,
 	IT_ITA,
 	JA_JPN,
 	KO_KOR,

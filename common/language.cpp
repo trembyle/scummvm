@@ -73,6 +73,7 @@ const LanguageDescription g_languages[] = {
 	{ "el", "el_GR", "Greek", EL_GRC },
 	{ "he", "he_IL", "Hebrew", HE_ISR },
 	{ "hu", "hu_HU", "Hungarian", HU_HUN },
+	{ "id", "id_ID", "Indonesian", ID_IDN },
 	{ "it", "it_IT", "Italian", IT_ITA },
 	{ "ja", "ja_JP", "Japanese", JA_JPN },
 	{ "ko", "ko_KR", "Korean", KO_KOR },
