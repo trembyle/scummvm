@@ -853,6 +853,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tkkgkit",			"TKKG: Identikit" },
 	{ "zwergnase",			"Zwerg Nase: Ein interaktives Märchen" },
 
+	// Indonesian titles
+	{ "bolala",				"Majalah Interaktif Bolala" },						// Interactive Magazine
+
 	// Italian titles
 	{ "ironmask",			"The Iron Mask" },
 	{ "lunes",				"I Lunes e la sfera di Lasifer" },					// Lunes & the sphere of Lasifer
@@ -8336,6 +8339,30 @@ static const DirectorGameDescription gameDescriptions[] = {
 //
 //////////////////////////////////////////////////
 
+	// Copyright Akal Interaktif 2007-2021
+	// https://akalinteraktif.com/akal/akal-download/
+	// Issues 17-21 contain test projectors that appear to include unlocked content
+	// These have been intentionally excluded from the detection tables
+	WINGAME1t_l("bolala", "01 Ke Luae Angkasa",					   "Bolala1-DL.exe",  "d456ec988af6398c9e371809c97c1f5f", 4593256, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "02 Pohon, Sahabat Kita",				   "Bolala2-DL.exe",  "e367be65e75ee909beff327a8593556e", 4605528, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "04 Sirkus Seru!",					   "Bolala4-DL.exe",  "2615aa2c4a857b723f5c73133f64ab58", 4605536, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "05 Klip-Klop Kartun",				   "Bolala5-DL.exe",  "db60dfec93a58f6e529dd354dac877d6", 4585056, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "06 Huni Bumi, Sayangi Bumi",			   "Bolala6-DL.exe",  "0d922d46f3491cbb7a9f3538eb710ef5", 4605544, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "07 Putar-putar Pasar",				   "Bolala7-DL.exe",  "353eedf1a4444730bbdab338174b4a08", 4609640, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "08 Hompimpah, Main Yu!",				   "Bolala8-DL.exe",  "8884b07ffcaee6ff9a9fc3ad4102adde", 4601448, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "09 Aku terbang, Aku senang",			   "Bolala9-DL.exe",  "4b0b60c98c31594183444f2a8150883e", 4605544, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "10 Banyak Baca, Banyak Tahu",		   "Bolala10-DL.exe", "0d427b1e1df971d13e25b5a7289bea3a", 4589160, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "11 Sehat Makanaku, Segar Minumanku",    "Bolala11-DL.exe", "af7d71dcb910c9ac2b6f1d5cf38cf104", 4597400, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "12 Musik? Asik!",					   "Bolala12-DL.exe", "5015d3f5c44d3b1fb9c82f0da814b12f", 4605576, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "13 Badanku Sehat! Jiwaku Kuat!",		   "Bolala13-DL.exe", "80e46b6b2ea7960f232cbc9e82b1949b", 4601488, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "15 Libur Telah Tiba...",				   "Bolala15-DL.exe", "1fd468d8c7577ae6439d50de12f8897b", 4589208, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "16 Halo!! Apa Kabar?",				   "Bolala16-DL.exe", "6a8841933b576fc4ce1e5134a1055f41", 4601480, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "17 Bung ... bung, kita nabung!",		   "Bolala17-DL.exe", "8f6fd5a7b2cdd45c763216f6b8ea611d", 4597424, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "18 wayangku... budayaku",			   "Bolala18-DL.exe", "4ff4b1f82cd5032af38225d0b915d2d5", 4597392, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "19 naik kereta api tut...tut...tut...", "Bolala19-DL.exe", "71f8580ae317717cb3dd9453ad97b8a7", 4601488, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "21 Batik Budaya Asli Indonesia",		   "Bolala21-DL.exe", "fe061b4b15e844e4142c36b5b264e0f4", 4613784, Common::ID_IDN, 1150),
+	WINGAME1t_l("bolala", "22 Padiku Subur, Petaniku Makmur!",	   "Bolala22-DL.exe", "9e8dc7489f4be831e8d09c1958268f83", 4601504, Common::ID_IDN, 1150),
+	
 	// eMedia Music, Seattle (2010)
 	MACGAME1("dummiesguitar", "Level 2",
 		"Guitar For Dummies Level_2.app/Contents/MacOS/Guitar for Dummies Level 2",
@@ -8354,6 +8381,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 							   "Init.dxr",					   "12345", 12345, 1100),
 	WINGAME2("sinkha2", "XP",  "START_(Win_XP_sp2-Vista).exe", "3d6ccc7532d94fa518988e9685e45ba9", 4355622,
 							   "Init.dxr",					   "75878b7f2ded1c7b0cd2c8647a7e1b03", 851715, 1100),
+
+//////////////////////////////////////////////////
+//
+// Adobe Director v12
+//
+//////////////////////////////////////////////////
+
+	// As of Feb 2022, all other issues of the magazine for download are D11
+	WINGAME1t_l("bolala", "14 Rajin sekolah... Kaya Ilmu!", "Bolala14-DL.exe", "59a4aa8be0887de883b7f214cefaf817", 4945544, Common::ID_IDN, 1201),
 
 
 //////////////////////////////////////////////////
