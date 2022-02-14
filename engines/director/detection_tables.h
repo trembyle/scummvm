@@ -556,9 +556,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "journey2life",		"The Journey to Life" },
 	{ "kontiki",			"Kon-Tiki Interactive" },
 	{ "laughingbird",		"The Laughing Bird Restaurant" },
+	{ "learnexcel97",		"Video Professor: Learn Excel 97" },
 	{ "learningcoreldraw3",	"Learning CorelDRAW 3" },
 	{ "learninternet",		"Video Professor: Learn to Use the Internet" },
-	{ "learnworks2",		"Video Professor: Learn Works for Windows 95, Level 2" },
+	{ "learnworks",			"Video Professor: Learn Works for Windows 95" },
 	{ "leonardo",			"Leonardo the Inventor" },
 	{ "lewisclark",			"Lewis & Clark Interactive Picture CD" },
 	{ "lifemysteries",		"Life's Greatest Mysteries" },
@@ -794,6 +795,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "aapelin1",			"Aapelin ABC: Hurjistunut Pölynimuri" },
 	{ "kcd",				"Kompuutteri Kaikille" },
 	{ "kultapossu",			"Kultapossu ja Leo Leijona: Sateenkaarivarkaat" },
+	{ "pelit",				"Pelit CD" },
 	{ "petepilotti1",		"Pete Pilotti & Pontiac: Seikkailu Lapponiassa" },
 
 	// French titles
@@ -1237,7 +1239,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "almabril98",			"Almanaque Abril 1998" },
 	{ "bigmax",				"Revista BigMax" },
 	{ "bpapao",				"A Turma do Bicho-Papão" },
+	{ "cliquepinte",		"Clique e Pinte" },
 	{ "divertire",			"Revista Divertire" },
+	{ "impacta2266a",		"Curso da Impacta 2266 A" },
 	{ "irpf2002",			"Tutorial do IRPF 2002" },
 	{ "kinderkit",			"Kinder-Kit" },
 	{ "lobomau",			"As Histórias do Lobo Mau" },
@@ -6619,8 +6623,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("landdesigner", "Demo", "CLD_DEMO.EXE", "518a98696fe1122e08410b0f157f21bf", 22576635, 602),
 
-	WINGAME1("learninternet", "", "VIDPROF.EXE", "b0f3841f6e8005e519445b22de37749b", 2674733, 600),
-	WINGAME1("learnworks2", "v4.0", "Vidprof.exe", "b0f3841f6e8005e519445b22de37749b", 2854401, 600),
+	WINGAME1t("learnexcel97",  "Level 2", "vidprof.exe", "74cef2169a95ff982264f9b3014d676e", 4764273, 600),
+	WINGAME1t("learninternet", "Level 1", "VIDPROF.EXE", "35155cf771b63bfb14d3e735000e1b3b", 2674733, 600),
+	WINGAME1t("learnworks",    "Level 2", "Vidprof.exe", "978b4443be2a0cb57cdf741fff2c6e65", 2854401, 600),
 
 	WINGAME1("letterrally", "1.0", "L_Rally.exe", "b0f3841f6e8005e519445b22de37749b", 3921651, 600),
 
@@ -6741,6 +6746,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 								  "PANTOS/A00.Dxr", "a36c3a6044d0dbcfa30b147cbdfc4f5f", 1367720, Common::JA_JPN, 602),
 	WINGAME2t_l("pantosstory", "", "START.EXE", "0aabeac068ad6048f8c7ed19ac7458ea", 1861862,
 								  "PANTOS/A00.DXR", "cadb6e5b4dd143c7754b31026f4c2676", 1367720, Common::JA_JPN, 602),
+
+	// Published by Helsinki Media Erikoislehdet
+	WINGAME1t_l("pelit", "2000", "PELIT.EXE", "7be5a7141a379872f92808d394b79421", 1512657, Common::FI_FIN, 601),
 
 	// German Win32 projector requires installation
 	// Dutch versions are numbered differently than other versions
@@ -7681,6 +7689,23 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Multimedia 2000 (M2K), Seattle (2001); re-released as Gold Edition in 2002
 	MACGAME1("home123", "v2.0", "HOME 1-2-3", "4ea5fc09f79eee6dded94dc40f303779", 210380, 800),
 	WINGAME1t("home123", "v2.0", "INSTALL/Home123.exe", "82bf35866fe113774c0a7c49755656d5", 3142240, 800),
+
+	// 2266 A - Conceitos Básicos do Sistema Operacional e de rede do Microsoft Windows 2000
+	// 		Módulo 1 - Introdução ao Windows 2000 es às redes
+	//		Módulo 2 - Administração de uma rede de Windows 2000
+	// Demo found on PCBrasil #8 Especial - Jun 2002 from Editora Digerati, São Paulo
+	// Curso da Impacta is produced by Faculdade Impacta Tecnologia (FIT), São Paulo
+	// Only the first projector is meant to be launched on its own. It calls other projectors with embedded
+	//		Flash, Authorware and MPEG-4 from its menu. Some of these projectors have entries below.
+	WINDEMO1t_l("impacta2266a", "Demo",				  "2266A.exe",				"b2af2c241e1c3f08625512b42e56694c", 3189926, Common::PT_BRA, 851),
+	WINGAME1t_l("impacta2266a", "Módulo 1",			  "modulos/mod01/m1lc.exe",	"dfff762b63be3dca523a4cb96b86f4f2", 11175908, Common::PT_BRA, 850),
+	WINGAME1t_l("impacta2266a", "Módulo 2",			  "modulos/mod02/m2la.exe",	"4cd5b14b2f4306368f7679796f21c53d", 36991498, Common::PT_BRA, 850),
+	WINGAME1t_l("impacta2266a", "Ajuda do CD",		  "ajuda.exe",				"82e2c86fe4e4d92c4d50949b7d36caf3", 2810089, Common::PT_BRA, 851),
+	WINGAME1t_l("impacta2266a", "Estrutura do Curso", "estrutura.exe",			"68415d9ce251a3b53b6dabab554fa794", 2709705, Common::PT_BRA, 851),
+
+	// Vol.2 contains Interactive Tutorial / Tutorial Interaktif
+	// Primo InfoSarana Media (Kompas Gramedia), Jakarta - Dec 2002
+	WINGAME1t_l("infokomp", "Vol.2", "Infokomp.exe", "ed6ca7561fee3f156cb719179b99f89e", 2674780, Common::ID_IDN, 851), 
 
 	WINGAME1_l("irpf2002", "", "Tutorial do IRPF2002.exe", "c163f36141579ee374f7b4b2bddee95a", 3197116, Common::PT_BRA, 850),
 
