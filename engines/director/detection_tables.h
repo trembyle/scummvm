@@ -1252,6 +1252,7 @@ static const PlainGameDescriptor directorGames[] = {
 	// Russian titles
 	{ "engl",				"English for Beginners" },
 	{ "max1max2",			"Макс демонстрация" },                          // Max (Tivola) demos of the first two games
+	{ "megagame",			"Мega Game" },
 	{ "plcd",				"Подводная Лодка" },						   // Podvodnaya Lodka (Submarine) magazine
 	{ "tchaik",				"Пётр Ильи́ч Чайко́вский: Жизнь и творчество" }, // Pyotr Ilyich Tchaikovsky: Life and Work
 	{ "tutti",				"Волшебные истории Тутти" },				   // Tutti's Magical Stories
@@ -1321,6 +1322,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "scissorsnstones",	"Scissors N Stones On-Line Manual" },
 	{ "solmahjong",			"Solitudes Mahjong Game" },
 	{ "superbowltrivia",	"Super Bowl Trivia Game" },
+	{ "swattactics",		"SWAT Advanced Tactics" },
 	{ "thinkinthingsdp",	"Dear Parents: About Thinkin' Things..." },
 	{ "ultrobotkit",		"Robotoid Assembly Toolkit" },
 	{ "ultrobotss",			"Screen Saver Viewer" },
@@ -1419,6 +1421,7 @@ static const PlainGameDescriptor directorGames[] = {
 	// Promos for Non-Director titles
 	{ "3datlas97",			"3D Atlas 97" },
 	{ "3datlas98",			"3D Atlas 98" },
+	{ "adi5",				"Sierra's School House" },
 	{ "adobedimensions",	"Professional Tips for Adobe Dimensions" },
 	{ "agfa",				"AgfaType" },
 	{ "aol",				"America Online" },
@@ -1436,6 +1439,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "cinemania96",		"Microsoft Cinemania 96" },
 	{ "clarisimpact",		"ClarisImpact" },
 	{ "clarisworks",		"ClarisWorks" },
+	{ "colliers98", 		"Collier's Encyclopedia 1998" },
 	{ "compton",			"Compton's Interactive Encyclopedia 1995 Edition" },
 	{ "cpu",				"Connectix PowerBook Utilities" },
 	{ "cricketdraw",		"CA Cricket Draw III" },
@@ -1451,6 +1455,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "geoquery",			"Odesta GeoQuery" },
 	{ "greeneggs",			"Green Eggs and Ham" },
 	{ "hollywoodhigh",		"Hollywood High" },
+	{ "hoyle5",				"Hoyle Classic Games" },
 	{ "hyperblade",			"HyperBlade" },
 	{ "ideacomm",			"IDEAcomm Mac" },
 	{ "iliad",				"Iliad" },
@@ -3769,6 +3774,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("horrortour2", "", "ZEDDAS PowerPC", "da7d3f1d85bdb99518b586c40d2a673e", 60013, Common::JA_JPN, 400),
 	WINGAME1_l("horrortour2", "", "HT2.EXE", "499d8545ee2325b18d3f09fb2c0fc26e", 698029, Common::JA_JPN, 400),
 
+	// Found on Hoyle Casino (1996)
 	// Full game is supported in SCI engine
 	WINDEMO1t("hoyle5", "Demo", "HOYLE5.EXE", "499760334d09425e80c69e9a1b178ec5", 6287863, 404),
 
@@ -5095,6 +5101,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1t_l("acneattack", "", "Acne.exe", "9ec3d648c42e41cc2263d3c643d7ad1e", 1905311, Common::SE_SWE, 501),
 
+	// Found on Hoyle Casino (1996)
+	WINDEMO1("adi5", "Demo", "ADI5-95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 13050469, 501),
+
 	// Installers for both platforms also use Director
 	MACGAME1("alcohol101", "", "Let's Party", "2d2ac01320f4c2dce8e156cda5c73fe8", 719289, 501),
 	WINGAME2("alcohol101", "", "START95.EXE",  "1a7acbba10a7246ba58c1d53fc7203f5", 1411661,
@@ -5276,6 +5285,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Installer uses Director and Authorware
 	// Developed by Arome, distributed by Global Star Software
 	WINGAME1("cocktailhour", "", "COCKT32.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1411465, 501),
+
+	// Sierra Home title found on Hoyle Classic Card Games (1997)
+	WINDEMO2("colliers98", "Demo", "DEMO.EXE", "3460ad87d2ba57104e2810a77b53c220", 17045515,
+								   "AUDIO01",  "93bf4df04ce389b54865f75150e84f8c", 127804, 500),
 
 	MACGAME1("colormind", "v1.5", "ColorMind 1.5", "37faaf693259d7a4fa031f4a2edf3098", 126087, 501),
 
@@ -7276,7 +7289,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("leepipes", "", "Press Kit.exe", "c1a2e8b7e41fa204009324a9c7db1030", 7448796,
 							 "ss_fs.dxr",	  "b5f34c9b5222b64bda16b9c71bc14d62", 6451601, 700),
 
-	// Mia Muis Op Zoek naar Oma Mimi's Medicijn (CD1)
+	WINGAME2_l("megagame", "Vol.1", "Start.exe",	"7c18c9a6af2694156bf09ed195c1ab09", 4319532,
+									"Mainmenu.dxr", "53e542ddd1fe2d7f767fe1a2c75ef943", 1939963, Common::RU_RUS, 702),
+
+	//Mia Muis Op Zoek naar Oma Mimi's Medicijn (CD1)
 	WINGAME1("miareading1", "", "Mia.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2595806, 702),
 
 	// Mac demo is from Disney Interactive Learning Sampler CD
@@ -7997,6 +8013,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME2("stressrelief2", "ECD", "Solitudes",					 "08c9ea94f6469e71ae0c71987bbf6323", 157045,
 									 "Natural Stress Relief II.CDQ", "18256d220db28ca68c8907d5ac590190", 12912, 850),
+
+	// From SWAT 3 GoTY Edition (2001)
+	WINGAME1("swattactics", "", "Tactics.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 21618936, 800),
+
+	// Dialogue in Indonesian, game interface in English
+	// Made by Acapella, a member of DivineKids Associates (2004)
+	WINGAME1t_l("thenanny", "", "TheNanny-Acapella.exe", "2794806d3db9912da67fd4d03926870a", 21811000, Common::ID_IDN, 850),
 
 	// ein Fall für TKKG: Das geheimnisvolle Testament (bilingual DE/EN)
 	MACGAME2("tkkg8", "", "TKKG-Start", "8c1b4ddb1adff89deaba119f7cf8df7b", 197195,
