@@ -129,6 +129,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "devo",				"DEVO Presents: Adventures of the Smart Patrol" },
 	{ "digby",				"Digby's Adventures: Tales of a 1-Pound Dog" },
 	{ "dimensionq",			"Iz and Auggie: Escape from Dimension Q" },
+	{ "dinerdash",			"Diner Dash" },
+	{ "dinerdashsb",		"SpongeBob SquarePants Diner Dash" },
 	{ "dispix2and3",		"Disney Pixar Learning: 2nd & 3rd Grade" },
 	{ "donnamatrix",		"Donna Matrix" },
 	{ "draculassecret",		"Dracula's Secret" },
@@ -369,6 +371,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "oscar3",				"Oscar the Balloonist Dives into the Lake" },
 	{ "oslotg",				"Adventures with Oslo: Tools and Gadgets" },
 	{ "oslowow",			"Adventures with Oslo: World of Water" },
+	{ "ouba",				"Oüba: The Great Journey" },
 	{ "oztma",				"Oz: The Magical Adventure" },
 	{ "paparazzi",			"Paparazzi!: Tales of Tinseltown" },
 	{ "parker",				"Inspector Parker" },
@@ -384,6 +387,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "physicus",			"Physicus: Save the World with Science!" },
 	{ "pingu1",				"Pingu: A Barrel of Fun!" },
 	{ "pingu2",				"Pingu and Friends" },
+	{ "pinhigh",			"Pin High Country Club Golf" },
 	{ "pippi",				"Astrid Lindgren's Pippi" },
 	{ "planetarizona",		"Escape from Planet Arizona" },
 	{ "playroom",			"The Playroom" },
@@ -393,6 +397,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "poohp",				"Winnie the Pooh Preschool" },
 	{ "pooht",				"Winnie the Pooh Toddler" },
 	{ "princessfashion",	"Disney's Princess Fashion Boutique" },
+	{ "ptjigsaw",			"Playtonium Jigsaw" },
 	{ "pyst",				"Pyst" },
 	{ "pyst2",				"Driven: The Sequel to Pyst" },
 	{ "pystmake",			"The Making of Pyst" },
@@ -408,6 +413,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "rodneyww",			"Rodney's Wonder Window" },
 	{ "safecracker",		"Safecracker" },
 	{ "sajaklucky",			"Pat Sajak's Lucky Letters" },
+	{ "sasbingo",			"Saints & Sinners Bingo" },
 	{ "screamingmetal",		"Screaming Metal" },
 	{ "searchlearn",		"Search & Learn Adventures" },
 	{ "secretkeys",			"Search for the Secret Keys with Mickey" },
@@ -606,6 +612,15 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "lovedisk",			"Lovedisk 95" },
 	{ "lowes",				"Lowe's Home Plans" },
 	{ "makers",				"Makers of the 20th Century" },
+	{ "mcf1",				"Mystery Case Files: Huntsville" },
+	{ "mcf2",				"Mystery Case Files: Prime Suspects" },
+	{ "mcf3",				"Mystery Case Files: Ravenhearst" },
+	{ "mcf3g",				"MCF: Ravenhearst Puzzle Door Strategy Guide" },
+	{ "mcf4",				"Mystery Case Files: Madame Fate" },
+	{ "mcf4g",				"MCF: Madame Fate Strategy Guide" },
+	{ "mcf5",				"Mystery Case Files: Return to Ravenhearst" },
+	{ "mcf5g",				"MCF: Return to Ravenhearst Strategy Guide" },
+	{ "mcf5s",				"MCF: Return to Ravenhearst Original Soundtrack" },
 	{ "mediabook",			"The MediaBook CD for Director" },
 	{ "mmcats",				"Multimedia Cats" },
 	{ "mmdogs",				"Multimedia Dogs" },
@@ -676,6 +691,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "trekchair",			"Star Trek: Captain's Chair"},
 	{ "trekshipcreate",		"Star Trek: Starship Creator"},
 	{ "truthsfictions",		"Truths & Fictions: A Journey from Documentary to Digital Photography" },
+	{ "udcollection",		"Upper Deck Virtual Trading Card Collection" }, // Post Cereal
 	{ "universe",			"Invisible Universe" },
 	{ "unwrap",				"Unwrap the Magic: Holiday 2000 Interactive CD-ROM" }, // J.C.Penney
 	{ "ushistory",			"The History of the United States for Young People" },
@@ -711,6 +727,8 @@ static const PlainGameDescriptor directorGames[] = {
 
 	// Shareware and freeware
 	{ "101pet",				"Dalmation Adoption" },
+	{ "10pinchamp",			"Ten Pin Championship Bowling Pro" },
+	{ "3dgolf02",			"3D Golf 2002" },
 	{ "50ftchicken",		"Attack of the 50-foot Chicken" },
 	{ "alanna",				"The Lost Island of Alanna" },
 	{ "antfarm",			"Ant Farm" },
@@ -725,6 +743,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bigsound",			"BigSound VW Player" },
 	{ "bigtimemovie",		"Big Time Movie Studios" },
 	{ "bingobuds",			"Bingo Buddies" },
+	{ "bjb",				"Blackjack Ballroom" },
 	{ "bob",				"Bob" },
 	{ "boxscore",			"Box Score" },
 	{ "broadwayyb",			"The 2000-2001 Broadway Series Interactive Yearbook" },
@@ -1871,6 +1890,7 @@ namespace Director {
 #define PIPGAME2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformPippin,ADGF_MACRESFORK,v)
 #define WINGAME2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformWindows,ADGF_NO_FLAGS,v)
 #define FMTGAME2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformFMTowns,ADGF_NO_FLAGS,v)
+#define SHKGAME2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformShockwave,ADGF_NO_FLAGS,v)
 #define MACDEMO2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformMacintosh,(ADGF_MACRESFORK|ADGF_DEMO),v)
 #define WINDEMO2(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformWindows,ADGF_DEMO,v)
 #define WINGAME2t(t,e,f1,m1,s1,f2,m2,s2,v) 	GENGAME2t_(t,e,f1,m1,s1,f2,m2,s2,Common::EN_ANY,Common::kPlatformWindows,ADGF_NO_FLAGS,v)
@@ -7927,6 +7947,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 //
 //////////////////////////////////////////////////
 
+	// Skyworks Technologies, Hackensack, New Jersey (2003)
+	WINDEMO1t("10pinchamp", "Trial", "bowling.exe", "4638eea1ce8931b44be5eff81193314a", 10780672, 800),
+
 	// Original filenames are 1·2·3 Hablo Inglés.exe
 	WINGAME2_l("123habloingles", "#1 El Viaje",		   "123 Hablo Ingles.exe", "0c81c84ca4966313ad27d47daba44537", 2660381,
 													   "Intro.dxr",			   "f396a24506e44c07f301fc371a194890", 5183390, Common::ES_ESP, 851),
@@ -7956,6 +7979,17 @@ static const DirectorGameDescription gameDescriptions[] = {
 													   "Intro.dxr",			   "282a153f108019fc8cdd19c9d973db1f", 2389614, Common::ES_ESP, 851),
 	WINGAME2_l("123habloingles", "#14 Karaoke",		   "123 Hablo Ingles.exe", "0c81c84ca4966313ad27d47daba44537", 2660381,
 													   "Intro.dxr",			   "d9c5fa53e38e683465174740bd1a771d", 2789550, Common::ES_ESP, 851),
+
+	// Developed by Skyworks Technologies, Hackensack, New Jersey (2001)
+	// Offered as a licensed product that could display any publisher's logo
+	// MSN Zone.com listed this as 3-Hole Challenge and 9-Hole Challenge
+	// http://web.archive.org/web/0/zone.msn.com/3holechallenge/msgmain.dcr
+	SHKGAME1("3dgolf02", "MSN", "msgmain.dcr", "da0665ad3d63e31eae26dd1e0c6280c0", 1054406, 800),
+
+	// Promotional CDs contained in boxes of Post Cereal
+	// Calls external Flash player with embedded RealVideo
+	// Designed by POP! Multimedia, Seattle (2002)
+	WINGAME1t("3ways2score", "AL West", "Post 3 Ways to Score.exe", "cbea571bce9714dabf56beac29fa35d0", 2891205, 851),
 
 	WINGAME2t("aaha2007", "Management 1",  "StartCD.exe", "f5e1f52dc03126d4a906f78247b190da", 3437769,
 										   "Select.dxr", "3c766fe5aff43e8eae440d13468cd48a", 1398164, 850),
@@ -8046,6 +8080,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// although we don't know if it was actually released in English
 	// https://web.archive.org/web/20060208235824/http://billetrille.savannah.dk/dtpages.php3?page_id=208&lang=english
 	MACDEMO1_l("billetrille2", "Demo", "VilleLilli2Demo", "4ea5fc09f79eee6dded94dc40f303779", 196171, Common::FI_FIN, 800),
+
+	// https://web.archive.org/0/iwin.com/applets/shockwave/mbj/BJBmbj.dcr
+	SHKGAME1("bjb", "v1.0", "BJBmbj.dcr", "cf3670459c9faefd8a26d705115bc412", 393906, 800),
 
 	WINGAME2("bobmambo5", "ECD", "START.EXE", "e24d4bab978b1a5c2326d2c56cf4d781", 6980680,
 								 "MAMBO.MOV", "990db0c7187621250dfca0a55996538e", 39868175, 800),
@@ -8348,6 +8385,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1t_l("maus2", "", "Maus2.exe", "7b470c720b74aba9d7ac5d0706141a33", 1779882, Common::DE_DEU, 800),
 
+	// Big Fish Games, Seattle (2005)
+	// https://www.shockwave.com/gamelanding/huntsville.jsp
+	WINGAME1t("mcf1", "Shockwave.com", "MysteryCaseFiles.exe", "2b50c25908e634157488a464ff958a06", 15564800, 850),
+
+	WINGAME1t("mcf2", "Reflexive", "PrimeSuspects.RWG", "89c5ae9a780e0bab7b805ce668a42e9b", 15389945, 851),
+
 	MACDEMO1("mickeyk", "D8 Demo",	 "MickeyK",		 "4ea5fc09f79eee6dded94dc40f303779", 197114, 800),
 	WINDEMO1("mickeyk", "D8 Demo",	 "MickeyK.exe",	 "e24d4bab978b1a5c2326d2c56cf4d781", 2532440, 800),
 	MACDEMO1("mickeyp", "D8 Demo",	 "MickeyP",		 "4ea5fc09f79eee6dded94dc40f303779", 198055, 800),
@@ -8570,6 +8613,17 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME2("royksoppam", "Bonus disc", "Projector", "a44511b8ff0e46b4f9c85dd1cb58d458", 155743,
 										 "MAIN.dxr",  "b03dfbaac4bf75198d724048e4fdad80", 3236242, 851),
 
+	// Developed by Large Animal, New York (2005)
+	// Oberon Games & GameHouse v1.0 full trial version
+	// Big Fish Games unlockable 60-minute trial version
+	// IFN file is the renamed executable installed by I-play
+	WINGAME1t("sasbingo", "GameHouse",	   "SSBingo.exe",			 "702da528e49e471bf878203c32ba0cf4", 7931538, 851),
+	WINGAME1t("sasbingo", "Oberon",		   "SSBingo.exe",			 "4277cbad51a5f39e05ac80c876863549", 8048640, 851),
+	WINGAME1t("sasbingo", "Shockwave.com", "SSBingo.exe",			 "1e2133e19af4e53b1170417644555db5", 8663040, 851),
+	WINGAME1t("sasbingo", "Big Fish 2004", "Saints and Sinners.exe", "4277cbad51a5f39e05ac80c876863549", 7577600, 851),
+	WINGAME1t("sasbingo", "Big Fish 2008", "SSBingo.exe",			 "68f17ce9561b0101c386c125003d16b4", 8516936, 851),
+	WINGAME1t("sasbingo", "iWin",		   "SSBingo.ifn",			 "d350e252c55117a69294abbf561a8cc1", 9445384, 851),
+
 	// Produced and developed by New Tier Inc., Scottsdale, Arizona
 	WINGAME1("saspurs2001", "", "Spurs.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 5924396, 800),
 	WINGAME1("saspurs2005", "", "Spurs.exe", "98e75b2c5561f9be40aa745f35f22244", 5508840, 800),
@@ -8584,6 +8638,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1("secretkeys", "Demo", "Secret Keys Demo", "a44511b8ff0e46b4f9c85dd1cb58d458", 155771, 851),
 	WINDEMO1("secretkeys", "Demo", "Secret Keys Demo.exe", "0c81c84ca4966313ad27d47daba44537", 2200706, 851),
+
+	// From Revista CD Expert Kids #44 - 2003
+	// Presented with Pintando com o Senninha (Flash v6)
+	WINGAME1t_l("cliquepinte", "Vol.6", "Pinte.exe", "9ea2dcf27a4c88019f7a50f9b5cb0419", 6531526, Common::PT_BRA, 850),
 
 	// Mac OS X executables are D9
 	MACGAME1_l("sethi2", "Classic OS", "Sethi Incas",     "41e7d3bf50e4085c35eba322aa63b238", 161027,  Common::FR_FRA, 851),
@@ -8697,6 +8755,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 											"245503afab76352e83fcfc6e79de6f77", 1314958, Common::NL_NLD, 851),
 
 	WINGAME1("tweeniesrtp", "", "BBC Tweenies Tour.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 5435024, 800),
+
+	// Found on "Post Cereal 3 Ways to Score"
+	// Credited to the IT Dept at The Upper Deck Company, Carlsbad, California (2002)
+	WINGAME1t("udcollection", "CD #2", "UD-Post-CD2.exe", "1fed9236b862efc6d9fd76d501cf9fd6", 28653006, 800),
 
 	WINGAME1_l("unlimitedcl", "", "CD-ROMs Educativos.exe", "0c81c84ca4966313ad27d47daba44537", 2366839, Common::ES_ESP, 851),
 
@@ -8818,6 +8880,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Mac version must be installed. Additional OS X installer runs the game Classic environment.
 	MACGAME1_l("mats3", "", "Mats und das ratselhafte Tier", "9ba96b315646d5f62be9ab5597d2e0d7", 176978, Common::DE_DEU, 901),
 	WINGAME1_l("mats3", "", "Mats3.exe", "4b89dba499aefda5201eef3d27963d01", 2187308, Common::DE_DEU, 900),
+
+	// https://web.archive.org/web/0/play-bit.com/files/play-bit/mystery-case-files-huntsville.exe
+	WINGAME1t("mcf1", "Play-Bit", "MysteryCaseFiles.RWG", "984afe52c81d2787e678bb02a09961a5", 11780955, 900),
 
 	// Classic Mac OS and Windows executables are D8
 	MACGAME1("nobel100", "OS X", "data/MacOSX/Mac OSX Start", "332aaddc1bc68a89277ef016466a7140", 1295390, 900),
@@ -8949,6 +9014,25 @@ static const DirectorGameDescription gameDescriptions[] = {
 	SHKGAME1("destinationshu",	"r4",  "setonian3d_04.dcr",	 "985d3b3e5b15f0d9e0701ee95edf608b", 12832920, 1011),
 	SHKGAME1("destinationshu",	"r20", "DestinationSHU.dcr", "97059e08b26a19ad3e94a235af730a9a", 9508328, 1011),
 	SHKGAME1("destinationshu",	"r21", "DestinationSHU.dcr", "d329e43d73212f57b8fa61d7c12818b2", 10024117, 1011),
+
+	// PlayFirst, San Francisco (2005)
+	// RWG file is Play-Bit's renamed executable
+	// Also found on Super GameHouse CD from RealNetworks (2005)
+	// Dated entries below are from bigfishgames.com (2005-2008)
+	WINGAME1t("dinerdash", "RealOne",	 "diner dash_r1a.exe", "91a6d3252923fc14053776607b87818c", 463130, 1010),
+	WINGAME1t("dinerdash", "Play-Bit",	 "Diner Dash.RWG",	   "6a2f861d14653bf015cc0eafd1629bd1", 138925, 1010),
+	WINGAME1t("dinerdash", "2005.01.19", "Diner Dash.exe",	   "321d3819434f74321146349229c8518f", 622592, 1010),
+	WINGAME1t("dinerdash", "2008.09.18", "Diner Dash.exe",	   "7a3ab714f859277b87b87e53ef760556", 812360, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "48181d88ebb710bac2b65390ea8a48ea", 996680, Common::FR_FRA, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "104510e07555a18671c1ba46ff75e370", 996680, Common::DE_DEU, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "570a9e2239735e5cb98ed30242602efb", 996696, Common::IT_ITA, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "f9ced0bfe0779ad77a0fa1e2674b5a4e", 996696, Common::NL_NLD, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "08448ece3ac6f851cdaaa2c42a113992", 1000784, Common::JA_JPN, 1010),
+	WINGAME1t_l("dinerdash", "",		 "Diner Dash.exe",	   "98fd4a361da47d2f71db0fe0b865965e", 1000776, Common::ES_ESP, 1010),
+
+	// Developed under license by Snap2play, Chicago (2006) for Nick Arcade
+	WINGAME1t("dinerdashsb", "",   "SpongeBob SquarePants Diner Dash.exe", "f3cf153d8bfe6b3f3f2e2ecb9cbcc19b", 820552, 1010),
+	WINGAME1t_l("dinerdashsb", "", "SpongeBob SquarePants Diner Dash.exe", "d422ea7b817f622d03b0f9a9419c70f2", 820552, Common::DE_DEU, 1010),
 
 	MACGAME1("fightbacus", "OS X",		 "Fight Bac Board Game.osx",	 "f1f24f7c020bf6bd82df94da3a0892dd", 261752, 1000),
 	MACGAME1("fightbacus", "Classic OS", "Fight Bac Board Game.classic", "0e051ed1954343a2adf9c424e32175d7", 211909, 1000),
@@ -9098,6 +9182,86 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2t("lowes", "v1.2",			 "program files/Lowes/Start.exe",  "5cf0ae4506bda213c2f382965ace17e8", 2644078,
 										 "program files/Lowes/Main.dxr",   "348d987c50cbec81047d65f244698471", 17131708, 1010),
 
+	// Developed and published digitally by Big Fish Games, Seattle (2005)
+	// Budget CD release by Focus Multimedia (Revival), Staffordshire, England (2008)
+	// US collection release by Activision Value Publishing, Eden Prairie, Minnesota (2009)
+	// Collection is identical to the current download from bigfishgames.com (2013)
+	WINGAME1t("mcf1", "Revival",	"Huntsville.exe",		"9b15df5607fa4f5444f7135123ef692c", 19764560, 1010),
+	WINGAME1t("mcf1", "Collection", "Huntsville.exe",		"4bfae53d621faedf97b3605da16eec62", 19912504, 1010),
+	WINGAME1t_l("mcf1", "",			"Huntsville.exe",		"b0d3bca4e77c9d2db6dc95d31c13d4a9", 29623632, Common::ES_ESP, 1010),
+	WINGAME1t_l("mcf1", "",			"Huntsville.exe",		"1fe45ca26cc29cdfd0c2dab0a2971a5e", 28505424, Common::FR_FRA, 1010),
+	WINGAME1t_l("mcf1", "",			"Huntsville.exe",		"2bdc6a7e10de42343414f74a1e31abe8", 22742360, Common::NL_NLD, 1010),
+	WINGAME1t_l("mcf1", "",			"Huntsville.exe",		"bd51ec1251a10924664286bbf7ab30b4", 28276040, Common::DE_DEU, 1011),
+	WINGAME1t_l("mcf1", "",			"MysteryCaseFiles.exe", "0e33597084067d4744e95bd2eb52b1ee", 31618384, Common::JA_JPN, 1011),
+
+	// Developed Big Fish Games, Seattle (2006)
+	// CD published and distributed by Activision (2008)
+	WINGAME1t("mcf2", "CD",		  "PrimeSuspects.exe", "89c5ae9a780e0bab7b805ce668a42e9b", 11812856, 1010),
+	WINGAME1t("mcf2", "Big Fish", "PrimeSuspects.exe", "6f1d2f08827c022b820b5f773ba877e2", 12699448, 1010),
+	WINGAME1t("mcf2", "Steam",	  "PrimeSuspects.exe", "4d04baa2d302665b18d26c9c6392c93e", 12330320, 1010),
+	WINGAME1t_l("mcf2", "",		  "PrimeSuspects.exe", "f2c26d3903a247a751c2072aac950872", 108102984, Common::DE_DEU, 1010),
+	WINGAME1t_l("mcf2", "",		  "PrimeSuspects.exe", "4b6e52c8b6891d579d190ce8941098a5", 109614416, Common::ES_ESP, 1010),
+	WINGAME1t_l("mcf2", "",		  "PrimeSuspects.exe", "f50a2dc90c70cd0f58ea4e4d01b3b162", 27338072, Common::NL_NLD, 1010),
+	WINGAME1t_l("mcf2", "",		  "PrimeSuspects.exe", "fecf53983bf35758d581dac151574696", 108582224, Common::FR_FRA, 1011),
+
+	// Big Fish Games, Seattle (2006)
+	// Mac distribution below is from GreenAppleGames.com (2007)
+	// CD release from Focus Multimedia, Rugeley, Staffordshire, England (2008)
+	// IFN file is iWin's renamed & protected executable for the unlockable trial version
+	MACGAME1("mcf3", "", "Ravenhearst Mystery Case Files.app/Contents/Resources/Game/Ravenhearst.osx",
+						 "f889c80add77121fbbc9132e61e35f16", 326511, 1010),
+	WINGAME1t("mcf3", "Focus",		"MCF Ravenhearst.exe", "653f606c850c70f72e967889493f59d8", 16389456, 1010),
+	WINGAME1t("mcf3", "iWin",		"Ravenhearst.ifn",	   "05a01fab76c234361e42cec45aeab13b", 16261224, 1010),
+	WINGAME1t("mcf3", "Big Fish",	"Ravenhearst.exe",	   "595439fba60d554faaca6c1290c45da6", 16570168, 1010),
+	WINGAME1t("mcf3", "Collection",	"Ravenhearst.exe",	   "65dc4fc79432bccd3d42fbb73e9bfaa2", 16000255, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "ac0f246df5855988ace482935ac5fffb", 16700752, Common::ES_ESP, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "3282c954d27a9fbe6f110a85fc68a92f", 16573784, Common::SE_SWE, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "dbd9dea36f02b9cfa4c7884c5b5037ce", 16467280, Common::FR_FRA, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "c7b1bde1f50200b25a8e8f04b28d1451", 16549208, Common::DA_DNK, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "56c53103f83f0f57292648982b7261c5", 16545112, Common::IT_ITA, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "880692eee999a906148a376ec7f56bf7", 16528728, Common::NL_NLD, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.EXE",	   "aa6435b8e2a82d127dc830719ede7652", 16573784, Common::PT_BRA, 1010),
+	WINGAME1t_l("mcf3", "",			"Ravenhearst.exe",	   "7ecd89af34bcf1b4ff6d92b4c66cc4bc", 16483664, Common::DE_DEU, 1011),
+	WINGAME1t_l("mcf3", "",			"RavenhearstJP.exe",   "35d4404594744766428b5691e94a0a47", 17995088, Common::JA_JPN, 1010),
+	WINDEMO1t("mcf3g", "Trial",		"StrategyGuide.exe",   "cb6767f4a5c0d58efd1a44b4c0036d6a", 17680897, 1010),
+	WINGAME1t("mcf3g", "",			"StrategyGuide.exe",   "31aee00ac65e15ac9c51c34562ce720f", 17770784, 1010),
+
+	// Big Fish Games, Seattle (2007)
+	// Distributed as an unlockable 60-minute trial version
+	WINGAME1t("mcf4", "Big Fish",  "MadameFate.exe",	"ea22577f558ff3f07a196d07ab952512", 14542648, 1010),
+	WINGAME1t("mcf4", "Reflexive", "Madame Fate.RWG",   "0612f6cab243ac3acd35ec4c7abb07ba", 13650733, 1010),
+	WINGAME1t("mcf4", "Steam",	   "Madame Fate.exe",   "4acbdc2ffaeda2b4fbc3b3442d37426b", 14210384, 1010),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"c56b3e08e4fa9cec447f76d86ba372f6", 14083416, Common::NL_NLD, 1010),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"e71dd42c80ef0a369a3f33954e97bb29", 14124376, Common::IT_ITA, 1010),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"ab69ed7d0953935f203ba7da9f29e499", 14103896, Common::PT_BRA, 1010),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"10d3dcecc9c7f8cae5c4cb201cd16837", 14087512, Common::SE_SWE, 1010),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"6ef5eaaedfc8435899f0fef49ebdafe9", 14091600, Common::FR_FRA, 1011),
+	WINGAME1t_l("mcf4", "",		   "MadameFate.exe",	"ed4412e3489314b380f38af1afb33ee4", 13985104, Common::DE_DEU, 1011),
+	WINGAME1t_l("mcf4", "",		   "MadameFateJP.exe",  "4309c5343587a0c6ca040f1284ec64e2", 15840592, Common::JA_JPN, 1011),
+	WINGAME1t_l("mcf4", "",		   "MadameFate-ES.exe", "83fdfd24bb9afe82142235745b532999", 14329168, Common::ES_ESP, 1010),
+	WINGAME1t("mcf4g", "",		   "StrategyGuide.exe", "ee8b153e971857c513302ac4a418ab66", 8500560, 1010),
+
+	// Big Fish Games, Seattle (2008)
+	// CD release from Focus Multimedia, Staffordshire, England (2009)
+	// Retour à Ravenhearst published by Mindscape, Boulogne-Billancourt, France (2009)
+	WINGAME1t("mcf5", "Focus",		"ReturnToRavenhearst.exe", "27666e8e3638ca2ff2c69d77ac018e56", 25564496, 1010),
+	WINGAME1t("mcf5", "iWin",		"ReturnToRavenhearst.ifn", "668a458f3c97caf92c4dcaa17982bfe9", 25374800, 1010),
+	WINGAME1t("mcf5", "2010.01.20",	"ReturnToRavenhearst.exe", "77d6f798b49be9b8ee1eff919bbf7bb7", 15583520, 1010),
+	WINGAME1t("mcf5", "2012.09.12",	"ReturnToRavenhearst.exe", "c3e11cf280e7e6f55bfc968e8e10f800", 25561376, 1010),
+	WINGAME1t_l("mcf5", "CD",		"ReturnToRavenhearst.exe", "06b1cac3e7be253e9fcc318d420a0e8e", 25597264, Common::FR_FRA, 1010),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.exe", "a27c463cc9f46bf5ad87c229f3e29ace", 15537488, Common::FR_FRA, 1011),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.EXE", "c4de900114de4ddee2979ac69dac6ccc", 25285976, Common::IT_ITA, 1010),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.exe", "090d25da50b9ae3204e73abc70eee85b", 15603024, Common::DE_DEU, 1011),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.exe", "71a223de8ef155e6c0c5b8ce15d2913d", 25294168, Common::DA_DNK, 1010),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.exe", "6c35bf63d71863bee7c926f9f7b77931", 25290072, Common::NL_NLD, 1010),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.exe", "7540fa9abd65c8586ac099af79acb926", 25294208, Common::SE_SWE, 1010),
+	WINGAME1t_l("mcf5", "",			"ReturnToRavenhearst.EXE", "a9124150a3f46185a0cedd30b0c12743", 25310552, Common::PT_BRA, 1010),
+	WINGAME1t_l("mcf5", "",			"mcf_rtr_es_070809.exe",   "29846ca34e546295f04ca949c6e51935", 81433936, Common::ES_ESP, 1011),
+	WINGAME1t_l("mcf5", "",			"RTR_JP_211209.exe",	   "8d083c9763b50ab7250fb659c76177e5", 16663888, Common::JA_JPN, 1011),
+	WINGAME2t("mcf5g", "",			"StrategyGuide.exe",	   "dc052ce797ae0db710aa5403a94371dc", 8779088,
+									"bnwctzm.exe",			   "e75c279c770a5f0d8efe470b1647c45e", 845136, 1010),
+	WINGAME1t("mcf5s", "",	  		"MCF-Return To Ravenhearst OST.exe", "11cee75b59ffe1f1126c3a3b46f7d7e9", 6202704, 1011),
+
 	// Found on Bonjour تعليم الفرنسية
 	// Software catalogue for Middle East Software Company of Giza, Egypt
 	WINGAME1_l("mesoftware", "", "MES.exe", "bcf64185ce848b7b70858d62945f48a8", 3560318, Common::AR_ARB, 1010),
@@ -9112,6 +9276,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Developed by ArtPlant and published by PAN Vision Norge, Trollåsen, Akershus (2005)
 	WINGAME2t_l("olsenviking", "", "Game.exe",		 "6f6b823ca373f102145be0881a4aba78", 8822573,
 								   "GUILibrary.cst", "ccaf64ecfad612cfc3c5a752844bafe2", 472291, Common::NB_NOR, 1010),
+
+	// Developed by ToyBox Games, Melbourne (2007)
+	WINGAME1t("ouba", "Reflexive",	"Ouba.exe",						"bfd0fca6a6b8bca458156312ba266d24", 282624, 1010),
+	WINGAME1t("ouba", "RealArcade", "Ouba The Great Journey.exe",	"0fc8dfa0f77a4c95a05b1583de4ee974", 35865223, 1010),
+	WINGAME1t("ouba", "Big Fish",	"Ouba - The Great Journey.exe", "aeac86e40c6572b1d3baa75d30f633ba", 35927368, 1010),
+	WINGAME1t_l("ouba", "",			"Ouba - The Great Journey.exe", "1e0aafe2e0bfffd9bf4d873043710013", 35927368, Common::DE_DEU, 1010),
 
 	// Paulson Training Programs, Chester, Connecticut (2008)
 	// Spanish language program is titled Extrusión de láminas
