@@ -220,6 +220,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "hotwheelspistons",	"Hot Wheels Computer Cars - Power Pistons" },
 	{ "hotwheelsrigor",		"Hot Wheels Computer Cars - Rigor Motor" },
 	{ "hotwheelswiener",	"Hot Wheels Computer Cars - Oscar Mayer Wienermobile" },
+	{ "hypraxis",			"Hypraxis" },
 	{ "id4p1",				"iD4 Mission Disk 1 - Alien Supreme Commander" },
 	{ "id4p2",				"iD4 Mission Disk 2 - Alien Science Officer" },
 	{ "id4p3",				"iD4 Mission Disk 3 - Warrior Alien" },
@@ -691,9 +692,12 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bigtimemovie",		"Big Time Movie Studios" },
 	{ "bingobuds",			"Bingo Buddies" },
 	{ "bob",				"Bob" },
+	{ "boxscore",			"Box Score" },
 	{ "broadwayyb",			"The 2000-2001 Broadway Series Interactive Yearbook" },
 	{ "catseyeview",		"Cat's Eye View" },
 	{ "carnivale",			"Fate: The Carnivàle Card Game" },
+	{ "casperfb",			"Casper Flip Book" },
+	{ "chefboyjumper",		"Chef Boyardee Jumper" },
 	{ "childishgambino",	"Capturing Donald Glover's Motion" },
 	{ "colormind",			"ColorMind" },
 	{ "crybaby",			"Crying, Screaming Baby" },
@@ -714,6 +718,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "letterrally",		"Letter Rally" },
 	{ "limit0",				"Limit 0" },
 	{ "lovejourney",		"Love Journey" },
+	{ "lunarcolony",		"Lunar Colony" },
 	{ "makeamug",			"Make-A-Mug" },
 	{ "makingmusic",		"Morton Subotnick's Making Music" },
 	{ "mathtest",			"Math Test" },
@@ -726,6 +731,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "nykshuffle",			"NYK Shuffle" },
 	{ "nyyankeesyb",		"New York Yankees Interactive Yearbook" },
 	{ "pbescape",			"Pinball Escape" },
+	{ "pcbsdict",			"Politically Correct Translator" },
 	{ "pepsimtrivia",		"Pepsi NCAA Mascot Trivia" },
 	{ "pepsiracing",		"Pepsi Prime Time Racing" },
 	{ "pepsiskee",			"Pepsiworld Skeeball Challenge" },
@@ -753,6 +759,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "twine",				"The World is Not Enough 007" },
 	{ "verttice",			"DreamLight Verttice" },
 	{ "joint",				"Virtual Joint" },
+	{ "woboa",				"WireFrame Boxing" }, // aka WOBOA Boxing
+	{ "wonkacolor",			"Wonkarific Colorizer" },
+	{ "wonkahockey",		"WONKAir Hockey" },
 	{ "wonkatrivia",		"Wonka Trivia" },
 	{ "wriggle",			"Wriggle" },
 
@@ -960,7 +969,6 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "apeodyssey",			"Ape Odyssey 2001" },
 	{ "aramata",			"Aramata's Visual Wonderland: Magic of Perspective" },
 	{ "atmarktown",			"Atmark Town" },
-	{ "avantpopmars",		"火星の蠅 Avant-Pop Mars" },						// 松本次郎 Jiro Matsumoto
 	{ "banddamashii",		"バンド魂" },	// Band Damashii
 	{ "belzerion",			"Belzerion" },	// ベルゼリオン
 	{ "bem",				"妖怪人間ベム 新たなる魂の迷宮" },					// Yokai Ningen Bemu
@@ -978,7 +986,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "cookie",				"Cookie's Bustle: 謎のボンボワールド"},					// Mysterious Bombo World
 	{ "cookieginger",		"Cookie & Ginger"},
 	{ "crouton",			"Croûton"},
-	{ "dan",				"ダン" },											// Dan
+	{ "dan",				"ダン" },									  // Dan
 	{ "djrom",				"The DJ-ROM: Da CD-Extra of Hip-Hop Music" },
 	{ "digitalboy1",		"Digital Boy CD-ROM Vol. 1" },
 	{ "digitalboy2",		"Digital Boy CD-ROM Vol. 2" },
@@ -987,8 +995,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "dropcity",			"Drop City" },
 	{ "dungeonstreet",		"Dungeon Street" },
 	{ "nendo",				"Digital Nendo" },
-	{ "earthtia",			"アースティアサーガ ラーサーレジェンド" },					// Earthtia Saga: Larthur's Legend
-	{ "epson96",			"I Love EPSON '96 シェイプUPガールズ" },				// Shape Up Girls
+	{ "earthtia",			"アースティアサーガ ラーサーレジェンド" },			// Earthtia Saga: Larthur's Legend
+	{ "epson96",			"I Love EPSON '96 シェイプUPガールズ" },		 // Shape Up Girls
 	{ "erikotamuraoz",		"Eriko Tamura: Oz" },
 	{ "fantazion",			"World Engine Fantazion" },
 	{ "ffa",				"ファンキー ファニー エイリアンズ" },					// Funky Funny Aliens
@@ -997,7 +1005,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ganbareinuchan2",	"がんばれ！ いぬちゃん 世界の旅へん" },				// Ganbare! Inu-chan: Tour Around the World
 	{ "gate1",				"the GATE I 王国「MU」への扉" },
 	{ "gate2",				"the GATE II 王国「MU」への扉" },
-	{ "gate3",				"the GATE III 王国「MU」への扉" },					// Gateway to the Kingdom of MU
+	{ "gate3",				"the GATE III 王国「MU」への扉" },				 // Gateway to the Kingdom of MU
 	{ "geraldmccoy",		"Detective Gerald McCoy" },
 	{ "gocoo",				"GO-COO" },
 	{ "granmarmalade",		"グラン・マーマレード・マジカル・ビレッジ" },
@@ -1027,7 +1035,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "intro4",				"INTRO No. 4" },
 	{ "jinkakuzukan",		"人格図鑑" }, // Personality Profile
 	{ "junglepark",			"Jungle Park" },
-	{ "jyajya",				"Jya jya" },										// HyperCard with D3 movie
+	{ "jyajya",				"Jya jya" }, // HyperCard with D3 movie
 	{ "kamennoyakata",		"仮面の館" }, // Kamen no Yakata
 	{ "karuta",				"「フ・ジ・ワ・ラ・テ・イ・カ」の百人一首: かるたでおじゃる" },	// "Fu Ji Wa Ra Te I Ka" no Hyakunin Isshu: Karuta de Ojaru
 	{ "katsumadojo",		"信光の勝馬道場" },
@@ -1037,16 +1045,16 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "kidsbox",			"Kids Box" },										// キッズボックス
 	{ "kishido",			"棋士道" },											// Art of Shogi (Go)
 	{ "lzone",				"L-ZONE" },
-	{ "macaroni",			"マカロニほうれん荘 Interactive" },					// Romaji title in manual is Macaroni Hourensou
+	{ "macaroni",			"マカロニほうれん荘 Interactive" },						 // Romaji title in manual is Macaroni Hourensou
 	{ "macrotv",			"MACRO-TV" },
-	{ "mamauta1",			"ママうたおう! 第一巻みんなともだち" }, // Mama Utaou: Daiikkan Minna Tomodachi
+	{ "mamauta1",			"ママうたおう! 第一巻みんなともだち" },					   // Mama Utaou: Daiikkan Minna Tomodachi
 	{ "maria",				"MA-RI-A 人形館の呪い" },
 	{ "marinefantasy",		"大方洋二の海中写真館 Marine Fantasy" },
 	{ "mazebrew",			"MazeBrew" },
 	{ "mecadrill",			"Mecadrill" },
 	{ "mipeterwolf",		"～Music Island Vol.1～　\"ピーターと狼\"" },
 	{ "missihb",			"MISS Interactive Hard Boiled" },
-	{ "momotaro",			"日本語探検シリーズ『方言ももたろう』" },			// Nihongo Tanken Shirīzu: Hōgen Momotarō
+	{ "momotaro",			"日本語探検シリーズ『方言ももたろう』" },				 // Nihongo Tanken Shirīzu: Hōgen Momotarō
 	{ "moworld",			"Reiko's Adventures in MO-World" },
 	{ "mukashibanashi",		"日本昔話" },										// Nihon Mukashi Banashi (Japanese Folk Tales)
 	{ "multiakindo",		"マルチあきんど" }, // Multi Akindo
@@ -1083,7 +1091,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "refixion2",			"Refixion II: Museum or Hospital" },
 	{ "refixion3",			"Refixion III トナカイストーリー" },				// Refixion III: Tonakai Story
 	{ "renderorgan",		"RenderOrgan" },
-	{ "rheingold",			"ラインの黄金" },									// Das Rheingold
+	{ "rheingold",			"ラインの黄金" },								    // Das Rheingold
 	{ "rolypolys",			"ローリーポーリーズの七転び八起き" },
 	{ "rolypolys2",			"ローリーポーリーズの世界旅行" },
 	{ "ronron",				"ゆけゆけロンロン!" },								// Yuke Yuke Ron Ron!
@@ -1103,7 +1111,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tokimemotypegs",		"ときメモGSタイピング" },							// Tokimemo GS Typing (Girl's Side)
 	{ "truegolf1",			"TrueGolf Part I" },
 	{ "ttw",				"Through the Window: In Search for the Lost Bag" },
-	{ "twinbeeparadise",	"ツインビーPARADISE in どんぶり島" },				// TwinBee Paradise in Donburi Shima
+	{ "twinbeeparadise",	"ツインビーPARADISE in どんぶり島" },			   // TwinBee Paradise in Donburi Shima
 	{ "twistynight1",		"Twisty Night #1 合わせ月の夜" },
 	{ "twistynight2",		"Twisty Night #2 フェンネル" },
 	{ "twistynight3",		"Twisty Night #3 いにしえびと" },
@@ -1192,14 +1200,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "japanart04",			"Japan Art Today 04" },
 	{ "japanart07",			"Japan Art Today 07 村上隆「ロマンスの夕べ」展" }, // Japan Art Today 07: Takashi Murakami - "Romantic Evening" Exhibition
 	{ "jinseiproresu",		"人生プロレス" }, // Life Pro Wrestling
-	{ "keiri",				"経理入門" },										// Introduction to Accounting
+	{ "keiri",				"経理入門" },									 // Introduction to Accounting
 	{ "llla",				"Live Love Life AIDS" },
 	{ "mazebox",			"The Latest Works of MazeBox" },
 	{ "microphonefiend",	"Microphone Fiend" },
 	{ "mmedia11",			"Masters of Media: The Making of サクラ大戦" },			// Sakura Taisen
 	{ "moderntimes",		"Charles Chaplin in Modern Times" },
-	{ "mominoki",			"もみの木の下で ～ The Day of St.Claus" },			// Under the Fir Tree
-	{ "monja",				"monja" },										// もんじゃ
+	{ "mominoki",			"もみの木の下で ～ The Day of St.Claus" },		  // Under the Fir Tree
+	{ "monja",				"monja" },									   // もんじゃ
 	{ "morisawa",			"人間と文字" }, // Man and Writing
 	{ "moritaka",			"森高千里 CD-ROM 渡良瀬橋" },
 	{ "msseifuku",			"ミッションスクール制服図鑑" },			// Mission School Seifuku Zukan
@@ -1214,7 +1222,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "pbosakana",	        "PerfectBLUE OSAKANA" },
 	{ "pbtoilet1",	        "PerfectBLUE TOILET1" },
 	{ "pbtoilet2",	        "PerfectBLUE TOILET2" },
-	{ "pepperon",	        "ペペロン村の四季" },			// Four Seasons in Pepperon Village, aka Valmaison au fil des saisons, aka Livet i Pepperon
+	{ "pepperon",	        "ペペロン村の四季" }, // Four Seasons in Pepperon Village, aka Valmaison au fil des saisons, aka Livet i Pepperon
 	{ "perfectblue",        "Perfect Blue そらいろ★ナイト" },
 	{ "please",				"Please!" }, // by Teruo Takashima
 	{ "pod1",				"POD: Super Pop Digital Magazine" },
@@ -1246,11 +1254,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tomato",				"To. Ma. To." },
 	{ "tree",				"Onyx Tree Pro" },
 	{ "tri3dtrial",			"Tri-3D-Trial" },
-	{ "ukiukibgv",			"ウキウキ釣り天国 BGV" },							// Background Video? (Screen Saver)
+	{ "ukiukibgv",			"ウキウキ釣り天国 BGV" },							 // Background Video? (Screen Saver)
 	{ "undergroundaz",		"Underground AtoZ SO OUT" },
 	{ "vcb",				"Virtual Cocktail Bar 200種類のカクテルのデータベース" },
 	{ "vcbe",				"Virtual Cocktail Bar Executive" },
 	{ "virtualmuseum",		"Virtual Museum" },
+	{ "weeklymorningappara","あっぱら さいと" },						   // Shūkan Mōningu digital manga by Satomi Hanabusa
+	{ "weeklymorningbloody","Bloody Circus" },						   	   // Shūkan Mōningu digital manga by Jürgen Seebeck
+	{ "weeklymorningmars",	"Avant-Pop Mars" },							   // Shūkan Mōningu digital manga by Jiro Matumoto
 	{ "xmaspresent",		"Christmas Present" },
 	{ "yokaanime18",		"よかアニメ18発！" }, // 18 Screwy Animations!
 	{ "yokai",				"真・百物語: 妖怪紳士録" },                         // Ma hyakumonogatari: Yōkai shinshiroku
@@ -1262,10 +1273,10 @@ static const PlainGameDescriptor directorGames[] = {
 
 	// Japanese product demos
 	{ "backgrounds",		"Backgrounds for Multimedia Series" },
-	{ "bakkunooni",			"VOLT-AGE バックの鬼 -侘-" },						// Back Demon (texture packs)
+	{ "bakkunooni",			"VOLT-AGE バックの鬼 -侘-" },				  // Back Demon (texture packs)
 	{ "bandaipreviews3",	"1995 Bandai Visual CD-ROM Previews かわら盤 Vol. 3" },
 	{ "bebox",				"BeBox" },
-	{ "businessmanager",	"琢磨 BusinessManager" },							// from Takuma Co.
+	{ "businessmanager",	"琢磨 BusinessManager" },					  // from Takuma Co.
 	{ "calling",			"Calling" },
 	{ "cnl",				"City Net Line" },
 	{ "creativeeye",		"Creative EYE" },
@@ -1335,7 +1346,7 @@ static const PlainGameDescriptor directorGames[] = {
 
 	// Russian titles
 	{ "engl",				"English for Beginners" },
-	{ "max1max2",			"Макс демонстрация" },                          // Max (Tivola) demos of the first two games
+	{ "max1max2",			"Макс демонстрация" },						   // Max (Tivola) demos of the first two games
 	{ "megagame",			"Мega Game" },
 	{ "plcd",				"Подводная Лодка" },						   // Podvodnaya Lodka (Submarine) magazine
 	{ "tchaik",				"Пётр Ильи́ч Чайко́вский: Жизнь и творчество" }, // Pyotr Ilyich Tchaikovsky: Life and Work
@@ -1344,7 +1355,7 @@ static const PlainGameDescriptor directorGames[] = {
 	// Spanish titles
 	{ "123habloingles",		"1·2·3 Hablo Inglés" },
 	{ "abrapalabra",		"Abrapalabra: La Magicia de Aprender a Leer" },
-	{ "clasplusbee2",		"Classical Plus: Ludwig van Beethoven" },	// Planeta DeAgostini, a Spanish-Italian company based in Barcelona
+	{ "clasplusbee2",		"Classical Plus: Ludwig van Beethoven" },	   // Planeta DeAgostini, a Spanish-Italian company based in Barcelona
 	{ "deportes",			"Deporte y Musculación" },
 	{ "eso",				"ESO Essentials: Student's Interactive CD-ROM" },
 	{ "inventos",			"Grandes Inventos" },
@@ -3262,6 +3273,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO1("casino", "Sampler", "Casino! Sampler", "cbce20666bfe47a9533331c6be1e6039", 285255, 404),
 	WINDEMO1t("casino", "Sampler", "CASINO.EXE", "9957a5c3d67e857b5fd9cb084f7f8726", 1801785, 404),
 
+	// Found on Software USA volume 4.05 (1998)
+	// Trendmasters Multimedia of St Louis, Missouri for Harvey Comics (1997)
+	WINGAME1t("casperfb", "", "CASPDRES.EXE", "e272298fd9d35417e4abf63aeb4b79ce", 1687435, 404),
+
 	// aka Cat'sEyeView
 	// by Eij Kato
 	// Later entries use Director 6
@@ -4524,6 +4539,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("pbbear", "Sampler", "PBBEAR.EXE", "dc58e6e06807f4a4a4cc278f8748659f", 696807, 404),
 
+	// Vanguard Media for Macmillan Digital, New York (1996)
+	// Tie-in game for Politically Correct Bedtime Stories
+	SHKGAME1("pcbsdict", "", "pcdict.dcr", "80df74fc1f43be773f8f9fc4f4c870d7", 58248, 404),
+
 	MACGAME1("pecosbill", "", "Pecos Bill", "67f572196550aedb1f9523d782022be0", 483500, 404),
 	WINGAME1("pecosbill", "", "PECOS.EXE", "948eb8995faf757e4ad899ea45b3fae7", 700035, 404),
 
@@ -5540,6 +5559,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO1("franklm", "Demo", "xn--Franklin Learns Math Info.-", "f637b7b88b82c0772082f84a0b2cf628", 705417, 500),
 	WINDEMO1("franklm", "Demo", "FLMINFO.EXE", "2e62abdad839e42068afdcd0644d7dcf", 1119725, 500),
 
+	// Downloadable game to promote Great Adventures: Pirate Ship
+	// Developed by Davidson Interactive for Fisher-Price, Aurora (Erie), New York (1996)
+	WINDEMO1t("fppirates", "Ship in a Bottle", "PIRATE32.EXE", "24ad555e0dd0b3593d249ebefffa52fc", 1712769, 500),
+
 	// Other versions are D3
 	PIPGAME1("gadget", "", "GADGET", "d7e907d3933869f055ae59774c87f501", 111000, 501),
 
@@ -6277,6 +6300,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("vp2", "", "VPHYS2.EXE", "c3c38bd3907ca7e13220b74bd0317a6c", 1021347, 500),
 	WINDEMO1("vp2", "Demo", "VP2DEMO.EXE", "c3c38bd3907ca7e13220b74bd0317a6c", 1021353, 500),
 
+	// Weekly Morning digital manga from Kodansha / dig (1999)
+	SHKGAME1_l("weeklymorningappara", "Week 17", "app_17w.dcr", "920a595475276603def351b1e252b1eb", 363590, Common::JA_JPN, 500),
+	SHKGAME1_l("weeklymorningappara", "Week 18", "app_18w.dcr", "e7552ef8f3eb3a09faa7c66565cf92b1", 359989, Common::JA_JPN, 500),
+
 	MACGAME1("wine", "", "double-click me!", "231d3041df162be4a0ddd36a74eb03b6", 719289, 501),
 	WINGAME2("wine", "", "WIN95.EXE",		 "1a7acbba10a7246ba58c1d53fc7203f5", 1411337,
 						 "160MAIN.DXR",		 "23dbb4744121b077d331b01123709519", 592640, 501),
@@ -6383,9 +6410,16 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Soleau Software, New York (1999)
 	WINGAME1t("antrun", "v1.0", "Antpro.exe", "637abf3d67ae037f5fe47f7a7e5d5f9b", 3742186, 602),
 
-	// Developed by 株式会社dig, Shibuya, Tokyo
+	// Weekly Morning published by Kodansha Ltd, Bunkyō, Tokyo
+	// E-Manga editions developed by 株式会社dig, Shibuya, Tokyo
 	// Found on Dokan Nº19 from Ares Informatica, Barcelona (1999)
-	SHKGAME1_l("avantpopmars", "chapter.19", "mars_19w.dcr", "dc05faf882679cdf86e3b24f7bfbe356", 1099725, Common::JA_JPN, 603),
+	SHKGAME1_l("weeklymorningbloody", "第七幕,その1", "blo_07aw.dcr", "e268a2d59966d228ea70a97eddba3719", 1722735, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningbloody", "第七幕,その2", "blo_07bw.dcr", "edccf903012696dcde61108637dd22b3", 1617653, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningbloody", "第七幕,その3", "blo_07cw.dcr", "8dea090dc2128fcc5c3b3199e63c4576", 1553982, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningbloody", "第七幕,その4", "blo_07dw.dcr", "78fef34b202cc38225fc2cc8b5232055", 1563319, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningbloody", "第七幕,その5", "blo_07ew.dcr", "eadb7733406ab47ba54820dba3aa8b7d", 1820092, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningmars",	  "chapter.19",	  "mars_19w.dcr", "dc05faf882679cdf86e3b24f7bfbe356", 1099725, Common::JA_JPN, 600),
+	SHKGAME1_l("weeklymorningmars",	  "chapter.20",	  "mars_20w.dcr", "a2bae0774caa534b6248de7a6b16249b", 1820092, Common::JA_JPN, 600),
 
 	// Fun Pack is on the Party Time CD
 	WINGAME1("bananaspack", "", "_Fun_Pack.exe", "a593079aecf5bd938ce75264cac24b2d", 1508656, 600),
@@ -7203,6 +7237,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 //
 //////////////////////////////////////////////////
 
+	MACGAME1_l("abcpacovska", "", "30Mo", "0944b962ebb00f4b5d5149d220f8449b", 115966, Common::FR_FRA, 702),
+	WINGAME1t_l("abcpacovska", "", "Alphabet.exe", "c14f54671c5274accf32d2558510cdbb", 1812440, Common::FR_FRA, 702),
+
 	// Found on Chip CD 7/99 from Vogel Publishing, Würzburg, Germany
 	// Demo of presentations made by Actum Multimedia, Holešovice, Prague (1999)
 	WINGAME1t_l("actum", "", "actum.exe", "33c873b416847c6f6a8ef9572577daa2", 4289749, Common::CS_CZE, 700),
@@ -7221,9 +7258,6 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Japanese filename '着信メロディメーカー'
 	MACGAME1_l("allthelunar", "Luna no Chakushin Melody Maker", "xn--2bkuay9hyfd4f3fb5910fxrwe", "f670d62dfbf3f42c475b4f09c68f1888", 5839096, Common::JA_JPN, 701),
 	WINGAME1t_l("allthelunar", "Luna no Chakushin Melody Maker", "melody.exe", "f670d62dfbf3f42c475b4f09c68f1888", 5839096, Common::JA_JPN, 701),
-
-	MACGAME1_l("abcpacovska", "", "30Mo", "0944b962ebb00f4b5d5149d220f8449b", 115966, Common::FR_FRA, 702),
-	WINGAME1t_l("abcpacovska", "", "Alphabet.exe", "c14f54671c5274accf32d2558510cdbb", 1812440, Common::FR_FRA, 702),
 
 	WINDEMO1("artus1", "Demo", "artus.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2595828, 702),
 
@@ -7271,6 +7305,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Blinky Bill Lezertje
 	WINGAME1_l("blinkyy1", "", "Y1.exe", "7c18c9a6af2694156bf09ed195c1ab09", 173554, Common::NL_NLD, 702),
+
+	// Baseball trivia from Box Score Entertainment, Delaware County, New York (2000)
+	// Demo version found on Hráčův ráj: Sportovní hry from Špidla Data Processing, Zlín, Czechia
+	WINDEMO1t("boxscore", "Demo", "Boxscore.exe", "6f021aa044f576b449ea0ac4c1307aed", 6645191, 702),
 
 	// Found on Windows Spielehits für Kinder by Compedia / Xtend New Media of Scheidegg, Bavaria
 	WINGAME1_l("braingames", "", "invent.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2648430, Common::DE_DEU, 702),
@@ -7629,6 +7667,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1("webmaster", "", "Webmaster", "0944b962ebb00f4b5d5149d220f8449b", 128297, 702),
 	WINGAME1("webmaster", "", "Webmaster.exe", "7c18c9a6af2694156bf09ed195c1ab09", 1820594, 702),
+
+	// AntiVapor Software (2000); found on Hráčův ráj: Sportovní hry
+	WINGAME1t("woboa", "", "antiboxing.exe", "386a1dde8aedffe71e90be5ddd00fd17", 3511900, 702),
+
+	// Designed by Left Brain Games for the Wonka Company, Itasca, Illinois (2001)
+	MACGAME1("wonkacolor", "",	 "Colorizer",		   "fa52f0136cde568a46249ce74f01a324", 106842, 700),
+	WINGAME1t("wonkacolor", "",	 "Colorizer.exe",	   "0772fe42b74382967be01dc799374e1b", 2551382, 700),
+	WINGAME1t("wonkahockey", "", "wonkair_hockey.exe", "7b84792c236b9c96473aa23cf66d833a", 2077820, 702),
 
 	MACGAME1_l("xtown2", "", "xn--CROSSTOWN NGELN-n5a/xn--ngeln-xla", "0944b962ebb00f4b5d5149d220f8449b", 116140, Common::SE_SWE, 702),
 	WINGAME1t_l("xtown2", "", "ANGEL.EXE", "ea43a06fe305ceaa2ca2ba16feaee320", 2212330, Common::SE_SWE, 700),
@@ -8662,6 +8708,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Reflexive Arcade renamed projectors use RWG file extensions
 	WINGAME1t("hidexp2", "v1.03", "Hidden Expedition Everest.RWG", "11ac4d8fbb782df988007d92ca8d9b61", 11368506, 1011),
+
+	// Left Brain Games, Torrington, Connecticut (2004)
+	// https://www.leftbraingames.com/Hypraxis/Hypraxis.zip
+	WINGAME1t("hypraxis", "v2", "Hypraxis.exe", "700df3c3b8bcd7f39756fbe41f15343a", 3883868, 1000),
+	SHKGAME1("hypraxis", "v2", "Hypraxis.dcr", "66e2665150c7ea363d381e56e55c8bc1", 1978484, 1000),
 
 	// Plays in Norwegian and Swedish
 	// Published by Pinjata, Oslo (2004)
