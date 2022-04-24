@@ -314,6 +314,16 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "mmiqtest",			"Multimedia IQ Test" },
 	{ "mmmath3",			"Mission Masters Math Grade 3: Defeat Dirty D!" },
 	{ "mrsquack",			"Reading with Peter Cottontail: The Story of Mrs. Quack" },
+	{ "mtc",				"Math Tool Chest" },
+	{ "mtccointoss",		"Math Tool Chest: Coin Toss" },
+	{ "mtccounters",		"Math Tool Chest: Counters" },
+	{ "mtcfractions",		"Math Tool Chest: Fractions" },
+	{ "mtcfunctions",		"Math Tool Chest: Functions" },
+	{ "mtcgeometry",		"Math Tool Chest: Geometry" },
+	{ "mtcpaint",			"Math Tool Chest: Paint" },
+	{ "mtcplacevalue",		"Math Tool Chest: Place Value" },
+	{ "mtcspinner",			"Math Tool Chest: Spinner" },
+	{ "mtctumbledrum",		"Math Tool Chest: Tumble Drum" },
 	{ "mummy",				"Mummy: Tomb of the Pharaoh" },
 	{ "muppetkidsearly5",	"Muppets Kids Early Learning Series Volume 5: Sound Patterns: Phonics" },
 	{ "muppetkidsthinking",	"Muppets Kids Thinking Skills" },
@@ -360,6 +370,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "paparazzi",			"Paparazzi!: Tales of Tinseltown" },
 	{ "parker",				"Inspector Parker" },
 	{ "paws",				"P.A.W.S.: Personal Automated Wagging System" },
+	{ "pawstyping",			"PAWs in Typing Town!" },
 	{ "pbbear",				"P. B. Bear's Birthday Party" },
 	{ "pecosbill",			"Pecos Bill" },
 	{ "perdido",			"Lost in the Amazon" },
@@ -434,6 +445,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "superspy",			"SuperSpy 1" },
 	{ "supertutorgram",		"Super Tutor Grammar" },
 	{ "takeru",				"Buichi Terasawa's Takeru: Letter of the Law" },
+	{ "tarzanjungle",		"Tarzan: Lord of the Jungle Power Disk" },
 	{ "teamxtreme1",		"Operation: Weather Disaster" },
 	{ "teamxtreme2",		"Operation: Eco-Nightmare" },
 	{ "the7colors",			"The Seven Colors: Legend of PSY・S City" }, // English fan translation
@@ -711,8 +723,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "casperfb",			"Casper Flip Book" },
 	{ "chefboyjumper",		"Chef Boyardee Jumper" },
 	{ "childishgambino",	"Capturing Donald Glover's Motion" },
-	{ "colormind",			"ColorMind" },
-	{ "crybaby",			"Crying, Screaming Baby" },
+	{ "colormind",   		"ColorMind" },
+	{ "crybaby",   			"Crying, Screaming Baby" },
+	{ "destinationshu",		"Destination: SHU" },
 	{ "dfireworks",			"The Digital Fireworks Stand" },
 	{ "dreidel",			"DreidelLand: An Electronic Hanukah Treat" },
 	{ "emigre",				"Emigre Signs of Type: Big Cheese" },
@@ -725,6 +738,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "gobstopper",			"Gobstopper Gobbler" },
 	{ "gonefishin",			"Gone Fishin'" },
 	{ "goodwillie",			"Good Willie Hunting" },
+	{ "gtblaster",			"GT Blaster 3D Game" },
 	{ "gumfighter",			"Gum Fighter" },
 	{ "imision369",			"ImIsion 369" },
 	{ "kfk",				"Kung Fu Kim" },
@@ -774,9 +788,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "joint",				"Virtual Joint" },
 	{ "woboa",				"WireFrame Boxing" }, // aka WOBOA Boxing
 	{ "wonkacolor",			"Wonkarific Colorizer" },
+	{ "wonkagumball",		"WONKA Gum Ball Grabber" },
 	{ "wonkahockey",		"WONKAir Hockey" },
 	{ "wonkatrivia",		"Wonka Trivia" },
 	{ "wriggle",			"Wriggle" },
+	{ "zqtpounce",			"Zwinky Cuties: Pounce n Bounce" },
 
 	// Music videos and enhanced music CDs
 	{ "avrilletgo",			"Avril Lavigne: Let Go" },
@@ -4897,6 +4913,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Original filename is 'SYZYGYSｸﾘｯｸｱﾆﾒ｢ｽﾓｳ組曲｣'
 	MACGAME1_l("syzygys", "", "xn--SYZYGYS-zj5o702ne6ytna4l0a3a5eb1g1hmjwa1h", "17efee018a660458fae80de4364021ac", 483159, Common::JA_JPN, 402),
 
+	// Trendmasters Multimedia, St Louis, Missouri (1995)
+	// Included with Tarzan toys based on Tarzan: The Epic Adventures television series
+	// Also included on Software USA volume 4.05 shareware CD (1998)
+	WINGAME1t("tarzanjungle", "", "TZN_JUN.EXE", "bf92106ef2e2c9e9bdefe3d97c22d0c2", 1582485, 404),
+
 	WINGAME1("teamxtreme1", "", "XTREME.EXE", "45ab80997efedec388ff5200722e673c", 690123, 400),
 	WINGAME1("teamxtreme2", "", "TX2.EXE", "50c80bd2add25e574494838772973beb", 2585471, 400),
 
@@ -7734,9 +7755,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("woboa", "", "antiboxing.exe", "386a1dde8aedffe71e90be5ddd00fd17", 3511900, 702),
 
 	// Designed by Left Brain Games for the Wonka Company, Itasca, Illinois (2001)
-	MACGAME1("wonkacolor", "",	 "Colorizer",		   "fa52f0136cde568a46249ce74f01a324", 106842, 700),
-	WINGAME1t("wonkacolor", "",	 "Colorizer.exe",	   "0772fe42b74382967be01dc799374e1b", 2551382, 700),
-	WINGAME1t("wonkahockey", "", "wonkair_hockey.exe", "7b84792c236b9c96473aa23cf66d833a", 2077820, 702),
+	MACGAME1("wonkacolor", "",	   "Colorizer",			 "fa52f0136cde568a46249ce74f01a324", 106842, 700),
+	WINGAME1t("wonkacolor", "",	   "Colorizer.exe",		 "0772fe42b74382967be01dc799374e1b", 2551382, 700),
+	SHKGAME1("wonkagumball", "v3", "gumball_v3.dcr",	 "255a21d141c055a29081ff242e2a4e8e", 413889, 700),
+	WINGAME1t("wonkahockey", "",   "wonkair_hockey.exe", "7b84792c236b9c96473aa23cf66d833a", 2077820, 702),
 
 	MACGAME1_l("xtown2", "", "xn--CROSSTOWN NGELN-n5a/xn--ngeln-xla", "0944b962ebb00f4b5d5149d220f8449b", 116140, Common::SE_SWE, 702),
 	WINGAME1t_l("xtown2", "", "ANGEL.EXE", "ea43a06fe305ceaa2ca2ba16feaee320", 2212330, Common::SE_SWE, 700),
@@ -8193,6 +8215,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// David Setiabudi, S.Sn, AmRO., Tarumanagara University, Jakarta (2004)
 	WINGAME1t_l("monsterjahat", "v0.50", "MonsterJahat.exe", "d888e922cf0d60d7ce5ec32f366ac816", 4945936, Common::ID_IDN, 850),
 
+	// BrainStorm (Left Brain Games) for McGraw Hill, New York (2005)
+	SHKGAME1("mtcspinner", "",	  "Spinner.dcr",	"5ef6768b61befb275935fdc80a3f350e", 153447, 851),
+	SHKGAME1("mtctumbledrum", "", "TumbleDrum.dcr", "2b2435531ecc1cc187c54ee9b3a2943c", 253146, 851),
+
 	// Designed by Involve Learning and distributed by VQ International, Stockholm (2001)
 	// German Mac filename is Nikki — Das erste Abenteuer
 	// Nikki: Das Erste Abenteuer localized by dtp entertainment, Hamburg (2002)
@@ -8237,6 +8263,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("parker", "2006.03.01",	 "Parker.exe",			 "a0953ca2f66724fa94f580a8fb747eeb", 1552384, 851), // v1.02.2623
 	WINGAME1t("parker", "2006.07.25",	 "Parker.exe",			 "a0953ca2f66724fa94f580a8fb747eeb", 1556480, 851), // v1.02.2623
 	WINGAME1t("parker", "2007.06.13",	 "Parker.exe",			 "a0953ca2f66724fa94f580a8fb747eeb", 1650688, 851), // v1.02.2623
+
+	// Mac demos are D9
+	// https://leftbraingames.com/ToolChest/PawsDemo.zip
+	WINDEMO1t("pawstyping", "Demo", "Paws Demo.exe", "c323bcb0d758f24f67da2007c8be3445", 1936642, 851),
 
 	SHKGAME1("pbescape", "", "pbescape.dcr", "46cc089d9e607a1095c6af9190a48d48", 1973232, 851),
 
@@ -8628,6 +8658,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("parker", "MumboJumbo", "Parker.exe", "1e81cc7aa0daf66953f016d6350de3de", 2184544, 900),
 	WINGAME1t("parker", "GameHouse",  "Parker.exe", "695522bc6e3414c90bc1562aa5ed9345", 2189151, 900),
 
+	// Published by McGraw Hill SRA (2003); updated from earlier version by Thompson Publishing
+	MACDEMO1("pawstyping", "OS X Demo",		  "Paws OSX Demo",	   "332aaddc1bc68a89277ef016466a7140", 1342052, 900),
+	MACDEMO1("pawstyping", "Classic OS Demo", "Paws Classic Demo", "245503afab76352e83fcfc6e79de6f77", 1292857, 900),
+
 	WINGAME1t_l("pettson2", "", "Gubben2.exe", "b50358ea0422c4b903ed261fa995b71f", 2187128, Common::NB_NOR, 900),
 	MACGAME1t_l("pettson2", "MacOS", "Gubben2", "1768526c25ae041638f02312852dbe2b", 215165, Common::NB_NOR, 900),
 	MACGAME1t_l("pettson2", "MacOSX", "Gubben2 (OS X)", "1768526c25ae041638f02312852dbe2b", 287790, Common::NB_NOR, 900),
@@ -8710,6 +8744,21 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// See notes in D6 entry
 	MACGAME1("checkersvillage", "OS X", "village.osx", "f991fbe24bc002a215fda2c58fbb572f", 5880680, 1010),
 
+	// https://www.leftbraingames.com/Games/ChefBoy.exe.zip
+	// Left Brain Games for ConAgra Grocery Products, Omaha, Nebraska (2005)
+	WINGAME1t("chefboyjumper", "", "ChefBoy.exe", "59073f381f357f142cd70506ac14a71f", 1785664, 1010),
+
+	// http://leftbraingames.com/setonhall
+	// Earlier development title was Setonian 3D
+	// Left Brain Games for Seton Hall University, South Orange, New Jersey (2007)
+	WINGAME1t("destinationshu", "r4",  "setonian3d_04.exe",	 "2781c06d93270cd6516083e49fff6c42", 39948105, 1010),
+	WINGAME1t("destinationshu", "r20", "DestinationSHU.exe", "3c49196e13e73c273cd7ddc9a871fa5a", 23282858, 1010),
+	WINGAME1t("destinationshu", "r21", "DestinationSHU.exe", "d4dc33ebc339c650d1e4d8956b466016", 14323064, 1010),
+	SHKGAME1("destinationshu",	"r2",  "setonian3d_02.dcr",	 "aaceb551233bdeeea3536efb84d9248c", 6396108, 1011),
+	SHKGAME1("destinationshu",	"r4",  "setonian3d_04.dcr",	 "985d3b3e5b15f0d9e0701ee95edf608b", 12832920, 1011),
+	SHKGAME1("destinationshu",	"r20", "DestinationSHU.dcr", "97059e08b26a19ad3e94a235af730a9a", 9508328, 1011),
+	SHKGAME1("destinationshu",	"r21", "DestinationSHU.dcr", "d329e43d73212f57b8fa61d7c12818b2", 10024117, 1011),
+
 	MACGAME1("fightbacus", "OS X",		 "Fight Bac Board Game.osx",	 "f1f24f7c020bf6bd82df94da3a0892dd", 261752, 1000),
 	MACGAME1("fightbacus", "Classic OS", "Fight Bac Board Game.classic", "0e051ed1954343a2adf9c424e32175d7", 211909, 1000),
 	SHKGAME1("fightbacus", "", "fightbac.dcr", "caa521b92983dbce27380addec3b0393", 507315, 1000),
@@ -8773,11 +8822,19 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("girlsaloudbox", "CD18 Can't Speak French",				"START.EXE",		   "827e5af88f4c096652a1523dc28c9bf4", 8080898,
 																		"french.mov",		   "b64f3b5aaa44dcd3037f01d4f687e072", 53929555, 1000),
 
+	// http://leftbraingames.com/Games
+	SHKGAME1("gobstopper", "",		"GOBSTOPPER_Gobbler.dcr",	"b2f1b6d8cb762ea36a683e7185a0dba0", 335444, 1000),
+	SHKGAME1("gobstopper", "ver.D", "GOBSTOPPER_Gobbler_D.dcr", "9b98e4effe4629b5a29e1eca7fde9e0a", 335146, 1000),
+
 	// DMIS software developed at Ubisoft Infobiz, Paris (2007)
 	// Found with GRAW2 demo on Computer (Czechia) DVD 15-16/2007
 	// Loads installer, readme, manual, registration, website
 	WINGAME2t("graw2", "Autorun", "Autorun.exe", "406506d3a7ac554ea28e46ddd52766ca", 4269032,
 								  "Main.dxr",	 "0e1b1be24d52a0c157fdff2772cb2563", 291304, 1010),
+
+	// Left Brain Games for the Wonka Company (2005)
+	SHKGAME1("gtblaster", "",	 "GTBlaster.dcr",	 "31ca22429f23e563e639d311737e7f69", 1214024, 1010),
+	SHKGAME1("gtblaster", "r13", "GTBlaster_13.dcr", "45bb1d5f8b11f1ffad7a51f58785abc5", 1164580, 1010),
 
 	// Big Fish Games (2006); found on MCF: Huntsville retail CD
 	// https://archive.org/details/HiddenExpeditionTitanicSetup_exe
@@ -8787,10 +8844,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Reflexive Arcade renamed projectors use RWG file extensions
 	WINGAME1t("hidexp2", "v1.03", "Hidden Expedition Everest.RWG", "11ac4d8fbb782df988007d92ca8d9b61", 11368506, 1011),
 
+	// http://leftbraingames.com/Hypraxis
 	// Left Brain Games, Torrington, Connecticut (2004)
-	// https://www.leftbraingames.com/Hypraxis/Hypraxis.zip
-	WINGAME1t("hypraxis", "v2", "Hypraxis.exe", "700df3c3b8bcd7f39756fbe41f15343a", 3883868, 1000),
-	SHKGAME1("hypraxis", "v2", "Hypraxis.dcr", "66e2665150c7ea363d381e56e55c8bc1", 1978484, 1000),
+	MACGAME1("hypraxis", "OS X",	   "Hypraxis.osx",	   "63a20c158e75b26a4cfdbede7e6b4994", 303850, 1000),
+	MACGAME1("hypraxis", "Classic OS", "Hypraxis.classic", "345b66799834666add0f51a3c5809149", 254019, 1000),
+	WINGAME1t("hypraxis", "v2.1",	   "Hypraxis.exe",	   "700df3c3b8bcd7f39756fbe41f15343a", 3883868, 1000),
+	SHKGAME1("hypraxis", "v2.15",	   "Hypraxis.dcr",	   "66e2665150c7ea363d381e56e55c8bc1", 1978484, 1000),
+	SHKGAME1("hypraxis", "v2.16",	   "Hypraxis.dcr",	   "be0dc629e2e41774c677e8713b236472", 1978009, 1000),
+	SHKGAME1("hypraxis", "v2.17",	   "Hypraxis.dcr",	   "dad6a331dbd0f3ef02781fb21b76266e", 1980718, 1000),
+	SHKGAME1("hypraxis", "v2.19",	   "Hypraxis.dcr",	   "88610a7d78bcdc1184ab75aadb4b1842", 1981392, 1000),
 
 	// Plays in Norwegian and Swedish
 	// Published by Pinjata, Oslo (2004)
@@ -8906,6 +8968,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1_l("tokimemotypegs", "Demo", "tkmkgstype.exe", "1d1646000633ab994404ac38fb350553", 2716404, Common::JA_JPN, 1000),
 
+	// http://leftbraingames.com/Games
+	SHKGAME1("wonkagumball", "Updated", "Gumball_Grabber.dcr", "789e46457f96158cb8be213fa19dad8c", 579212, 1010),
+
 //////////////////////////////////////////////////
 //
 // Adobe Director v11
@@ -8996,6 +9061,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 							   "Init.dxr",					   "12345", 12345, 1100),
 	WINGAME2("sinkha2", "XP",  "START_(Win_XP_sp2-Vista).exe", "3d6ccc7532d94fa518988e9685e45ba9", 4355622,
 							   "Init.dxr",					   "75878b7f2ded1c7b0cd2c8647a7e1b03", 851715, 1100),
+
+	// Developed by Left Brain Games for IAC Consumer Applications & Portals (2008)
+	SHKGAME1("zqtpounce", "r28", "zw_Pinball_MENU_028.dcr", "d6d31dba58d32b0701b1059263464bd9", 1548989, 1103),
 
 //////////////////////////////////////////////////
 //
