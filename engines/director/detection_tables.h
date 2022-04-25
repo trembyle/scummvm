@@ -470,6 +470,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tkkg13",				"A Case for TKKG 13: Cell 13" },
 	{ "tkkg14",				"A Case for TKKG 14: Dangerous Holiday" },
 	{ "tommy",				"Pete Townshend Presents Tommy: The Interactive Adventure" },
+	{ "toontwister",		"Nickelodeon Toon Twister 3-D" },
 	{ "topsyturvy",			"Topsy Turvy" },
 	{ "totaldistortion",	"Total Distortion" },
 	{ "traitorsgate",		"Traitors Gate" },
@@ -869,6 +870,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "beestenboel",		"Beestenboel Zoölogic" },
 	{ "boeboekshaboe",		"Boeboeks: Hop hop haboe!" },
 	{ "boeboekstocht",		"Boeboeks: de toch naar opa Kakadoris" },
+	{ "cdromtoppers",		"CD-romtoppers" },
 	{ "fcdk",				"F.C. De Kampioenen: Op Zoek Naar Neroke" },
 	{ "griezelbus1",		"De Griezelbus 1" },
 	{ "kjoeties",			"Invasie van de Kjoeties" },
@@ -8564,6 +8566,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("tokimemotype1", "", "Tokimemo Typing", "80b8d1697b18f6f2d8a2813a594cead2", 255114, Common::JA_JPN, 851),
 	WINGAME1_l("tokimemotype1", "", "tkmktype.exe",	"d5069f2a24854aa78f8fbd01462ba37c", 2160344, Common::JA_JPN, 851),
 
+	// OS X and Windows projectors are D9
+	MACGAME1("toontwister", "Classic OS",	"Toon Twister 3-D",	"6bc24be307aa5d5cb836ec700d677542", 239186, 851),
+	MACGAME1_l("toontwister", "Classic OS", "3D Cartoon Studio.app/Contents/ClassicMacOS/3D Cartoon Studio",
+											"245503afab76352e83fcfc6e79de6f77", 1314958, Common::NL_NLD, 851),
+
 	WINGAME1("tweeniesrtp", "", "BBC Tweenies Tour.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 5435024, 800),
 
 	WINGAME1_l("unlimitedcl", "", "CD-ROMs Educativos.exe", "0c81c84ca4966313ad27d47daba44537", 2366839, Common::ES_ESP, 851),
@@ -8754,6 +8761,17 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("tkkg14", "", "TKKG14", "d483e955df901222145267d2ad729ea2", 298739, 909),
 	WINGAME1t("tkkg14", "", "TKKG14.exe", "cf8679b4408b4a079e498cc42961ab43", 107813, 900),
 
+	// Developed by WayForward Technologies, Valencia, California (2004)
+	// Nickelodeon 3D Cartoon Studio published in Dutch by Transposia, Ghent, Flanders (2004)
+	// Re-released in CD-ROM Toppers series from Uitgeverij Van In / Malmberg (2005)
+	// Projectors are used to set the 3D rendering engine (Hardware, Software, DirectX)
+	MACGAME1("toontwister", "OS X",	  "Toon Twister 3-D",  "c2f3b388158fb788b74a01c2e337d77e", 234564, 900),
+	WINGAME1t("toontwister", "",	  "ToonTwister.exe",   "8a89ec5a1e6cc35d3f93d483e3e13e95", 2182628, 900),
+	WINGAME1t("toontwister", "",	  "ToonTwister.exe",   "39919c2723505bcceaa81abed43484ec", 2182642, 900),
+	MACGAME1_l("toontwister", "OS X", "3D Cartoon Studio.app/Contents/MacOS/3D Cartoon Studio X",
+														   "332aaddc1bc68a89277ef016466a7140", 1364148, Common::NL_NLD, 900),
+	WINGAME1t_l("toontwister", "",	  "CartoonStudio.exe", "39919c2723505bcceaa81abed43484ec", 2182642, Common::NL_NLD, 900),
+
 	// Enter registration code to activate Power Player enhancements
 	// Released on Kewlbox.com; developed by Blockdot, Dallas (2003)
 	WINGAME1t("topsyturvy", "v1.20", "topsy.exe", "ae40f75308db70b0054d25eae7680c9a", 2302436, 900),
@@ -8782,6 +8800,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Biblical Archaeology Society, Washington, DC (2006)
 	MACGAME1("basphotoesn", "", "Egypt_Sinai_Negev", "a171b7a952d1ac68ae3cd419d6dfc674", 261782, 1010),
 	WINGAME1t("basphotoesn", "", "Egypt_Sinai_Negev.exe", "6dc8f43e5436f7bfd892ba33035965aa", 3571410, 1010),
+
+	// Logo for the CD-romtoppers series from Uitgeverij Van In, Wommelgem, Flanders (2005)
+	// Plays before Toon Twisters when using autorun on Windows & Mac OS X (or alias on Classic OS)
+	MACGAME1_l("cdromtoppers", "OS X",		 "CD-ROM TOPPERS",	 "997f924008ac0b053f5651bafed06f5e", 280717, Common::NL_NLD, 1010),
+	MACGAME1_l("cdromtoppers", "Classic OS", "CD-ROM TOPPERS",	 "b7181d7af306a3d336e5cc70cc77c641", 331634, Common::NL_NLD, 1010),
+	WINGAME1t_l("cdromtoppers", "",			 "StartCartoon.exe", "745af5c3c16acdbfa24cd2311649d5d9", 4409643, Common::NL_NLD, 1010),
 
 	// See notes in D6 entry
 	MACGAME1("checkersvillage", "OS X", "village.osx", "f991fbe24bc002a215fda2c58fbb572f", 5880680, 1010),
