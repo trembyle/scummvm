@@ -682,6 +682,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "expbooktoolkit2",	"Expanded Book Toolkit II" },
 	{ "secretwriters",		"Secret Writer's Society" },
 
+	// Corporate and government training programs
+	{ "paulsonebm",			"Extrusion Blow Molding Technology" },
+	{ "paulsonext",			"Sheet Extrusion Technology" },
+	{ "paulsonoce",			"Operación y Control del Extrusor - Tornillo Unico" },
+
 	// Shareware and freeware
 	{ "101pet",				"Dalmation Adoption" },
 	{ "50ftchicken",		"Attack of the 50-foot Chicken" },
@@ -8854,6 +8859,22 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Developed by ArtPlant and published by PAN Vision Norge, Trollåsen, Akershus (2005)
 	WINGAME2t_l("olsenviking", "", "Game.exe",		 "6f6b823ca373f102145be0881a4aba78", 8822573,
 								   "GUILibrary.cst", "ccaf64ecfad612cfc3c5a752844bafe2", 472291, Common::NB_NOR, 1010),
+
+	// Paulson Training Programs, Chester, Connecticut (2008)
+	// Spanish language program is titled Extrusión de láminas
+	// Chinese language program is titled 实用注压成型
+	SHKGAME1_l("paulsonebm", "第1课",	  "lessonbase.dcr", "8d6bc33d8230f445a428fe8f9c52862c", 1223595, Common::ZH_CHN, 1011),
+	SHKGAME1_l("paulsonebm", "第2课",	  "lessonbase.dcr", "f4b2bf8d2a26d37e92c9625d9a0f3551", 1188757, Common::ZH_CHN, 1011),
+	SHKGAME1_l("paulsonebm", "第3课",	  "lessonbase.dcr", "669fb2b0fb70d663d0b1c0f17a61cd17", 992413, Common::ZH_CHN, 1011),
+	SHKGAME1_l("paulsonebm", "第4课",	  "lessonbase.dcr", "b9f2effd1d035d87646cea05781ea3f3", 1186496, Common::ZH_CHN, 1011),
+	SHKGAME1_l("paulsonext", "Lección 0", "lessonbase.dcr", "b010c43ba9bda75ff9deed9c066b396d", 1170789, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 1", "lessonbase.dcr", "8ab196570d4a938caf2d1a090ff52014", 1294529, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 2", "lessonbase.dcr", "43fb4a78324f2cf412ea3710797d591b", 1330960, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 3", "lessonbase.dcr", "2332e52476ec2245f12248e2c469dbcd", 1347109, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 4", "lessonbase.dcr", "9ea06721fb376a334b9207a8c7cc0c8d", 1341512, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 5", "lessonbase.dcr", "118c46e549b7f3cc224d4f02b9b8778b", 1352817, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 6", "lessonbase.dcr", "c0026b9ee19296f81cb48b6a855b237f", 1372851, Common::ES_ESP, 1010),
+	SHKGAME1_l("paulsonext", "Lección 7", "lessonbase.dcr", "dcee586c6392bae6a60c823fa9271ed6", 1245197, Common::ES_ESP, 1010),
 
 	// Requires installation
 	// Pingu 2: Pret op de zuidpool
