@@ -530,8 +530,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "cdphysics",			"CD Physics for Windows" },
 	{ "cezanne",			"A is for ART, C is for Cezanne" },
 	{ "cezannetour",		"Paul Cézanne Art Tours" },
-	{ "chuniverse",			"The Challenge of the Universe" },
-	{ "cinevolt",			"Cinema Volta: Weird Science & Childhood Memory" },
+	{ "chuniverse",   		"The Challenge of the Universe" },
+	{ "cigars",   			"The Cigar Companion Interactive" },
+	{ "cinevolt",   		"Cinema Volta: Weird Science & Childhood Memory" },
 	{ "clesson",   			"C/C++ Interactive Reference Guide" },
 	{ "cocktailhour",		"Cocktail Hour: A Guide to Bartending" },
 	{ "comusic",			"Computer Music: An Interactive Documentary" },
@@ -559,14 +560,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ghetto",				"Stories from the Warsaw Ghetto" },
 	{ "golfcd",				"The Great Golf CD: Links, Legends & Lore" },
 	{ "gp2006",				"Grand Prix 2006 & Auto Directory" },
-	{ "guns",				"Multimedia Guns" },
-	{ "haight",				"Haight-Ashbury in the Sixties" },
+	{ "haight",			    "Haight-Ashbury in the Sixties" },
 	{ "heuther",			"Understanding Pathophysiology, 3rd Edition" },
 	{ "hikaruhana",			"Shining Flower: Hikaruhana" },					// 光る花
 	{ "hirezaudio",			"Hi Rez Audio" },
 	{ "home123",			"Home Improvement 1-2-3" },
 	{ "hunchback",			"The Secret of the Hunchback" },
 	{ "ibmcdextra",			"Sony Music CD Extra Sampler" },
+	{ "inroadstests",		"Inroads Interactive Tests" },
 	{ "iptr",				"I Photograph to Remember" },
 	{ "isscommerce",		"International Space Station: Space Commercialization" },
 	{ "isswim98",			"Inside Sports 1998 Swimsuit Issue" },
@@ -587,6 +588,10 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "lowes",				"Lowe's Home Plans" },
 	{ "makers",				"Makers of the 20th Century" },
 	{ "mediabook",			"The MediaBook CD for Director" },
+	{ "mmcats",				"Multimedia Cats" },
+	{ "mmdogs",				"Multimedia Dogs" },
+	{ "mmguns",				"Multimedia Guns" },
+	{ "mmpets",				"Multimedia Exotic Pets" },
 	{ "moag",				"The Museum of Anything Goes" },
 	{ "ms500nations",		"Microsoft 500 Nations" },
 	{ "msa2001",			"Middle School Advantage 2001" },
@@ -1490,12 +1495,13 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "gusbuds",			"Gus and the CyberBuds Learning Adventure Series" },
 	{ "headbone",			"Headbone CD-ROM Sampler" },
 	{ "hoffman",			"H+a Collection" },
-	{ "ilearn",				"iLearn" },
-	{ "imagineers",			"The Imagineers" },
-	{ "imaginopolis",		"Microsoft Imaginopolis" },
-	{ "incoming",			"iNCOMING" },
-	{ "iona",				"Iona Software Demo CD" },
-	{ "ipc",				"About InterActive Publishing" },
+	{ "ilearn",     	    "iLearn" },
+	{ "imagineers",     	"The Imagineers" },
+	{ "imaginopolis",   	"Microsoft Imaginopolis" },
+	{ "incoming",     		"iNCOMING" },
+	{ "inroads",     		"Inroads Interactive E-catalog" },
+	{ "iona",   			"Iona Software Demo CD" },
+	{ "ipc",   				"About InterActive Publishing" },
 	{ "jsa",				"JumpStart Advanced: How Does Your Child Learn Best?" },
 	{ "jslearn",			"JumpStart Learning System" },
 	{ "kidtools",			"Kid Tools Series Demo" },
@@ -1530,7 +1536,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bobteam",			"Bob the Builder: Teamwork" },
 	{ "bookshelf94",		"Microsoft Bookshelf 1994" },
 	{ "c64pack",			"Activision's Commodore 64 15-Pack for Windows" },
-	{ "cfdemo",				"The ClueFinders Demo" },
+	{ "cfdemo",   			"The ClueFinders Demo" },
+	{ "cigarbook",   		"Cigar Label Book Offer" },
 	{ "cinemania94",		"Microsoft Cinemania 94" },
 	{ "cinemania95",		"Microsoft Cinemania 95" },
 	{ "cinemania96",		"Microsoft Cinemania 96" },
@@ -3748,11 +3755,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// by Darren Gunton, Cyber@ctive, Tasmania (1995)
 	MACGAME1("gumfighter", "", "Gum Fighter", "c5bde2bb848d3e25b4d9e2f4e07606cd", 291960, 403),
 
-	// Full game is D5
-	MACDEMO1("gundam0079", "Demo", "Gundam Demo", "01be45e7241194dad07938e7059b88e3", 483376, 400),
-
-	MACGAME1("guns", "", "Multimedia Guns", "01be45e7241194dad07938e7059b88e3", 486927, 404),
-	WINGAME1("guns", "", "GUNS.EXE", "43342caa10c6dc46f983787da1b625b7", 1636235, 404),
+	MACDEMO1("gundam0079", "Demo", "Gundam Demo", "01be45e7241194dad07938e7059b88e3", 483376, 400), // full game is D5
 
 	MACGAME1("gusbuds", "",		"MMV Product Demos for PowerMac", "692f6732b6d7deaa00c9b3df57bb30ce", 60324, 404),
 	MACDEMO1("guscarn", "Demo", "Carnival Demo 4 you",			  "67f572196550aedb1f9523d782022be0", 481482, 404),
@@ -3938,6 +3941,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Non-interactive preview of Bad Day and Smart Patrol from The Dark Eye v1.0.3 CD
 	MACGAME1("incoming", "Preview", "iNCOMING", "01be45e7241194dad07938e7059b88e3", 483467, 404),
 	WINGAME1t("incoming", "Preview", "INCOMING.EXE", "66bfffe0023556b08bd71a42dc7ce9c7", 743518, 404),
+
+	// Original filename is チュートリアル
+	MACDEMO1_l("inposition", "Tutorial", "Tutorial", "77f4098988d5386794d1530065f514cd", 305533, Common::JA_JPN, 400),
+
+	// Tests several D4 capabilities on your computer
+	MACGAME1("inroadstests",  "CatDisc", "Extras/Tests",	"01be45e7241194dad07938e7059b88e3", 481189, 403),
+	MACGAME1("inroadstests",  "v2.0",	 "Extras/Tests",	"01be45e7241194dad07938e7059b88e3", 481198, 403),
+	WINGAME1t("inroadstests", "v1.36",	 "TESTS.EXE",		"f1fcfe4bed4af83fb928d58cb2cf48ed", 1195255, 404),
+	WINGAME1t("inroadstests", "Test 2",	 "TESTS/TEST2.EXE", "98c490faea64fc019f2992caf489a0dc", 690627, 404),
 
 	MACGAME1("insidemacgames", "Volume 1", "IMG CD-ROM", "2e2becf3549673a8107c0d2028a08fc1", 353787, 400),
 
@@ -4284,8 +4296,32 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("mirage", "Making Of", "MAKINGOF.EXE", "2458926212e5589c013b7e7c28b9bee0", 698407, 400),
 	WINDEMO1t("mirage", "Demo", "MIRAGE.EXE", "83f5b8b60d480ac0d39a8356d9457c81", 1810139, 404),
 
+	// Inroads Interactive, Boulder, CO (1995); alternate projector does not hide the desktop
+	// De wereld van Katten localized by Het Spectrum Electronic Publishing, Utrecht (1997)
+	MACGAME1("mmcats", "v1.0",	"Multimedia Cats",			"01be45e7241194dad07938e7059b88e3", 486675, 403),
+	MACGAME1_l("mmcats", "",	"De wereld van ... KATTEN", "0c7bbb4b24823e5ab871cb4c1d6f3710", 486698, Common::NL_NLD, 404),
+	MACDEMO1("mmcats", "Demo",	"Multimedia Cats DEMO",		"0c7bbb4b24823e5ab871cb4c1d6f3710", 486679, 403),
+	WINGAME1t("mmcats", "v1.0",	"MMCATS.EXE", "e35ff60d5343810000809eec1ed227c8", 4015187, 404),
+	WINGAME1t_l("mmcats", "",	"KATTEN.EXE", "b7a83721b2b8ac5e72c93a2da70f5d40", 1990529, Common::NL_NLD, 404),
+	WINDEMO1t("mmcats", "Demo",	"CATS.EXE",   "3f86f4cf5ff5824b7026708ea4c0c45d", 4783711, 404),
+
+	// Inroads Interactive, Boulder, CO (1995)
+	// Cats/Dogs/Pets Demos found on Your Computer Petz disc from PF Magic, San Francisco (1996)
+	MACGAME1("mmdogs",	"v2.0", "Multimedia Dogs 2.0",	"01be45e7241194dad07938e7059b88e3", 485773, 403),
+	MACDEMO1("mmdogs",	"Demo", "Multimedia Dogs DEMO", "0c7bbb4b24823e5ab871cb4c1d6f3710", 485771, 403),
+	WINGAME1t("mmdogs", "v2.0", "MMDOGS2.EXE", "4baa7420ee75885d52f669c20b00d6a2", 2014325, 404),
+	WINDEMO1t("mmdogs", "Demo", "DOGS.EXE",	   "4baa7420ee75885d52f669c20b00d6a2", 1597413, 404),
+
+	MACGAME1("mmguns", "", "Multimedia Guns", "01be45e7241194dad07938e7059b88e3", 486927, 404),
+	WINGAME1("mmguns", "", "GUNS.EXE", "43342caa10c6dc46f983787da1b625b7", 1636235, 404),
+
 	MACGAME1("mmiqtest", "", "Multimedia IQ Test", "7fd44b6dffa0ea0402eaed4c3769b39b", 285566, 404),
 	WINGAME1("mmiqtest", "", "IQTEST.EXE", "2a788332a4d3af3e5c5f9fe230e6c89f", 740528, 404),
+
+	MACDEMO1("mmpets",	"Demo",		 "Multimedia Exotic Pets DEMO", "01be45e7241194dad07938e7059b88e3", 485778, 403),
+	MACDEMO1("mmpets",	"v1.0 Demo", "Multimedia Exotic Pets DEMO", "0c7bbb4b24823e5ab871cb4c1d6f3710", 485778, 403),
+	WINDEMO1t("mmpets", "v1.0 Demo", "PETS.EXE",	 "a6b1b42363d38f10b18440917abeddd6", 1657603, 404),
+	WINDEMO1t("mmpets", "Demo",		 "MMPETS1D.EXE", "a6b1b42363d38f10b18440917abeddd6", 1650165, 404),
 
 	MACGAME1("moag", "", "MacMoag", "46697df7ffee90bf7cd4c0cec4c54c28", 494808, 404),
 	WINGAME1("moag", "", "WINMOAG.EXE", "3483a0e7c65996c4edce7f8c0c3c43e3", 726173, 404),
@@ -5393,6 +5429,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("christmassmallhouse", "", "Small Xmas",    "552992fb31c736ca67ffd403096596d6", 719617, Common::JA_JPN, 500),
 	WINGAME1t_l("christmassmallhouse", "", "XMAS.EXE",    "f3e3c481eb26507c6ce59a487c005e8c", 1411646, Common::JA_JPN, 501),
 
+	// Advertisement from Cigar Companion
+	MACGAME1("cigarbook", "", "Cigar Label Book Offer", "cb91232ecece0045461d236d5914c03d", 719005, 501),
+	WINGAME1t("cigarbook", "", "ARTBOOK.EXE", "6b8e561df113a02a6389e0feba547eb4", 1009903, 501),
+
+	// Inroads Interative, Boulder, Colorado (1997)
+	MACGAME1("cigars", "", "The Cigar Companion Power Mac", "0a237da65bfee939e3cc39b9417f179a", 107863, 501),
+	WINGAME1t("cigars", "", "CIGARS95.EXE", "d398c0464c8580f0cc2cf63e1667246c", 1428449, 501),
+
 	// Series includes Schubert, Tchaikovsky, Mozart, Vivaldi and probably more
 	WINGAME1_l("clasplusbee2", "", "BEE2_95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1694421, Common::ES_ESP, 501),
 
@@ -5677,6 +5721,16 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1("ingenious", "",   "INGW95.EXE",  "3460ad87d2ba57104e2810a77b53c220", 1398293, 500),
 	MACGAME1("ingenioused", "", "EdRes",       "f5d1590da086b496507871f12382e973", 754807, 501),
 	WINGAME1("ingenioused", "", "EDRES95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1417113, 501),
+
+	// Found on The Cigar Companion Interactive v2.0
+	// Original Mac filename is Inroads E•Catalog
+	MACGAME1("inroads", "", "xn--Inroads ECatalog-un6i", "2d2ac01320f4c2dce8e156cda5c73fe8", 716741, 501),
+	WINGAME1t("inroads", "", "ECATALOG.EXE", "dab4c7bdf0350288ecdbc57a8f033704", 1899375, 501),
+
+	// Tests several D5 capabilities on your computer
+	MACGAME1("inroadstests", "", 				"Extras/Tests",		  "2d2ac01320f4c2dce8e156cda5c73fe8", 716741, 501),
+	WINGAME1t("inroadstests", "Win 3.1 Test 1", "TESTS/TEST1_31.EXE", "1ddf0d642bb3620772671af1e79a3dd2", 1431617, 501),
+	WINGAME1t("inroadstests", "Win 95 Test 1",	"TESTS/TEST1_95.EXE", "8ef72f33aabaa0bb1fa3d62021d0335f", 1909779, 501),
 
 	// Later releases are titled "I Spy School Days"
 	// Bilingual Spanish/English release by Star E-Media of Orange County, California
