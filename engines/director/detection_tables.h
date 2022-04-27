@@ -761,6 +761,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "mathtest",			"Math Test" },
 	{ "meritcruise",		"A Cruise of the Internet" },
 	{ "missileattack",		"Missile Attack" },
+	{ "mgmroar",			"MGM Lion Roar" },
 	{ "namegame",			"Name that Game" },
 	{ "njdevils2001",		"2001 New Jersey Devils Interactive CD ROM" },
 	{ "nomis",				"Nomis" },
@@ -781,7 +782,18 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "reesespuzzle",		"ReeseSticks Jigsaw Puzzle" },
 	{ "roncherry",			"Ron & Cherry: Days Out" },
 	{ "saspurs2001",     	"San Antonio Spurs 2001 Broadcast Screensaver" }, // Not a screensaver
-	{ "saspurs2005",     	"San Antonio Spurs Internet Hot-links" }, // Not a screensaver
+	{ "saspurs2005",     	"San Antonio Spurs Internet Hot-links" },
+	{ "sb3dpinball",		"SpongeBob SquarePants 3D Pinball Panic!" },
+	{ "sbanchovy",			"Anchovy Feeding Frenzy!" },
+	{ "sbboating",			"Mrs Puff's Boating School" },
+	{ "sbbubbleball",		"SpongeBob SquarePants Bubble Ball" },
+	{ "sbbubblegram",		"SpongeBob\'s Bubblegram Game" },
+	{ "sbcrater",			"SpongeBob SquarePants Crater Crossing" },
+	{ "sbflip",				"SpongeBob SquarePants Flip or Flop" },
+	{ "sbheads",			"SpongeBob Talking Heads" },
+	{ "sbjellyfishin",		"SpongeBob SquarePants in Jellyfishin\'" },
+	{ "sbrun4krab",			"SpongeBob in Run for the Krusty Krab" },
+	{ "sbslider",			"SpongeBob SquarePants Slider" },
 	{ "scanmon",			"ScanMon" },
 	{ "seinfeldondvd",		"Seinfeld on DVD" },
 	{ "sensei",				"Sensei" },
@@ -6152,6 +6164,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO1t_l("rolypolys2", "Demo", "DEMO32.EXE",	 "a08e306c9beca27115c25f934f89dbda", 1411230, Common::JA_JPN, 501),
 	MACDEMO1_l("rolypolys2", "Banabana 1-go Demo", "xn--1-jguha2ab3kr732a", "1da813df08575abf9f94ec1151852005", 719664, Common::JA_JPN, 501),
 
+	// Leo the Lion roars when you click on him
+	// Produced by Alan Felgate for 3Bits Communications and Macromedia (1997)
+	SHKGAME1("mgmroar", "", "roar.dcr", "34b7ba069aca0a393e4b8ab15ca5c2fb", 141306, 500),
+
 	// Original Mac filename is ロンロン
 	// Original Win filename is ロンロン.EXE
 	MACGAME1_l("ronron", "", "xn--hekarb", "e158dde6f7c52692400f4f58f84405b5", 103908, Common::JA_JPN, 501),
@@ -7171,6 +7187,23 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t("secretwriters", "", "WRITING.EXE", "48c8c31df289713b629af6a4c4e519fb", 1508719, 600),
 
 
+	// Developed by Unbound Studios, Los Angeles (1999-2000)
+	SHKGAME1("sbboating", "",	 "boating.dcr",	   "b0e0849cfe9f31bb57cdf087ecb2fe72", 451593, 600),
+	SHKGAME1("sbbubblegram", "", "bubblegram.dcr", "d6cafb506568388d58739378c6c96778", 362283, 600),
+
+	// Surge Graphix, New York (1999)
+	SHKGAME1("sbbubbleball", "", "bubbleball.dcr", "ac90047fbc2102193e54110e9f2e599d", 98274, 600),
+
+	// Developed by Nickelodeon, New York (1999)
+	SHKGAME1("sbheads", "", "sbtalkingheads.dcr", "17deb3d435689243e8ff8ae89363270e", 191376, 600),
+
+	// Developed by Smashing Ideas, Seattle (1999)
+	SHKGAME1("sbjellyfishin", "", "SBjellyfishing.dcr", "4ae8c3fccbfb1ef2a28fd09c905a566b", 257060, 600),
+
+	// Credited to Joe Bloe, Inc (2000)
+	SHKGAME1("sbrun4krab", "", "runforthekrustykrab.dcr", "5a66a35d3beb8a11f75a9e591a2b88fc", 295731, 600),
+	SHKGAME1("sbslider", "",   "slider.dcr",			  "c02a8c38bfb2af0bec0be2d3778d2cda", 157999, 600),
+
 	MACGAME1("shrlucky", "", "Arcade", "dab7a517b0877454d1e16c40c9b5a9be", 1029193, 600),
 	WINGAME1("shrlucky", "", "COPYARC/ARCWIN95.EXE", "a593079aecf5bd938ce75264cac24b2d", 7304861, 600),
 
@@ -7708,6 +7741,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("relaxplayer", "ECD", "Relax",		   "0944b962ebb00f4b5d5149d220f8449b", 112738, 702),
 
 	WINGAME1t_l("ritterrost", "",  "start.exe", "9bc3d64be0fe3caa612f070b27c943b8", 2595758, Common::DE_DEU, 702),
+
+	// Developed by Unbound Studios, Los Angeles (2000)
+	SHKGAME1("sbanchovy", "", "anchovies.dcr", "a1dccf4de0f1d3707a03634776548327", 353485, 700),
 
 	// original filename is a single space
 	MACGAME1("sentence", "", "xn-- -", "0944b962ebb00f4b5d5149d220f8449b", 113458, 702),
@@ -8466,6 +8502,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Produced and developed by New Tier Inc., Scottsdale, Arizona
 	WINGAME1("saspurs2001", "", "Spurs.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 5924396, 800),
 	WINGAME1("saspurs2005", "", "Spurs.exe", "98e75b2c5561f9be40aa745f35f22244", 5508840, 800),
+
+	// Developed by The Groove Alliance, Los Angeles (2004)
+	// Uses 3D Groove SX as an Xtra within a Shockwave movie
+	SHKGAME1("sb3dpinball", "", "nicksbball0.dcr", "1a74b676af77e07f837443838a32494c", 1599710, 800),
+
+	// Developed by iToons / Brain Block Interactive, Chicago (2001)
+	SHKGAME1("sbcrater", "", "crater.dcr",	   "74f7ef5f43d1716db53182797727041c", 334488, 800),
+	SHKGAME1("sbflip", "",	 "fliporflop.dcr", "bc389f474965c2e560427e24fd3c940d", 423556, 800),
 
 	MACDEMO1("secretkeys", "Demo", "Secret Keys Demo", "a44511b8ff0e46b4f9c85dd1cb58d458", 155771, 851),
 	WINDEMO1("secretkeys", "Demo", "Secret Keys Demo.exe", "0c81c84ca4966313ad27d47daba44537", 2200706, 851),
