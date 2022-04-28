@@ -510,6 +510,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "ybr1",				"Yellow Brick Road" },
 
 	// Multimedia or reference products
+	{ "3ways2score",		"Post 3 Ways to Score" },
+	{ "4paws",				"4 Paws of Crab" },
 	{ "9worlds",			"Nine Worlds hosted by Patrick Stewart" },
 	{ "aamn",				"Anatomy & Anaesthesia of the Mandibular Nerve" },
 	{ "adamcmp",			"A.D.A.M. Comprehensive" },
@@ -541,6 +543,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bowie",				"JUMP: The David Bowie Interactive CD-ROM" },
 	{ "browser",			"Browser: Artopolis 97" },
 	{ "bugbook",			"The Multimedia Bug Book" },
+	{ "canadien",			"Montreal Canadiens 1909-1995" },
 	{ "canelect",			"Exploring Canada's Electoral System" },
 	{ "cdphysics",			"CD Physics for Windows" },
 	{ "cezanne",			"A is for ART, C is for Cezanne" },
@@ -3046,6 +3049,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINDEMO1("3datlas97", "Demo", "ATLAS97.EXE", "b5da314bdfd9344530a24093f2e0b566", 8300357, 404),
 
+	// Live Oak Multimedia, Emeryville, California (1994)
+	MACGAME1("4paws", "", "4 Paws of Crab", "98229e39001a22ec1cfeb8f124c28483", 307143, 400),
+
 	MACGAME1_l("4sight", "", "four-sight", "0c7bbb4b24823e5ab871cb4c1d6f3710", 508347, Common::JA_JPN, 404),
 	WINGAME1_l("4sight", "", "4_SIGHT.EXE", "26c279f80434c0a641d28cec198c783f", 740581, Common::JA_JPN, 404),
 
@@ -3054,6 +3060,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("9worlds", "", "Neun Welten", "3930940b5b4b2ae2563cc29b812855a6", 483774, Common::DE_DEU, 400),
 	WINGAME1_l("9worlds", "", "9WORLDS.EXE", "054e5af279a05ab64627ef664631fe37", 742002, Common::DE_DEU, 400),
 
+	// StarPress Multimedia, San Francisco (1994)
+	MACGAME1("abcpalsafety", "", "SAFETY SCAVENGER HUNT", "4577dd3eadc467a986ab172d90871b22", 325733, 400),
 	WINGAME1("abcpalsafety", "", "EWOLSFTY.EXE", "a998d49776a611940e872a97a5fe3d1d", 4586417, 400),
 
 	MACGAME1_l("abrapalabra", "", "ABRAPALABRA", "bcd3c718db258701496b3c5bcb827ef2", 483774, Common::ES_ESP, 404),
@@ -3300,6 +3308,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Full game is not Director
 	WINDEMO1("c64pack", "Demo", "C64DEMO.EXE", "0458e44d9ad4ae0d3a583ac4141d21ae", 1007517, 400),
+
+	// Bilingual English/French
+	// Created by Multi Media Interactif (MMI); published by Malofilm, Montreal (1995)
+	MACGAME1("canadien", "", "CANADIEN", "59e99f0757ad84869e1599c0b39772e5", 483518, 404),
+	WINGAME1t("canadien", "", "CANADIEN.EXE", "618d9d3d65238a344eb96f4658f61968", 693761, 404),
 
 	// Retail CD release from BeachWare, Inc.
 	// Windows version also has CASINO2.EXE (Casino! Basic) for low performance PCs
