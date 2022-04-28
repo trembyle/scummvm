@@ -691,6 +691,8 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "aolstarwars",		"Star Wars: Episode III: Game, Videos & More!" },
 	{ "arad",				"Animaniacs River Adventure" },
 	{ "ayahtzee",			"Amanda's Yahtzee" },
+	{ "bacattack",			"Bac Attack" },
+	{ "bacfss",				"Food Safety Situations" },
 	{ "belcher",			"The Belcher" },
 	{ "belloadv",			"Bello's Adventure in Looking for Honeyz" },
 	{ "bigsound",			"BigSound VW Player" },
@@ -712,6 +714,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "et20bike",			"Save E.T." },
 	{ "et20frogs",			"E.T. Free the Frogs" },
 	{ "et20rocket",			"E.T. Rocket Science Lab" },
+	{ "fightbacus",			"Fight Bac Board Game" },
 	{ "fortuneteller",		"The Fortune Teller" },
 	{ "gemjam",				"Gem Jam" },
 	{ "gobstopper",			"Gobstopper Gobbler" },
@@ -7950,6 +7953,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("fcdk", "", "Start.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 511933,
 						   "boma.dir", "484a5f57cde0ce4f035be6be933ede34", 10561442, Common::NL_NLD, 800),
 
+	// Later versions are D9 and D10
+	SHKGAME1("fightbacus", "v56", "BacBoard56.dcr", "e9ed7074ac4f8676133f5a008508cf82", 547432, 851),
+
 	// De drie werelden van Flipper & Lopaka published by Transposia of Ghent, Flanders
 	MACGAME2("flipper1", "",   "Flipper",	  "305030a32728843d9e953b8e0f53a149", 6129,
 							   "Splash.dxr",  "e2e9db4d52497b66d30b67257ac0b9f3", 3227343, 800),
@@ -8553,6 +8559,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2_l("eso", "", "START.EXE",	"c612aa43e7ef55aa4fd2e1085fb1ef7a", 3752491,
 						  "ESO_D1.DXR", "6d39a8ef9a8060e21616f23872c581b6", 2075636, Common::ES_ESP, 900),
 
+	// Developed by The BrainStorm Institute (Left Brain Games)
+	// Partnership for Food Safety Education, Washington, DC (2005)
+	WINGAME1t("fightbacus", "v55", "FightBacBoardGame.exe", "8271c8129957acec2d89ec57b244c4b8", 2856083, 900),
+	WINGAME1t("fightbacus", "v56", "FightBacBoardGame.exe", "8271c8129957acec2d89ec57b244c4b8", 2856392, 900),
+
 	// Pferd & Pony series created by dtp Interactive Entertainment, Hamburg
 	WINGAME1t_l("flocki", "", "flocki.exe", "8d2550cc068b064a884a9fb577f8f98a", 8628312, Common::DE_DEU, 900),
 
@@ -8683,12 +8694,20 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("babarcoins", "", "Start.exe",		"b198e9bf56c679747e4fd0972d5ba7b7", 2659300,
 							   "ba-01_A01.dxr", "cb38821091082aeb097e88551b791e05", 9946435, 1010),
 
+	// Left Brain Games for Partnership for Food Safety Education (2005)
+	SHKGAME1("bacattack", "", "bacattack.dcr", "2b46206377f0945d4b70cb5f198189a3", 279972, 1010),
+	SHKGAME1("bacfss", "",	  "fss.dcr",	   "10c61dfc76b60da6e2dc11eae476d97a", 592371, 1010),
+
 	// Biblical Archaeology Society, Washington, DC (2006)
 	MACGAME1("basphotoesn", "", "Egypt_Sinai_Negev", "a171b7a952d1ac68ae3cd419d6dfc674", 261782, 1010),
 	WINGAME1t("basphotoesn", "", "Egypt_Sinai_Negev.exe", "6dc8f43e5436f7bfd892ba33035965aa", 3571410, 1010),
 
 	// See notes in D6 entry
 	MACGAME1("checkersvillage", "OS X", "village.osx", "f991fbe24bc002a215fda2c58fbb572f", 5880680, 1010),
+
+	MACGAME1("fightbacus", "OS X",		 "Fight Bac Board Game.osx",	 "f1f24f7c020bf6bd82df94da3a0892dd", 261752, 1000),
+	MACGAME1("fightbacus", "Classic OS", "Fight Bac Board Game.classic", "0e051ed1954343a2adf9c424e32175d7", 211909, 1000),
+	SHKGAME1("fightbacus", "", "fightbac.dcr", "caa521b92983dbce27380addec3b0393", 507315, 1000),
 
 	// German Win version is D9
 	// Installer & uninstaller also use Director
