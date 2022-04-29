@@ -248,16 +248,19 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "jmmd",				"Just Me & My Dad" },
 	{ "js123",				"JumpStart Numbers" },
 	{ "jsabc",				"JumpStart ABC's" },
+	{ "jsanimals",			"JumpStart Animal Adventures" },
+	{ "jsatw",				"JumpStart Around the World" },
+	{ "jsexplorers",		"JumpStart Explorers" },
 	{ "jsmusic",			"JumpStart Music" },
 	{ "jsspanish",			"JumpStart Spanish" },
+	{ "jstest",				"JumpStart Assessment Test" },
+	{ "jsworkbook",			"JumpStart Workbook" },
+	{ "jsworldp",			"JumpStart World: Preschool" },
+	{ "jsworldk",			"JumpStart World: Kindergarten" },
 	{ "jsworld1",			"JumpStart World: First Grade" },
 	{ "jsworld1t",			"JumpStart World: Teacher Control Panel 1st Grade" },
 	{ "jsworld2",			"JumpStart World: Second Grade" },
 	{ "jsworld2t",			"JumpStart World: Teacher Control Panel 2nd Grade" },
-	{ "jsworldk",			"JumpStart World: Kindergarten" },
-	{ "jsworldp",			"JumpStart World: Preschool" },
-	{ "jumpaheadss2000at",  "Jump Ahead Starting School 2000: Assessment Test" },
-	{ "jumpaheadss2000wb",  "Jump Ahead Starting School 2000: Workbook" },
 	{ "justine1",			"Milo and the Magical Stones" }, // Later games are in French
 	{ "karma",				"Karma: Curse of the 12 Caves" },
 	{ "kellyparade",		"Kelly Club Pet Parade" },
@@ -1352,9 +1355,11 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "julmanetoppen",		"Månetoppen" },
 	{ "julskomaker",		"Jul i Skomakergata" },
 	{ "julsvingen",			"Jul i Svingen" },
+	{ "levendeboker",		"Levende Bøker Menu" },
 	{ "olsenviking",		"Olsenbanden Jr: I vikingenes fotspor" },
 	{ "norgesjakten",		"Norgesjakten" },
 	{ "sabeltann2",			"Kaptein Sabeltann: Grusomme Gabriels forbannelse" },
+	{ "younggenius",		"Young Genius Nord Show" },
 
 	// Polish titles
 	{ "kontyngent99",		"Katalog Samochodów Kontyngent '99" },
@@ -5232,12 +5237,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("yokaanime18", "", "xn--18-z73ankte4jofn518co1ol", "e5a799da09d626f4954f306d12bbb6ea", 340613, Common::JA_JPN, 400),
 
-	// Published by Nikkei and Sakura Notes of Minato City, Tokyo (1996)
-	// Windows disc contains a projector SWAP.EXE that loads the program using virtual memory
-	// Four different Mac projectors for various memory and monitor configurations
-	// Original Mac filename is 17インチ1670万色(要10Ｍ）
-	MACGAME1_l("yumemirukairo", "", "xn--171670(10-hv4htktuj831avm1hqewau034bqra", "8b138db44d4421cc7294a9dc792ccf1b", 505178, Common::JA_JPN, 400),
-	WINGAME1_l("yumemirukairo", "", "YUMEMIRU.EXE", "a6573719b2f3c3fbc6b7ad6a7bb191c0", 866281, Common::JA_JPN, 404),
+	// Found on Kunnskapslandent from Young Genius, Gothenburg, Sweden (1997)
+	// Non-interactive promos for Kunnskapslandet, Mal og lær, and Bamses engelske ordjakt
+	WINGAME1t_l("younggenius", "", "NORSHOW.EXE", "9016888e0856876121548f02886d9bb4", 3735907, Common::NB_NOR, 404),
 
 	// Only the cutscenes are in Director.
 	// Also, only the original Chinese version uses Director; the
@@ -5249,6 +5251,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("ypl2", "Cutscene 5", "PASS5.EXE", "27a4a7c4cf35d79614025fd8988e0df6", 989331, Common::ZH_TWN, 403),
 	WINGAME1_l("ypl2", "Cutscene 6", "PASS6.EXE", "eb49dec55e182667a0020eaf6537d4b3", 2258049, Common::ZH_TWN, 403),
 	WINGAME1_l("ypl2", "Ending", "END.EXE", "3e4f99800e0b401d31295726d71f601c", 4772023, Common::ZH_TWN, 403),
+
+	// Published by Nikkei and Sakura Notes of Minato City, Tokyo (1996)
+	// Windows disc contains a projector SWAP.EXE that loads the program using virtual memory
+	// Four different Mac projectors for various memory and monitor configurations
+	// Original Mac filename is 17インチ1670万色(要10Ｍ）
+	MACGAME1_l("yumemirukairo", "", "xn--171670(10-hv4htktuj831avm1hqewau034bqra", "8b138db44d4421cc7294a9dc792ccf1b", 505178, Common::JA_JPN, 400),
+	WINGAME1_l("yumemirukairo", "", "YUMEMIRU.EXE", "a6573719b2f3c3fbc6b7ad6a7bb191c0", 866281, Common::JA_JPN, 404),
 
 	// Panda Pedagogical Software, Vyškov, Moravia (1996)
 	WINDEMO1t_l("zemepis", "Evropa Demo", "EVROPA.EXE", "40629d36616315f8c79290023e39e9a4", 1332235, Common::CS_CZE, 404),
@@ -6842,12 +6851,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("jsabc", "", "JumpStart LG ABCs", "833281980d0b2e2ffdf900a0e818f5d8", 116032, 602),
 	WINGAME1("jsabc", "", "JSLG_ABC.exe", "518a98696fe1122e08410b0f157f21bf", 1588391, 602),
 
-	MACGAME1("jslearn", "1997 D6 Demo", "JumpStart Previews", "9d08e05121dedcc5ee4c2a9495b78747", 987498, 600),
-	MACGAME1("jslearn", "1998 Demo", "JumpStart Previews", "9d08e05121dedcc5ee4c2a9495b78747", 987818, 602),
-	MACGAME1("jslearn", "1999 Demo", "JumpStart Previews", "fa259c68cd2594e863524ca7d18db67a", 115488, 602),
+	MACGAME1("jslearn", "1997 D6 Demo", "JumpStart Previews", "9d08e05121dedcc5ee4c2a9495b78747", 986726, 601),
+	MACGAME1("jslearn", "1998 Demo",	"JumpStart Previews", "9d08e05121dedcc5ee4c2a9495b78747", 987818, 602),
+	MACGAME1("jslearn", "1999 Demo",	"JumpStart Previews", "fa259c68cd2594e863524ca7d18db67a", 115488, 602),
 	WINGAME1("jslearn", "1997 D6 Demo", "PREV32A.EXE", "a593079aecf5bd938ce75264cac24b2d", 1509011, 600),
-	WINGAME1("jslearn", "1998 Demo", "PREV32A.EXE", "518a98696fe1122e08410b0f157f21bf", 1513371, 602),
-	WINGAME1("jslearn", "1999 Demo", "PREV32A.EXE", "518a98696fe1122e08410b0f157f21bf", 1601517, 602),
+	WINGAME1("jslearn", "1998 Demo",	"PREV32A.EXE", "518a98696fe1122e08410b0f157f21bf", 1513371, 602),
+	WINGAME1("jslearn", "1999 Demo",	"PREV32A.EXE", "518a98696fe1122e08410b0f157f21bf", 1601517, 602),
 
 	MACGAME1("jsmusic", "", "JumpStart Music", "63e8b9f6744efefbb8a004a2b76e2b1d", 116032, 602),
 	WINGAME1("jsmusic", "", "MUSIC.EXE", "f78f95afb7457fd465be3691a3932b15", 1532043, 602),
@@ -6855,8 +6864,13 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("jsspanish", "", "JumpStart Spanish", "55d01cca925752c170ac1e9c01d1f87e", 1031646, 601),
 	WINGAME1("jsspanish", "", "JSSPAN.EXE", "ece1c7a090010965890840102978e693", 1511580, 601),
 
-	WINGAME1("jumpaheadss2000at", "", "ATEST.EXE", "a593079aecf5bd938ce75264cac24b2d", 1508221, 600),
-	WINGAME1("jumpaheadss2000wb", "", "WORKBOOK.EXE", "a593079aecf5bd938ce75264cac24b2d", 1731863, 600),
+	// Assessment tests used in the JumpStart 2000 series games
+	WINGAME1_l("jstest", "Starting School", "ATEST.EXE", "a593079aecf5bd938ce75264cac24b2d", 1508221, Common::EN_GRB, 600),
+
+	// Contained in Jump Ahead 2000 Starting School (Kindergarten) Pack from Focus Multimedia, Staffordshire
+	// Ativitestsbøken are part of the Lek & Lær (Norwegian) series from Levende Bøker, Sweden (2004)
+	WINGAME1_l("jsworkbook",  "Starting School", "WORKBOOK.EXE", "a593079aecf5bd938ce75264cac24b2d", 1731863, Common::EN_GRB, 600),
+	WINGAME1t_l("jsworkbook", "Matte",			 "WB95.EXE",	 "9de83189e0248c218862eda6940e4fc3", 1731863, Common::NB_NOR, 600),
 
 	// Published by Bonnier Publishing, Stockholm
 	WINGAME2t_l("kcd", "K15 2001", "V_Fi.exe", "2fa05adc6cbc2c46702d4992a82f932b", 1704035,
@@ -6918,8 +6932,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("namegame", "1.0", "NTG.exe", "268206a2b95394636b750968be370c55", 3722937, 602),
 
-	MACGAME1("netmarket", "", "netMarket", "ade290061bd8f78051a8e872a889855c", 1030738, 600),
-	WINGAME1("netmarket", "", "NETMKT32.EXE", "3cb7a28198b9b8acd58d6d0e74272531", 1514399, 600),
+	MACGAME1("netmarket", "", "netMarket",		"ade290061bd8f78051a8e872a889855c", 1030738, 600),
+	MACGAME1("netmarket", "", "netMarket Demo", "ade290061bd8f78051a8e872a889855c", 1030482, 601),
+	WINGAME1("netmarket", "", "NETMKT32.EXE",	"3cb7a28198b9b8acd58d6d0e74272531", 1514399, 600),
 
 	// Demo presentation for New Art Entertainment of Nusle, Prague
 	// Found on Chip CD 7/99 from Vogel Publishing, Würzburg, Germany
@@ -7523,6 +7538,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("jsa", "Demo", "Projector.exe", "7c18c9a6af2694156bf09ed195c1ab09", 2289485,
 							"jslogo.jpg",    "fd78f0ab06eb3894d38c11a75e13d008", 25016, 702),
 
+	// Later release is called Field Trip Adventure (2003)
+	WINGAME1("jsatw", "", "FieldTrip/Fieldtrip Adventure.exe", "7c18c9a6af2694156bf09ed195c1ab09", 1815164, 702),
+
 	// Mac version requires installation, Install Milo, uses Vise
 	// Original title is Justine et la pierre de feu
 	// Developed by Lexis Numérique; published by EMME, Paris (2000)
@@ -7566,6 +7584,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 							 "ss_fs.dxr",	  "deddb2749bdfde8648e51fc9e18ae3db", 6451729, 702),
 	WINGAME2("leepipes", "", "Press Kit.exe", "c1a2e8b7e41fa204009324a9c7db1030", 7448796,
 							 "ss_fs.dxr",	  "b5f34c9b5222b64bda16b9c71bc14d62", 6451601, 700),
+
+	// Launcher for Lek og Lær: Matte: Matteeventyret i kongeborgen (JumpStart 2nd Grade Math)
+	// Also includes a catalog of other Levende Bøker products in Norwegian
+	WINGAME1t_l("levendeboker", "Matte", "LBMENU.EXE", "ce135cf510f30d750192d51214ad9bf6", 2684060, Common::NB_NOR, 702),
 
 	WINGAME2_l("megagame", "Vol.1", "Start.exe",	"7c18c9a6af2694156bf09ed195c1ab09", 4319532,
 									"Mainmenu.dxr", "53e542ddd1fe2d7f767fe1a2c75ef943", 1939963, Common::RU_RUS, 702),
@@ -8102,6 +8124,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Novi, Febriosa, Mira (NFM), DivineKids Associates (2010)
 	WINGAME1t_l("jojojeje", "v1.00", "petualanganjojojeje.exe", "b31b57a164cf26a5e73251cc9ea64309", 17111611, Common::ID_IDN, 850),
 
+	// Norwegian filename is Animals/Lek og Lær Ville dyr.exe
+	// Lek og Lær: Ville dyr: En ekspedisjon i dyrenes verden published by Levende Bøker, Gothenberg, Sweden (2004)
+	WINGAME1t_l("jsanimals", "", "xn--AnimalsLek og Lr Ville dyr.exe-dba68ld2c", "4a03fbf5342fc27f47bece2cd73c5586", 2990638, Common::NB_NOR, 850),
+
 	// Windows filename is Blåfjell.exe
 	// Developed by Young Genius and distributed by Vision Park (2001)
 	MACGAME1_l("julblafjell", "", "Blaafjell", "08c9ea94f6469e71ae0c71987bbf6323", 180046, Common::NB_NOR, 850),
@@ -8624,6 +8650,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Classic OS executable is D8
 	MACGAME1("heuther", "OS X", "HuetherOSX", "d483e955df901222145267d2ad729ea2", 228355, 900),
 	WINGAME1("heuther", "", "Huether.exe", "c612aa43e7ef55aa4fd2e1085fb1ef7a", 3353374, 900),
+
+	// Lek og Lær: Tidsreisen: Lek gjemsel i historien published by Levende bøker, Oslo (2004)
+	WINGAME1t_l("jsexplorers", "", "explorer/jsexplorers.exe", "9fb7f72fb81ff730fcac772600b66939", 4215431, Common::NB_NOR, 900),
 
 	// Produced by DR Multimedie, Copenhagen (2003)
 	MACGAME1_l("kajprinsesse", "OS X", "Prinsessens (OsX)", "d483e955df901222145267d2ad729ea2", 228137, Common::DA_DNK, 900),
