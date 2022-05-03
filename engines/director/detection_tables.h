@@ -706,6 +706,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "paulsonext",			"Sheet Extrusion Technology" },
 	{ "paulsonoce",			"Operación y Control del Extrusor - Tornillo Unico" },
 
+	// Website user interfaces
+	{ "umgsite",			"Universal Music Group Site" },
+
 	// Shareware and freeware
 	{ "101pet",				"Dalmation Adoption" },
 	{ "50ftchicken",		"Attack of the 50-foot Chicken" },
@@ -7764,6 +7767,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("tomlisaindiens", "", "Tom en Lisa", "19f92df0c7cb7a17b02ed5c73b1ee4c1", 33105, Common::NL_NLD, 702),
 	WINGAME1_l("tomlisaindiens", "", "TOM ET LISA.EXE", "7c18c9a6af2694156bf09ed195c1ab09", 783498, Common::NL_NLD, 702),
+
+	// http://web.archive.org/web/200107/umusic.com
+	// Universal eLabs, Universal City, California (2001)
+	// Corporate history plus a directory of artists signed to UMG labels
+	SHKGAME1("umgsite", "", "umg.dcr", "547778b0d76262331db1b13ba3e03898", 220481, 700),
 
 	// Full game was never released
 	WINDEMO2t("veniceglass", "Demo", "Start.exe", "6c1f4b9fddf094e240f759596b335479", 2615108,
