@@ -1720,6 +1720,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "sshercules",			"Hercules: The Legendary Journeys Screen Saver" },
 	{ "sshighlander",       "Highlander: The Screen Saver" },
 	{ "ssholidaymickey",	"Holiday Mickey Screen Saver" },
+	{ "ssid4",				"Independence Day Screensaver" },
 	{ "ssleepipes",			"The Lee Pipes Desktop Animated Feature" },
 	{ "sslivepicture",		"Live Picture Screen Saver" },
 	{ "ssnatureasart",		"Nature as Art" },
@@ -1738,11 +1739,32 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "et20",				"E.T.'s Adventure" },
 	{ "hoaddams2",			"Hollywood Online: Addams Family Values" },
 	{ "hoangus",			"Hollywood Online: Angus" },
+	{ "hobarb",				"Hollywood Online: Barb Wire" },
 	{ "hodolores",			"Hollywood Online: Dolores Claiborne" },
+	{ "hodredd",			"Hollywood Online: Judge Dredd" },
+	{ "hoexec",				"Hollywood Online: Executive Decision" },
+	{ "hoexecboard",		"Hollywood Online: Executive Decision Storyboards" },
+	{ "hofalls",			"Hollywood Online: Mulholland Falls" },
+	{ "hofarfhome",			"Hollywood Online: Far from Home: The Adventures of Yellow Dog" },
+	{ "hohighlander3",		"Hollywood Online: Highlander: The Final Dimension" },
+	{ "hoid4",				"Hollywood Online: Independence Day" },
+	{ "hoimmortal",			"Hollywood Online: Immortal Beloved" },
+	{ "hokissdeath",		"Hollywood Online: Kiss of Death" },
+	{ "holarger",			"Hollywood Online: Larger than Life" },
+	{ "homallrats",			"Hollywood Online: Mallrats" },
+	{ "homoonlite",			"Hollywood Online: Moonlight and Valentino" },
 	{ "horobroy",			"Hollywood Online: Rob Roy: Legend of the Mist" },
+	{ "hoshorty",			"Hollywood Online: Get Shorty" },
 	{ "hostargate",			"Hollywood Online: Stargate" },
 	{ "hothenet",			"Hollywood Online: The Net" },
+	{ "hounforget",			"Hollywood Online: Unforgettable" },
 	{ "leepipes",			"Lee Pipes Press Kit" },
+	{ "mmkthond",			"The Hunchback of Notre Dame MMK CD Rom Press Kit" },
+	{ "mmkthondrecord",		"The Hunchback of Notre Dame MMK CD Rom Press Kit: Soundtrack" },
+	{ "mmktoystory",		"Toy Story Multimedia CD-ROM Press Kit" },
+	{ "mmktoystorygame",	"Toy Story: The Video Game" },
+	{ "mmktoystorymusic",	"Disney's Toy Story: An Original Walt Disney Records Soundtrack" },
+	{ "monstermagnet",		"Monster Magnet: Dopes to Infinity" },
 	{ "mulanpresskit",		"Mulan Multimedia Press Kit" },
 	{ "stalker",			"S.T.A.L.K.E.R.: Shadow of Chernobyl" },
 	{ "thesims",			"The Sims Electronic Press Kit" },
@@ -2369,14 +2391,30 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACDEMO1("hirezaudio", "Vol. 1 Demo", "Hi Rez Demo Projector", "1ae45c23586b41997ba52e2e7c771c4c", 1562852, 310),
 
-	MACGAME1("hoaddams2", "",  "AddamsFamilyInt",				"7f443f2e63fd497a9ad85b10dc880a91", 1381040, 313),
-	MACGAME1("hoangus", "",	   "Angus IPK",						"2ce360c9ea2da80a2c6d1040b0ad92dd", 2029855, 313),
-	MACGAME1("hodolores", "",  "Dolores Claiborne Interactive", "7f443f2e63fd497a9ad85b10dc880a91", 1475936, 313),
-	MACGAME1("hostargate", "", "Stargate Interactive",			"7f443f2e63fd497a9ad85b10dc880a91", 1394354, 313),
-	MACGAME1("hothenet", "",   "The Net Interactive Kit",		"7f443f2e63fd497a9ad85b10dc880a91", 2027385, 313),
-	WINGAME1("hoangus", "",	   "ANGUS.EXE",  "7c8230a804abf9353b05627a675b5ffb", 2383326, 313),
-	WINGAME1("hodolores", "",  "DOLRES.EXE", "65d06b5fef155a2473434571aff5bc29", 1671516, 313),
-	WINGAME1("hothenet", "",   "NET.EXE",	 "65d06b5fef155a2473434571aff5bc29", 2357523, 313),
+	// Hollywood Online, Santa Monica, California (1994-96)
+	MACGAME1("hoaddams2", "",	   "AddamsFamilyInt",				 "7f443f2e63fd497a9ad85b10dc880a91", 1381040, 313),
+	MACGAME1("hoangus", "",		   "Angus IPK",						 "2ce360c9ea2da80a2c6d1040b0ad92dd", 2029855, 313),
+	MACGAME1("hodolores", "",	   "Dolores Claiborne Interactive",	 "7f443f2e63fd497a9ad85b10dc880a91", 1475936, 313),
+	MACGAME1("hofalls", "",		   "Mulholland Falls Interactive",	 "7f443f2e63fd497a9ad85b10dc880a91", 1825120, 313),
+	MACGAME1("hohighlander3", "",  "Highlander The Final Dimension", "7f443f2e63fd497a9ad85b10dc880a91", 1871794, 313),
+	MACGAME1("hoimmortal", "",	   "Immortal Beloved Interactive",	 "7f443f2e63fd497a9ad85b10dc880a91", 1868617, 313),
+	MACGAME1("homallrats", "",	   "Mallrats Interactive Kit",		 "7f443f2e63fd497a9ad85b10dc880a91", 1587759, 313),
+	MACGAME1("homoonlite", "",	   "Moonlight and Valentino Kit",	 "7f443f2e63fd497a9ad85b10dc880a91", 2219120, 313),
+	MACGAME1("hoshorty", "",	   "Get Shorty Interactive Kit",	 "7f443f2e63fd497a9ad85b10dc880a91", 1727801, 313),
+	MACGAME1("hostargate", "",	   "Stargate Interactive",			 "7f443f2e63fd497a9ad85b10dc880a91", 1394354, 313),
+	MACGAME1("hothenet", "",	   "The Net Interactive Kit",		 "7f443f2e63fd497a9ad85b10dc880a91", 2027385, 313),
+	MACGAME1("hounforget", "",	   "Unforgettable Interactive Kit",	 "7f443f2e63fd497a9ad85b10dc880a91", 1971145, 313),
+	WINGAME1("hoangus", "",		   "ANGUS.EXE",    "7c8230a804abf9353b05627a675b5ffb", 2383326, 313),
+	WINGAME1("hodolores", "",	   "DOLRES.EXE",   "65d06b5fef155a2473434571aff5bc29", 1671516, 313),
+	WINGAME1t("hodredd", "",	   "DREDD.EXE",    "fd19fd01eed71920f64b86bbbf0c6a2b", 2666186, 313),
+	WINGAME1t("hofalls", "",	   "FALS.EXE", 	   "8b1e0d158da593f2b4a3a8669e3fa59f", 2254328, 313),
+	WINGAME1t("hohighlander3", "", "HGHLD.EXE",	   "cfff8386c74833d59a75e9d31ab942e7", 2106257, 313),
+	WINGAME1t("hoimmortal", "",	   "IMORT.EXE",    "c08b92ec122352db8e85b3e62c5315ca", 2058405, 310),
+	WINGAME1t("homallrats", "",	   "MALLRATS.EXE", "16dab71866fc6ce7a9291dfedb4c7bbf", 1844412, 313),
+	WINGAME1t("homoonlite", "",	   "VALEN.EXE",    "95a9b9391bb192733bb4e63d248a4a6c", 2766068, 313),
+	WINGAME1t("hoshorty", "",	   "SHORTY.EXE",   "d6c9c89715226ca29fe4065785659756", 2697468, 313),
+	WINGAME1("hothenet", "",	   "NET.EXE",	   "65d06b5fef155a2473434571aff5bc29", 2357523, 313),
+	WINGAME1t("hounforget", "",	   "FORGET.EXE",   "aede6eb43d59d8a0dcc90dd449398f31", 2421938, 313),
 
 	// Movies are played from HyperCard. Each of the 10 lessons and 3 practice examples are Director.
 	MACDEMO1_l("hypercardlessons", "Demo", "Lesson1movie", "8ac6b58b68561d6227921cbfef30a02d", 62177, Common::JA_JPN, 300),
@@ -3923,12 +3961,24 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("hkbigfun", "", "KITTY.EXE", "42e600e8a917de593f4048428ec8d8b8", 703689, 404),
 
+	// Mac kit for Barb Wire has a typo in the filename
+	// Hollywood Online, Santa Monica, California (1994-96)
+	MACGAME1("hobarb", "",		 "Barb Wire Interactivew Kit", "cdb27c916044ae4dceb4b7326063fa03", 303025, 400),
+	MACGAME1("hofarfhome", "",	 "Far From Home Interactive",  "cdb27c916044ae4dceb4b7326063fa03", 303933, 400),
+	MACGAME1("hokissdeath", "",	 "Kiss Of Death Interactive",  "98229e39001a22ec1cfeb8f124c28483", 307143, 400),
+	MACGAME1("holarger", "",	 "Larger Than Life MMK",	   "8b138db44d4421cc7294a9dc792ccf1b", 302964, 404),
+	MACGAME1("horobroy", "",	 "Rob Roy",					   "01be45e7241194dad07938e7059b88e3", 483382, 404),
+	WINGAME1t("hobarb", "",		 "BARBWIRE.EXE", "b74311ffe1291108240e64d7f191185c", 2165765, 400),
+	WINGAME1t("hoexec", "",		 "EXECEPK.EXE",	 "e07983581cca32925df559a34041375d", 1478475, 404),
+	WINGAME1t("hoexecboard", "", "EXECBORD.EXE", "27f256668449091d83d850587f09a603", 1082061, 404),
+	WINGAME1t("hofarfhome", "",	 "FARFHOME.EXE", "167ecbe0d0bff79fa2a8d2084d937f1e", 2219613, 400),
+	WINGAME1t("hokissdeath", "", "KISS.EXE",	 "950c285f6dbe23b21339c8026af4d785", 2152065, 404),
+	WINGAME1t("holarger", "",	 "larger.exe",	 "7b6ee2957739877cce5a75e7a4dd4a80", 2375093, 404),
+	WINGAME1("horobroy", "",	 "ROBROY.EXE",	 "65d06b5fef155a2473434571aff5bc29", 2047746, 400),
+
 	// Multicom Publishing, Seattle (1995)
 	MACGAME1("home123", "v1.0", "Home Improvement 1-2-3", "0c7bbb4b24823e5ab871cb4c1d6f3710", 486726, 404),
 	WINGAME1("home123", "v1.0", "MAIN_DAT/PCINSTAL/HOME_123.EXE", "e57c1f26e0a9e537325ebd8998b9e389", 757955, 404),
-
-	MACGAME1("horobroy", "", "Rob Roy", "01be45e7241194dad07938e7059b88e3", 483382, 404),
-	WINGAME1("horobroy", "", "ROBROY.EXE", "65d06b5fef155a2473434571aff5bc29", 2047746, 400),
 
 	MACGAME1("horrortour1", "",	  "ZEDDAS(7M)", "da0da5d543b237051975ad70bec129f4", 483443, 404),
 	WINGAME1("horrortour1", "",	  "ZEDDAS.EXE", "d3ce91f305dd0f4d2f5e9ff6d4e41a3b", 741818, 404),
@@ -4377,6 +4427,14 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("mmiqtest", "", "Multimedia IQ Test", "7fd44b6dffa0ea0402eaed4c3769b39b", 285566, 404),
 	WINGAME1("mmiqtest", "", "IQTEST.EXE", "2a788332a4d3af3e5c5f9fe230e6c89f", 740528, 404),
 
+	// Created by ZZYZX Visual Systems and produced by Marcia Reed
+	//	for Buena Vista Pictures Marketing, Burbank, California (1995-96)
+	WINGAME1t("mmkthond", "",				  "PRESSKIT.EXE", "50a775589388b19788578906cae388de", 690293, 404),
+	WINGAME1t("mmkthondrecord", "",			  "RECORDS.EXE",  "50a775589388b19788578906cae388de", 690293, 404),
+	MACGAME1("mmktoystory", "",				  "TOYSTORY.MAC", "67f572196550aedb1f9523d782022be0", 493104, 400),
+	MACGAME1("mmktoystorygame",	 "Press Kit", "TOYGAME.MAC",  "77f4098988d5386794d1530065f514cd", 301669, 400),
+	MACGAME1("mmktoystorymusic", "Press Kit", "TOYMUSIC.MAC", "01be45e7241194dad07938e7059b88e3", 481226, 404),
+
 	MACDEMO1("mmpets",	"Demo",		 "Multimedia Exotic Pets DEMO", "01be45e7241194dad07938e7059b88e3", 485778, 403),
 	MACDEMO1("mmpets",	"v1.0 Demo", "Multimedia Exotic Pets DEMO", "0c7bbb4b24823e5ab871cb4c1d6f3710", 485778, 403),
 	WINDEMO1t("mmpets", "v1.0 Demo", "PETS.EXE",	 "a6b1b42363d38f10b18440917abeddd6", 1657603, 404),
@@ -4390,6 +4448,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	MACGAME1_l("monja", "", "monja", "cd6695c8488c2ad352336af5afdcf5bd", 481803, Common::JA_JPN, 404),
 	WINGAME1t_l("monja", "", "MONJA.EXE", "5bc2c8a824528ec4de0f8d8feb8f004e", 212008995, Common::JA_JPN, 404),
+
+	// Designed by The Big Gun Project / X-Ray for A&M Records, Hollywood, California (1995)
+	MACGAME1("monstermagnet", "Press Kit", "Monster Magnet IPK", "cdb27c916044ae4dceb4b7326063fa03", 303025, 404),
+	WINGAME1t("monstermagnet", "Press Kit", "MONSTER.EXE", "28eb6c52ca6dfba5d293656546714a49", 1834895, 404),
 
 	MACGAME1_l("moritaka", "", "WATARASE-BASHI", "c761bfe3a0865ca0f43cb5556230ed5b", 107527, Common::JA_JPN, 404),
 	PIPGAME1_l("moritaka", "", "Pippin Projector", "b708dcf9cdc19e6e186000ad93e41997", 73705, Common::JA_JPN, 404),
@@ -4905,6 +4967,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("sscocacola", "", "Coca-Cola Animations", "6e86a061950bc3987ce2ddf531bfde34", 295426, 403),
 	MACGAME1("ssdietcoke", "", "DietCoke Animations", "6e86a061950bc3987ce2ddf531bfde34", 295426, 403),
 	MACGAME1("sslivepicture", "", "Live Picture Screen Saver", "4502263d183dd9dae0e3c3505fdf8ae1", 555539, 404),
+
+	// Epoch Communication Design, Santa Monica, California (1996)
+	// Found alongside Hollywood Online press kit; uses CinèMac [sic] for Director v1.1
+	// Counts down from your system clock to July 4 at which point it plays a QuickTime movie
+	MACGAME1("ssid4", "", "ID4 Screen Saver", "aba25abdb86169fa3da3e8661fffa53f", 490834, 403),
 
 	// Promo for "The Bends"; designed by Sonicon, London (1995)
 	WINGAME1t("ssradiohead", "", "RADIO_S.EXE", "60f03e8358c902bedaa68b9ef74837e2", 1896571, 400),
@@ -5761,6 +5828,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	// Hoffman + Associates previews. Found on Nikolai in Outer Space.
 	WINGAME1("hoffman", "", "HARUNNER.EXE", "3460ad87d2ba57104e2810a77b53c220", 1458773, 500),
+
+	// Hollywood Online, Santa Monica, California (1996)
+	// Found on Apple Produktinfo CD.19 from Apple Computer GmbH, Munich - Sep 1996
+	MACGAME1("hoid4", "", "ID4 interactive Press Kit", "4857d4a434c1917eb9fe2703de951f45", 704421, 500),
 
 	// Later Win demo found on Math Heads CD
 	MACDEMO1("hollywoodhigh", "Demo", "Hollywood Hot Shot", "3ecbe87870ab4b0c0acb10a9e22eb561", 705674, 500),
