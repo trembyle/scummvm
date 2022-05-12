@@ -3385,6 +3385,26 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::ES_ESP, Common::kPlatformDOS, ADGF_ADDENGLISH, GUIO_STD16	},
 
+	// Larry 5 - Polish DOS (from Larry Edycja Kolekcjonerska)
+	// VERSION file reports "1.000, 09/11/91"
+	// SCI interpreter version 1.000.510 (just a guess)
+	{"lsl5", "", {
+		{"resource.map", 0, "be00ef895197754ae4eab021ca44cbcd", 6417},
+		{"resource.000", 0, "f671ab479df0c661b19cd16237692846", 726823},
+		{"resource.001", 0, "db4a1381d88028876a99303bfaaba893", 751296},
+		{"resource.002", 0, "d39d8db1a1e7806e7ccbfea3ef22df44", 1137646},
+		{"resource.003", 0, "13fd4942bb818f9acd2970d66fca6509", 768599},
+		{"resource.004", 0, "999f407c9f38f937d4b8c4230ff5bb38", 1024516},
+		{"resource.005", 0, "0cc8d35a744031c772ca7cd21ae95273", 1011944},
+		{"resource.006", 0, "dda27ce00682aa76198dac124bbbe334", 1024810},
+		{"resource.007", 0, "ac443fae1285fb359bf2b2bc6a7301ae", 1030656},
+		// Polish fonts
+		{"0.fon",   0, "8b65d8ee6d6041f3ac387d32c759165f", 1919},
+		{"4.fon",   0, "3ce72dd3e8396f7d0fb81a37f4966a8a", 1458},
+		{"999.fon", 0, "54801847b35893632a131171b9cebc15", 1368},
+		AD_LISTEND},
+		Common::PL_POL, Common::kPlatformDOS, ADGF_ADDENGLISH, GUIO_STD16	},
+
 	// Larry 5 - Italian DOS Floppy (from glorifindel)
 	// SCI interpreter version 1.000.510 (just a guess)
 	{"lsl5", "", {
