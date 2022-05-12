@@ -1762,6 +1762,40 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::EN_ANY, Common::kPlatformAtariST, 0, GUIO_STD16_UNDITHER	},
 
+	// King's Quest 4 - Spanish DOS fan translation
+	// Game version 1.000.111, uses replacement resource files
+	// Executable scanning reports "0.000.274"
+	{"kq4sci", "SCI", {
+		{"resource.map", 0, "68877cc6a2d616ab25efe9a223240aac", 5712},
+		{"resource.001", 0, "c1938dfddaa17f95b17ad58bdc3e9c56", 2313050},
+		{"resource.002", 0, "851a62d00972dc4002f472cc0d84e71d", 329895},
+		{"resource.003", 0, "851a62d00972dc4002f472cc0d84e71d", 355385},
+		{"resource.004", 0, "851a62d00972dc4002f472cc0d84e71d", 322951},
+		{"resource.005", 0, "851a62d00972dc4002f472cc0d84e71d", 321593},
+		{"resource.006", 0, "851a62d00972dc4002f472cc0d84e71d", 333777},
+		{"resource.007", 0, "851a62d00972dc4002f472cc0d84e71d", 341038},
+		{"resource.008", 0, "851a62d00972dc4002f472cc0d84e71d", 301669},
+		{"resource.009", 0, "851a62d00972dc4002f472cc0d84e71d", 284690},
+		AD_LISTEND},
+		Common::ES_ESP, Common::kPlatformDOS, 0, GUIO_STD16_UNDITHER	},
+
+	// King's Quest 4 - Spanish DOS fan translation
+	// Game version 1.006.004, uses external patch files
+	// Executable scanning reports "0.000.502"
+	{"kq4sci", "SCI", {
+		{"resource.map", 0, "3164a39790b599c954ecf716d0b32be8", 7476},
+		{"resource.001", 0, "77615c595388acf3d1df8e107bfb6b52", 452523},
+		{"resource.002", 0, "77615c595388acf3d1df8e107bfb6b52", 536573},
+		{"resource.003", 0, "77615c595388acf3d1df8e107bfb6b52", 707591},
+		{"resource.004", 0, "77615c595388acf3d1df8e107bfb6b52", 479562},
+		// Spanish fonts
+		{"font.000", 0, "3e1ebb55b0f6aca113701639c69bf8a5", 1638},
+		{"font.001", 0, "f0cbb51111c5afd461a8e662ce28cf23", 1640},
+		{"font.004", 0, "a072cd9849fa86c0bc9bffb7dfe077a5", 1310},
+		{"font.999", 0, "8d1ccbeaf161d24ebc760a4536ad1d30", 1221},
+		AD_LISTEND},
+		Common::ES_ESP, Common::kPlatformDOS, 0, GUIO_STD16_UNDITHER	},
+
 	// King's Quest 4 - Russian
 	// Game version 1.001.111 (Sep 23, 1988)
 	// SCI interpreter version 0.000.274
