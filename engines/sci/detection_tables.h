@@ -3050,6 +3050,37 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::PL_POL, Common::kPlatformDOS, 0, GUIO_STD16_PALETTEMODS	},
 
+	// Larry 2 - Spanish DOS fan translation v2.0
+	// Game version 1.000.011 3x3.5" (label: Int. #0.000.343)
+	{"lsl2", "", {
+		{"resource.map", 0, "1c76e495ba43e050f1f640ffdd89d518", 3906},
+		{"resource.001", 0, "a82af58efdc9c5fc43eac683e9aa604a", 1434878},
+		{"resource.002", 0, "96033f57accfca903750413fd09193c8", 407014},
+		{"resource.003", 0, "96033f57accfca903750413fd09193c8", 592834},
+		AD_LISTEND},
+		Common::ES_ESP, Common::kPlatformDOS, 0, GUIO_STD16_PALETTEMODS	},
+
+	// Larry 2 - Spanish DOS fan translation v2.0
+	// Game version 1.002.000
+	// SCI interpreter version 0.000.409, localized resources are all patch files.
+	// Older translations are not supported, as they contained pirated content.
+	{"lsl2", "", {
+		{"resource.map", 0, "42258cf767a8ebaa9e66b6151a80e601", 5628},
+		{"resource.001", 0, "4a24443a25e2b1492462a52809605dc2", 143847},
+		{"resource.002", 0, "4a24443a25e2b1492462a52809605dc2", 348331},
+		{"resource.003", 0, "4a24443a25e2b1492462a52809605dc2", 236550},
+		{"resource.004", 0, "4a24443a25e2b1492462a52809605dc2", 204861},
+		{"resource.005", 0, "4a24443a25e2b1492462a52809605dc2", 277732},
+		{"resource.006", 0, "4a24443a25e2b1492462a52809605dc2", 345683},
+		// Spanish fonts
+		{"font.000",     0, "f8c557365f9b26f7e430a5502d4fd972", 1757},
+		{"font.001",     0, "7bb7afadef06d52697880007d287f311", 1664},
+		{"font.004",     0, "a1b1892ae5bbfbfee5259c341550c0bd", 1297},
+		{"font.007",     0, "dc7651b327538083ce53c22e1b45f866", 3540},
+		{"font.999",     0, "5fc9e3f06ccbe74c838a575edc469d8a", 1219},
+		AD_LISTEND},
+		Common::ES_ESP, Common::kPlatformDOS, 0, GUIO_STD16_PALETTEMODS	},
+
 	// Larry 3 - English Amiga (from www.back2roots.org)
 	// Executable scanning reports "1.002.032"
 	// SCI interpreter version 0.000.685
