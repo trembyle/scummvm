@@ -1120,6 +1120,25 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::IT_ITA, Common::kPlatformDOS, ADGF_NO_FLAGS, GUIO_GK2 },
 
+	// Gabriel Knight 2 - Polish DOS/Windows (fan translation patch)
+	// Executable scanning reports "2.100.002", VERSION file reports "1.1"
+	{"gk2", "", {
+		{"resmap.001", 0, "1b8bf6a23b37ed67358eb825fc687260", 2776},
+		{"ressci.001", 0, "24463ae235b1afbbc4ff5e2ed1b8e3b2", 50496082},
+		{"resmap.002", 0, "2028230674bb54cd24370e0745e7a9f4", 1975},
+		{"ressci.002", 0, "f0edc1dcd704bd99e598c5a742dc7150", 42015676},
+		{"resmap.003", 0, "51f3372a2133c406719dafad86369be3", 1687},
+		{"ressci.003", 0, "86cb3f3d176994e7f8a9ad663a4b907e", 35313750},
+		{"resmap.004", 0, "0f6e48f3e84e867f7d4a5215fcff8d5c", 2719},
+		{"ressci.004", 0, "4f30aa6e6f895132402c8652f9e1d741", 58317316},
+		{"resmap.005", 0, "2dac0e232262b4a51271fd28559b3e70", 2065},
+		{"ressci.005", 0, "14b62d4a3bddee57a03cb1495a798a0f", 38075705},
+		{"resmap.006", 0, "ce9359037277b7d7976da185c2fa0aad", 2977},
+		{"ressci.006", 0, "8e44e03890205a7be12f45aaba9644b4", 60659424},
+		{"0.fon", 0, "6f96c92b451bb2f4f270d32ac9ec1d13", 2738},
+		AD_LISTEND},
+		Common::PL_POL, Common::kPlatformDOS, ADGF_NO_FLAGS, GUIO_GK2 },
+
 	// Gabriel Knight 2 - English Macintosh
 	// NOTE: This only contains disc 1 files (as well as the persistent file:
 	// Data1. Other discs have conflicting names :(
