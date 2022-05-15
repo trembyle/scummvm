@@ -728,7 +728,7 @@ static const struct ADGameDescription SciGameDescriptions[] = {
         Common::KO_KOR, Common::kPlatformDOS, 0, GUIO_STD16 },
 
 	// Freddy Pharkas - English DOS demo (from FRG)
-	// SCI interpreter version 1.001.069
+	// Executable scanning reports "1.001.069", VERSION file reports "1.000"
 	{"freddypharkas", "Demo", {
 		{"resource.map", 0, "97aa9fcfe84c9993a64debd28c32393a", 1909},
 		{"resource.000", 0, "5ea8e7a3ea10cce6efd5c106dc62fd8c", 867724},
@@ -804,13 +804,14 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::ES_ESP, Common::kPlatformDOS, 0, GUIO_STD16	},
 
-	// Freddy Pharkas - English DOS CD Demo
-	// SCI interpreter version 1.001.095
+	// Freddy Pharkas - English Windows CD Demo (from the Leisure Suit Larry Collection)
+	// Executable scanning reports "1.001.095", VERSION file reports "1.000.000"
+	// Demo also appeared in 1999 at agisci.cjb.net without RESOURCE.AUD
 	{"freddypharkas", "CD Demo", {
 		{"resource.map", 0, "a62a7eae85dd1e6b07f39662b278437e", 1918},
 		{"resource.000", 0, "4962a3c4dd44e36e78ea4a7a374c2220", 957382},
 		AD_LISTEND},
-		Common::EN_ANY, Common::kPlatformDOS, ADGF_DEMO, GUIO_STD16_SPEECH	},
+		Common::EN_ANY, Common::kPlatformWindows, ADGF_DEMO, GUIO_STD16_SPEECH	},
 
 	// Freddy Pharkas - English Macintosh
 	{"freddypharkas", "", {
