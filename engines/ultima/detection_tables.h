@@ -602,6 +602,21 @@ static const UltimaGameDescription GAME_DESCRIPTIONS[] = {
 		GF_VGA_ENHANCED
 	},
 
+	// $yndicate Martian Dreams (warez)
+	// Possibly requires pirated flag, although it could just be an earlier release
+	{
+		{
+			"martiandreams",
+			0,
+			AD_ENTRY1s("talk.lzc", "78fa6198a30b848a45f3c2471e3c6a4e", 240299),
+			Common::EN_ANY,
+			Common::kPlatformDOS,
+			ADGF_UNSTABLE,
+			GUIO0()
+		},
+		GAME_MARTIAN_DREAMS,
+		0
+	},
 
 	// The Savage Empire v1.6
 	{
