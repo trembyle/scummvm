@@ -68,6 +68,7 @@ enum Language {
 	NL_BEL,
 	NL_NLD,
 	NB_NOR,
+	NY_NOR,
 	PL_POL,
 	PT_BRA,
 	PT_PRT,
