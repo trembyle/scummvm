@@ -1391,6 +1391,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "voyagerkids",		"ボイジャーのキッズ CD-ROM" },
 
 	// Norwegian titles
+	{ "aasen",				"Ivar Aasen" },
 	{ "abcdrom",			"Lek og lær med ABCD-ROM" },
 	{ "josefinedino",		"Josefine og dinosaurene" },
 	{ "josefinegjengen",	"Josefine og gjengen!" },
@@ -5454,6 +5455,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Run Windows installer (ASENNA.EXE) on Win9X extract 32-bit executable
 	MACGAME1_l("aapelin1", "", "Aapelin ABC, 7-9 v", "231d3041df162be4a0ddd36a74eb03b6", 719261, Common::FI_FIN, 501),
 	WINGAME1_l("aapelin1", "", "Aapeli32.exe", "3460ad87d2ba57104e2810a77b53c220", 1396675, Common::FI_FIN, 500),
+
+	// Det Norske Samlaget, Oslo; produced by Norsk Strek (1997)
+	MACGAME1_l("aasen", "",	 "Ivar Aasen PPC",	 "c61ed0c37a877cf693da1a337d4a0a5f", 106955, Common::NY_NOR, 501),
+	WINGAME2t_l("aasen", "", "STARTW32.EXE",	 "a3a585685cfb9006b7828357591817e6", 1451913,
+							 "MEDIA/DIALOG.DXR", "ae3010468bc62db16cdbe51e8fbae0e1", 66128, Common::NY_NOR, 501),
 
 	// Produced by Mogul Media, Oslo (1996)
 	// Not related to the ABCD-ROM storybooks from GT Publishing
