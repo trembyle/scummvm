@@ -1557,12 +1557,14 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "coreltour",			"Corel Product Tour" },
 	{ "davidsonpp",			"Davidson Product Previews" },
 	{ "davidsonps",			"Davidson Product Sampler" },
+	{ "decisions",			"Decisions, Decisions" }, // General preview for Decisions, Decisions range
 	{ "disneyint",			"Disney Interactive presents Learning & Creativity Sampler Volume I" },
 	{ "disneylearning",		"Disney Interactive Learning Sampler" },
 	{ "dkmm2",				"Dorling Kindersley Multimedia Sampler Disc 2" },
 	{ "edmark",				"Edmark Demo" },
 	{ "emme",				"E.M.M.E. Interactive: The Keys to Knowledge" },
 	{ "eureka",				"Eureka Multimedia Promo" },
+	{ "fizzmath",			"Fizz & Martina\'s Math Adventures" },
 	{ "fppuddlebooks",		"Fisher-Price Read & Play: Puddle Books Demos" },
 	{ "fpready",			"Fisher-Price Ready for School Demo" },		// General preview for Ready for School series. Does not correspond to a specific game.
 	{ "grolier",			"Grolier Products" },
@@ -1611,6 +1613,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "bobteam",			"Bob the Builder: Teamwork" },
 	{ "bookshelf94",		"Microsoft Bookshelf 1994" },
 	{ "c64pack",			"Activision's Commodore 64 15-Pack for Windows" },
+	{ "cck",   				"Community Construction Kit" },
 	{ "cfdemo",   			"The ClueFinders Demo" },
 	{ "cigarbook",   		"Cigar Label Book Offer" },
 	{ "cinemania94",		"Microsoft Cinemania 94" },
@@ -1689,6 +1692,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "netmarket",			"CUC netMarket Demo" },
 	{ "ofoto",				"Light Source Ofoto" },
 	{ "orly",				"Orly's Draw-A-Story" },
+	{ "otherside",			"The Other Side" },
 	{ "pagemaker",			"Aldus PageMaker" },
 	{ "pitfall",			"Pitfall: The Mayan Adventure" },
 	{ "powerchess",			"Power Chess" },
@@ -5711,6 +5715,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1("deathstar", "Minigame", "Death Star Destructo", "11aea1c6868839f53cc6312df724364f", 107835, 501),
 	WINGAME1t("deathstar", "Minigame", "DSD32.EXE", "9e3c304fdd669c79b5670057557cd1fb", 2758841, 501),
 
+	// Mac filename is Decisions, Decisions® Overview
+	// General preview of a range of education products from Tom Snyder Productions CD Sampler (2000)
+	MACGAME1("decisions", "Overview", "xn--Decisions, Decisions Overview-9eb", "231d3041df162be4a0ddd36a74eb03b6", 719033, 501),
+	WINGAME2t("decisions", "Overview", "OVERVIEW.EXE",		"578933e934d619d1b5c421be1acfae5e", 920525,
+									   "Media/TSPLogo.Dxr", "6694628f1e2b67f1ebdbf852cff43357", 2251516, 500),
+
 	// Windows executables for Win 3.1 and 95; Mac executables for 68k, PPC, and Fat binary
 	MACGAME1("dimensionq", "", "Dimension Q", "c148f66ae3511fb88733102aa27efe7e", 719313, 501),
 	WINGAME1("dimensionq", "", "DIMENQ95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1416041, 501),
@@ -5791,6 +5801,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("ernie", "", "Ernie (PPC)", "4c38a51a21a1ad231f218c4786ff771d", 106955, Common::SE_SWE, 501),
 	WINGAME1t_l("ernie", "", "Ernie.exe", "5b5c34933594af422baa9344b07e0b6a", 1417481, Common::SE_SWE, 501),
 	WINDEMO1_l("ernie", "Demo", "ERNIE.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1417371, Common::SE_SWE, 500),
+
+	// Tom Snyder Productions, Watertown, Massachusetts (1998)
+	MACGAME1("fizzcaves", "", "Caves of Blue Falls", "231d3041df162be4a0ddd36a74eb03b6", 719005, 501),
+	WINGAME1t("fizzcaves", "",	   "FIZZ32.EXE",  "983fe7ff95980fdd7c2b5e8b31547b9f", 1417635, 501),
+
+	// Mac filename is Fizz® & Martina® Overview
+	// Series overview from Tom Snyder Productions Sampler CD v3.4 (2000)
+	MACGAME1("fizzmath", "", "xn--Fizz & Martina Overview-x5ak", "231d3041df162be4a0ddd36a74eb03b6", 718613, 501),
+	WINGAME1t("fizzmath", "", "FMOVW32.EXE", "27cba296fbfa1553eb0fd0036fffe60b", 1401775, 500),
 
 	// Developed by Brilliant Interactive Ideas, published by Brainstorm
 	MACGAME1("flipper", "", "Flipper!",	  "6e7e31d05709e1d38d63f4df6a59eec0", 718381, 501),
@@ -6759,6 +6778,9 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINDEMO2t("catshats", "Demo", "start_pc.exe", "f85112b259a3a2b53cb278778aad58cc", 1513106,
 								  "szenen.dxr",	  "2626f7134b38c505a3cfd2bba153d2e5", 2577830, 650),
 
+	// Overview from Tom Snyder Productions Sampler CD v3.4 (2000)
+	WINDEMO1t("cck", "Demo", "cck32.exe", "ed290f2a45827007c5d709022001ef86", 1525283, 650),
+
 	// Developed by Real World Multimedia, Wiltshire, England (1997)
 	// Distributed in Germany by Funware, Hamburg
 	MACGAME2("ceremony", "",   "Ceremony PPC",	"d001d6e8615e35edc03465683f56e84d", 115675,
@@ -7206,6 +7228,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACDEMO2("oscar3", "Demo", 	"Oscar demo",   "b0b0e36586489ca6070d20feeff52fa5", 1028909,
 							   	"CARMELA1.dxr", "24d8d3d625d059f9467a85cfd36deb00", 1054076, 600),
 	WINDEMO1t("oscar3", "Demo", "osc3demo.exe", "c81cd1df4c45bac0c2ffc46328d2406c", 1495856, 602),
+
+	// Mac filename is The Other Side™ Overview
+	// Non-interactive demo from Tom Snyder Productions CD Sampler v3 (2000)
+	MACDEMO1("otherside", "Demo", "xn--The Other Side Overview-4x7n", "a5b3b6184831ec223834050d449ca690", 1032369, 650),
+	WINDEMO1t("otherside", "Demo", "TOS32.exe", "ed290f2a45827007c5d709022001ef86", 1524575, 650),
+
+	// Ai ga areba Daijobu, Shibuya, Toyko (1998)
+	MACGAME1_l("pacoq", "", "PQ_PPC", "019c4d464c1ea36d45d9cd5ee60c701a", 116362, Common::JA_JPN, 602),
+	WINGAME1t_l("pacoq", "", "PQ_WIN32.EXE", "bca3a0b0d8f02c3ca12f01aa5555df7d", 1981315, Common::JA_JPN, 602),
 
 	MACGAME2_l("pantosstory", "", "START", "7d0c7ae431938c53e64d443b05bf19fd", 1035232,
 								  "PANTOS/A00.Dxr", "a36c3a6044d0dbcfa30b147cbdfc4f5f", 1367720, Common::JA_JPN, 602),
