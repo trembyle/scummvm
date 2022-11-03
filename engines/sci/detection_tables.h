@@ -4062,6 +4062,15 @@ static const struct ADGameDescription SciGameDescriptions[] = {
 		AD_LISTEND},
 		Common::EN_ANY, Common::kPlatformDOS, ADGF_DEMO, GUIO_PHANTASMAGORIA_DEMO },
 
+	// Phantasmagoria - Japanese DOS "Chapter 1" Demo (from trembyle)
+	// Executable scanning reports "2.100.002", VERSION file reports "1.000.000"
+	// Promotion distribution by Sierra Pioneer with a coupon to redeem the full JP version
+	{"phantasmagoria", "Demo", {
+		{"resmap.001", 0, "9b23adce3055534f41334a08bc123d86", 16987},
+		{"ressci.001", 0, "ad9f15ded3b3cde06fe5bde4c7f47612", 66765575},
+		AD_LISTEND},
+		Common::JA_JPN, Common::kPlatformDOS, ADGF_DEMO, GUIO_PHANTASMAGORIA_DEMO },
+
 	// Phantasmagoria - English DOS/Windows (GOG version) - ressci.* merged in ressci.000
 	// Windows executable scanning reports "2.100.002" - "Sep 19 1995 15:09:43"
 	// DOS executable scanning reports "2.100.002" - "Sep 19 1995 09:15:40"
