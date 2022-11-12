@@ -380,6 +380,30 @@ static const MTropolisGameDescription gameDescriptions[] = {
 		MTBOOT_MTI_RETAIL_WIN,
 	},
 
+	{ // Muppet Treasure Island - Activision Game Bundle DVD [Tiny Computer OEM]
+		{
+			"mti",
+			"DVD",
+			{
+				//{ "MTPLAY32.EXE",	0, "aad51b462d0961fb02d9c1422a41937f", 840192 },
+				//{ "GROUP3.R95",	0, "3b01850e511727aa270aff1d6cb1fcf8", 89088 },
+				//{ "MTIKIT.R95",	0, "f7183d9ff845a3a607f764920fc23b18", 101376 },
+				{ "MTI1.MPL",		0, "caff9457a120dd08a9a089071f3f8645", 28316059 },
+				//{ "MTI2.MPX",		0, "db6d4104f85cc7bb8820869eaa592ded", 432460707 },
+				//{ "MTI3.MPX",		0, "868eebab2b66ccd74152f9f8e494bcf7", 306640221 },
+				//{ "MTI4.MPX",		0, "833d29e0796f2c49dfd54180fc660d39", 201259204 },
+				AD_LISTEND
+			},
+			Common::EN_ANY,
+			Common::kPlatformWindows,
+			ADGF_UNSTABLE | ADGF_DVD,
+			GUIO0()
+		},
+		GID_MTI,
+		0,
+		MTBOOT_MTI_RETAIL_WIN,
+	},
+
 	{ // Los Muppets en la Isla del Tesoro (Mexican) [identical to Los Teleñecos en la Isla del Tesoro?]
 		{
 			"mti",
