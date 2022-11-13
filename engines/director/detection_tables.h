@@ -599,6 +599,9 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "isswim98",			"Inside Sports 1998 Swimsuit Issue" },
 	{ "itc",				"Internet the City: A Guided Tour Through the Internet" },
 	{ "journey2life",		"The Journey to Life" },
+	{ "knitting",			"Knitting Made Easy" },
+	{ "knowbaseballgreat",	"Know Your Baseball: The Greatest Player Resource" },
+	{ "knowhockeygreat",	"Know Your Hockey: The Greatest Player Resource" },
 	{ "kontiki",			"Kon-Tiki Interactive" },
 	{ "laughingbird",		"The Laughing Bird Restaurant" },
 	{ "learnexcel97",		"Video Professor: Learn Excel 97" },
@@ -8442,6 +8445,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	// Additional activities are offered for parents, teachers and management
 	MACGAME1_l("kjoeties", "", "Kjoeties",	   "3df301ad7614245a6ab1fb5d9ae6e474", 213295, Common::NL_NLD, 800),
 	WINGAME1_l("kjoeties", "", "Kjoeties.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 2281118, Common::NL_NLD, 800),
+
+	// Coats & Clark, Greer, South Carolina (2002)
+	// Produced by MindWorks Multimedia, Durham, North Carolina
+	WINGAME2t("knitting", "", "Start.exe",		  "758078bfe98d71e77b2ff7cd95c53dfe", 3745150,
+							  "App/Patterns.dxr", "b533bc509ce6a06a67d633f5988d4b23", 12715748, 851),
 
 	// Developed by CircumStance Design
 	MACGAME1("kothhoot", "v2.0", "Hoot", "90597a84a08b06e07af8bc5ab427676b", 5909, 800),
