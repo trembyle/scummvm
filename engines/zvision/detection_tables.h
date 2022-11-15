@@ -265,6 +265,20 @@ static const ZVisionGameDescription gameDescriptions[] = {
 	},
 
 	{
+		// Zork Nemesis English CD demo version
+		{
+			"znemesis",
+			"CD Demo",
+			AD_ENTRY1s("SCRIPTS.ZFS", "afa4bf4e4b8e842e2fa6466899d40c97", 1022630),
+			Common::EN_ANY,
+			Common::kPlatformDOS,
+			ADGF_DEMO,
+			GUIO4(GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_DOUBLE_FPS, GAMEOPTION_ENABLE_VENUS, GAMEOPTION_DISABLE_ANIM_WHILE_TURNING)
+		},
+		GID_NEMESIS
+	},
+
+	{
 		// Zork Grand Inquisitor English CD version
 		{
 			"zgi",
