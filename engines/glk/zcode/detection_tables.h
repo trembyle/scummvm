@@ -2486,6 +2486,7 @@ const FrotzGameDescription FROTZ_GAMES[] = {
 	ENTRY1("zazie", "030113", "906b9a3e02b2080ce7f06595c8bdcbb3", 89600, Common::IT_ITA),
 	ENTRY1("zenfactorspa", "100524", "22373bcd74d843ce647c4bd7b6a4404b", 288256, Common::IT_ITA),
 	ENTRY1("zombie", "180820", "19a1369039b5226f86323ab19e7aea96", 135168, Common::IT_ITA),
+	ENTRY1("zork1", "v7/000010", "513c7229b13785e6f14b5c650fbceb4d", 193536, Common::IT_ITA), // fan translation
 	ENTRY1("zorkita", "000031", "3d85a97ddfc1fb0f6bfbf1cb00b4df7b", 192512, Common::IT_ITA),
 	ENTRY1("zorkita", "v6/000031", "be15759f2273cdaf124dbc40436244b0", 192512, Common::IT_ITA),
 
