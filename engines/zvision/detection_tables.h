@@ -232,6 +232,25 @@ static const ZVisionGameDescription gameDescriptions[] = {
 	},
 
 	{
+		// Zork Nemesis French Mac version
+		// Use NEMESIS.STR to differentiate English/French
+		{
+			"znemesis",
+			_s("Missing game code"), // Reason for being unsupported
+			{
+				{ "CSCR.ZFS",	 0, "ce26cbb17bfbaa774742b3187262a7c0", 2597635 },
+				{ "NEMESIS.STR", 0, "edc66783a34f1b4b2be5b192a387522d", 8075 },
+				AD_LISTEND
+			},
+			Common::FR_FRA,
+			Common::kPlatformMacintosh,
+			ADGF_UNSUPPORTED,
+			GUIO4(GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_DOUBLE_FPS, GAMEOPTION_ENABLE_VENUS, GAMEOPTION_DISABLE_ANIM_WHILE_TURNING)
+		},
+		GID_NEMESIS
+	},
+
+	{
 		// Zork Nemesis English demo version
 		{
 			"znemesis",
