@@ -283,7 +283,8 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"CD",
-			AD_ENTRY1s("SCRIPTS.ZFS", "81efd40ecc3d22531e211368b779f17f", 8336944),
+			AD_ENTRY2s("SCRIPTS.ZFS", "81efd40ecc3d22531e211368b779f17f", 8336944,
+					   "CURSOR.ZFS",  "706a44cbdf7922b1ebcd8a1265ac0702", 4947211),
 			Common::EN_ANY,
 			Common::kPlatformWindows,
 			ADGF_NO_FLAGS,
@@ -297,7 +298,8 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"CD",
-			AD_ENTRY1s("SCRIPTS.ZFS", "4d1ec4ade7ecc9ee9ec591d43ca3d213", 8338133),
+			AD_ENTRY2s("SCRIPTS.ZFS", "4d1ec4ade7ecc9ee9ec591d43ca3d213", 8338133,
+					   "CURSOR.ZFS",  "82c480a8716e3755d341fc6099629f4c", 4949329),
 			Common::FR_FRA,
 			Common::kPlatformWindows,
 			ADGF_NO_FLAGS,
@@ -311,7 +313,8 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"CD",
-			AD_ENTRY1s("SCRIPTS.ZFS", "b7ac7e331b9b7f884590b0b325b560c8", 8338133),
+			AD_ENTRY2s("SCRIPTS.ZFS", "b7ac7e331b9b7f884590b0b325b560c8", 8338133,
+					   "CURSOR.ZFS",  "f96f45f0329e4b11ba1439478aee3a7f", 4958887),
 			Common::DE_DEU,
 			Common::kPlatformWindows,
 			ADGF_NO_FLAGS,
@@ -325,8 +328,25 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"CD",
-			AD_ENTRY1s("SCRIPTS.ZFS", "5cdc4b99c1134053af135aae71326fd1", 8338141),
+			AD_ENTRY2s("SCRIPTS.ZFS", "5cdc4b99c1134053af135aae71326fd1", 8338141,
+					   "CURSOR.ZFS",  "6f2b21d44ec9869c9de5a19d8330071a", 4947789),
 			Common::ES_ESP,
+			Common::kPlatformWindows,
+			ADGF_NO_FLAGS,
+			GUIO3(GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_DOUBLE_FPS, GAMEOPTION_DISABLE_ANIM_WHILE_TURNING)
+		},
+		GID_GRANDINQUISITOR
+	},
+
+	{
+		// Zork Grand Inquisitor Italian CD version
+		{
+			"zgi",
+			"CD",
+			AD_ENTRY3s("SCRIPTS.ZFS",  "81efd40ecc3d22531e211368b779f17f", 8336944,
+					   "CURSOR.ZFS",   "3b9eef3bb6e74bb61a3f02524f10a296", 4951117,
+					   "G0LPH10P.RAW", "c0b1f28b1cd1aaeb83c1a3985401bb14", 24462),
+			Common::IT_ITA,
 			Common::kPlatformWindows,
 			ADGF_NO_FLAGS,
 			GUIO3(GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_DOUBLE_FPS, GAMEOPTION_DISABLE_ANIM_WHILE_TURNING)
@@ -339,7 +359,8 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"CD",
-			AD_ENTRY2s("SCRIPTS.ZFS",  "81efd40ecc3d22531e211368b779f17f", 8336944,
+			AD_ENTRY3s("SCRIPTS.ZFS",  "81efd40ecc3d22531e211368b779f17f", 8336944,
+					   "CURSOR.ZFS",   "706a44cbdf7922b1ebcd8a1265ac0702", 4947211,
 					   "G0LPH10P.RAW", "c0b1f28b1cd1aaeb83c1a3985401bb14", 24462),
 			Common::EN_ANY,
 			Common::kPlatformMacintosh,
@@ -354,10 +375,11 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"DVD",
-			AD_ENTRY1s("SCRIPTS.ZFS", "03157a3399513bfaaf8dc6d5ab798b36", 8433326),
+			AD_ENTRY2s("SCRIPTS.ZFS", "03157a3399513bfaaf8dc6d5ab798b36", 8433326,
+					   "CURSOR.ZFS",  "2618ee3a2ee9ca71dc261bca2e21d4bd", 4959825),
 			Common::EN_ANY,
 			Common::kPlatformWindows,
-			GF_DVD,
+			ADGF_DVD | GF_DVD,
 #if defined(USE_MPEG2) && defined(USE_A52)
 			GUIO4(GAMEOPTION_ORIGINAL_SAVELOAD, GAMEOPTION_DOUBLE_FPS, GAMEOPTION_DISABLE_ANIM_WHILE_TURNING, GAMEOPTION_USE_HIRES_MPEG_MOVIES)
 #else
@@ -372,7 +394,8 @@ static const ZVisionGameDescription gameDescriptions[] = {
 		{
 			"zgi",
 			"Demo",
-			AD_ENTRY1s("SCRIPTS.ZFS", "71a2494fd2fb999347deb13401e9b998", 304239),
+			AD_ENTRY2s("SCRIPTS.ZFS", "71a2494fd2fb999347deb13401e9b998", 304239,
+					   "CURSOR.ZFS",  "a8f1aff767e5d792cf639baf87317f0a", 617889),
 			Common::EN_ANY,
 			Common::kPlatformWindows,
 			ADGF_DEMO,
