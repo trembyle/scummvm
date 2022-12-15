@@ -308,6 +308,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "letspretend4",		"Let\'s Pretend! Volume 4: Our Backyard is a Playground!" },
 	{ "letspretendpaint",	"Let\'s Pretend! Let\'s Paint!" },
 	{ "letters",			"Letters" },
+	{ "littlered",			"Little Red Riding Hood" },
 	{ "lostfound1",			"Lost & Found Volume 1" },
 	{ "louiscatorze",		"Louis Cat Orze: The Mystery of the Queen's Necklace" },
 	{ "luxor",				"Secrets of the Luxor" },
@@ -5838,8 +5839,10 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1t_l("abcdrom", "", "ABCD_32.EXE", "33a3724d028491c6d987081ba223493f", 1414825, Common::NB_NOR, 500),
 
 	// GT Publishing, New York, ABCD-ROM series (1997)
-	MACGAME1("abclunch", "", "ABCdrom", "ecec7c02c0e60748f6a0356bf232094c", 719033, 501),
-	WINGAME1("abclunch", "", "ABC95.EXE", "1a7acbba10a7246ba58c1d53fc7203f5", 1421779, 501),
+	MACGAME2("abclunch", "",  "ABCdrom",		"ecec7c02c0e60748f6a0356bf232094c", 719033,
+							  "gtdata/_ML.Dxr", "75fda6617779f89c68e6312bff9e4047", 2165374, 501),
+	WINGAME2t("abclunch", "", "ABC95.EXE",		"bb41bec252db7b8583b7f96021757773", 1421779,
+							  "GTDATA/_ML.DXR", "096b80351c762a2fe1e4c030297e272b", 2165374, 501),
 
 	WINGAME1t_l("acneattack", "", "Acne.exe", "9ec3d648c42e41cc2263d3c643d7ad1e", 1905311, Common::SE_SWE, 501),
 
@@ -6435,6 +6438,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 										"LU_main.Dxr", "17dc83fcb87914cc55cfe3a6b6104dca", 23921856, 501),
 	MACGAME2("lifeuniverse", "Full", "Start Life (PPC)", "cf7d00bbabf0e5476195616940febf05", 104815,
 									 "LU_main.Dxr", "b3a548cd57f5129afac208e24463fa1d", 13234768, 501),
+
+	// GT Publishing, New York, ABCD-ROM series (1997)
+	MACGAME2("littlered", "",  "ABCDrom",		 "ecec7c02c0e60748f6a0356bf232094c", 719033,
+							   "GTdata/_lr.dxr", "cded69cac7e2d8fef1b4a92752103464", 4490568, 501),
+	WINGAME2t("littlered", "", "ABC95.EXE",		 "bb41bec252db7b8583b7f96021757773", 1421779,
+							   "GTDATA/_LR.DXR", "7478cc819af5ecf23ac4f37127152ad8", 4490568, 501),
 
 	// Bilingual English/Japanese
 	MACGAME1("llla", "",	  "LLLA",	 "f808a9f231b77617fa559cf9d2da66c1", 304804, 501),
