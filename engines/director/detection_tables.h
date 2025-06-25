@@ -513,6 +513,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "tkkg13",				"A Case for TKKG 13: Cell 13" },
 	{ "tkkg14",				"A Case for TKKG 14: Dangerous Holiday" },
 	{ "tommy",				"Pete Townshend Presents Tommy: The Interactive Adventure" },
+	{ "toontwister",		"Nickelodeon Toon Twister 3-D" },
 	{ "totaldistortion",	"Total Distortion" },
 	{ "traitorsgate",		"Traitors Gate" },
 	{ "travelrama",			"Travelrama USA" },
@@ -927,7 +928,7 @@ static const PlainGameDescriptor directorGames[] = {
 	{ "boeboekshaboe",		"Boeboeks: Hop hop haboe!" },
 	{ "boeboekstocht",		"Boeboeks: De tocht naar opa Kakadoris" },
 	{ "dtovenaargeheim",	"De Dwaze Tovenaar en het Geheim van het Vermiste Jongetje" },
-	{ "fcdk",				"F.C. De Kampioenen: Op Zoek Naar Neroke" },
+	{ "fcdk",				"F.C. De Kampioenen: Op zoek naar Neroke" },
 	{ "griezelbus1",		"De Griezelbus 1" },
 	{ "kjoeties",			"Invasie van de Kjoeties" },
 	{ "lannoo",				"Lannoo Nieuwe Media Demo" },
@@ -8619,10 +8620,15 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("pettson1", "",  "ANNAT/PETT16.EXE", "t:952b4ae03dac79cb5cf3fdeed1c194ea", 1154257, Common::DE_DEU, 600),
 	WINGAME1t_l("pettson1", "", "GUBBEN.EXE",		"9ee9a4d1112db68a3a64f26d043518a3",   1341473, Common::NB_NOR, 600),
 
-	WINGAME2_l("pettson2", "", "START32.EXE", "518a98696fe1122e08410b0f157f21bf", 1723219,
-							   "START.DXR",	  "18d333b1b9b02d76b35a07252046d295", 37384, Common::SV_SWE, 602),
-	WINGAME2t_l("pettson2", "", "START32.EXE", "28eec06adcc3671e6bc67c27c58976d1", 2986791,
-	           "Pinnspel.dxr", "c1e66de74590ba3ad88ea1650b8cfd80", 5085428, Common::DE_DEU, 602),
+	// Dutch release by Lannoo also contains D8 projector for Windows and OS X
+//	MACGAME1_l( "pettson2", "Classic OS", "pettstart", "r:b0b0e36586489ca6070d20feeff52fa5", 1026645, Common::NL_NLD, 600),
+	MACGAME1_l( "pettson2", "Classic OS", "vise:install:pettstart",
+                                                       "A:b0b0e36586489ca6070d20feeff52fa5", 1026645, Common::NL_NLD, 600),
+	WINGAME2t_l("pettson2", "",     "START32.EXE",       "28eec06adcc3671e6bc67c27c58976d1", 2986791,
+									"Pinnspel.dxr",      "c1e66de74590ba3ad88ea1650b8cfd80", 5085428, Common::DE_DEU, 602),
+	WINGAME1_l( "pettson2", "v3.0", "pettstart.exe",   "t:88f45f14c5f4ceb57af1b4d8ca3c15f4", 1534912, Common::NL_NLD, 602),
+	WINGAME2_l( "pettson2", "",     "START32.EXE",       "518a98696fe1122e08410b0f157f21bf", 1723219,
+                                    "START.DXR",         "18d333b1b9b02d76b35a07252046d295",   37384, Common::SV_SWE, 602),
 
 	// German version is D7
 	MACGAME1_l("pettsonjk", "", "Starta kalendern",		 "98f39f06e78cc7d3e20b498d30f737b6", 1029165, Common::SV_SWE, 600),
@@ -9527,6 +9533,7 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME2("bobmambo5", "ECD", "START.EXE", "e24d4bab978b1a5c2326d2c56cf4d781", 6980680,
 								 "MAMBO.MOV", "990db0c7187621250dfca0a55996538e", 39868175, 800),
 
+    MACGAME1_l("boeboekshaboe", "", "Boeboeks",   "r:4ea5fc09f79eee6dded94dc40f303779", 194607,  Common::NL_NLD, 800),
 	WINGAME2_l("boeboekshaboe", "", "Arcade.exe", "t:62c6694656b8149d54f07247eabe51e6", 2389026,
 									"Level1.dxr", "d:3dbffed325c11e081680427c4bc6fc46", 7811460, Common::NL_NLD, 800),
 
@@ -9574,23 +9581,26 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1("eureka", "", "Promo.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 17971868, 800),
 
-	WINGAME2_l("fcdk", "", "Start.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 511933,
-						   "boma.dir", "484a5f57cde0ce4f035be6be933ede34", 10561442, Common::NL_NLD, 800),
+    MACGAME2_l("fcdk", "", "Start",         "r:4ea5fc09f79eee6dded94dc40f303779", 196907,
+                           "data/boma.dir", "d:42208e79b71bd75a79cb79d9ba48fb19", 10561514, Common::NL_NLD, 800),
+	WINGAME2_l("fcdk", "", "Start.exe",     "t:623279af87b16f0e4e6ca97e8d1cf8dd", 511933,
+						   "data/boma.dir", "t:4a75b135fcf7c3c452b83e5c5f6a953b", 10561442, Common::NL_NLD, 800),
 
 	// De drie werelden van Flipper & Lopaka published by Transposia of Ghent, Flanders
-	MACGAME2("flipper1", "",   "Flipper",	  "305030a32728843d9e953b8e0f53a149", 6129,
-							   "Splash.dxr",  "e2e9db4d52497b66d30b67257ac0b9f3", 3227343, 800),
-	MACGAME2_l("flipper1", "", "Flipper",	  "305030a32728843d9e953b8e0f53a149", 6129,
-							   "Splash.dxr",  "690080bb870fa4f9dd92665dd05a6e75", 3403943, Common::FR_FRA, 800),
-	MACGAME2_l("flipper1", "", "Flipper",	  "26342893ab4fceffc6c6efaa81718780", 6165,
-							   "Splash.dxr",  "5430500b5660bd30ec9fd72784233560", 3521553, Common::NL_NLD, 800),
-	WINGAME2_l("flipper1", "", "Flipper.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57196,
-							   "Splash.dxr",  "2cb70c1101fc967f6b134fd1237d40a7", 3403815, Common::FR_FRA, 800),
-	WINGAME2_l("flipper1", "", "Flipper.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 57196,
-							   "Splash.dxr",  "34027bf8975bced3a92ea6a1d41ccf21", 3521425, Common::NL_NLD, 800),
+	MACGAME2("flipper1", "",   "Flipper",          "305030a32728843d9e953b8e0f53a149", 6129,
+							   "Splash.dxr",       "e2e9db4d52497b66d30b67257ac0b9f3", 3227343, 800),
+	MACGAME2_l("flipper1", "", "Flipper",          "305030a32728843d9e953b8e0f53a149", 6129,
+							   "Splash.dxr",       "690080bb870fa4f9dd92665dd05a6e75", 3403943, Common::FR_FRA, 800),
+	MACGAME2_l("flipper1", "", "Flipper",        "r:26342893ab4fceffc6c6efaa81718780", 5909,
+							   "FL1/Splash.dxr", "", 0, Common::NL_NLD, 800),
+	WINGAME2_l("flipper1", "", "Flipper.exe",      "e24d4bab978b1a5c2326d2c56cf4d781", 57196,
+							   "Splash.dxr",       "2cb70c1101fc967f6b134fd1237d40a7", 3403815, Common::FR_FRA, 800),
+	WINGAME2_l("flipper1", "", "Flipper.exe",    "t:1b3aeaf398005c45902de2d5ead88e34", 57196,
+							   "FL1/Splash.dxr", "t:543eb053d41337f986a4861b4727a4f4", 3521425, Common::NL_NLD, 800),
 
-	MACGAME1_l("flipper2", "", "Secrets",		 "r:039fd480c0ba5b06a88c233f79bbabbe", 8173, Common::NL_NLD, 850),
-	WINGAME2_l("flipper2", "", "Secrets.exe",	 "t:c8e41fadedd287db9b318df6bfc2e267", 57184,
+    // De onderwateravonturen van Flipper & Co (2006) bundle includes Freddi Fish en Loebas' Dolle Doolhof (scumm:maze)
+	MACGAME1_l("flipper2", "", "Secrets",        "r:039fd480c0ba5b06a88c233f79bbabbe", 8173, Common::NL_NLD, 850),
+	WINGAME2_l("flipper2", "", "Secrets.exe",    "t:c8e41fadedd287db9b318df6bfc2e267", 57184,
 							   "FL2/splash.dxr", "d:fad23c3105ff4c1f297b1e00df273199", 4641690, Common::NL_NLD, 850),
 
 	MACGAME1_l("forestiajr", "", "Forestia Aufstand im Zoo", "75e71e2abbe6cf6e79a62be76cc05d06", 157104, Common::DE_DEU, 850),
@@ -9790,6 +9800,11 @@ static const DirectorGameDescription gameDescriptions[] = {
 	MACGAME1_l("momotaro", "", "MOMOTARO", "2e860522900a5342e52e5ce51bcad9dd", 194842, Common::JA_JPN, 800),
 	WINGAME1_l("momotaro", "", "MOMOTARO.EXE", "a60f99447824a8ef70799dd7596b8945", 4011752, Common::JA_JPN, 800),
 
+	// OS X and Windows projectors are D9
+	// Mac projectors inside StuffIt InstallerMaker 7.1.2
+	MACGAME1_l("toontwister", "Classic OS", "3D Cartoon Studio.app/Contents/ClassicMacOS/3D Cartoon Studio",
+                                            "r:245503afab76352e83fcfc6e79de6f77", 1314958, Common::NL_NLD, 851),
+
 	// Produced and developed by New Tier Inc., Scottsdale, Arizona
 	WINGAME1("njdevils2001", "", "NJDevils.exe", "e24d4bab978b1a5c2326d2c56cf4d781", 45455403, 800),
 
@@ -9819,9 +9834,12 @@ static const DirectorGameDescription gameDescriptions[] = {
 
 	WINGAME1t("pennyhorse", "", "PennyHorse.exe", "3aa62f6efd4616c3cc6b935411c1f8a7", 4780197, 851),
 
-	// Mac OS X installer runs the game in Classic environment
-	MACGAME1_l("pettson1", "v3.0", "Spelen",	   "a44511b8ff0e46b4f9c85dd1cb58d458", 158043, Common::NL_NLD, 851),
-	WINGAME1_l("pettson1", "v3.0", "Spelen.exe",   "568c6f849ff7f2104636a99f151a6cd6", 3249822, Common::NL_NLD, 851),
+	// v3.0 includes both D6 and D8 projectors for Mac and Win
+	// Mac and Win projectors are inside Installer VISE 3.6; runs in Classic environment on OS X
+    // Pettson & Findus in de tuin v3.0 published by Uitgeverij Lannoo of Tielt, Flanders
+	MACGAME1_l("pettson2", "OS X", "Spelen",     "r:a44511b8ff0e46b4f9c85dd1cb58d458",  157787, Common::NL_NLD, 851),
+//	MACGAME1_l("pettson2", "OS X", "vise:install:Spelen", "A:a44511b8ff0e46b4f9c85dd1cb58d458", 157787, Common::NL_NLD, 851),
+	WINGAME1_l("pettson2", "v3.0", "Spelen.exe", "t:c6f023e907a0775c5daea0bbf6d41265", 3249822, Common::NL_NLD, 851),
 
 	// Pettson & Findus in de tuin (Libelle)
 	WINGAME1_l("pettson2", "", "pettstart.exe",   "518a98696fe1122e08410b0f157f21bf", 1534912, Common::NL_NLD, 851),
@@ -9991,8 +10009,8 @@ static const DirectorGameDescription gameDescriptions[] = {
 	WINGAME1_l("skeeto10", "", "mm7main.exe", "0c81c84ca4966313ad27d47daba44537", 12051446, Common::DA_DNK, 851),
 
 	// Dutch demos found on Flipper & Lopaka compilation
-	MACGAME1_l("skippy", "",     "Skippy",      "4ea5fc09f79eee6dded94dc40f303779", 197127, Common::NL_NLD, 800),
-	MACDEMO1_l("skippy", "Demo", "Skippy Demo", "4ea5fc09f79eee6dded94dc40f303779", 196871, Common::NL_NLD, 808),
+	MACGAME1_l("skippy", "",     "Skippy",         "r:4ea5fc09f79eee6dded94dc40f303779", 196871, Common::NL_NLD, 800),
+	MACDEMO1_l("skippy", "Demo", "Skippy Demo",      "4ea5fc09f79eee6dded94dc40f303779", 196871, Common::NL_NLD, 808),
 	WINDEMO2_l("skippy", "Demo", "Skippy.exe",	   "t:e6dea6cfeca3d59e6074959b68ce6131", 56112,
 								 "SK1/splash.dxr", "d:10cfd47a579c92d33599118f26b8bbbd", 2278288, Common::NL_NLD, 800),
 
