@@ -35,6 +35,7 @@
 #include "common/compression/clickteam.h"
 #include "common/compression/installshield_cab.h"
 #include "common/compression/installshieldv3_archive.h"
+#include "common/compression/vise.h"
 #include "gui/EventRecorder.h"
 #include "gui/gui-manager.h"
 #include "gui/message.h"
@@ -628,6 +629,12 @@ static bool getFilePropertiesIntern(uint md5Bytes, const AdvancedMetaEngineBase:
 			} else if (archiveType.equals("clk")) {
 				// Clickteam
 				archive = Common::ClickteamInstaller::open(allFiles[archiveName]);
+				ADCacheMan.addArchive(allFiles[archiveName], archive);
+				if (!archive)
+					return false;
+			} else if (archiveType.equals("vise")) {
+				// Mac Installer VISE
+				archive = Common::createMacVISEArchive(allFiles[archiveName].createReadStream());
 				ADCacheMan.addArchive(allFiles[archiveName], archive);
 				if (!archive)
 					return false;
