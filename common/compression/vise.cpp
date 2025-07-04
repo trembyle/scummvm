@@ -389,6 +389,7 @@ const Common::ArchiveMemberPtr MacVISEArchive::getMember(const Common::Path &pat
 }
 
 Common::SeekableReadStream *MacVISEArchive::createReadStreamForMember(const Common::Path &path) const {
+	debug(1, path.toString().c_str());
 	Common::ArchiveMemberPtr archiveMember = getMember(path);
 	if (!archiveMember)
 		return nullptr;
@@ -411,8 +412,9 @@ char MacVISEArchive::getPathSeparator() const {
 bool MacVISEArchive::getFileDescIndex(const Common::Path &path, uint &outIndex) const {
 	for (uint descIndex = 0; descIndex < _fileDescs.size(); descIndex++) {
 		const FileDesc &desc = _fileDescs[descIndex];
+		debug(1, desc.fullPath.toString().c_str());
 
-		if (desc.fullPath == path) {
+		if ((desc.fullPath == path) || (desc.name == path.toString())) {
 			outIndex = descIndex;
 			return true;
 		}

@@ -634,10 +634,14 @@ static bool getFilePropertiesIntern(uint md5Bytes, const AdvancedMetaEngineBase:
 					return false;
 			} else if (archiveType.equals("vise")) {
 				// Mac Installer VISE
-				archive = Common::createMacVISEArchive(allFiles[archiveName].createReadStream());
+				FileMapArchive fileMapArchive(allFiles);
+				Common::MacResManager *macResMan;
+				archive = Common::createMacVISEArchive(macResMan->openFileOrDataFork(archiveName, fileMapArchive));
 				ADCacheMan.addArchive(allFiles[archiveName], archive);
-				if (!archive)
+				if (!archive) {
+					delete archive;
 					return false;
+				}
 			} else {
 				debugC(3, kDebugGlobalDetection, "WARNING: Archive type string '%s' not recognized", archiveType.c_str());
 				return false;
